@@ -1,6 +1,7 @@
 #include <ros/ros.h> // Core ROS header
 
 #include <Vector3DMsg.hpp>
+#include <BaseDriveExecutorProcess.hpp>
 
 int main(int argc, char** argv) {
     // Initialize the ROS node with a unique name
