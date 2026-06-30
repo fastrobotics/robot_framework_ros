@@ -2,7 +2,7 @@
 
 - [FAST Robotics - Robot Framework: ROS v1 Middleware](#fast-robotics---robot-framework-ros-v1-middleware)
 - [Architecture](#architecture)
-  - [Package Documentation](#package-documentation)
+- [Features](#features)
 - [ToDo](#todo)
 - [Setup](#setup)
 
@@ -12,7 +12,10 @@
 # Architecture
 ![](Legend.png)
 
-## Package Documentation
+# Features
+| Status | Feature                  |
+| ------ | ------------------------ |
+| DRAFT  | [Core](doc/Core/Core.md) |
 
 
 # ToDo
