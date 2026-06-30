@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Other dependencies
         run: |
-          apt-get install libgeographic-dev
+          apt-get install -y libgeographic-dev
     
       - name: Rosdep Install Dependencies
         run: |
