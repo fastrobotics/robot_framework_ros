@@ -6,7 +6,7 @@
 namespace fast::rf_ros {
 class BaseNodeTester : public BaseNode {
    public:
-    bool start() { return false; }
+    bool start() { return true; }
 };
 TEST(BaseNode, BasicFunctionality) {
     BaseNodeTester tester;

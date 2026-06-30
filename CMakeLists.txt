@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs)
 find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
 
+catkin_package(CATKIN_DEPENDS roscpp std_msgs sensor_msgs LIBRARIES baseNode)
+
 include_directories(${catkin_INCLUDE_DIRS})
 include(FetchContent)
 

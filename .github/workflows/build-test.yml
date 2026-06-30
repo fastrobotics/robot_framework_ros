@@ -12,6 +12,18 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          path: catkin_ws/src/robot_framework_ros
 
+      
       - name: Install Dependencies
         run: ./scripts/setup_robot.sh
+
+      - name: Build Tests
+        run: |
+          cd ../../
+          source /opt/ros/noetic/setup.bash
+          rm -rf build/ devel/
+          catkin_make
+
+      
