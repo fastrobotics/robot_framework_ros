@@ -8,9 +8,9 @@ class BaseNodeTester : public BaseNode {
    public:
     bool init() { return base_init(); }
     bool start() { return true; }
-    bool run_01hz() {
-        ROS_WARN("Running 01Hz Loop");
-        bool status = base_run_01hz();
+    bool run_10hz() {
+        ROS_WARN("Running 10Hz Loop");
+        bool status = base_run_10hz();
         if (status == false) {
             return false;
         }
