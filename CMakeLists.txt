@@ -33,5 +33,5 @@ set(BUILD_TESTING
     OFF
     CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(robot_framework)
-add_subdirectory(src)
+add_subdirectory(core)
 # add_subdirectory(Systems)

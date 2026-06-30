@@ -1,15 +1,19 @@
 # FAST Robotics - Robot Framework: ROS v1 Middleware
 
 - [FAST Robotics - Robot Framework: ROS v1 Middleware](#fast-robotics---robot-framework-ros-v1-middleware)
-- [Code Documentation](#code-documentation)
 - [Architecture](#architecture)
+  - [Package Documentation](#package-documentation)
 - [ToDo](#todo)
 - [Setup](#setup)
 
 
-# Code Documentation
+
 
 # Architecture
+![](Legend.png)
+
+## Package Documentation
+
 
 # ToDo
 | Item                                             |

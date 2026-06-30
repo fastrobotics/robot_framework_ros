@@ -1,0 +1,31 @@
+@startuml
+title Base Node Class Diagram
+namespace robot_framework_ros {
+    class heartbeat <<(M,#FFFF00)>>
+}
+namespace fast::robot_framework_ros {
+    namespace core {
+        class BaseNode {
+            --Node Life Cycle Functions--
+            #bool base_init()
+            +{abstract} bool init()
+            +{abstract} start()
+            +bool update()
+
+            --Loop Functions--
+            
+            +{abstract} run_10hz()
+            #bool base_run_10hz()
+            
+            --Other--
+            #ros::NodeHandle n
+
+            -ros::Publisher heartbeat_pub
+
+
+        }
+        BaseNode --> heartbeat: <<use>>
+
+    }
+}
+@enduml

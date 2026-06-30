@@ -1,0 +1,8 @@
+@startuml
+
+namespace fast::rf_ros {
+    namespace core {
+    }
+}
+
+@enduml

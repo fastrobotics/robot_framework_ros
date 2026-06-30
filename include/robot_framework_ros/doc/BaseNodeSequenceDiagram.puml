@@ -1,0 +1,13 @@
+@startuml
+title Base Node Sequence DiagramBorderColor
+actor MainFunction as main
+actor ExampleNode as node
+participant BaseNode as baseNode
+
+main -> node++: init()
+node -> baseNode++: base_init()
+baseNode --> node--: status
+node --> main--: status
+
+
+@enduml
