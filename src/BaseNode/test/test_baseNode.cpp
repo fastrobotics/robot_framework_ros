@@ -6,12 +6,27 @@
 namespace fast::rf_ros {
 class BaseNodeTester : public BaseNode {
    public:
+    bool init() { return base_init(); }
     bool start() { return true; }
+    bool run_01hz() {
+        ROS_WARN("Running 01Hz Loop");
+        bool status = base_run_01hz();
+        if (status == false) {
+            return false;
+        }
+        return true;
+    }
 };
 TEST(BaseNode, BasicFunctionality) {
     BaseNodeTester tester;
-    bool status = tester.start();
-    ASSERT_TRUE(status);
+    ASSERT_TRUE(tester.init());
+    ASSERT_TRUE(tester.start());
+    /*
+    for(uint32_t i = 0; i < 1000; ++i) {
+        ASSERT_TRUE(tester.run_01hz());
+        sleep(1);
+    }
+        */
 }
 }  // namespace fast::rf_ros
 int main(int argc, char** argv) {
