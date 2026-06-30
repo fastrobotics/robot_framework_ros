@@ -11,15 +11,11 @@ add_definitions(-std=c++11 -Wall -Wextra -Wno-switch)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  eros
   std_msgs
   sensor_msgs
 )
 find_package(rostest REQUIRED)
 
-catkin_package(
-  CATKIN_DEPENDS eros
-)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 
@@ -35,5 +31,4 @@ FetchContent_Declare(
 )
 set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(robot_framework)
-find_package(Doxygen)
-add_subdirectory(Systems)
+#add_subdirectory(Systems)
