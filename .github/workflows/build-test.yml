@@ -33,6 +33,7 @@ jobs:
           rosdep install --from-paths src --ignore-src -r -y
 
       - name: Catkin Build and Test
+        shell: bash
         run: |
           cd catkin_ws
           # Source the global ROS environment first
