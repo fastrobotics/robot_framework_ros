@@ -20,7 +20,7 @@ jobs:
       - name: Install Build Tools
         run: |
           apt-get update -q
-          apt-get install -y python3-catkin-tools python3-osrf-pycommon
+          apt-get install -y python3-catkin-tools python3-osrf-pycommon git
 
       - name: Rosdep Install Dependencies
         run: |
