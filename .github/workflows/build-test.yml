@@ -32,4 +32,13 @@ jobs:
           cd catkin_ws
           rosdep install --from-paths src --ignore-src -r -y
 
+      - name: Catkin Build and Test
+        run: |
+          cd catkin_ws
+          # Source the global ROS environment first
+          source /opt/ros/noetic/setup.bash
+          catkin build --summarize
+          catkin run_tests
+          catkin_test_results
+
       
