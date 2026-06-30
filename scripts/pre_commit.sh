@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Auto-Formatting Code..."
 git diff --staged --name-only -- '*.cpp' '*.hpp' | xargs clang-format -i -style=file
 
@@ -23,7 +24,7 @@ git diff --staged --name-only --diff-filter=d -- '*.dia' |  xargs -I {} bash -c 
 echo "Ok!"
 
 echo "Checking Markdown Links..."
-markdown-link-check . -i build/,templates/ -q
+lychee "*.md"
 if [ $? -ne 0 ]; then
     echo "❌ Error: Markdown Link Checking failed. Aborting commit."
     exit 1
