@@ -16,6 +16,13 @@ namespace fast::rf_ros {
 class ExampleNode : public BaseNode {
    public:
     ExampleNode();
-    ~ExampleNode() :
+    ~ExampleNode();
+    bool init();
+
+    bool start();
+
+    bool run_10hz();
+
+    void thread_loop();
 };
 }  // namespace fast::rf_ros

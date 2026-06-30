@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+<node name="example_node" pkg="robot_framework_ros" type="example_node"  output="screen" clear_params="true">
+</node>
+</launch>
