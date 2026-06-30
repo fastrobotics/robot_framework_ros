@@ -8,6 +8,8 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-22.04
+     container:
+      image: ros:noetic 
 
     steps:
       - name: Checkout Code
@@ -15,18 +17,9 @@ jobs:
         with:
           path: catkin_ws/src/robot_framework_ros
 
-      - name: Run Industrial CI
-        uses: ros-industrial/industrial_ci@master
-        env:
-          ROS_DISTRO: noetic
-          ROS_REPO: main
-
-      
-      - name: Build Tests
+      - name: Install Build Tools
         run: |
-          cd ../../
-          source /opt/ros/noetic/setup.bash
-          rm -rf build/ devel/
-          catkin_make
+          apt-get update -q
+          apt-get install -y python3-catkin-tools python3-osrf-pycommon
 
       
