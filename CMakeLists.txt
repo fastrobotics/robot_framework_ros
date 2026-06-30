@@ -18,9 +18,9 @@ find_package(rostest REQUIRED)
 add_message_files(DIRECTORY msg FILES heartbeat.msg)
 generate_messages(DEPENDENCIES std_msgs)
 
-catkin_package(CATKIN_DEPENDS roscpp std_msgs sensor_msgs LIBRARIES baseNode)
+catkin_package(INCLUDE_DIRS include DEPENDS)
 
-include_directories(${catkin_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS} include)
 include(FetchContent)
 
 # Declare GoogleTest dependency

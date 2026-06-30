@@ -1,7 +1,7 @@
-#include "BaseNode.hpp"
+#include <robot_framework_ros/BaseNode.hpp>
 namespace fast::rf_ros {
 bool BaseNode::base_init() {
-    std::string heartbeat_topic = "/a";
+    std::string heartbeat_topic = "/heartbeat";
     heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
     return true;
 }

@@ -1,1 +1,2 @@
 add_subdirectory(BaseNode)
+add_subdirectory(ExampleNode)

@@ -1,6 +1,6 @@
 add_library(baseNode BaseNode.cpp)
 target_link_libraries(baseNode ${catkin_LIBRARIES})
-#add_dependencies(baseNode robot_framework_ros_generate_messages_cpp)
+add_dependencies(baseNode ${robot_framework_ros_EXPORTED_TARGETS})
 
 if(CATKIN_ENABLE_TESTING)
     add_subdirectory(test)

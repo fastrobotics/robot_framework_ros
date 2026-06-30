@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 
-#include "../BaseNode.hpp"
+#include <robot_framework_ros/BaseNode.hpp>
 
 namespace fast::rf_ros {
 class BaseNodeTester : public BaseNode {
@@ -30,7 +30,12 @@ TEST(BaseNode, BasicFunctionality) {
 }
 }  // namespace fast::rf_ros
 int main(int argc, char** argv) {
+    testing::InitGoogleTest(&argc, argv);
     ros::init(argc, argv, "test_baseNode");
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    ros::AsyncSpinner spinner(1);
+    spinner.start();
+    int ret = RUN_ALL_TESTS();
+    spinner.stop();
+    ros::shutdown();
+    return ret;
 }
