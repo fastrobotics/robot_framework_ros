@@ -16,9 +16,6 @@ jobs:
           path: catkin_ws/src/robot_framework_ros
 
       
-      - name: Install Dependencies
-        run: ./scripts/setup_robot.sh
-
       - name: Build Tests
         run: |
           cd ../../
