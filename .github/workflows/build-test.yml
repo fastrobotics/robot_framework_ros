@@ -15,6 +15,12 @@ jobs:
         with:
           path: catkin_ws/src/robot_framework_ros
 
+      - name: Run Industrial CI
+        uses: ros-industrial/industrial_ci@master
+        env:
+          ROS_DISTRO: noetic
+          ROS_REPO: main
+
       
       - name: Build Tests
         run: |
