@@ -30,16 +30,13 @@ jobs:
         run: |
           apt-get update -q
           rosdep update
-          # Creates a mock workspace layout for rosdep to scan package.xml files
-          mkdir -p catkin_ws/src
-          ln -s $GITHUB_WORKSPACE catkin_ws/src/robot_framework_ros
-          cd catkin_ws
+          cd $GITHUB_WORKSPACE/catkin_ws
           rosdep install --from-paths src --ignore-src -r -y
 
       - name: Catkin Build and Test
         shell: bash
         run: |
-          cd catkin_ws
+          cd $GITHUB_WORKSPACE/catkin_ws
           # Source the global ROS environment first
           source /opt/ros/noetic/setup.bash
           catkin build --summarize
