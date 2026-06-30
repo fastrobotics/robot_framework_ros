@@ -24,7 +24,7 @@ git diff --staged --name-only --diff-filter=d -- '*.dia' |  xargs -I {} bash -c 
 echo "Ok!"
 
 echo "Checking Markdown Links..."
-lychee "*.md"
+find . -name "*.md" -print0 | xargs -0 lychee
 if [ $? -ne 0 ]; then
     echo "❌ Error: Markdown Link Checking failed. Aborting commit."
     exit 1
