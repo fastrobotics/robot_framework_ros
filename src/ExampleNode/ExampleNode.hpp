@@ -13,16 +13,42 @@
 #include <robot_framework_ros/BaseNode.hpp>
 
 namespace fast::rf_ros {
+/**
+ * @brief Example Node
+ *
+ */
 class ExampleNode : public BaseNode {
    public:
     ExampleNode();
     ~ExampleNode();
+    /**
+     * @brief Concrete Init Function
+     *
+     * @return true
+     * @return false
+     */
     bool init();
 
+    /**
+     * @brief Concrete Start Function
+     *
+     * @return true
+     * @return false
+     */
     bool start();
 
+    /**
+     * @brief Concrete 10Hz Loop
+     *
+     * @return true
+     * @return false
+     */
     bool run_10hz();
 
+    /**
+     * @brief Concrete Separate Thread
+     *
+     */
     void thread_loop();
 };
 }  // namespace fast::rf_ros

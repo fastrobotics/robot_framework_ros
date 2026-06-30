@@ -22,6 +22,10 @@
 #include "ros/ros.h"
 
 namespace fast::rf_ros {
+/**
+ * @brief BaseNode, all other Nodes should inherit from this
+ *
+ */
 class BaseNode {
    public:
     BaseNode() : n(new ros::NodeHandle("~")) {}
@@ -54,7 +58,8 @@ class BaseNode {
     // Required User Node Implementation Functions for Loops
 
     /**
-     * @brief // User function should call base_<> function of the same name.
+     * @brief // User function should call base_<> function of the same name.  Gets called automatically to run at 10
+     * Hz.
      *
      * @return true
      * @return false
@@ -62,14 +67,28 @@ class BaseNode {
     virtual bool run_10hz() = 0;
 
     // Node Base Function Loops.  User function should call these
+
+    /**
+     * @brief Base Node 10Hz Loop.
+     *
+     * @return true
+     * @return false
+     */
     bool base_run_10hz();
 
+    /**
+     * @brief Update function that main function should call.
+     * @details triggers all other timing loops
+     *
+     * @return true
+     * @return false
+     */
     bool update();
 
     // Standard Publishers
 
    protected:
-    boost::shared_ptr<ros::NodeHandle> n;
+    boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
    private:
     double measure_time_diff(ros::Time time_a, ros::Time time_b);
