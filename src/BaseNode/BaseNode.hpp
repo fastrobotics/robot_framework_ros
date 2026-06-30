@@ -9,6 +9,15 @@
  *
  */
 #pragma once
-namespace fast::rf::robot_framework_ros {
-class BaseNode {};
-}  // namespace fast::rf::robot_framework_ros
+namespace fast::rf_ros {
+class BaseNode {
+    // Node Lifecycle Functions
+    /**
+     * @brief Start the Node
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool start() = 0;
+};
+}  // namespace fast::rf_ros
