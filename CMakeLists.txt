@@ -35,5 +35,4 @@ FetchContent_Declare(
 )
 set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(robot_framework)
-find_package(Doxygen)
 add_subdirectory(Systems)
