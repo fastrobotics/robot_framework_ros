@@ -22,6 +22,10 @@ jobs:
           apt-get update -q
           apt-get install -y python3-catkin-tools python3-osrf-pycommon git
 
+      - name: Install Other dependencies
+        run: |
+          apt-get install libgeographic-dev
+    
       - name: Rosdep Install Dependencies
         run: |
           apt-get update -q
