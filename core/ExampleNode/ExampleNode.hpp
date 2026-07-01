@@ -12,7 +12,7 @@
 
 #include <robot_framework_ros/BaseNode.hpp>
 
-namespace fast::rf_ros {
+namespace fast::rf_ros::example_package {
 /**
  * @brief Example Node
  *
@@ -51,4 +51,4 @@ class ExampleNode : public BaseNode {
      */
     void thread_loop();
 };
-}  // namespace fast::rf_ros
+}  // namespace fast::rf_ros::example_package

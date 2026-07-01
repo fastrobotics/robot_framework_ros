@@ -1,6 +1,7 @@
 #include "ExampleNode.hpp"
 bool kill_node = false;
-namespace fast::rf_ros {
+using namespace fast::rf_ros;
+namespace fast::rf_ros::example_package {
 
 ExampleNode::ExampleNode() {}
 ExampleNode::~ExampleNode() {}
@@ -17,7 +18,7 @@ void ExampleNode::thread_loop() {
         ros::Duration(1.0).sleep();
     }
 }
-}  // namespace fast::rf_ros
+}  // namespace fast::rf_ros::example_package
 
 void signalinterrupt_handler(int sig) {
     ROS_WARN("Killing ExampleNode with Signal: %d\n", sig);
@@ -25,7 +26,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros;
+using namespace fast::rf_ros::example_package;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "example_node");
     ExampleNode* node = new ExampleNode();
