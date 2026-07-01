@@ -1,0 +1,12 @@
+# Node State
+
+uint8 STATE_UNKNOWN = 0
+uint8 STATE_INITIALIZING = 1
+uint8 STATE_STARTING = 2
+uint8 STATE_RUNNING = 3
+uint8 STATE_PAUSED = 4
+uint8 STATE_RESET = 5
+uint8 STATE_FINISHED = 6
+uint8 STATE_END_OF_LIST = 7
+
+uint8 state # See Enum Above

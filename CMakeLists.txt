@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs
 find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
 
-add_message_files(DIRECTORY msg FILES heartbeat.msg)
+add_message_files(DIRECTORY msg FILES heartbeat.msg nodestate.msg)
 generate_messages(DEPENDENCIES std_msgs)
 
 catkin_package(INCLUDE_DIRS include DEPENDS)

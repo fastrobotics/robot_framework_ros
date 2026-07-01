@@ -16,6 +16,7 @@
 
 // Standard Messages
 #include <robot_framework_ros/heartbeat.h>
+#include <robot_framework_ros/nodestate.h>
 
 // ROS Dependencies
 
@@ -28,7 +29,7 @@ namespace fast::rf_ros {
  */
 class BaseNode {
    public:
-    BaseNode() : n(new ros::NodeHandle("~")) {}
+    BaseNode() : n(new ros::NodeHandle("~")) { node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN; }
     // Initialization Functions
 
     /**
@@ -46,6 +47,14 @@ class BaseNode {
      * @return false
      */
     virtual bool init() = 0;
+
+    /**
+     * @brief Start Base Node.  Should be called AFTER User runs `init`.
+     *
+     * @return true
+     * @return false
+     */
+    bool base_start();
     // Node Lifecycle Functions
     /**
      * @brief Start the Node.  Should be called AFTER User runs `init`.
@@ -85,13 +94,38 @@ class BaseNode {
      */
     bool update();
 
+    /**
+     * @brief Get the node state object
+     *
+     * @return robot_framework_ros::nodestate
+     */
+    robot_framework_ros::nodestate get_node_state() { return node_state; }
+
+    /**
+     * @brief Get a string representation of the node
+     *
+     * @return std::string
+     */
+    std::string pretty();
+
+    /**
+     * @brief Convert a node state to a string representation
+     *
+     * @param state
+     * @return std::string
+     */
+    std::string convert(robot_framework_ros::nodestate state);
+
     // Standard Publishers
 
    protected:
     boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
    private:
+    robot_framework_ros::nodestate node_state;
     double measure_time_diff(ros::Time time_a, ros::Time time_b);
+
+    bool request_node_statechange(uint8_t new_state, bool override = false);
     ros::Publisher heartbeat_pub;
 
     double ros_rate;

@@ -7,7 +7,7 @@ namespace fast::rf_ros {
 class BaseNodeTester : public BaseNode {
    public:
     bool init() { return base_init(); }
-    bool start() { return true; }
+    bool start() { return base_start(); }
     bool run_10hz() {
         ROS_WARN("Running 10Hz Loop");
         bool status = base_run_10hz();
@@ -19,14 +19,18 @@ class BaseNodeTester : public BaseNode {
 };
 TEST(BaseNode, BasicFunctionality) {
     BaseNodeTester tester;
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_UNKNOWN);
+    ROS_WARN(tester.pretty().c_str());
     ASSERT_TRUE(tester.init());
+    ROS_WARN(tester.pretty().c_str());
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_INITIALIZING);
+    ROS_WARN(tester.pretty().c_str());
     ASSERT_TRUE(tester.start());
-    /*
-    for(uint32_t i = 0; i < 1000; ++i) {
-        ASSERT_TRUE(tester.run_01hz());
-        sleep(1);
-    }
-        */
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_STARTING);
+    ASSERT_TRUE(tester.update());
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_RUNNING);
+    ASSERT_TRUE(tester.update());
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_RUNNING);
 }
 }  // namespace fast::rf_ros
 int main(int argc, char** argv) {
