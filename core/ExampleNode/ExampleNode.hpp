@@ -53,6 +53,8 @@ class ExampleNode : public BaseNode {
      */
     bool run_10hz();
 
+    bool run_loop1();
+
     /**
      * @brief Concrete Separate Thread
      *

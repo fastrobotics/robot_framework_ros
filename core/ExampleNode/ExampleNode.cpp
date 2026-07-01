@@ -8,11 +8,15 @@ ExampleNode::~ExampleNode() {}
 bool ExampleNode::init() { return BaseNode::base_init(); }
 
 bool ExampleNode::start() { return BaseNode::base_start(); }
-
-bool ExampleNode::run_10hz() {
-    return BaseNode::base_run_10hz();
-    ROS_WARN(pretty().c_str());
+bool ExampleNode::run_loop1() {
+    ROS_ERROR("Loop1");
+    return true;
 }
+bool ExampleNode::run_10hz() {
+    ROS_ERROR("10Hz");
+    return true;
+}
+
 void ExampleNode::thread_loop() {
     while (kill_node == false) {
         ros::Duration(1.0).sleep();

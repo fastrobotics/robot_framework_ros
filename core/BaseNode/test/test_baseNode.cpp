@@ -20,15 +20,20 @@ class BaseNodeTester : public BaseNode {
 TEST(BaseNode, BasicFunctionality) {
     BaseNodeTester tester;
     ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_UNKNOWN);
-    ROS_WARN(tester.pretty().c_str());
+    ROS_WARN("%s", tester.pretty().c_str());
     ASSERT_TRUE(tester.init());
-    ROS_WARN(tester.pretty().c_str());
+    ROS_WARN("%s", tester.pretty().c_str());
     ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_INITIALIZING);
-    ROS_WARN(tester.pretty().c_str());
+    ROS_WARN("%s", tester.pretty().c_str());
     ASSERT_TRUE(tester.start());
     ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_STARTING);
     ASSERT_TRUE(tester.update());
     ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_RUNNING);
+    ASSERT_TRUE(tester.update());
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_RUNNING);
+
+    ASSERT_TRUE(tester.base_restart());
+    ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_STARTING);
     ASSERT_TRUE(tester.update());
     ASSERT_EQ(tester.get_node_state().state, robot_framework_ros::nodestate::STATE_RUNNING);
 }

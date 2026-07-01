@@ -9,7 +9,7 @@ using namespace fast::rf_ros;
 std::string robot_namespace = "/test/";
 std::string unittest_nodename = "example_node";
 uint64_t heartbeat_count = 0;
-void heartbeat_Callback(const robot_framework_ros::heartbeat& msg) { heartbeat_count++; }
+void heartbeat_Callback([[maybe_unused]] const robot_framework_ros::heartbeat& msg) { heartbeat_count++; }
 TEST(ExampleNode, TestBasics) {
     ros::NodeHandle nh("~");
     std::string heartbeat_topic = "/heartbeat";

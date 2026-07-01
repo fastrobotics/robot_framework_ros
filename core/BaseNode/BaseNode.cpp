@@ -7,7 +7,7 @@ std::string BaseNode::pretty() {
 }
 std::string BaseNode::convert(robot_framework_ros::nodestate state) {
     std::string str;
-    switch (node_state.state) {
+    switch (state.state) {
         case robot_framework_ros::nodestate::STATE_UNKNOWN:
             str = "STATE_UNKNOWN";
             break;
@@ -28,16 +28,41 @@ std::string BaseNode::convert(robot_framework_ros::nodestate state) {
 }
 bool BaseNode::base_init() {
     bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_INITIALIZING, false);
+
     if (status == false) {
         return false;
     }
-    std::string heartbeat_topic = "/heartbeat";  // Should be based off a namespace and node name
+    node_namespace = ros::this_node::getNamespace();
+    node_name = ros::this_node::getName();
+    std::string heartbeat_topic = node_name + "/heartbeat";
     heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
+
+    std::string param_loop1_rate = node_name + "/loop1_rate";
+    if (n->getParam(param_loop1_rate, loop1_rate) == false) {
+        ROS_WARN("Missing parameter: loop1_rate.  Not running loop1 code.");
+        loop1_enabled = false;
+    } else {
+        loop1_enabled = true;
+        if (loop1_rate > max_rate) {
+            ROS_WARN("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
+            loop1_rate = max_rate;
+        }
+    }
 
     return true;
 }
 bool BaseNode::base_start() {
     bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_STARTING, false);
+    last_10hz_timer = ros::Time::now();
+
+    last_loop1_timer = ros::Time::now();
+    if (status == false) {
+        return false;
+    }
+    return true;
+}
+bool BaseNode::base_restart() {
+    bool status = start();
     if (status == false) {
         return false;
     }
@@ -53,8 +78,16 @@ bool BaseNode::update() {
     ros::spinOnce();
     double mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_10hz_timer);
     if (mtime >= 0.1) {  // 0.1 Seconds
-        run_10hz();
+        base_run_10hz();
         last_10hz_timer = ros::Time::now();
+    }
+
+    if (loop1_enabled == true) {
+        mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop1_timer);
+        if (mtime >= (1.0 / loop1_rate)) {
+            run_loop1();
+            last_loop1_timer = ros::Time::now();
+        }
     }
     return true;
 }
@@ -62,7 +95,7 @@ bool BaseNode::update() {
 bool BaseNode::base_run_10hz() {
     robot_framework_ros::heartbeat beat;
     heartbeat_pub.publish(beat);
-    return true;
+    return run_10hz();
 }
 bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
     uint8_t current_state = node_state.state;
@@ -70,7 +103,6 @@ bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
         return true;
     }
     bool state_change_allowed = false;
-    bool state_changed = false;
     if (override == false) {
         if (current_state == robot_framework_ros::nodestate::STATE_UNKNOWN) {
             if (new_state == robot_framework_ros::nodestate::STATE_INITIALIZING) {
@@ -82,6 +114,10 @@ bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
             }
         } else if (current_state == robot_framework_ros::nodestate::STATE_STARTING) {
             if (new_state == robot_framework_ros::nodestate::STATE_RUNNING) {
+                state_change_allowed = true;
+            }
+        } else if (current_state == robot_framework_ros::nodestate::STATE_RUNNING) {
+            if (new_state == robot_framework_ros::nodestate::STATE_STARTING) {
                 state_change_allowed = true;
             }
         }

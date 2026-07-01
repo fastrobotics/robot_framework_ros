@@ -29,9 +29,14 @@ namespace fast::rf_ros {
  */
 class BaseNode {
    public:
-    BaseNode() : n(new ros::NodeHandle("~")) { node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN; }
+    BaseNode() : n(new ros::NodeHandle("~")) {
+        node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
+        max_rate = ros_rate / 10.0;  // Max rate is 10Hz
+    }
+    virtual ~BaseNode() = default;
     // Initialization Functions
 
+    // Node Lifecycle Functions
     /**
      * @brief Initialize Base Node.
      *
@@ -55,7 +60,7 @@ class BaseNode {
      * @return false
      */
     bool base_start();
-    // Node Lifecycle Functions
+
     /**
      * @brief Start the Node.  Should be called AFTER User runs `init`.
      *
@@ -63,6 +68,14 @@ class BaseNode {
      * @return false
      */
     virtual bool start() = 0;
+
+    /**
+     * @brief Restart the Node.
+     *
+     * @return true
+     * @return false
+     */
+    bool base_restart();
 
     // Required User Node Implementation Functions for Loops
 
@@ -84,6 +97,8 @@ class BaseNode {
      * @return false
      */
     bool base_run_10hz();
+
+    virtual bool run_loop1() = 0;
 
     /**
      * @brief Update function that main function should call.
@@ -123,12 +138,25 @@ class BaseNode {
 
    private:
     robot_framework_ros::nodestate node_state;
+    std::string node_namespace{""};
+    std::string node_name{""};
+    double loop1_rate{-1.0};
+    bool loop1_enabled{true};
+
+    double loop2_rate{-1.0};
+    bool loop2_enabled{true};
+
+    double loop3_rate{-1.0};
+    bool loop3_enabled{true};
 
     bool request_node_statechange(uint8_t new_state, bool override = false);
     ros::Publisher heartbeat_pub;
 
     double ros_rate{400.0};
+    double max_rate;
 
     ros::Time last_10hz_timer;
+
+    ros::Time last_loop1_timer;
 };
 }  // namespace fast::rf_ros
