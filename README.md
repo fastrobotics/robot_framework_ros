@@ -31,6 +31,8 @@
 | More clearly define ExampleNode doxygen comments |
 | Add guide for creating new node from BaseNode    |
 | Doxygen hosted documentation                     |
+| Doxygen cleanup (namespaces, warnings)           |
+| Doxygen for messages?                            |
 
 # Setup
 
