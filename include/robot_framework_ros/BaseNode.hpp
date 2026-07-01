@@ -77,19 +77,6 @@ class BaseNode {
      */
     bool base_restart();
 
-    // Required User Node Implementation Functions for Loops
-
-    /**
-     * @brief // User function should call base_<> function of the same name.  Gets called automatically to run at 10
-     * Hz.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_10hz() = 0;
-
-    // Node Base Function Loops.  User function should call these
-
     /**
      * @brief Base Node 10Hz Loop.
      *
@@ -98,7 +85,39 @@ class BaseNode {
      */
     bool base_run_10hz();
 
+    // Required User Node Implementation Functions for Loops
+
+    /**
+     * @brief // Gets called automatically to run at 10 Hz.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_10hz() = 0;
+
+    /**
+     * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
+     *
+     * @return true
+     * @return false
+     */
     virtual bool run_loop1() = 0;
+
+    /**
+     * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_loop2() = 0;
+
+    /**
+     * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_loop3() = 0;
 
     /**
      * @brief Update function that main function should call.
@@ -158,5 +177,7 @@ class BaseNode {
     ros::Time last_10hz_timer;
 
     ros::Time last_loop1_timer;
+    ros::Time last_loop2_timer;
+    ros::Time last_loop3_timer;
 };
 }  // namespace fast::rf_ros

@@ -49,6 +49,30 @@ bool BaseNode::base_init() {
         }
     }
 
+    std::string param_loop2_rate = node_name + "/loop2_rate";
+    if (n->getParam(param_loop2_rate, loop2_rate) == false) {
+        ROS_WARN("Missing parameter: loop2_rate.  Not running loop2 code.");
+        loop2_enabled = false;
+    } else {
+        loop2_enabled = true;
+        if (loop2_rate > max_rate) {
+            ROS_WARN("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
+            loop2_rate = max_rate;
+        }
+    }
+
+    std::string param_loop3_rate = node_name + "/loop3_rate";
+    if (n->getParam(param_loop3_rate, loop3_rate) == false) {
+        ROS_WARN("Missing parameter: loop3_rate.  Not running loop3 code.");
+        loop3_enabled = false;
+    } else {
+        loop3_enabled = true;
+        if (loop3_rate > max_rate) {
+            ROS_WARN("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
+            loop3_rate = max_rate;
+        }
+    }
+
     return true;
 }
 bool BaseNode::base_start() {
@@ -56,6 +80,8 @@ bool BaseNode::base_start() {
     last_10hz_timer = ros::Time::now();
 
     last_loop1_timer = ros::Time::now();
+    last_loop2_timer = ros::Time::now();
+    last_loop3_timer = ros::Time::now();
     if (status == false) {
         return false;
     }
@@ -89,11 +115,28 @@ bool BaseNode::update() {
             last_loop1_timer = ros::Time::now();
         }
     }
+    if (loop2_enabled == true) {
+        mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop2_timer);
+        if (mtime >= (1.0 / loop2_rate)) {
+            run_loop2();
+            last_loop2_timer = ros::Time::now();
+        }
+    }
+    if (loop3_enabled == true) {
+        mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop3_timer);
+        if (mtime >= (1.0 / loop3_rate)) {
+            run_loop3();
+            last_loop3_timer = ros::Time::now();
+        }
+    }
     return true;
 }
 
 bool BaseNode::base_run_10hz() {
     robot_framework_ros::heartbeat beat;
+    beat.stamp = ros::Time::now();
+    beat.NodeName = node_name;
+    beat.NodeState = (uint8_t)node_state.state;
     heartbeat_pub.publish(beat);
     return run_10hz();
 }

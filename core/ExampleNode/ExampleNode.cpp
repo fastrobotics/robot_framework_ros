@@ -9,13 +9,18 @@ bool ExampleNode::init() { return BaseNode::base_init(); }
 
 bool ExampleNode::start() { return BaseNode::base_start(); }
 bool ExampleNode::run_loop1() {
-    ROS_ERROR("Loop1");
+    ROS_INFO("Loop1");
     return true;
 }
-bool ExampleNode::run_10hz() {
-    ROS_ERROR("10Hz");
+bool ExampleNode::run_loop2() {
+    ROS_INFO("Loop2");
     return true;
 }
+bool ExampleNode::run_loop3() {
+    ROS_INFO("Loop3");
+    return true;
+}
+bool ExampleNode::run_10hz() { return true; }
 
 void ExampleNode::thread_loop() {
     while (kill_node == false) {

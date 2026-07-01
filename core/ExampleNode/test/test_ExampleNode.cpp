@@ -12,7 +12,7 @@ uint64_t heartbeat_count = 0;
 void heartbeat_Callback([[maybe_unused]] const robot_framework_ros::heartbeat& msg) { heartbeat_count++; }
 TEST(ExampleNode, TestBasics) {
     ros::NodeHandle nh("~");
-    std::string heartbeat_topic = "/heartbeat";
+    std::string heartbeat_topic = robot_namespace + unittest_nodename + "/heartbeat";
     ros::Subscriber sub = nh.subscribe(heartbeat_topic, 100, &heartbeat_Callback);
     sleep(5.0);
     EXPECT_NE(ros::topic::waitForMessage<robot_framework_ros::heartbeat>(heartbeat_topic, ros::Duration(10)), nullptr);
