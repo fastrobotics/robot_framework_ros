@@ -1,4 +1,4 @@
-[Core](../../../../doc/Core/Core.md)
+[Core](../../doc/Core.md)
 
 # Utilities
 This package provides various Utility functions

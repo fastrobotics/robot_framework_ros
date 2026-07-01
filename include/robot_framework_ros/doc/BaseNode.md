@@ -1,9 +1,10 @@
-[Core Content](../Core.md)
+[Core Content](Core.md)
 
 - [Base Node](#base-node)
 - [Architecture](#architecture)
   - [Class Diagrams](#class-diagrams)
   - [Sequence Diagrams](#sequence-diagrams)
+  - [State Machine Diagrams](#state-machine-diagrams)
 - [Features](#features)
   - [Timed Loops](#timed-loops)
     - [Pre-Defined Loops](#pre-defined-loops)
@@ -24,6 +25,9 @@
 
 ## Sequence Diagrams
 ![](puml/BaseNodeSequenceDiagram.png)
+
+## State Machine Diagrams
+![](puml/NodeStateMachineDiagram.png)
 
 # Features
 ## Timed Loops

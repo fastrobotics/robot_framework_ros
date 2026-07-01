@@ -15,7 +15,7 @@
 # Features
 | Status | Feature                                             |
 | ------ | --------------------------------------------------- |
-| DRAFT  | [Core](doc/Core/Core.md)                            |
+| DRAFT  | [Core](include/robot_framework_ros/doc/Core.md)     |
 | DRAFT  | [Example Node](core/ExampleNode/doc/ExampleNode.md) |
 
 
