@@ -53,8 +53,28 @@ class ExampleNode : public BaseNode {
      */
     bool run_10hz();
 
+    /**
+     * @brief Example Node Loop1
+     *
+     * @return true
+     * @return false
+     */
     bool run_loop1();
+
+    /**
+     * @brief Example Node Loop2
+     *
+     * @return true
+     * @return false
+     */
     bool run_loop2();
+
+    /**
+     * @brief Example Node Loop3
+     *
+     * @return true
+     * @return false
+     */
     bool run_loop3();
 
     /**
