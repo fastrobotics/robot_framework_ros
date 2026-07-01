@@ -9,9 +9,8 @@ namespace robot_framework_ros {
         +uint8_t STATE_START = 3
         +uint8_t STATE_RUNNING = 4
         +uint8_t STATE_PAUSED = 5
-        +uint8_t STATE_RESET = 6
-        +uint8_t STATE_FINISHED = 7
-        +uint8_t STATE_END_OF_LIST = 8
+        +uint8_t STATE_FINISHED = 6
+        +uint8_t STATE_END_OF_LIST = 7
     }
 }
 @enduml

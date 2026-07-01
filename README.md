@@ -20,19 +20,14 @@
 
 
 # ToDo
-| Item                                             |
-| ------------------------------------------------ |
-| Change message definition namespace              |
-| Add puml (class, sequence diagram) for Base Node |
-| Add remainder of timing loops (fixed, user)      |
-| Add code coverage for Example Node               |
-| Fix any build/exec warnings.                     |
-| Add markdown doc for BaseNode                    |
-| More clearly define ExampleNode doxygen comments |
-| Add guide for creating new node from BaseNode    |
-| Doxygen hosted documentation                     |
-| Doxygen cleanup (namespaces, warnings)           |
-| Doxygen for messages?                            |
+| Item                                          |
+| --------------------------------------------- |
+| Change message definition namespace           |
+| Add code coverage for Example Node            |
+| Fix any build/exec warnings.                  |
+| Add guide for creating new node from BaseNode |
+| Doxygen hosted documentation                  |
+| Doxygen for messages?                         |
 
 # Setup
 
