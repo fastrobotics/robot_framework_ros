@@ -13,3 +13,4 @@ This section of the repo provides core functionality for the Robot Framework - R
 | Status | Module                            |
 | ------ | --------------------------------- |
 | DRAFT  | [Base Node](BaseNode/BaseNode.md) |
+| DRAFT  |
