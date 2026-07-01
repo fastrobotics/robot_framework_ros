@@ -13,9 +13,11 @@
 ![](Legend.png)
 
 # Features
-| Status | Feature                  |
-| ------ | ------------------------ |
-| DRAFT  | [Core](doc/Core/Core.md) |
+| Status | Feature                                             |
+| ------ | --------------------------------------------------- |
+| DRAFT  | [Core](doc/Core/Core.md)                            |
+| DRAFT  | [Example Node](core/ExampleNode/doc/ExampleNode.md) |
+
 
 
 # ToDo
