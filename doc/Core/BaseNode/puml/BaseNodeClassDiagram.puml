@@ -5,21 +5,34 @@ namespace robot_framework_ros {
 }
 namespace fast::robot_framework_ros {
     namespace core {
-        class BaseNode {
+        class BaseNode #Orange{
             --Node Life Cycle Functions--
             #bool base_init()
             +{abstract} bool init()
+
+            +bool base_start()
             +{abstract} start()
+
             +bool update()
 
-            --Loop Functions--
+            --Timed Loop Functions--
             
-            +{abstract} run_10hz()
-            #bool base_run_10hz()
+            #{abstract} bool run_100hz()
+            #{abstract} bool run_10hz()
+            #{abstract} bool run_1hz()
+            #{abstract} bool run_01hz()
+            #{abstract} bool run_001hz()
+
+            #{abstract} bool run_loop1()
+            #{abstract} bool run_loop2()
+            #{abstract} bool run_loop3()
             
+            
+
             --Other--
             #ros::NodeHandle n
 
+            --Publishers and Subscribers--
             -ros::Publisher heartbeat_pub
 
 

@@ -1,4 +1,5 @@
 #include <robot_framework_ros/BaseNode.hpp>
+#include <robot_framework_ros/utils/CoreUtility.hpp>
 namespace fast::rf_ros {
 std::string BaseNode::pretty() {
     std::string str = "Node State: " + convert(node_state);
@@ -30,8 +31,7 @@ bool BaseNode::base_init() {
     if (status == false) {
         return false;
     }
-    ros_rate = 200.0;
-    std::string heartbeat_topic = "/heartbeat";
+    std::string heartbeat_topic = "/heartbeat";  // Should be based off a namespace and node name
     heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
 
     return true;
@@ -51,14 +51,14 @@ bool BaseNode::update() {
     ros::Rate r(ros_rate);
     r.sleep();
     ros::spinOnce();
-    double mtime = measure_time_diff(ros::Time::now(), last_10hz_timer);
-    if (mtime >= 0.1) {
+    double mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_10hz_timer);
+    if (mtime >= 0.1) {  // 0.1 Seconds
         run_10hz();
         last_10hz_timer = ros::Time::now();
     }
     return true;
 }
-double BaseNode::measure_time_diff(ros::Time time_a, ros::Time time_b) { return time_a.toSec() - time_b.toSec(); }
+
 bool BaseNode::base_run_10hz() {
     robot_framework_ros::heartbeat beat;
     heartbeat_pub.publish(beat);

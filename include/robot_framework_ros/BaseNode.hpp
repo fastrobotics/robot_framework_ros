@@ -123,12 +123,11 @@ class BaseNode {
 
    private:
     robot_framework_ros::nodestate node_state;
-    double measure_time_diff(ros::Time time_a, ros::Time time_b);
 
     bool request_node_statechange(uint8_t new_state, bool override = false);
     ros::Publisher heartbeat_pub;
 
-    double ros_rate;
+    double ros_rate{400.0};
 
     ros::Time last_10hz_timer;
 };
