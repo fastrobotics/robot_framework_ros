@@ -90,6 +90,7 @@ bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
         node_state.state = new_state;
         return true;
     } else {
+        ROS_ERROR("Node State Change Not Allowed: %d -> %d", current_state, new_state);
         return false;
     }
 }
