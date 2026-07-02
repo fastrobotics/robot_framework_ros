@@ -1,3 +1,0 @@
-add_executable(tankDriveExecutorNode src/TankDriveExecutorNode.cpp)
-target_link_libraries(tankDriveExecutorNode ${catkin_LIBRARIES} baseNode TankDriveExecutorProcess )
-add_dependencies(tankDriveExecutorNode ${eros_EXPORTED_TARGETS})

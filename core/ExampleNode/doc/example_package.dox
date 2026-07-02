@@ -1,0 +1,4 @@
+/**
+* @namespace fast::rf_ros::example_package
+* @brief Namespace for ROS Robot Framework Example Package
+*/

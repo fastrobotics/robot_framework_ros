@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "cschlosser.doxdocgen",
+        "jebbs.plantuml"
     ]
 }

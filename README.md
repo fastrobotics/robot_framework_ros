@@ -1,14 +1,33 @@
 # FAST Robotics - Robot Framework: ROS v1 Middleware
 
 - [FAST Robotics - Robot Framework: ROS v1 Middleware](#fast-robotics---robot-framework-ros-v1-middleware)
-- [Code Documentation](#code-documentation)
 - [Architecture](#architecture)
+- [Features](#features)
+- [ToDo](#todo)
 - [Setup](#setup)
 
 
-# Code Documentation
+
 
 # Architecture
+![](Legend.png)
+
+# Features
+| Status | Feature                                             |
+| ------ | --------------------------------------------------- |
+| DRAFT  | [Core](include/robot_framework_ros/doc/Core.md)     |
+| DRAFT  | [Example Node](core/ExampleNode/doc/ExampleNode.md) |
+
+
+# ToDo
+| Item                                          |
+| --------------------------------------------- |
+| Change message definition namespace           |
+| Add code coverage for Example Node            |
+| Add guide for creating new node from BaseNode |
+| Doxygen hosted documentation                  |
+| Doxygen for messages?                         |
+
 
 # Setup
 

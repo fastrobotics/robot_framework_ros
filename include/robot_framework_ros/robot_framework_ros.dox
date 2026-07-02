@@ -1,0 +1,4 @@
+/**
+* @namespace robot_framework_ros
+* @brief ROS Messages for the Robot Framework
+*/

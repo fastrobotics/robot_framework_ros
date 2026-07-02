@@ -1,0 +1,109 @@
+@startuml
+title Base Node Sequence DiagramBorderColor
+actor MainFunction as main
+actor ExampleNode as node
+participant BaseNode as baseNode
+
+alt if node.get_node_state() == STATE_UNKNOWN
+    hnote across: Initialization
+    main -> node++: init()
+    node -> baseNode++: base_init()
+    baseNode --> baseNode++: request_node_statechange(STATE_INITIALIZING)
+    baseNode --> baseNode--: status
+    note over baseNode
+    Initialize all Base Node content (Publishers, Subscribers, Services, etc)
+    end note
+    baseNode --> node--: status
+    node --> main--: status
+end
+
+alt if node.get_node_state() == STATE_INITIALIZING
+    hnote across: Start
+    main -> node++: start()
+    node -> baseNode++: base_start()
+    baseNode --> baseNode++: request_node_statechange(STATE_STARTING)
+    baseNode --> baseNode--: status
+    note over baseNode
+    Start any content required (timers, threads, et)
+    end note
+    baseNode --> node--: status
+    node --> main--: status
+end
+
+alt if node.get_node_state() == STATE_STARTING || node.get_node_state() == STATE_RUNNING
+    hnote across: Update
+    main -> node++: update()
+    node -> baseNode++: update()
+    baseNode --> baseNode++: request_node_statechange(STATE_RUNNING)
+    baseNode --> baseNode--: status
+    hnote across: Timed Loops
+
+    alt if time_delay >= 100Hz
+        baseNode --> baseNode++: base_run_100hz()
+        note over baseNode: Base Node Functions to run at 100Hz
+        baseNode --> node++: run_100hz()
+        note over node: User Functions to run at 100Hz
+        node --> baseNode--: status
+        baseNode--> baseNode--: status
+    end
+
+    alt if time_delay >= 10Hz
+        baseNode --> baseNode++: base_run_10hz()
+        note over baseNode: Base Node Functions to run at 10Hz
+        baseNode --> node++: run_10hz()
+        note over node: User Functions to run at 10Hz
+        node --> baseNode--: status
+        baseNode--> baseNode--: status
+    end
+
+    alt if time_delay >= 1Hz
+        baseNode --> baseNode++: base_run_1hz()
+        note over baseNode: Base Node Functions to run at 1Hz
+        baseNode --> node++: run_1hz()
+        note over node: User Functions to run at 1Hz
+        node --> baseNode--: status
+        baseNode--> baseNode--: status
+    end
+
+    alt if time_delay >= 0.1Hz
+        baseNode --> baseNode++: base_run_01hz()
+        note over baseNode: Base Node Functions to run at 0.1Hz
+        baseNode --> node++: run_01hz()
+        note over node: User Functions to run at 0.1Hz
+        node --> baseNode--: status
+        baseNode--> baseNode--: status
+    end
+
+    alt if time_delay >= 0.01Hz
+        baseNode --> baseNode++: base_run_001hz()
+        note over baseNode: Base Node Functions to run at 0.01Hz
+        baseNode --> node++: run_001hz()
+        note over node: User Functions to run at 0.001Hz
+        node --> baseNode--: status
+        baseNode--> baseNode--: status
+    end
+
+    alt if time_delay >= loop1_rate
+        baseNode --> node++: run_loop1()
+        note over node: User Functions to run at loop1_rate
+        node --> baseNode--: status
+    end
+
+    alt if time_delay >= loop2_rate
+        baseNode --> node++: run_loop2()
+        note over node: User Functions to run at loop2_rate
+        node --> baseNode--: status
+    end
+
+    alt if time_delay >= loop3_rate
+        baseNode --> node++: run_loop3()
+        note over node: User Functions to run at loop3_rate
+        node --> baseNode--: status
+    end
+    node --> main--: status
+
+end
+
+
+
+@enduml
