@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this." alt="" coords="5,13,172,38"/>
+<area shape="rect" id="Node000001" href="$classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="220,5,403,45"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="186,23,220,23,220,28,186,28"/>
+</map>
