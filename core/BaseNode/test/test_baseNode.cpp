@@ -11,14 +11,11 @@ class BaseNodeTester : public BaseNode {
     bool run_loop1() { return true; }
     bool run_loop2() { return true; }
     bool run_loop3() { return true; }
-    bool run_10hz() {
-        ROS_WARN("Running 10Hz Loop");
-        bool status = base_run_10hz();
-        if (status == false) {
-            return false;
-        }
-        return true;
-    }
+    bool run_100hz() { return true; }
+    bool run_10hz() { return true; }
+    bool run_1hz() { return true; }
+    bool run_01hz() { return true; }
+    bool run_001hz() { return true; }
 };
 TEST(BaseNode, BasicFunctionality) {
     BaseNodeTester tester;

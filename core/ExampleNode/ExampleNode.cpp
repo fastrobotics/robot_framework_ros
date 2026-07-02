@@ -20,7 +20,11 @@ bool ExampleNode::run_loop3() {
     ROS_INFO("Loop3");
     return true;
 }
+bool ExampleNode::run_100hz() { return true; }
 bool ExampleNode::run_10hz() { return true; }
+bool ExampleNode::run_1hz() { return true; }
+bool ExampleNode::run_01hz() { return true; }
+bool ExampleNode::run_001hz() { return true; }
 
 void ExampleNode::thread_loop() {
     while (kill_node == false) {

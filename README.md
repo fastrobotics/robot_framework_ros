@@ -27,7 +27,7 @@
 | Add guide for creating new node from BaseNode |
 | Doxygen hosted documentation                  |
 | Doxygen for messages?                         |
-| User time loops                               |
+
 
 # Setup
 

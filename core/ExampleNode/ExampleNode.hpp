@@ -45,6 +45,14 @@ class ExampleNode : public BaseNode {
     bool start();
 
     /**
+     * @brief Concrete 100Hz Loop
+     * @details It is where the user should implement their node's 100Hz loop code.  Care should be taken to ensure that
+     * this function can run at 100Hz.  This function is called automatically by the BaseNode class at 100Hz.
+     * @return true
+     * @return false
+     */
+    bool run_100hz();
+    /**
      * @brief Concrete 10Hz Loop
      * @details It is where the user should implement their node's 10Hz loop code.  Care should be taken to ensure that
      * this function can run at 10Hz.  This function is called automatically by the BaseNode class at 10Hz.
@@ -52,6 +60,31 @@ class ExampleNode : public BaseNode {
      * @return false
      */
     bool run_10hz();
+
+    /**
+     * @brief  Concrete 1Hz Loop
+     *
+     * @return true
+     * @return false
+     */
+    bool run_1hz();
+
+    /**
+     * @brief Concrete 0.1Hz Loop
+     *
+     * @return true
+     * @return false
+     */
+
+    bool run_01hz();
+
+    /**
+     * @brief Concrete 0.001Hz Loop
+     *
+     * @return true
+     * @return false
+     */
+    bool run_001hz();
 
     /**
      * @brief Example Node Loop1

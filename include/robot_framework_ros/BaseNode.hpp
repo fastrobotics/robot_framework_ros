@@ -78,6 +78,14 @@ class BaseNode {
     bool base_restart();
 
     /**
+     * @brief Base Node 100Hz Loop.
+     *
+     * @return true
+     * @return false
+     */
+    bool base_run_100hz();
+
+    /**
      * @brief Base Node 10Hz Loop.
      *
      * @return true
@@ -85,10 +93,41 @@ class BaseNode {
      */
     bool base_run_10hz();
 
-    // Required User Node Implementation Functions for Loops
+    /**
+     * @brief Base Node 1Hz Loop.
+     *
+     * @return true
+     * @return false
+     */
+    bool base_run_1hz();
 
     /**
-     * @brief // Gets called automatically to run at 10 Hz.
+     * @brief Base Node 0.1Hz Loop.
+     *
+     * @return true
+     * @return false
+     */
+    bool base_run_01hz();
+
+    /**
+     * @brief Base Node 0.01Hz Loop.
+     *
+     * @return true
+     * @return false
+     */
+    bool base_run_001hz();
+
+    // Required User Node Implementation Functions for Loops
+    /**
+     * @brief Gets called automatically to run at 100 Hz.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_100hz() = 0;
+
+    /**
+     * @brief Gets called automatically to run at 10 Hz.
      *
      * @return true
      * @return false
@@ -96,11 +135,36 @@ class BaseNode {
     virtual bool run_10hz() = 0;
 
     /**
+     * @brief Gets called automatically to run at 1 Hz.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_1hz() = 0;
+
+    /**
+     * @brief Gets called automatically to run at 0.1 Hz.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_01hz() = 0;
+
+    /**
+     * @brief Gets called automatically to run at 0.01 Hz.
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool run_001hz() = 0;
+
+    /**
      * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
      *
      * @return true
      * @return false
      */
+
     virtual bool run_loop1() = 0;
 
     /**
@@ -174,7 +238,11 @@ class BaseNode {
     double ros_rate{400.0};
     double max_rate;
 
+    ros::Time last_100hz_timer;
     ros::Time last_10hz_timer;
+    ros::Time last_1hz_timer;
+    ros::Time last_01hz_timer;
+    ros::Time last_001hz_timer;
 
     ros::Time last_loop1_timer;
     ros::Time last_loop2_timer;

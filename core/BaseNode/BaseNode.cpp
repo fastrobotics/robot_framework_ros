@@ -77,7 +77,11 @@ bool BaseNode::base_init() {
 }
 bool BaseNode::base_start() {
     bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_STARTING, false);
+    last_100hz_timer = ros::Time::now();
     last_10hz_timer = ros::Time::now();
+    last_1hz_timer = ros::Time::now();
+    last_01hz_timer = ros::Time::now();
+    last_001hz_timer = ros::Time::now();
 
     last_loop1_timer = ros::Time::now();
     last_loop2_timer = ros::Time::now();
@@ -102,10 +106,34 @@ bool BaseNode::update() {
     ros::Rate r(ros_rate);
     r.sleep();
     ros::spinOnce();
-    double mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_10hz_timer);
+    double mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_100hz_timer);
+    if (mtime >= 0.01) {  // 0.01 Seconds
+        base_run_100hz();
+        last_100hz_timer = ros::Time::now();
+    }
+
+    mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_10hz_timer);
     if (mtime >= 0.1) {  // 0.1 Seconds
         base_run_10hz();
         last_10hz_timer = ros::Time::now();
+    }
+
+    mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_1hz_timer);
+    if (mtime >= 1.0) {  // 1.0 Seconds
+        base_run_1hz();
+        last_1hz_timer = ros::Time::now();
+    }
+
+    mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_01hz_timer);
+    if (mtime >= 10.0) {  // 10.0 Seconds
+        base_run_01hz();
+        last_01hz_timer = ros::Time::now();
+    }
+
+    mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_001hz_timer);
+    if (mtime >= 100.0) {  // 100.0 Seconds
+        base_run_001hz();
+        last_001hz_timer = ros::Time::now();
     }
 
     if (loop1_enabled == true) {
@@ -131,7 +159,7 @@ bool BaseNode::update() {
     }
     return true;
 }
-
+bool BaseNode::base_run_100hz() { return run_100hz(); }
 bool BaseNode::base_run_10hz() {
     robot_framework_ros::heartbeat beat;
     beat.stamp = ros::Time::now();
@@ -140,6 +168,10 @@ bool BaseNode::base_run_10hz() {
     heartbeat_pub.publish(beat);
     return run_10hz();
 }
+bool BaseNode::base_run_1hz() { return run_1hz(); }
+
+bool BaseNode::base_run_01hz() { return run_01hz(); }
+bool BaseNode::base_run_001hz() { return run_001hz(); }
 bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
     uint8_t current_state = node_state.state;
     if (current_state == new_state) {
