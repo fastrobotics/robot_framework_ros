@@ -35,7 +35,11 @@ Pre-Requisites:
 
 - Ubuntu system running 20.04 LTS
 
-1. Clone this repo.
+1. Clone this repo using:
+```bash
+git clone --recurse-submodules https://github.com/fastrobotics/robot_framework_ros.git
+git submodule update --remote
+```
 2. Run the following:
 
 ```bash
