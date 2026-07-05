@@ -10,7 +10,7 @@ namespace robot_framework_ros {
 }
 namespace fast::rf_ros {
     namespace utils {
-        class TranslateUtility {
+        class TranslateUtility #LimeGreen {
             +{static} DiagnosticMsg convert(diagnostic)
             +{static} diagnostic convert(DiagnosticMsg)
         }
