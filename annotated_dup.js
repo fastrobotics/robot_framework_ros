@@ -6,7 +6,8 @@ var annotated_dup =
           [ "ExampleNode", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode" ]
         ] ],
         [ "utils", "namespacefast_1_1rf__ros_1_1utils.html", [
-          [ "CoreUtility", "classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html", null ]
+          [ "CoreUtility", "classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html", null ],
+          [ "TranslateUtility", "classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html", null ]
         ] ],
         [ "BaseNode", "classfast_1_1rf__ros_1_1BaseNode.html", "classfast_1_1rf__ros_1_1BaseNode" ]
       ] ]
