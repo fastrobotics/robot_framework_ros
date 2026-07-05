@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS
 if(${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DARCHITECTURE_ARMV7L")
 endif()
-add_definitions(-std=c++11 -Wall -Wextra -Wno-switch -Werror)
+add_definitions(-std=c++14 -Wall -Wextra -Wno-switch -Werror)
 
 # Find catkin macros and libraries if COMPONENTS list like find_package(catkin
 # REQUIRED COMPONENTS xyz) is used, also find other catkin packages
@@ -16,7 +16,8 @@ find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs
 find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
 
-add_message_files(DIRECTORY msg FILES heartbeat.msg nodestate.msg)
+add_message_files(DIRECTORY msg FILES heartbeat.msg nodestate.msg
+                  diagnostic.msg)
 generate_messages(DEPENDENCIES std_msgs)
 
 catkin_package(INCLUDE_DIRS include DEPENDS)
@@ -29,10 +30,11 @@ FetchContent_Declare(
   robot_framework
   GIT_REPOSITORY https://github.com/fastrobotics/robot_framework.git
   GIT_SHALLOW ON
-  GIT_TAG master)
+  GIT_TAG devops1697/SupportDiagnosticsROS)
 set(BUILD_TESTING
     OFF
     CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(robot_framework)
+include_directories(${robot_framework_SOURCE_DIR}/include)
 add_subdirectory(core)
 # add_subdirectory(Systems)
