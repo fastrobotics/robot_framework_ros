@@ -37,6 +37,9 @@ namespace fast::rf_ros {
         std::string heartbeat_topic = node_name + "/heartbeat";
         heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
 
+        std::string diagnostic_topic = node_name + "/diagnostic";
+        diagnostic_pub = n->advertise<robot_framework_ros::diagnostic>(diagnostic_topic, 1);
+
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
             ROS_WARN("Missing parameter: loop1_rate.  Not running loop1 code.");
@@ -168,7 +171,15 @@ namespace fast::rf_ros {
         heartbeat_pub.publish(beat);
         return run_10hz();
     }
-    bool BaseNode::base_run_1hz() { return run_1hz(); }
+    bool BaseNode::base_run_1hz() {
+        if (diagnostics_.size() > 0) {
+            for (auto diagnostic : diagnostics_) {
+                diagnostic.stamp = ros::Time::now();
+                diagnostic_pub.publish(diagnostic);
+            }
+        }
+        return run_1hz();
+    }
 
     bool BaseNode::base_run_01hz() { return run_01hz(); }
     bool BaseNode::base_run_001hz() { return run_001hz(); }

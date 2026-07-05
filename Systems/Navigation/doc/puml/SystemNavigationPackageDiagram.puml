@@ -1,0 +1,6 @@
+@startuml
+title System-Navigation Package Diagram
+namespace fast::rf_ros::NavigationSystem {
+    package NavigationExecutor
+}
+@enduml
