@@ -1,6 +1,18 @@
 @startuml
 title Translate Utility Class Diagram
+namespace ros {
+    namespace geometry_msgs {
+        class Twist <<(M,#FFFF00)>> <<ROS>>
+        class Vector3 <<(M,#FFFF00)>> <<ROS>>
+    }
+}
 namespace fast::rf::messages {
+    namespace StandardMsgs {
+        class Vector3DMsg <<(M,#FFFF00)>>
+    }
+    namespace GeometryMsgs {
+        class TwistMsg <<(M,#FFFF00)>>
+    }
     namespace InfrastructureMsgs {
         class DiagnosticMsg <<(M,#FFFF00)>>
     }
@@ -11,8 +23,16 @@ namespace robot_framework_ros {
 namespace fast::rf_ros {
     namespace utils {
         class TranslateUtility #LimeGreen {
-            +{static} DiagnosticMsg convert(diagnostic)
-            +{static} diagnostic convert(DiagnosticMsg)
+            -- Infrastructure Messages --
+
+            +{static} DiagnosticMsg convert(robot_framework_ros::diagnostic diagnostic)
+            +{static} robot_framework_ros::diagnostic convert(DiagnosticMsg msg)
+
+            -- Geometry Messages --
+            +{static} Vector3DMsg convert(geometry_msgs::Vector3 data)
+            +{static} geometry_msgs::Vector3 convert(Vector3DMsg msg)
+            +{static} TwistMsg convert(geometry_msgs::Twist twist)
+            +{static} geometry_msgs::Twist convert(TwistMsg msg)
         }
         
     }

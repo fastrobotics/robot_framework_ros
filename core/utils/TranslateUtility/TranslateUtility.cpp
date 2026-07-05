@@ -25,4 +25,35 @@ namespace fast::rf_ros::utils {
         msg.Description = data.description;
         return msg;
     }
+
+    fast::rf::messages::GeometryMsgs::TwistMsg TranslateUtility::convert(geometry_msgs::Twist msg) {
+        fast::rf::messages::GeometryMsgs::TwistMsg data;
+        data.linear = convert(msg.linear);
+        data.angular = convert(msg.angular);
+        return data;
+    }
+
+    geometry_msgs::Twist TranslateUtility::convert(fast::rf::messages::GeometryMsgs::TwistMsg msg) {
+        geometry_msgs::Twist data;
+        data.linear = convert(msg.linear);
+        data.angular = convert(msg.angular);
+        return data;
+    }
+
+    fast::rf::messages::StandardMsgs::Vector3DMsg TranslateUtility::convert(geometry_msgs::Vector3 msg) {
+        fast::rf::messages::StandardMsgs::Vector3DMsg data;
+        data.x = msg.x;
+        data.y = msg.y;
+        data.z = msg.z;
+        return data;
+    }
+
+    geometry_msgs::Vector3 TranslateUtility::convert(fast::rf::messages::StandardMsgs::Vector3DMsg msg) {
+        geometry_msgs::Vector3 data;
+        data.x = msg.x;
+        data.y = msg.y;
+        data.z = msg.z;
+        return data;
+    }
+
 }  // namespace fast::rf_ros::utils

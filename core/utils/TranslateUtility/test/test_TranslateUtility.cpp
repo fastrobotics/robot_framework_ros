@@ -6,7 +6,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 using namespace fast::rf_ros::utils;
 
-TEST(TestConversion, DiagnosticMessageConvert) {
+TEST(TestConversion, InfrastructureMessageConvertDiagnostic) {
     {  // Convert to ROS Message
         fast::rf::messages::InfrastructureMsgs::DiagnosticMsg data;
         data.systemID = 1;
@@ -43,6 +43,66 @@ TEST(TestConversion, DiagnosticMessageConvert) {
         ASSERT_EQ((uint8_t)data.level, msg.Level);
         ASSERT_EQ((uint8_t)data.diagnosticMessage, msg.DiagnosticMessage);
         ASSERT_EQ(data.description, msg.Description);
+    }
+}
+
+TEST(TestConversion, GeometryMessageConvertVector) {
+    {  // Convert to ROS Message
+        fast::rf::messages::StandardMsgs::Vector3DMsg data;
+        data.x = 1.0;
+        data.y = 2.0;
+        data.z = 3.0;
+        geometry_msgs::Vector3 msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.x, data.x);
+        ASSERT_FLOAT_EQ(msg.y, data.y);
+        ASSERT_FLOAT_EQ(msg.z, data.z);
+    }
+
+    {  // Convert from ROS Message
+        geometry_msgs::Vector3 data;
+        data.x = 1.0;
+        data.y = 2.0;
+        data.z = 3.0;
+        fast::rf::messages::StandardMsgs::Vector3DMsg msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(data.x, msg.x);
+        ASSERT_FLOAT_EQ(data.y, msg.y);
+        ASSERT_FLOAT_EQ(data.z, msg.z);
+    }
+}
+
+TEST(TestConversion, GeometryMessageConvertTwist) {
+    {  // Convert to ROS Message
+        fast::rf::messages::GeometryMsgs::TwistMsg twist;
+        twist.linear.x = 1.0;
+        twist.linear.y = 2.0;
+        twist.linear.z = 3.0;
+        twist.angular.x = 4.0;
+        twist.angular.y = 5.0;
+        twist.angular.z = 6.0;
+        geometry_msgs::Twist msg = TranslateUtility::convert(twist);
+        ASSERT_FLOAT_EQ(msg.linear.x, twist.linear.x);
+        ASSERT_FLOAT_EQ(msg.linear.y, twist.linear.y);
+        ASSERT_FLOAT_EQ(msg.linear.z, twist.linear.z);
+        ASSERT_FLOAT_EQ(msg.angular.x, twist.angular.x);
+        ASSERT_FLOAT_EQ(msg.angular.y, twist.angular.y);
+        ASSERT_FLOAT_EQ(msg.angular.z, twist.angular.z);
+    }
+
+    {  // Convert from ROS Message
+        geometry_msgs::Twist twist;
+        twist.linear.x = 1.0;
+        twist.linear.y = 2.0;
+        twist.linear.z = 3.0;
+        twist.angular.x = 4.0;
+        twist.angular.y = 5.0;
+        twist.angular.z = 6.0;
+        fast::rf::messages::GeometryMsgs::TwistMsg msg = TranslateUtility::convert(twist);
+        ASSERT_FLOAT_EQ(msg.linear.x, twist.linear.x);
+        ASSERT_FLOAT_EQ(msg.linear.y, twist.linear.y);
+        ASSERT_FLOAT_EQ(msg.linear.z, twist.linear.z);
+        ASSERT_FLOAT_EQ(msg.angular.x, twist.angular.x);
+        ASSERT_FLOAT_EQ(msg.angular.y, twist.angular.y);
+        ASSERT_FLOAT_EQ(msg.angular.z, twist.angular.z);
     }
 }
 int main(int argc, char** argv) {
