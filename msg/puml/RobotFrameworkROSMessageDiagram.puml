@@ -1,7 +1,7 @@
 @startuml
 title Robot Framework ROS Message Diagram
 namespace robot_framework_ros {
-    class nodestate <<(M,#FFFF00)>> {
+    class nodestate <<(M,#FFFF00)>> <<ROS>> {
         +uint8_t state
         +uint8_t STATE_UNKNOWN = 0
         +uint8_t STATE_INITIALIZING = 1
@@ -12,5 +12,24 @@ namespace robot_framework_ros {
         +uint8_t STATE_FINISHED = 6
         +uint8_t STATE_END_OF_LIST = 7
     }
+    class heartbeat <<(M,#FFFF00)>> <<ROS>> {
+        +time stamp
+        +string HostName
+        +string BaseNodeName
+        +string NodeName
+        +nodestate NodeState
+    }
+    class diagnostic <<(M,#FFFF00)>> <<ROS>> {
+        +time stamp
+        +uint8_t SystemID
+        +uint8_t SubsystemID
+        +uint8_t ProcessID
+        +uint8_t DiagnosticType
+        +uint8_t Level
+        +uint8_t DiagnosticMessage
+        +string Description
+
+    }
+
 }
 @enduml

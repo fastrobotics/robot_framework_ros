@@ -8,3 +8,4 @@ This package provides various Utility functions
 
 ## Class Diagrams
 ![](puml/CoreUtilityClassDiagram.png)
+![](puml/TranslateUtilityClassDiagram.png)

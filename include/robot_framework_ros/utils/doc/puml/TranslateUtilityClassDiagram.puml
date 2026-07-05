@@ -1,0 +1,21 @@
+@startuml
+title Translate Utility Class Diagram
+namespace fast::rf::messages {
+    namespace InfrastructureMsgs {
+        class DiagnosticMsg <<(M,#FFFF00)>>
+    }
+}
+namespace robot_framework_ros {
+    class diagnostic <<(M,#FFFF00)> <<ROS>>
+}
+namespace fast::rf_ros {
+    namespace utils {
+        class TranslateUtility #LimeGreen {
+            +{static} DiagnosticMsg convert(diagnostic)
+            +{static} diagnostic convert(DiagnosticMsg)
+        }
+        
+    }
+}
+
+@enduml
