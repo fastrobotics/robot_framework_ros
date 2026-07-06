@@ -10,8 +10,13 @@ namespace fast::rf {
     namespace NavigationSystem {
         namespace NavigationExecutorSubsystem {
             interface IDriveExecutorProcess
+            interface IDriveExecutorOutput
             class TankDriveExecutorProcess
+            class TankDriveExecutorOutput
             TankDriveExecutorProcess -up-|> IDriveExecutorProcess
+            
+            TankDriveExecutorOutput -up-|> IDriveExecutorOutput
+            TankDriveExecutorProcess --> TankDriveExecutorOutput: <<use>>
         }
     }
 }
@@ -22,6 +27,7 @@ namespace fast::rf_ros {
                 -TankDriveExecutorProcess process
             }
             TankDriveExecutorNode --> TankDriveExecutorProcess: <<use>>
+            TankDriveExecutorNode --> TankDriveExecutorOutput: <<use>>
             TankDriveExecutorNode --> Twist: <<depend>>
         }
     }

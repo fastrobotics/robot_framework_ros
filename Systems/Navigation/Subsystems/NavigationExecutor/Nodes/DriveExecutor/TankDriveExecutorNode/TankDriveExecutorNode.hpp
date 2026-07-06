@@ -49,6 +49,8 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
 
        private:
         ros::Subscriber twist_sub;
+        ros::Publisher left_drive_pub;
+        ros::Publisher right_drive_pub;
         fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess process;
     };
 }  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem

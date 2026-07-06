@@ -1,5 +1,7 @@
 #include "TankDriveExecutorNode.hpp"
 
+#include <std_msgs/Float64.h>
+
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
@@ -10,20 +12,57 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     void TankDriveExecutorNode::twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg) {
         geometry_msgs::Twist twist_msg = *t_msg;
         process.new_cmd(fast::rf_ros::utils::TranslateUtility::convert(twist_msg));
-        ROS_WARN("Got Twist");
     }
     bool TankDriveExecutorNode::init() {
         bool status = process.init();
         if (status == false) {
             return false;
         }
+        left_drive_pub = n->advertise<std_msgs::Float64>("/left_drive", 1);
+        right_drive_pub = n->advertise<std_msgs::Float64>("/right_drive", 1);
         twist_sub = n->subscribe<geometry_msgs::Twist>("/cmd_vel", 10, &TankDriveExecutorNode::twist_Callback, this);
+
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig left_channel_config(
+            1000.0, 1500.0, 2000.0);
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig right_channel_config(
+            1000.0, 1500.0, 2000.0);
+        process.set_config(left_channel_config, right_channel_config);
+
         return BaseNode::base_init();
     }
 
     bool TankDriveExecutorNode::start() { return BaseNode::base_start(); }
-    bool TankDriveExecutorNode::run_loop1() { return true; }
-    bool TankDriveExecutorNode::run_loop2() { return true; }
+    bool TankDriveExecutorNode::run_loop1() {
+        process.update(ros::Time::now().toSec(), 0.0);
+
+        return true;
+    }
+    bool TankDriveExecutorNode::run_loop2() {
+        bool diagnostic_check_ok = false;
+        auto diagnostics = process.get_diagnostics();
+        for (auto diagnostic : diagnostics) {
+            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::REMOTE_CONTROL) and
+                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
+                diagnostic_check_ok = true;
+            }
+        }
+        if (diagnostic_check_ok == true) {
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::IDriveExecutorOutput* general_output =
+                process.get_output();
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput* output =
+                dynamic_cast<fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput*>(
+                    general_output);
+            std_msgs::Float64 left_drive;
+            left_drive.data = output->left_drive;
+            std_msgs::Float64 right_drive;
+            right_drive.data = output->right_drive;
+            left_drive_pub.publish(left_drive);
+            right_drive_pub.publish(right_drive);
+        } else {
+            ROS_WARN("Diagnostic Check Failed!  Disabling Outputs.");
+        }
+        return true;
+    }
     bool TankDriveExecutorNode::run_loop3() { return true; }
     bool TankDriveExecutorNode::run_100hz() { return true; }
     bool TankDriveExecutorNode::run_10hz() { return true; }
