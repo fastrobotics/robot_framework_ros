@@ -1,0 +1,30 @@
+@startuml
+title Tank Drive Executor Node Class Diagram
+
+namespace ros {
+  namespace geometry_msgs {
+      class Twist <<(M,#FFFF00)>> <<ROS>>
+  }
+}
+namespace fast::rf {
+    namespace NavigationSystem {
+        namespace NavigationExecutorSubsystem {
+            interface IDriveExecutorProcess
+            class TankDriveExecutorProcess
+            TankDriveExecutorProcess -up-|> IDriveExecutorProcess
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace NavigationSystem {
+        namespace NavigationExecutorSubsystem {
+            class TankDriveExecutorNode #Orange {
+                -TankDriveExecutorProcess process
+            }
+            TankDriveExecutorNode --> TankDriveExecutorProcess: <<use>>
+            TankDriveExecutorNode --> Twist: <<depend>>
+        }
+    }
+}
+@enduml
+        

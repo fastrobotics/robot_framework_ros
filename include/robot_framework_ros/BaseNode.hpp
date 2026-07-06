@@ -19,6 +19,8 @@
 #include <robot_framework_ros/heartbeat.h>
 #include <robot_framework_ros/nodestate.h>
 
+#include <DiagnosticMsg.hpp>
+
 // ROS Dependencies
 
 #include "ros/ros.h"
@@ -218,7 +220,9 @@ namespace fast::rf_ros {
         // Standard Publishers
 
        protected:
-        void set_diagnostics(std::vector<robot_framework_ros::diagnostic> diagnostics) { diagnostics_ = diagnostics; }
+        void set_diagnostics(std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics) {
+            diagnostics_ = diagnostics;
+        }
         boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
        private:
@@ -251,6 +255,6 @@ namespace fast::rf_ros {
         ros::Time last_loop2_timer;
         ros::Time last_loop3_timer;
 
-        std::vector<robot_framework_ros::diagnostic> diagnostics_;
+        std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics_;
     };
 }  // namespace fast::rf_ros

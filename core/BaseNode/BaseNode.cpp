@@ -1,5 +1,6 @@
 #include <robot_framework_ros/BaseNode.hpp>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
+#include <robot_framework_ros/utils/TranslateUtility.hpp>
 namespace fast::rf_ros {
     std::string BaseNode::pretty() {
         std::string str = "Node State: " + convert(node_state);
@@ -174,8 +175,10 @@ namespace fast::rf_ros {
     bool BaseNode::base_run_1hz() {
         if (diagnostics_.size() > 0) {
             for (auto diagnostic : diagnostics_) {
-                diagnostic.stamp = ros::Time::now();
-                diagnostic_pub.publish(diagnostic);
+                robot_framework_ros::diagnostic diagnostic_msg =
+                    fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
+                diagnostic_msg.stamp = ros::Time::now();
+                diagnostic_pub.publish(diagnostic_msg);
             }
         }
         return run_1hz();

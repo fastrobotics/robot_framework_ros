@@ -1,4 +1,6 @@
 #include "ExampleNode.hpp"
+
+#include <RobotFrameworkDefinitions.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::example_package {
@@ -22,16 +24,16 @@ namespace fast::rf_ros::example_package {
     }
     bool ExampleNode::run_100hz() { return true; }
     bool ExampleNode::run_10hz() {
-        robot_framework_ros::diagnostic diagnostic;
-        diagnostic.SystemID = 0;
-        diagnostic.SubsystemID = 0;
-        diagnostic.ProcessID = 0;
-        diagnostic.DiagnosticType = 0;
-        diagnostic.Level = 0;
-        diagnostic.DiagnosticMessage = 0;
-        diagnostic.Description = "Test";
-        std::vector<robot_framework_ros::diagnostic> diagnostics;
-        diagnostics.push_back(diagnostic);
+        fast::rf::messages::InfrastructureMsgs::DiagnosticMsg diag;
+        diag.systemID = 0;
+        diag.subsystemID = 0;
+        diag.processID = 0;
+        diag.diagnosticType = fast::rf::DiagnosticDefinition::DiagnosticType::SOFTWARE;
+        diag.level = fast::rf::Level::INFO;
+        diag.diagnosticMessage = fast::rf::DiagnosticDefinition::DiagnosticMessage::INITIALIZING;
+        diag.description = "Test";
+        std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics;
+        diagnostics.push_back(diag);
         set_diagnostics(diagnostics);
         return true;
     }

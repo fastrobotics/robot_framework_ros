@@ -1,0 +1,16 @@
+@startuml
+title ExampleNode Class Diagram
+namespace fast::rf_ros {
+    class BaseNode
+    namespace example_package {
+        class ExampleNode #Orange {
+            +bool init()
+            +bool start()
+            +bool run_10hz()
+            +bool thread_loop()
+        }
+        ExampleNode -up-|> BaseNode
+    }
+}
+
+@enduml
