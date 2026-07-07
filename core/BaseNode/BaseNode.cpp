@@ -6,6 +6,52 @@ namespace fast::rf_ros {
         std::string str = "Node State: " + convert(node_state);
         return str;
     }
+    std::string BaseNode::validate_robotnamespace(std::string str) {
+        if (str == "") {
+            str = "/";
+        }
+        if (str.at(0) != '/') {
+            str.insert(str.begin(), '/');
+        }
+        if (str.at(str.length() - 1) != '/') {
+            str.insert(str.length(), "/");
+        }
+        int max_count = str.size();
+        bool search_duplicates = true;
+        int counter = 0;
+        while (search_duplicates == true) {
+            bool duplicate_found = false;
+            int index = 0;
+            for (std::size_t i = 1; i < str.size(); ++i) {
+                if ((str.at(i) == str.at(i - 1)) && (str.at(i) == '/')) {
+                    duplicate_found = true;
+                    index = i;
+                }
+            }
+            if (duplicate_found == true) {
+                str.erase(str.begin() + index);
+            } else {  //(duplicate_found == false) {
+                search_duplicates = false;
+            }
+            counter++;
+            if (counter == max_count) {
+                search_duplicates = false;
+            }
+        }
+
+        return str;
+    }
+    std::string BaseNode::read_robotnamespace() {
+        std::string _robot_namespace;
+        std::string param_robot_namespace = n->getUnresolvedNamespace() + "/robot_namespace";
+
+        if (n->getParam(param_robot_namespace, _robot_namespace) == false) {
+            _robot_namespace = "/";
+        }
+
+        _robot_namespace = validate_robotnamespace(_robot_namespace);
+        return _robot_namespace;
+    }
     std::string BaseNode::convert(robot_framework_ros::nodestate state) {
         std::string str;
         switch (state.state) {
@@ -35,6 +81,7 @@ namespace fast::rf_ros {
         }
         node_namespace = ros::this_node::getNamespace();
         node_name = ros::this_node::getName();
+        set_robotnamespace(read_robotnamespace());
         std::string heartbeat_topic = node_name + "/heartbeat";
         heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
 

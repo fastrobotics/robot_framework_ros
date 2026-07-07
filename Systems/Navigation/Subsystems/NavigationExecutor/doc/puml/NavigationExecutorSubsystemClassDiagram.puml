@@ -4,7 +4,9 @@ title NavigationExecutor Subsystem Class Diagram
 namespace fast::rf_ros {
     namespace NavigationSystem {
         namespace NavigationExecutorSubsystem {
-            
+            package DriveExecutor #Orange {
+                
+            }
         }
     }
 }

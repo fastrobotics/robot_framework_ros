@@ -217,9 +217,45 @@ namespace fast::rf_ros {
          */
         std::string convert(robot_framework_ros::nodestate state);
 
-        // Standard Publishers
+        // Namespace Stuff
+
+        /**
+         * @brief Read Robot Namespace
+         *
+         * @return std::string
+         */
+        std::string read_robotnamespace();
+
+        /**
+         * @brief Set the robotnamespace object
+         *
+         * @param _robot_namespace
+         */
+        void set_robotnamespace(std::string _robot_namespace) {
+            robot_namespace = validate_robotnamespace(_robot_namespace);
+        }
+
+        /**
+         * @brief Get the robotnamespace object
+         *
+         * @return std::string
+         */
+        std::string get_robotnamespace() { return robot_namespace; }
+
+        /**
+         * @brief Validate Robot Namespace
+         *
+         * @param str
+         * @return std::string
+         */
+        static std::string validate_robotnamespace(std::string str);
 
        protected:
+        /**
+         * @brief Set the diagnostics object
+         *
+         * @param diagnostics
+         */
         void set_diagnostics(std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics) {
             diagnostics_ = diagnostics;
         }
@@ -229,6 +265,7 @@ namespace fast::rf_ros {
         robot_framework_ros::nodestate node_state;
         std::string node_namespace{""};
         std::string node_name{""};
+        std::string robot_namespace{"/"};
         double loop1_rate{-1.0};
         bool loop1_enabled{true};
 

@@ -38,8 +38,6 @@ The NavigationExecutor Subsystem's role in the Robot Framework is to ???
 
 ![](../../../../../Legend.png)
 
-![](dia/NavigationExecutorSubsystemArchitecture.png)
-
 ## Class Diagram
 
 ![](puml/NavigationExecutorSubsystemClassDiagram.png)
@@ -66,9 +64,9 @@ The following outputs are provided by this system.
 
 # Processes
 
-| Status | Process                                                                   |
-| ------ | ------------------------------------------------------------------------- |
-| NEW    | [Drive Executor](../Processes/DriveExecutor/doc/Process-DriveExecutor.md) |
+| Status | Process                                                             |
+| ------ | ------------------------------------------------------------------- |
+| NEW    | [Drive Executor](../Nodes/DriveExecutor/doc/Nodes-DriveExecutor.md) |
 
 ## Package Diagram
 

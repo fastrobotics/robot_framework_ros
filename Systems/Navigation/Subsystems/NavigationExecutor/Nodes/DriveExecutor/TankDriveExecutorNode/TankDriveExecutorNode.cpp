@@ -16,11 +16,18 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     bool TankDriveExecutorNode::init() {
         bool status = process.init();
         if (status == false) {
+            ROS_ERROR("Unable to initialize Process!");
             return false;
         }
-        left_drive_pub = n->advertise<std_msgs::Float64>("/left_drive", 1);
-        right_drive_pub = n->advertise<std_msgs::Float64>("/right_drive", 1);
-        twist_sub = n->subscribe<geometry_msgs::Twist>("/cmd_vel", 10, &TankDriveExecutorNode::twist_Callback, this);
+        status = BaseNode::base_init();
+        if (status == false) {
+            ROS_ERROR("Unable to initialize Base Node!");
+            return false;
+        }
+        left_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + "/left_drive", 1);
+        right_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + "/right_drive", 1);
+        twist_sub = n->subscribe<geometry_msgs::Twist>(get_robotnamespace() + "/cmd_throttle", 10,
+                                                       &TankDriveExecutorNode::twist_Callback, this);
 
         fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig left_channel_config(
             1000.0, 1500.0, 2000.0);
@@ -28,7 +35,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             1000.0, 1500.0, 2000.0);
         process.set_config(left_channel_config, right_channel_config);
 
-        return BaseNode::base_init();
+        return true;
     }
 
     bool TankDriveExecutorNode::start() { return BaseNode::base_start(); }

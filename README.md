@@ -4,6 +4,7 @@
 - [Architecture](#architecture)
 - [Features](#features)
 - [ToDo](#todo)
+  - [This PR](#this-pr)
 - [Setup](#setup)
 
 
@@ -27,6 +28,13 @@
 | Add guide for creating new node from BaseNode |
 | Doxygen hosted documentation                  |
 | Doxygen for messages?                         |
+
+
+## This PR
+| Item                                    |
+| --------------------------------------- |
+| Add Interface Specification document    |
+| Topic Names relative to robot namespace |
 
 
 # Setup
