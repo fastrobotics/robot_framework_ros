@@ -98,20 +98,37 @@ $(document).ready(function(){initNavTree('TranslateUtility_8hpp_source.html','')
 </div><!--header-->
 <div class="contents">
 <a href="TranslateUtility_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;robot_framework_ros/diagnostic.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;DiagnosticMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefast_1_1rf__ros_1_1utils.html">fast::rf_ros::utils</a> {</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">   19</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">TranslateUtility</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>       <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::DiagnosticMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(robot_framework_ros::diagnostic msg);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">static</span> robot_framework_ros::diagnostic <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::InfrastructureMsgs::DiagnosticMsg msg);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;geometry_msgs/Twist.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;geometry_msgs/Vector3.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;robot_framework_ros/diagnostic.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;DiagnosticMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;TwistMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;Vector3DMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefast_1_1rf__ros_1_1utils.html">fast::rf_ros::utils</a> {</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">   24</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">TranslateUtility</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>       <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// Infrastructure Messages</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::DiagnosticMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(robot_framework_ros::diagnostic msg);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">static</span> robot_framework_ros::diagnostic <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::InfrastructureMsgs::DiagnosticMsg msg);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">// Geometry Messages</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">static</span> fast::rf::messages::GeometryMsgs::TwistMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(geometry_msgs::Twist msg);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keyword">static</span> geometry_msgs::Twist <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::GeometryMsgs::TwistMsg msg);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">static</span> fast::rf::messages::StandardMsgs::Vector3DMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(geometry_msgs::Vector3 msg);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keyword">static</span> geometry_msgs::Vector3 <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::StandardMsgs::Vector3DMsg msg);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}  <span class="comment">// namespace fast::rf_ros::utils</span></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">fast::rf_ros::utils::TranslateUtility</a></div><div class="ttdoc">Translation Utilities.</div><div class="ttdef"><b>Definition</b> TranslateUtility.hpp:19</div></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}  <span class="comment">// namespace fast::rf_ros::utils</span></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">fast::rf_ros::utils::TranslateUtility</a></div><div class="ttdoc">Translation Utilities.</div><div class="ttdef"><b>Definition</b> TranslateUtility.hpp:24</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html_ae18f6d4cc07b5046cdd9ff42be034533"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">fast::rf_ros::utils::TranslateUtility::convert</a></div><div class="ttdeci">static fast::rf::messages::InfrastructureMsgs::DiagnosticMsg convert(robot_framework_ros::diagnostic msg)</div><div class="ttdoc">Translate from a ROS message to a Core message of type Diagnostic.</div><div class="ttdef"><b>Definition</b> TranslateUtility.cpp:3</div></div>
 <div class="ttc" id="anamespacefast_1_1rf__ros_1_1utils_html"><div class="ttname"><a href="namespacefast_1_1rf__ros_1_1utils.html">fast::rf_ros::utils</a></div><div class="ttdoc">Namespace for Utilities.</div><div class="ttdef"><b>Definition</b> CoreUtility.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -120,7 +137,7 @@ $(document).ready(function(){initNavTree('TranslateUtility_8hpp_source.html','')
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_43e5032e29db73fa2347f56d46df1a99.html">robot_framework_ros</a></li><li class="navelem"><a class="el" href="dir_7d9a3312d6c2f07c607bce157ff3227f.html">utils</a></li><li class="navelem"><a class="el" href="TranslateUtility_8hpp.html">TranslateUtility.hpp</a></li>
-    <li class="footer">Generated on Sun Jul 5 2026 18:14:15 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Jul 7 2026 04:07:17 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
