@@ -1,9 +1,56 @@
 #include <robot_framework_ros/BaseNode.hpp>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
+#include <robot_framework_ros/utils/TranslateUtility.hpp>
 namespace fast::rf_ros {
     std::string BaseNode::pretty() {
         std::string str = "Node State: " + convert(node_state);
         return str;
+    }
+    std::string BaseNode::validate_robotnamespace(std::string str) {
+        if (str == "") {
+            str = "/";
+        }
+        if (str.at(0) != '/') {
+            str.insert(str.begin(), '/');
+        }
+        if (str.at(str.length() - 1) != '/') {
+            str.insert(str.length(), "/");
+        }
+        int max_count = str.size();
+        bool search_duplicates = true;
+        int counter = 0;
+        while (search_duplicates == true) {
+            bool duplicate_found = false;
+            int index = 0;
+            for (std::size_t i = 1; i < str.size(); ++i) {
+                if ((str.at(i) == str.at(i - 1)) && (str.at(i) == '/')) {
+                    duplicate_found = true;
+                    index = i;
+                }
+            }
+            if (duplicate_found == true) {
+                str.erase(str.begin() + index);
+            } else {  //(duplicate_found == false) {
+                search_duplicates = false;
+            }
+            counter++;
+            if (counter == max_count) {
+                search_duplicates = false;
+            }
+        }
+
+        return str;
+    }
+    std::string BaseNode::read_robotnamespace() {
+        std::string _robot_namespace;
+        std::string param_robot_namespace = n->getUnresolvedNamespace() + "/robot_namespace";
+
+        if (n->getParam(param_robot_namespace, _robot_namespace) == false) {
+            _robot_namespace = "/";
+        }
+
+        _robot_namespace = validate_robotnamespace(_robot_namespace);
+        return _robot_namespace;
     }
     std::string BaseNode::convert(robot_framework_ros::nodestate state) {
         std::string str;
@@ -34,8 +81,12 @@ namespace fast::rf_ros {
         }
         node_namespace = ros::this_node::getNamespace();
         node_name = ros::this_node::getName();
+        set_robotnamespace(read_robotnamespace());
         std::string heartbeat_topic = node_name + "/heartbeat";
         heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
+
+        std::string diagnostic_topic = node_name + "/diagnostic";
+        diagnostic_pub = n->advertise<robot_framework_ros::diagnostic>(diagnostic_topic, 1);
 
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
@@ -168,7 +219,17 @@ namespace fast::rf_ros {
         heartbeat_pub.publish(beat);
         return run_10hz();
     }
-    bool BaseNode::base_run_1hz() { return run_1hz(); }
+    bool BaseNode::base_run_1hz() {
+        if (diagnostics_.size() > 0) {
+            for (auto diagnostic : diagnostics_) {
+                robot_framework_ros::diagnostic diagnostic_msg =
+                    fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
+                diagnostic_msg.stamp = ros::Time::now();
+                diagnostic_pub.publish(diagnostic_msg);
+            }
+        }
+        return run_1hz();
+    }
 
     bool BaseNode::base_run_01hz() { return run_01hz(); }
     bool BaseNode::base_run_001hz() { return run_001hz(); }

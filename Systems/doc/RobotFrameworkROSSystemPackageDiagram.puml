@@ -1,0 +1,8 @@
+@startuml
+title ROS Robot Framework Package Diagram
+namespace fast::rf_ros {
+    namespace NavigationSystem #Orange {
+        
+    }
+}
+@enduml

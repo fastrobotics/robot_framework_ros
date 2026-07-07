@@ -8,9 +8,14 @@
  * @copyright Copyright (c) 2026
  *
  */
+#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/Vector3.h>
 #include <robot_framework_ros/diagnostic.h>
 
 #include <DiagnosticMsg.hpp>
+#include <TwistMsg.hpp>
+#include <Vector3DMsg.hpp>
+
 namespace fast::rf_ros::utils {
     /**
      * @brief Translation Utilities
@@ -18,6 +23,8 @@ namespace fast::rf_ros::utils {
      */
     class TranslateUtility {
        public:
+        // Infrastructure Messages
+
         /**
          * @brief Translate from a ROS message to a Core message of type Diagnostic
          *
@@ -33,5 +40,39 @@ namespace fast::rf_ros::utils {
          * @return robot_framework_ros::diagnostic
          */
         static robot_framework_ros::diagnostic convert(fast::rf::messages::InfrastructureMsgs::DiagnosticMsg msg);
+
+        // Geometry Messages
+
+        /**
+         * @brief Translate from a ROS mesage to a Core message of type Twist
+         *
+         * @param msg
+         * @return fast::rf::messages::GeometryMsgs::TwistMsg
+         */
+        static fast::rf::messages::GeometryMsgs::TwistMsg convert(geometry_msgs::Twist msg);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type Twist
+         *
+         * @param msg
+         * @return geometry_msgs::Twist
+         */
+        static geometry_msgs::Twist convert(fast::rf::messages::GeometryMsgs::TwistMsg msg);
+
+        /**
+         * @brief Convert from a ROS message to a Core message of type Vector3
+         *
+         * @param msg
+         * @return fast::rf::messages::StandardMsgs::Vector3DMsg
+         */
+        static fast::rf::messages::StandardMsgs::Vector3DMsg convert(geometry_msgs::Vector3 msg);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type Vector3
+         *
+         * @param msg
+         * @return geometry_msgs::Vector3
+         */
+        static geometry_msgs::Vector3 convert(fast::rf::messages::StandardMsgs::Vector3DMsg msg);
     };
 }  // namespace fast::rf_ros::utils

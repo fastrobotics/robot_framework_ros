@@ -12,7 +12,7 @@ add_definitions(-std=c++14 -Wall -Wextra -Wno-switch -Werror)
 # Find catkin macros and libraries if COMPONENTS list like find_package(catkin
 # REQUIRED COMPONENTS xyz) is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs
-                                        message_generation genmsg)
+                                        geometry_msgs message_generation genmsg)
 find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
 
@@ -37,4 +37,4 @@ set(BUILD_TESTING
 FetchContent_MakeAvailable(robot_framework)
 include_directories(${robot_framework_SOURCE_DIR}/include)
 add_subdirectory(core)
-# add_subdirectory(Systems)
+add_subdirectory(Systems)

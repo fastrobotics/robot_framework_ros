@@ -15,237 +15,283 @@
 #include <thread>
 
 // Standard Messages
+#include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/heartbeat.h>
 #include <robot_framework_ros/nodestate.h>
+
+#include <DiagnosticMsg.hpp>
 
 // ROS Dependencies
 
 #include "ros/ros.h"
 
 namespace fast::rf_ros {
-/**
- * @brief BaseNode, all other Nodes should inherit from this
- *
- */
-class BaseNode {
-   public:
-    BaseNode() : n(new ros::NodeHandle("~")) {
-        node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
-        max_rate = ros_rate / 10.0;  // Max rate is 10Hz
-    }
-    virtual ~BaseNode() = default;
-    // Initialization Functions
-
-    // Node Lifecycle Functions
     /**
-     * @brief Initialize Base Node.
+     * @brief BaseNode, all other Nodes should inherit from this
      *
-     * @return true
-     * @return false
      */
-    bool base_init();
+    class BaseNode {
+       public:
+        BaseNode() : n(new ros::NodeHandle("~")) {
+            node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
+            max_rate = ros_rate / 10.0;  // Max rate is 10Hz
+        }
+        virtual ~BaseNode() = default;
+        // Initialization Functions
 
-    /**
-     * @brief
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool init() = 0;
+        // Node Lifecycle Functions
+        /**
+         * @brief Initialize Base Node.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_init();
 
-    /**
-     * @brief Start Base Node.  Should be called AFTER User runs `init`.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_start();
+        /**
+         * @brief
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool init() = 0;
 
-    /**
-     * @brief Start the Node.  Should be called AFTER User runs `init`.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool start() = 0;
+        /**
+         * @brief Start Base Node.  Should be called AFTER User runs `init`.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_start();
 
-    /**
-     * @brief Restart the Node.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_restart();
+        /**
+         * @brief Start the Node.  Should be called AFTER User runs `init`.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool start() = 0;
 
-    /**
-     * @brief Base Node 100Hz Loop.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_run_100hz();
+        /**
+         * @brief Restart the Node.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_restart();
 
-    /**
-     * @brief Base Node 10Hz Loop.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_run_10hz();
+        /**
+         * @brief Base Node 100Hz Loop.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_run_100hz();
 
-    /**
-     * @brief Base Node 1Hz Loop.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_run_1hz();
+        /**
+         * @brief Base Node 10Hz Loop.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_run_10hz();
 
-    /**
-     * @brief Base Node 0.1Hz Loop.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_run_01hz();
+        /**
+         * @brief Base Node 1Hz Loop.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_run_1hz();
 
-    /**
-     * @brief Base Node 0.01Hz Loop.
-     *
-     * @return true
-     * @return false
-     */
-    bool base_run_001hz();
+        /**
+         * @brief Base Node 0.1Hz Loop.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_run_01hz();
 
-    // Required User Node Implementation Functions for Loops
-    /**
-     * @brief Gets called automatically to run at 100 Hz.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_100hz() = 0;
+        /**
+         * @brief Base Node 0.01Hz Loop.
+         *
+         * @return true
+         * @return false
+         */
+        bool base_run_001hz();
 
-    /**
-     * @brief Gets called automatically to run at 10 Hz.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_10hz() = 0;
+        // Required User Node Implementation Functions for Loops
+        /**
+         * @brief Gets called automatically to run at 100 Hz.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_100hz() = 0;
 
-    /**
-     * @brief Gets called automatically to run at 1 Hz.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_1hz() = 0;
+        /**
+         * @brief Gets called automatically to run at 10 Hz.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_10hz() = 0;
 
-    /**
-     * @brief Gets called automatically to run at 0.1 Hz.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_01hz() = 0;
+        /**
+         * @brief Gets called automatically to run at 1 Hz.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_1hz() = 0;
 
-    /**
-     * @brief Gets called automatically to run at 0.01 Hz.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_001hz() = 0;
+        /**
+         * @brief Gets called automatically to run at 0.1 Hz.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_01hz() = 0;
 
-    /**
-     * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
-     *
-     * @return true
-     * @return false
-     */
+        /**
+         * @brief Gets called automatically to run at 0.01 Hz.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_001hz() = 0;
 
-    virtual bool run_loop1() = 0;
+        /**
+         * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
+         *
+         * @return true
+         * @return false
+         */
 
-    /**
-     * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_loop2() = 0;
+        virtual bool run_loop1() = 0;
 
-    /**
-     * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
-     *
-     * @return true
-     * @return false
-     */
-    virtual bool run_loop3() = 0;
+        /**
+         * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_loop2() = 0;
 
-    /**
-     * @brief Update function that main function should call.
-     * @details triggers all other timing loops
-     *
-     * @return true
-     * @return false
-     */
-    bool update();
+        /**
+         * @brief User defined Loop, runs at user-defined rate.  This is called automatially at the set rate.
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool run_loop3() = 0;
 
-    /**
-     * @brief Get the node state object
-     *
-     * @return robot_framework_ros::nodestate
-     */
-    robot_framework_ros::nodestate get_node_state() { return node_state; }
+        /**
+         * @brief Update function that main function should call.
+         * @details triggers all other timing loops
+         *
+         * @return true
+         * @return false
+         */
+        bool update();
 
-    /**
-     * @brief Get a string representation of the node
-     *
-     * @return std::string
-     */
-    std::string pretty();
+        /**
+         * @brief Get the node state object
+         *
+         * @return robot_framework_ros::nodestate
+         */
+        robot_framework_ros::nodestate get_node_state() { return node_state; }
 
-    /**
-     * @brief Convert a node state to a string representation
-     *
-     * @param state
-     * @return std::string
-     */
-    std::string convert(robot_framework_ros::nodestate state);
+        /**
+         * @brief Get a string representation of the node
+         *
+         * @return std::string
+         */
+        std::string pretty();
 
-    // Standard Publishers
+        /**
+         * @brief Convert a node state to a string representation
+         *
+         * @param state
+         * @return std::string
+         */
+        std::string convert(robot_framework_ros::nodestate state);
 
-   protected:
-    boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
+        // Namespace Stuff
 
-   private:
-    robot_framework_ros::nodestate node_state;
-    std::string node_namespace{""};
-    std::string node_name{""};
-    double loop1_rate{-1.0};
-    bool loop1_enabled{true};
+        /**
+         * @brief Read Robot Namespace
+         *
+         * @return std::string
+         */
+        std::string read_robotnamespace();
 
-    double loop2_rate{-1.0};
-    bool loop2_enabled{true};
+        /**
+         * @brief Set the robotnamespace object
+         *
+         * @param _robot_namespace
+         */
+        void set_robotnamespace(std::string _robot_namespace) {
+            robot_namespace = validate_robotnamespace(_robot_namespace);
+        }
 
-    double loop3_rate{-1.0};
-    bool loop3_enabled{true};
+        /**
+         * @brief Get the robotnamespace object
+         *
+         * @return std::string
+         */
+        std::string get_robotnamespace() { return robot_namespace; }
 
-    bool request_node_statechange(uint8_t new_state, bool override = false);
-    ros::Publisher heartbeat_pub;
+        /**
+         * @brief Validate Robot Namespace
+         *
+         * @param str
+         * @return std::string
+         */
+        static std::string validate_robotnamespace(std::string str);
 
-    double ros_rate{400.0};
-    double max_rate;
+       protected:
+        /**
+         * @brief Set the diagnostics object
+         *
+         * @param diagnostics
+         */
+        void set_diagnostics(std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics) {
+            diagnostics_ = diagnostics;
+        }
+        boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
-    ros::Time last_100hz_timer;
-    ros::Time last_10hz_timer;
-    ros::Time last_1hz_timer;
-    ros::Time last_01hz_timer;
-    ros::Time last_001hz_timer;
+       private:
+        robot_framework_ros::nodestate node_state;
+        std::string node_namespace{""};
+        std::string node_name{""};
+        std::string robot_namespace{"/"};
+        double loop1_rate{-1.0};
+        bool loop1_enabled{true};
 
-    ros::Time last_loop1_timer;
-    ros::Time last_loop2_timer;
-    ros::Time last_loop3_timer;
-};
+        double loop2_rate{-1.0};
+        bool loop2_enabled{true};
+
+        double loop3_rate{-1.0};
+        bool loop3_enabled{true};
+
+        bool request_node_statechange(uint8_t new_state, bool override = false);
+        ros::Publisher heartbeat_pub;
+        ros::Publisher diagnostic_pub;
+
+        double ros_rate{400.0};
+        double max_rate;
+
+        ros::Time last_100hz_timer;
+        ros::Time last_10hz_timer;
+        ros::Time last_1hz_timer;
+        ros::Time last_01hz_timer;
+        ros::Time last_001hz_timer;
+
+        ros::Time last_loop1_timer;
+        ros::Time last_loop2_timer;
+        ros::Time last_loop3_timer;
+
+        std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics_;
+    };
 }  // namespace fast::rf_ros

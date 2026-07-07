@@ -1,36 +1,51 @@
 #include "ExampleNode.hpp"
+
+#include <RobotFrameworkDefinitions.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::example_package {
 
-ExampleNode::ExampleNode() {}
-ExampleNode::~ExampleNode() {}
-bool ExampleNode::init() { return BaseNode::base_init(); }
+    ExampleNode::ExampleNode() {}
+    ExampleNode::~ExampleNode() {}
+    bool ExampleNode::init() { return BaseNode::base_init(); }
 
-bool ExampleNode::start() { return BaseNode::base_start(); }
-bool ExampleNode::run_loop1() {
-    ROS_INFO("Loop1");
-    return true;
-}
-bool ExampleNode::run_loop2() {
-    ROS_INFO("Loop2");
-    return true;
-}
-bool ExampleNode::run_loop3() {
-    ROS_INFO("Loop3");
-    return true;
-}
-bool ExampleNode::run_100hz() { return true; }
-bool ExampleNode::run_10hz() { return true; }
-bool ExampleNode::run_1hz() { return true; }
-bool ExampleNode::run_01hz() { return true; }
-bool ExampleNode::run_001hz() { return true; }
-
-void ExampleNode::thread_loop() {
-    while (kill_node == false) {
-        ros::Duration(1.0).sleep();
+    bool ExampleNode::start() { return BaseNode::base_start(); }
+    bool ExampleNode::run_loop1() {
+        ROS_INFO("Loop1");
+        return true;
     }
-}
+    bool ExampleNode::run_loop2() {
+        ROS_INFO("Loop2");
+        return true;
+    }
+    bool ExampleNode::run_loop3() {
+        ROS_INFO("Loop3");
+        return true;
+    }
+    bool ExampleNode::run_100hz() { return true; }
+    bool ExampleNode::run_10hz() {
+        fast::rf::messages::InfrastructureMsgs::DiagnosticMsg diag;
+        diag.systemID = 0;
+        diag.subsystemID = 0;
+        diag.processID = 0;
+        diag.diagnosticType = fast::rf::DiagnosticDefinition::DiagnosticType::SOFTWARE;
+        diag.level = fast::rf::Level::INFO;
+        diag.diagnosticMessage = fast::rf::DiagnosticDefinition::DiagnosticMessage::INITIALIZING;
+        diag.description = "Test";
+        std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics;
+        diagnostics.push_back(diag);
+        set_diagnostics(diagnostics);
+        return true;
+    }
+    bool ExampleNode::run_1hz() { return true; }
+    bool ExampleNode::run_01hz() { return true; }
+    bool ExampleNode::run_001hz() { return true; }
+
+    void ExampleNode::thread_loop() {
+        while (kill_node == false) {
+            ros::Duration(1.0).sleep();
+        }
+    }
 }  // namespace fast::rf_ros::example_package
 
 void signalinterrupt_handler(int sig) {
