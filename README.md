@@ -6,6 +6,8 @@
 - [ToDo](#todo)
   - [This PR](#this-pr)
 - [Setup](#setup)
+- [Documentation](#documentation)
+  - [Interface Documentation](#interface-documentation)
 
 
 
@@ -31,10 +33,8 @@
 
 
 ## This PR
-| Item                                    |
-| --------------------------------------- |
-| Add Interface Specification document    |
-| Topic Names relative to robot namespace |
+| Item |
+| ---- |
 
 
 # Setup
@@ -55,3 +55,7 @@ cd <repo>
 ./scripts/setup_ide.sh
 ./scripts/setup_robot.sh
 ```
+
+# Documentation
+## Interface Documentation
+[Interface Documentation](doc/InterfaceDefinitions/InterfaceDefinition.md)
