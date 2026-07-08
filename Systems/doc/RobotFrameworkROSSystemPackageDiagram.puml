@@ -4,5 +4,8 @@ namespace fast::rf_ros {
     namespace NavigationSystem #Orange {
         
     }
+    namespace UserInterfaceSystem #Orange {
+        
+    }
 }
 @enduml

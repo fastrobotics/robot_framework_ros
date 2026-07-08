@@ -1,0 +1,13 @@
+@startuml
+title NavigationExecutor Subsystem Class Diagram
+
+namespace fast::rf_ros {
+    namespace UserInterfaceSystem {
+        namespace RemoteControlSubsystem {
+            package TeleopControl #Orange {
+                
+            }
+        }
+    }
+}
+@enduml

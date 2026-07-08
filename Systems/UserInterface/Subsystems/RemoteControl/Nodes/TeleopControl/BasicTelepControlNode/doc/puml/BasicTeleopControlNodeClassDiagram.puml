@@ -1,0 +1,30 @@
+@startuml
+title Basic Teleop Control Node Class Diagram
+
+namespace ros {
+  namespace geometry_msgs {
+      class Twist <<(M,#FFFF00)>> <<ROS>>
+  }
+}
+namespace fast::rf {
+    namespace UserInterfaceSystem {
+        namespace RemoteControlSystem {
+            interface ITeleopControlProcess
+            class BasicTeleopControlProcess
+            BasicTeleopControlProcess -up-|> ITeleopControlProcess
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace UserInterfaceSystem {
+        namespace RemoteControlSystem {
+            class BasicTeleopControlNode #Orange {
+                -BasicTeleopControlProcess process
+            }
+            BasicTeleopControlNode --> BasicTeleopControlProcess: <<use>>
+            BasicTeleopControlNode --> Twist: <<depend>>
+        }
+    }
+}
+@enduml
+        
