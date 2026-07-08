@@ -1,1 +1,1 @@
-add_subdirectory(NavigationExecutor)
+add_subdirectory(RemoteControl)

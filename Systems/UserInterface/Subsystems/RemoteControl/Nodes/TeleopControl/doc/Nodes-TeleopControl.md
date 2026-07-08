@@ -9,6 +9,6 @@
 # Overview
 
 # Nodes Available
-| Node                                                                                |
-| ----------------------------------------------------------------------------------- |
-| [Basic Teleop Control Node](../BasicTelepControlNode/doc/BasicTeleopControlNode.md) |
+| Node                                                                                 |
+| ------------------------------------------------------------------------------------ |
+| [Basic Teleop Control Node](../BasicTeleopControlNode/doc/BasicTeleopControlNode.md) |
