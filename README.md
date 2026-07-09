@@ -42,9 +42,7 @@
 
 ## This PR
 | Item          |
-| ------------- |
-| Check Doxygen |
-
+| -------------
 
 # Setup
 
