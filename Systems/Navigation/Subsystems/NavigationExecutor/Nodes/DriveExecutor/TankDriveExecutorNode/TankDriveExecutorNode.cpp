@@ -24,9 +24,28 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             ROS_ERROR("Unable to initialize Base Node!");
             return false;
         }
-        left_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + "/left_drive", 1);
-        right_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + "/right_drive", 1);
-        twist_sub = n->subscribe<geometry_msgs::Twist>(get_robotnamespace() + "/cmd_throttle", 10,
+        std::string topic_left_drive;
+        std::string param_left_drive = get_nodename() + "/topic_left_drive";
+        if (n->getParam(param_left_drive, topic_left_drive) == false) {
+            return false;
+        }
+
+        left_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + topic_left_drive, 1);
+
+        std::string topic_right_drive;
+        std::string param_right_drive = get_nodename() + "/topic_right_drive";
+        if (n->getParam(param_right_drive, topic_right_drive) == false) {
+            return false;
+        }
+        right_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + topic_right_drive, 1);
+
+        std::string topic_throttle_command;
+        std::string param_throttle_command = get_nodename() + "/topic_command_throttle";
+        if (n->getParam(param_throttle_command, topic_throttle_command) == false) {
+            return false;
+        }
+
+        twist_sub = n->subscribe<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 10,
                                                        &TankDriveExecutorNode::twist_Callback, this);
 
         fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig left_channel_config(
@@ -76,10 +95,13 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     bool TankDriveExecutorNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
+
+        return true;
+    }
+    bool TankDriveExecutorNode::run_01hz() {
         ROS_WARN("%s", process.pretty().c_str());
         return true;
     }
-    bool TankDriveExecutorNode::run_01hz() { return true; }
     bool TankDriveExecutorNode::run_001hz() { return true; }
 
     void TankDriveExecutorNode::thread_loop() {

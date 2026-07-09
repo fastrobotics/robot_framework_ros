@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+ * @brief The NavigationExecutor Subsystem for the ROS Robot Framework
+ */

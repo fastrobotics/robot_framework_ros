@@ -1,6 +1,6 @@
-[Navigation System](../../../doc/System-Navigation.md)
+[Navigation System](../../../doc/System-UserInterface.md)
 
-- [Subsystem: NavigationExecutor](#subsystem-navigationexecutor)
+- [Subsystem: Remote Control](#subsystem-remote-control)
 - [Document History](#document-history)
 - [Overview](#overview)
   - [Purpose](#purpose)
@@ -18,13 +18,13 @@
 - [Validation](#validation)
 
 
-# Subsystem: NavigationExecutor
+# Subsystem: Remote Control
 
 # Document History
 
 | Version Number | Date        | Author     | Change           |
 | :------------: | ----------- | ---------- | ---------------- |
-|       0        | 5-July-2026 | David Gitz | Drafted Document |
+|       0        | 8-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 
@@ -40,7 +40,7 @@ The NavigationExecutor Subsystem's role in the Robot Framework is to ???
 
 ## Class Diagram
 
-![](puml/NavigationExecutorSubsystemClassDiagram.png)
+![](puml/RemoteControlSubsystemClassDiagram.png)
 
 # Inputs
 
@@ -64,9 +64,9 @@ The following outputs are provided by this system.
 
 # Nodes
 
-| Status | Node                                                                |
+| Status | Process                                                             |
 | ------ | ------------------------------------------------------------------- |
-| DRAFT  | [Drive Executor](../Nodes/DriveExecutor/doc/Nodes-DriveExecutor.md) |
+| DRAFT  | [Teleop Control](../Nodes/TeleopControl/doc/Nodes-TeleopControl.md) |
 
 ## Package Diagram
 

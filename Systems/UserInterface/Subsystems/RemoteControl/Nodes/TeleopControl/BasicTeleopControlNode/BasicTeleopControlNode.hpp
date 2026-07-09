@@ -1,27 +1,28 @@
 /**
- * @file TankDriveExecutorNode.hpp
- * @author your name (you@domain.com)
+ * @file BasicTeleopControlNode.hpp
+ * @author David Gitz (davidgitz@gmail.com)
  * @brief
  * @version 0.1
- * @date 2026-07-05
+ * @date 2026-07-08
  *
  * @copyright Copyright (c) 2026
  *
  */
 #pragma once
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/Joy.h>
 
-#include <TankDriveExecutorProcess/TankDriveExecutorProcess.hpp>
+#include <BasicTeleopControlProcess/BasicTeleopControlProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     /**
-     * @brief Tank Drive Executor Node
+     * @brief Basic Teleop Control Node
      *
      */
-    class TankDriveExecutorNode : public BaseNode {
+    class BasicTeleopControlNode : public BaseNode {
        public:
-        TankDriveExecutorNode();
-        ~TankDriveExecutorNode();
+        BasicTeleopControlNode();
+        ~BasicTeleopControlNode();
 
         /**
          * @brief Initialize the Node
@@ -72,7 +73,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         bool run_01hz();
 
         /**
-         * @brief 0.01Hz Loop Function
+         * @brief 0.001Hz Loop Function
          *
          * @return true
          * @return false
@@ -110,17 +111,16 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         void thread_loop();
 
         /**
-         * @brief Process a Twist
+         * @brief Process a Joystick Message
          *
          * @param t_msg
          */
-        void twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
+        void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
        private:
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess
             process;  //!< Execution Process
-        ros::Subscriber twist_sub;
-        ros::Publisher left_drive_pub;
-        ros::Publisher right_drive_pub;
+        ros::Subscriber joy_sub;
+        ros::Publisher twist_pub;
     };
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem

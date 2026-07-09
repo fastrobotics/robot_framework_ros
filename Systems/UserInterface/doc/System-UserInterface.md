@@ -1,46 +1,40 @@
-[Navigation System](../../../doc/System-Navigation.md)
+[README](../../../README.md)
 
-- [Subsystem: NavigationExecutor](#subsystem-navigationexecutor)
+
+- [System: UserInterface](#system-userinterface)
 - [Document History](#document-history)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
-- [Subsystem Architecture](#subsystem-architecture)
-  - [Class Diagram](#class-diagram)
+- [System Architecture](#system-architecture)
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [How It Works](#how-it-works)
   - [Detailed Documentation](#detailed-documentation)
   - [Software Content](#software-content)
-- [Nodes](#nodes)
+- [Subsystems](#subsystems)
   - [Package Diagram](#package-diagram)
 - [Usage Instructions](#usage-instructions)
 - [Validation](#validation)
 
 
-# Subsystem: NavigationExecutor
+# System: UserInterface
 
 # Document History
 
 | Version Number | Date        | Author     | Change           |
 | :------------: | ----------- | ---------- | ---------------- |
-|       0        | 5-July-2026 | David Gitz | Drafted Document |
+|       0        | 8-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 
 ## Purpose
 
-The NavigationExecutor Subsystem's role in the Robot Framework is to ???
+The User Interface System's role in the Robot Framework is to take User commands and provide User information.
 
 ## General Requirements
 
-# Subsystem Architecture
-
-![](../../../../../Legend.png)
-
-## Class Diagram
-
-![](puml/NavigationExecutorSubsystemClassDiagram.png)
+# System Architecture
 
 # Inputs
 
@@ -62,14 +56,19 @@ The following outputs are provided by this system.
 
 ## Software Content
 
-# Nodes
+# Subsystems
 
-| Status | Node                                                                |
-| ------ | ------------------------------------------------------------------- |
-| DRAFT  | [Drive Executor](../Nodes/DriveExecutor/doc/Nodes-DriveExecutor.md) |
+The following Subsystems are provided in this System:
+
+| State | Subsystem                                                                    | Purpose                               |
+| ----- | ---------------------------------------------------------------------------- | ------------------------------------- |
+| NEW   | [Remote Control](../Subsystems/RemoteControl/doc/Subsystem-RemoteControl.md) | Provides Remote Control capabilities. |
 
 ## Package Diagram
+
+![](puml/SystemUserInterfacePackageDiagram.png)
 
 # Usage Instructions
 
 # Validation
+

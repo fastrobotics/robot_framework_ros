@@ -2,18 +2,26 @@
 
 - [FAST Robotics - Robot Framework: ROS v1 Middleware](#fast-robotics---robot-framework-ros-v1-middleware)
 - [Architecture](#architecture)
+- [Systems](#systems)
 - [Features](#features)
 - [ToDo](#todo)
   - [This PR](#this-pr)
 - [Setup](#setup)
+- [Build](#build)
+  - [Build and run Unit Tests](#build-and-run-unit-tests)
+- [Execution](#execution)
 - [Documentation](#documentation)
   - [Interface Documentation](#interface-documentation)
 
-
-
-
 # Architecture
 ![](Legend.png)
+
+# Systems
+| Status | System                                                                     |
+| ------ | -------------------------------------------------------------------------- |
+| DRAFT  | [Navigation System](Systems/Navigation/doc/System-Navigation.md)           |
+| DRAFT  | [User Interface System](Systems/UserInterface/doc/System-UserInterface.md) |
+
 
 # Features
 | Status | Feature                                             |
@@ -33,9 +41,8 @@
 
 
 ## This PR
-| Item |
-| ---- |
-
+| Item          |
+| -------------
 
 # Setup
 
@@ -54,6 +61,29 @@ git submodule update --remote
 cd <repo>
 ./scripts/setup_ide.sh
 ./scripts/setup_robot.sh
+```
+
+# Build
+To build, run the following:
+```bash
+cd <workspace>
+catkin_make
+```
+
+## Build and run Unit Tests
+```bash
+cd <workspace>
+catkin_make
+catkin_make tests
+catkin_make run_tests
+```
+
+# Execution
+To launch the main content, run the following (after following [Build](#build))
+```bash
+cd <workspace>
+source devel/setup.bash
+roslaunch robot_framework_ros robot.launch
 ```
 
 # Documentation

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/test" />
+    <arg name="topic_command_throttle" value="cmd_throttle"/> 
+    <arg name="topic_joystick_command" value ="joy"/>
+    <group ns="test">
+        <include file="$(find robot_framework_ros)/Systems/UserInterface/Subsystems/RemoteControl/Nodes/TeleopControl/BasicTeleopControlNode/launch/basicTeleopControl_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <!-- Input Topics -->
+            <arg name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
+            <!-- Output Topics -->
+            <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
+        </include>
+        <test test-name="test_BasicTeleopControlNode" pkg="robot_framework_ros" type="test_BasicTeleopControlNode"/>
+    </group>
+   
+</launch>

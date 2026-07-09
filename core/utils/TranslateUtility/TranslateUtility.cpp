@@ -55,5 +55,20 @@ namespace fast::rf_ros::utils {
         data.z = msg.z;
         return data;
     }
+    fast::rf::messages::SensorMsgs::JoyMsg TranslateUtility::convert(sensor_msgs::Joy msg) {
+        fast::rf::messages::SensorMsgs::JoyMsg joy;
+        joy.time_stamp = msg.header.stamp.toSec();
+        joy.axes.assign(msg.axes.begin(), msg.axes.end());
+        joy.buttons.assign(msg.buttons.begin(), msg.buttons.end());
+        return joy;
+    }
+
+    sensor_msgs::Joy TranslateUtility::convert(fast::rf::messages::SensorMsgs::JoyMsg msg) {
+        sensor_msgs::Joy joy;
+        joy.header.stamp = ros::Time(msg.time_stamp);
+        joy.axes.assign(msg.axes.begin(), msg.axes.end());
+        joy.buttons.assign(msg.buttons.begin(), msg.buttons.end());
+        return joy;
+    }
 
 }  // namespace fast::rf_ros::utils

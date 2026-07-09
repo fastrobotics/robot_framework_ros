@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/robot" />
+    <arg name="topic_joystick_command" value ="joy"/>
+    <arg name="topic_command_throttle" value="cmd_throttle"/> 
+    <arg name="topic_left_drive" value ="left_drive"/>
+    <arg name="topic_right_drive" value="right_drive"/>
+    
+    <group ns="$(arg robot_namespace)">
+        <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot" args="/robot/cmd_throttle/linear/x /robot/cmd_throttle/angular/z" />
+        <node name="joy_node" pkg="joy" type="joy_node" output="screen" clear_params="true">
+        </node>
+        <include file="$(find robot_framework_ros)/Systems/UserInterface/Subsystems/RemoteControl/Nodes/TeleopControl/BasicTeleopControlNode/launch/basicTeleopControl_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <!-- Input Topics -->
+            <arg name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
+            <!-- Output Topics -->
+            <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
+        </include>
+        <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/DriveExecutor/TankDriveExecutorNode/launch/tankDriveExecutor_node.launch">
+                <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                <!-- Input Topics -->
+                <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
+
+                <!-- Output Topics -->
+                <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
+                <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
+        </include>
+    </group>
+    
+        
+   
+</launch>
