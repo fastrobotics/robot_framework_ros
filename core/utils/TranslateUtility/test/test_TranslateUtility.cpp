@@ -105,6 +105,24 @@ TEST(TestConversion, GeometryMessageConvertTwist) {
         ASSERT_FLOAT_EQ(msg.angular.z, twist.angular.z);
     }
 }
+TEST(TestConversion, SensorMsgsConvertJoy) {
+    {  // Convert to ROS Message
+        fast::rf::messages::SensorMsgs::JoyMsg joy;
+        joy.axes.push_back(1.0);
+        joy.buttons.push_back(2);
+        auto msg = TranslateUtility::convert(joy);
+        ASSERT_EQ(msg.axes.size(), joy.axes.size());
+        ASSERT_EQ(msg.buttons.size(), joy.buttons.size());
+    }
+    {  // Convert from ROS Message
+        sensor_msgs::Joy joy;
+        joy.axes.push_back(1.0);
+        joy.buttons.push_back(2);
+        auto msg = TranslateUtility::convert(joy);
+        ASSERT_EQ(msg.axes.size(), joy.axes.size());
+        ASSERT_EQ(msg.buttons.size(), joy.buttons.size());
+    }
+}
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

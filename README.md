@@ -38,9 +38,13 @@
 
 
 ## This PR
-| Item                             |
-| -------------------------------- |
-| Add topic names to configuration |
+| Item                                                   |
+| ------------------------------------------------------ |
+| Add topic names to configuration                       |
+| Add specification launch joy node                      |
+| Add pub and sub to Teleop Control Node (joy --> twist) |
+| Testing                                                |
+| Check Doxygen                                          |
 
 
 # Setup

@@ -2,6 +2,7 @@
 
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
+
 using namespace fast::rf_ros;
 namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
 
@@ -14,7 +15,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             return false;
         }
         status =
-            process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::KEY_TEST);
+            process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::JOY_TEST);
         status = BaseNode::base_init();
         if (status == false) {
             ROS_ERROR("Unable to initialize Base Node!");
@@ -25,7 +26,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
 
     bool BasicTeleopControlNode::start() { return BaseNode::base_start(); }
     bool BasicTeleopControlNode::run_loop1() {
-        process.key_pressed(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::KeyPressed::UP_ARROW);
         process.update(ros::Time::now().toSec(), 0.0);
 
         return true;

@@ -5,6 +5,9 @@ namespace ros {
         class Twist <<(M,#FFFF00)>> <<ROS>>
         class Vector3 <<(M,#FFFF00)>> <<ROS>>
     }
+    namespace sensor_msgs {
+        class Joy <<(M,#FFFF00)>> <<ROS>>
+    }
 }
 namespace fast::rf::messages {
     namespace StandardMsgs {
@@ -15,6 +18,9 @@ namespace fast::rf::messages {
     }
     namespace InfrastructureMsgs {
         class DiagnosticMsg <<(M,#FFFF00)>>
+    }
+    namespace SensorMsgs {
+        class JoyMsg <<(M,#FFFF00)>>
     }
 }
 namespace robot_framework_ros {
@@ -33,6 +39,10 @@ namespace fast::rf_ros {
             +{static} geometry_msgs::Vector3 convert(Vector3DMsg msg)
             +{static} TwistMsg convert(geometry_msgs::Twist twist)
             +{static} geometry_msgs::Twist convert(TwistMsg msg)
+
+            -- Sensor Messages --
+            +{static} JoyMsg convert(sensor_msgs::Joy)
+            +{static} sensor_msgs::Joy convert(JoyMsg joy)
         }
         
     }

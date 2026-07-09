@@ -11,8 +11,10 @@
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
 #include <robot_framework_ros/diagnostic.h>
+#include <sensor_msgs/Joy.h>
 
 #include <DiagnosticMsg.hpp>
+#include <JoyMsg.hpp>
 #include <TwistMsg.hpp>
 #include <Vector3DMsg.hpp>
 
@@ -74,5 +76,21 @@ namespace fast::rf_ros::utils {
          * @return geometry_msgs::Vector3
          */
         static geometry_msgs::Vector3 convert(fast::rf::messages::StandardMsgs::Vector3DMsg msg);
+
+        /**
+         * @brief Convert from a ROS message to a Core message of type Joy
+         *
+         * @param msg
+         * @return fast::rf::messages::SensorMsgs::JoyMsg
+         */
+        static fast::rf::messages::SensorMsgs::JoyMsg convert(sensor_msgs::Joy msg);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type Joy
+         *
+         * @param msg
+         * @return sensor_msgs::Joy
+         */
+        static sensor_msgs::Joy convert(fast::rf::messages::SensorMsgs::JoyMsg msg);
     };
 }  // namespace fast::rf_ros::utils
