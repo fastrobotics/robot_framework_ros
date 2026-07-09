@@ -45,6 +45,7 @@
 | Add pub and sub to Teleop Control Node (joy --> twist) |
 | Testing                                                |
 | Check Doxygen                                          |
+| Config to set Process Operation Mode                   |
 
 
 # Setup

@@ -5,7 +5,10 @@ bool kill_node = false;
 
 using namespace fast::rf_ros;
 namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
-
+    void BasicTeleopControlNode::joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg) {
+        sensor_msgs::Joy joy_msg = *t_msg;
+        process.new_joy(fast::rf_ros::utils::TranslateUtility::convert(joy_msg));
+    }
     BasicTeleopControlNode::BasicTeleopControlNode() {}
     BasicTeleopControlNode::~BasicTeleopControlNode() {}
     bool BasicTeleopControlNode::init() {
@@ -21,6 +24,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             ROS_ERROR("Unable to initialize Base Node!");
             return false;
         }
+        joy_sub = n->subscribe<sensor_msgs::Joy>("/joy", 10, &BasicTeleopControlNode::joy_Callback, this);
+        twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + "/cmd_throttle", 1);
         return true;
     }
 
@@ -31,6 +36,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         return true;
     }
     bool BasicTeleopControlNode::run_loop2() {
+        auto twist = process.get_twist_output();
+        twist_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(twist));
         // bool diagnostic_check_ok = false;
         /*
         auto diagnostics = process.get_diagnostics();

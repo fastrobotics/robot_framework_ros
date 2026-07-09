@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <geometry_msgs/Twist.h>
+#include <sensor_msgs/Joy.h>
 
 #include <BasicTeleopControlProcess/BasicTeleopControlProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
@@ -45,7 +46,11 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
 
         void thread_loop();
 
+        void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
+
        private:
         fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess process;
+        ros::Subscriber joy_sub;
+        ros::Publisher twist_pub;
     };
 }  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
