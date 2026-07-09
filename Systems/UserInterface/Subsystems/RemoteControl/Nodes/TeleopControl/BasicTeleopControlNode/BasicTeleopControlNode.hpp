@@ -118,7 +118,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
        private:
-        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess process;
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess
+            process;  //!< Execution Process
         ros::Subscriber joy_sub;
         ros::Publisher twist_pub;
     };

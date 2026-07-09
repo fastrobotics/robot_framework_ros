@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::UserInterfaceSystem
+ * @brief The User Interface System for the ROS Robot Framework
+ */

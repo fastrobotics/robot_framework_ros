@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::NavigationSystem
+ * @brief The UserInterface System for the ROS Robot Framework
+ */

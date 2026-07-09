@@ -117,9 +117,10 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         void twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
 
        private:
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess
+            process;  //!< Execution Process
         ros::Subscriber twist_sub;
         ros::Publisher left_drive_pub;
         ros::Publisher right_drive_pub;
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess process;
     };
 }  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
