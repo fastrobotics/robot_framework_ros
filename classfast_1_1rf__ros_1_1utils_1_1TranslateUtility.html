@@ -121,12 +121,18 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a12af8a753493712762dd077b4f3393f2" id="r_a12af8a753493712762dd077b4f3393f2"><td class="memItemLeft" align="right" valign="top">static geometry_msgs::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a12af8a753493712762dd077b4f3393f2">convert</a> (fast::rf::messages::StandardMsgs::Vector3DMsg msg)</td></tr>
 <tr class="memdesc:a12af8a753493712762dd077b4f3393f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from a Core message to a ROS message of type Vector3.  <br /></td></tr>
 <tr class="separator:a12af8a753493712762dd077b4f3393f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f3836916897360573fb9359caf30e34" id="r_a0f3836916897360573fb9359caf30e34"><td class="memItemLeft" align="right" valign="top">static fast::rf::messages::SensorMsgs::JoyMsg&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a0f3836916897360573fb9359caf30e34">convert</a> (sensor_msgs::Joy msg)</td></tr>
+<tr class="memdesc:a0f3836916897360573fb9359caf30e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from a ROS message to a Core message of type Joy.  <br /></td></tr>
+<tr class="separator:a0f3836916897360573fb9359caf30e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78acead32112ab76673ccdc6d6c47dbd" id="r_a78acead32112ab76673ccdc6d6c47dbd"><td class="memItemLeft" align="right" valign="top">static sensor_msgs::Joy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a78acead32112ab76673ccdc6d6c47dbd">convert</a> (fast::rf::messages::SensorMsgs::JoyMsg msg)</td></tr>
+<tr class="memdesc:a78acead32112ab76673ccdc6d6c47dbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from a Core message to a ROS message of type Joy.  <br /></td></tr>
+<tr class="separator:a78acead32112ab76673ccdc6d6c47dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Translation Utilities. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af356ac9ab7eb2efd569353611d09e810" name="af356ac9ab7eb2efd569353611d09e810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af356ac9ab7eb2efd569353611d09e810">&#9670;&#160;</a></span>convert() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af356ac9ab7eb2efd569353611d09e810">&#9670;&#160;</a></span>convert() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,7 +167,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a42be48454c6b6c682228452b08fb18fa" name="a42be48454c6b6c682228452b08fb18fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42be48454c6b6c682228452b08fb18fa">&#9670;&#160;</a></span>convert() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42be48454c6b6c682228452b08fb18fa">&#9670;&#160;</a></span>convert() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,8 +201,43 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a78acead32112ab76673ccdc6d6c47dbd" name="a78acead32112ab76673ccdc6d6c47dbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78acead32112ab76673ccdc6d6c47dbd">&#9670;&#160;</a></span>convert() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sensor_msgs::Joy fast::rf_ros::utils::TranslateUtility::convert </td>
+          <td>(</td>
+          <td class="paramtype">fast::rf::messages::SensorMsgs::JoyMsg&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert from a Core message to a ROS message of type Joy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sensor_msgs::Joy </dd></dl>
+
+</div>
+</div>
 <a id="a12af8a753493712762dd077b4f3393f2" name="a12af8a753493712762dd077b4f3393f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12af8a753493712762dd077b4f3393f2">&#9670;&#160;</a></span>convert() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12af8a753493712762dd077b4f3393f2">&#9670;&#160;</a></span>convert() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +272,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5e16d0927fd06fcb4deb7fafedb9bcac" name="a5e16d0927fd06fcb4deb7fafedb9bcac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e16d0927fd06fcb4deb7fafedb9bcac">&#9670;&#160;</a></span>convert() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e16d0927fd06fcb4deb7fafedb9bcac">&#9670;&#160;</a></span>convert() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +307,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe71fdc5b8fc4e6145d2876a55e52c5a" name="abe71fdc5b8fc4e6145d2876a55e52c5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe71fdc5b8fc4e6145d2876a55e52c5a">&#9670;&#160;</a></span>convert() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe71fdc5b8fc4e6145d2876a55e52c5a">&#9670;&#160;</a></span>convert() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +342,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae18f6d4cc07b5046cdd9ff42be034533" name="ae18f6d4cc07b5046cdd9ff42be034533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae18f6d4cc07b5046cdd9ff42be034533">&#9670;&#160;</a></span>convert() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae18f6d4cc07b5046cdd9ff42be034533">&#9670;&#160;</a></span>convert() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,6 +376,41 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0f3836916897360573fb9359caf30e34" name="a0f3836916897360573fb9359caf30e34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3836916897360573fb9359caf30e34">&#9670;&#160;</a></span>convert() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fast::rf::messages::SensorMsgs::JoyMsg fast::rf_ros::utils::TranslateUtility::convert </td>
+          <td>(</td>
+          <td class="paramtype">sensor_msgs::Joy&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert from a ROS message to a Core message of type Joy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>fast::rf::messages::SensorMsgs::JoyMsg </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/robot_framework_ros/utils/<a class="el" href="TranslateUtility_8hpp_source.html">TranslateUtility.hpp</a></li>
 <li>core/utils/TranslateUtility/<b>TranslateUtility.cpp</b></li>
@@ -345,7 +421,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1utils.html">utils</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">TranslateUtility</a></li>
-    <li class="footer">Generated on Tue Jul 7 2026 04:07:17 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Jul 9 2026 21:17:50 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

@@ -1,5 +1,9 @@
 <map id="include/robot_framework_ros/BaseNode.hpp" name="include/robot_framework_ros/BaseNode.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="16,5,201,45"/>
-<area shape="rect" id="Node000002" href="$ExampleNode_8hpp.html" title=" " alt="" coords="5,93,212,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,59,111,93,106,93,106,59"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="371,5,556,45"/>
+<area shape="rect" id="Node000002" href="$TankDriveExecutorNode_8hpp.html" title=" " alt="" coords="5,93,292,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,52,254,96,253,91,391,47"/>
+<area shape="rect" id="Node000003" href="$BasicTeleopControlNode_8hpp.html" title=" " alt="" coords="317,93,610,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="466,59,466,93,461,93,461,59"/>
+<area shape="rect" id="Node000004" href="$ExampleNode_8hpp.html" title=" " alt="" coords="635,108,841,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="528,48,687,105,686,110,527,53"/>
 </map>

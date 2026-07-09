@@ -10,6 +10,7 @@ var classfast_1_1rf__ros_1_1BaseNode =
     [ "base_start", "classfast_1_1rf__ros_1_1BaseNode.html#a7627d88807cbdcf7e808208f73bd253a", null ],
     [ "convert", "classfast_1_1rf__ros_1_1BaseNode.html#a34bd48169c501b6fb48880889b542a3e", null ],
     [ "get_node_state", "classfast_1_1rf__ros_1_1BaseNode.html#a17b03e834ba88acb15bd5878b94ebb42", null ],
+    [ "get_nodename", "classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910", null ],
     [ "get_robotnamespace", "classfast_1_1rf__ros_1_1BaseNode.html#a1bbeb4b893b43c63b01bea338f032a43", null ],
     [ "init", "classfast_1_1rf__ros_1_1BaseNode.html#aebb66a558c055aa1026dd6d62ecc3349", null ],
     [ "pretty", "classfast_1_1rf__ros_1_1BaseNode.html#a44767794a76dbeac511f4994b80e6f6f", null ],

@@ -108,9 +108,13 @@ Inheritance diagram for fast::rf_ros::BaseNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classfast_1_1rf__ros_1_1BaseNode__inherit__graph.png" border="0" usemap="#afast_1_1rf__ros_1_1BaseNode_inherit__map" alt="Inheritance graph"/></div>
 <map name="afast_1_1rf__ros_1_1BaseNode_inherit__map" id="afast_1_1rf__ros_1_1BaseNode_inherit__map">
-<area shape="rect" title="BaseNode, all other Nodes should inherit from this." alt="" coords="13,5,180,31"/>
-<area shape="rect" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="5,79,188,119"/>
-<area shape="poly" title=" " alt="" coords="99,44,99,79,94,79,94,44"/>
+<area shape="rect" title="BaseNode, all other Nodes should inherit from this." alt="" coords="5,99,172,124"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html" title="Tank Drive Executor Node." alt="" coords="220,5,499,60"/>
+<area shape="poly" title=" " alt="" coords="143,92,219,69,258,57,260,63,221,74,144,97"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html" title="Basic Teleop Control Node." alt="" coords="235,84,484,139"/>
+<area shape="poly" title=" " alt="" coords="186,109,234,109,234,114,186,114"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="268,163,451,203"/>
+<area shape="poly" title=" " alt="" coords="145,126,221,147,273,161,271,166,219,153,143,131"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -190,6 +194,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1bbeb4b893b43c63b01bea338f032a43" id="r_a1bbeb4b893b43c63b01bea338f032a43"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a1bbeb4b893b43c63b01bea338f032a43">get_robotnamespace</a> ()</td></tr>
 <tr class="memdesc:a1bbeb4b893b43c63b01bea338f032a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the robotnamespace object.  <br /></td></tr>
 <tr class="separator:a1bbeb4b893b43c63b01bea338f032a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4ae829d92454375f07c17b278e8910" id="r_a4d4ae829d92454375f07c17b278e8910"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910">get_nodename</a> ()</td></tr>
+<tr class="memdesc:a4d4ae829d92454375f07c17b278e8910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the nodename object.  <br /></td></tr>
+<tr class="separator:a4d4ae829d92454375f07c17b278e8910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -444,6 +451,34 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="a4d4ae829d92454375f07c17b278e8910" name="a4d4ae829d92454375f07c17b278e8910"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d4ae829d92454375f07c17b278e8910">&#9670;&#160;</a></span>get_nodename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string fast::rf_ros::BaseNode::get_nodename </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the nodename object. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::string </dd></dl>
+
+</div>
+</div>
 <a id="a1bbeb4b893b43c63b01bea338f032a43" name="a1bbeb4b893b43c63b01bea338f032a43"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1bbeb4b893b43c63b01bea338f032a43">&#9670;&#160;</a></span>get_robotnamespace()</h2>
 
@@ -498,7 +533,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a182db557ee75968fe74f964c91c091f3">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a182db557ee75968fe74f964c91c091f3">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#a1fed6d65fa953af336870615b0b60805">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a627849495848f12b9c55fe1076316b4b">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -570,7 +605,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a82529991d5e8457c4e9d838c9fa1182c">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a82529991d5e8457c4e9d838c9fa1182c">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#aaa48ca0fbe6b2c42034051edf94843d3">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#ac508700d94a88048c25cfcf6f886a8f4">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -602,7 +637,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a4257fed2f430a414399dffa515267e8d">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a4257fed2f430a414399dffa515267e8d">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#aed7073d38fd861124caee2326e6c8238">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a484d34458a42c98603d2eb57b00053af">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -634,7 +669,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a2bbd6d5903c03f831a1f96155fbe83d2">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a2bbd6d5903c03f831a1f96155fbe83d2">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#a1aa9060e1a784756588cdcab4106356e">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a8641fbf477da1fb353271892eb51ccfe">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -666,7 +701,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a973cf782160c0e5185374694c438ef93">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a973cf782160c0e5185374694c438ef93">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#a5fd3df2362b7f332ebd23bf6bbff7921">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#abc3f0dff657307a82b9d81d460e8a4c3">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -698,7 +733,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a1e83763254ffe0a4ac262f4b53d46080">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a1e83763254ffe0a4ac262f4b53d46080">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#a7b8fd27eee024111a4b051127accb96c">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a88b03a577dddef6adf97976a8443bb55">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -730,7 +765,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a1f6062f5687d63d82090054f566d098d">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a1f6062f5687d63d82090054f566d098d">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#ae318d332f1f2411a5f7baeb8e1856bb7">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#ae7015f49a5fd372b5ac59f29cfe83492">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -762,7 +797,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ad989b53f6ec2b29eeb237b2a471257ed">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ad989b53f6ec2b29eeb237b2a471257ed">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#adf6aba91d43ce51526e4cdc929d464b4">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#af3823243379659eebf783c34a35a5420">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -794,7 +829,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ae7c39527e260049fde6b74955e13a2af">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ae7c39527e260049fde6b74955e13a2af">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#a69fe717e1e0fbf94fe2fb0efb65a1a21">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#aee32a599720a22e2f33a24657b214700">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -894,7 +929,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ae424b8e74bae735126a11e784481fb85">fast::rf_ros::example_package::ExampleNode</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ae424b8e74bae735126a11e784481fb85">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html#ac51677661940f90ae8e034b936a57337">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a8bde9b2f5b1912941d31b26ae629dce5">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode</a>.</p>
 
 </div>
 </div>
@@ -966,7 +1001,7 @@ false </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html">BaseNode</a></li>
-    <li class="footer">Generated on Tue Jul 7 2026 04:07:17 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Jul 9 2026 21:17:50 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

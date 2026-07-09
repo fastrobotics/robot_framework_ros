@@ -185,51 +185,53 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#a1bbeb4b893b43c63b01bea338f032a43">  243</a></span>        std::string <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#a1bbeb4b893b43c63b01bea338f032a43">get_robotnamespace</a>() { <span class="keywordflow">return</span> robot_namespace; }</div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keyword">static</span> std::string <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#a8d72a8c21a2bdb50e8fd077c5adcf440">validate_robotnamespace</a>(std::string str);</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>       <span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00259" data-start="{" data-end="}">
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">  259</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">set_diagnostics</a>(std::vector&lt;fast::rf::messages::InfrastructureMsgs::DiagnosticMsg&gt; diagnostics) {</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            diagnostics_ = diagnostics;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910">  250</a></span>        std::string <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910">get_nodename</a>() { <span class="keywordflow">return</span> node_name; }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keyword">static</span> std::string <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#a8d72a8c21a2bdb50e8fd077c5adcf440">validate_robotnamespace</a>(std::string str);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>       <span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00266" data-start="{" data-end="}">
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">  266</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">set_diagnostics</a>(std::vector&lt;fast::rf::messages::InfrastructureMsgs::DiagnosticMsg&gt; diagnostics) {</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            diagnostics_ = diagnostics;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        }</div>
 </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">  262</a></span>        boost::shared_ptr&lt;ros::NodeHandle&gt; <a class="code hl_variable" href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">n</a>;  </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>       <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        robot_framework_ros::nodestate node_state;</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        std::string node_namespace{<span class="stringliteral">&quot;&quot;</span>};</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        std::string node_name{<span class="stringliteral">&quot;&quot;</span>};</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        std::string robot_namespace{<span class="stringliteral">&quot;/&quot;</span>};</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="keywordtype">double</span> loop1_rate{-1.0};</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordtype">bool</span> loop1_enabled{<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <span class="keywordtype">double</span> loop2_rate{-1.0};</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="keywordtype">bool</span> loop2_enabled{<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <span class="keywordtype">double</span> loop3_rate{-1.0};</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="keywordtype">bool</span> loop3_enabled{<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordtype">bool</span> request_node_statechange(uint8_t new_state, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        ros::Publisher heartbeat_pub;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        ros::Publisher diagnostic_pub;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">  269</a></span>        boost::shared_ptr&lt;ros::NodeHandle&gt; <a class="code hl_variable" href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">n</a>;  </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>       <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        robot_framework_ros::nodestate node_state;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        std::string node_namespace{<span class="stringliteral">&quot;&quot;</span>};</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        std::string node_name{<span class="stringliteral">&quot;&quot;</span>};</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        std::string robot_namespace{<span class="stringliteral">&quot;/&quot;</span>};</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="keywordtype">double</span> loop1_rate{-1.0};</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordtype">bool</span> loop1_enabled{<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordtype">double</span> loop2_rate{-1.0};</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keywordtype">bool</span> loop2_enabled{<span class="keyword">true</span>};</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordtype">double</span> ros_rate{400.0};</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordtype">double</span> max_rate;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordtype">double</span> loop3_rate{-1.0};</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordtype">bool</span> loop3_enabled{<span class="keyword">true</span>};</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        ros::Time last_100hz_timer;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        ros::Time last_10hz_timer;</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        ros::Time last_1hz_timer;</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        ros::Time last_01hz_timer;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        ros::Time last_001hz_timer;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        ros::Time last_loop1_timer;</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        ros::Time last_loop2_timer;</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        ros::Time last_loop3_timer;</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        std::vector&lt;fast::rf::messages::InfrastructureMsgs::DiagnosticMsg&gt; diagnostics_;</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    };</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keywordtype">bool</span> request_node_statechange(uint8_t new_state, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        ros::Publisher heartbeat_pub;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        ros::Publisher diagnostic_pub;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordtype">double</span> ros_rate{400.0};</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keywordtype">double</span> max_rate;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        ros::Time last_100hz_timer;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        ros::Time last_10hz_timer;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        ros::Time last_1hz_timer;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        ros::Time last_01hz_timer;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        ros::Time last_001hz_timer;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        ros::Time last_loop1_timer;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        ros::Time last_loop2_timer;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        ros::Time last_loop3_timer;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        std::vector&lt;fast::rf::messages::InfrastructureMsgs::DiagnosticMsg&gt; diagnostics_;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    };</div>
 </div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>}  <span class="comment">// namespace fast::rf_ros</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>}  <span class="comment">// namespace fast::rf_ros</span></div>
 </div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html">fast::rf_ros::BaseNode</a></div><div class="ttdoc">BaseNode, all other Nodes should inherit from this.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:33</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a0504dfd815974273436ca87c2c92c562"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a0504dfd815974273436ca87c2c92c562">fast::rf_ros::BaseNode::run_loop2</a></div><div class="ttdeci">virtual bool run_loop2()=0</div><div class="ttdoc">User defined Loop, runs at user-defined rate. This is called automatially at the set rate.</div></div>
@@ -242,9 +244,10 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a1fef4b64640588c15ac96fea6a0fd2ff"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a1fef4b64640588c15ac96fea6a0fd2ff">fast::rf_ros::BaseNode::run_loop3</a></div><div class="ttdeci">virtual bool run_loop3()=0</div><div class="ttdoc">User defined Loop, runs at user-defined rate. This is called automatially at the set rate.</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a2dbe2e4217a4903a8f24edebef3dc36f"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a2dbe2e4217a4903a8f24edebef3dc36f">fast::rf_ros::BaseNode::run_100hz</a></div><div class="ttdeci">virtual bool run_100hz()=0</div><div class="ttdoc">Gets called automatically to run at 100 Hz.</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a34bd48169c501b6fb48880889b542a3e"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a34bd48169c501b6fb48880889b542a3e">fast::rf_ros::BaseNode::convert</a></div><div class="ttdeci">std::string convert(robot_framework_ros::nodestate state)</div><div class="ttdoc">Convert a node state to a string representation.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:55</div></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a373112da309f3748981b67f91fc16db5"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">fast::rf_ros::BaseNode::n</a></div><div class="ttdeci">boost::shared_ptr&lt; ros::NodeHandle &gt; n</div><div class="ttdoc">Node Handle.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:262</div></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a373112da309f3748981b67f91fc16db5"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">fast::rf_ros::BaseNode::n</a></div><div class="ttdeci">boost::shared_ptr&lt; ros::NodeHandle &gt; n</div><div class="ttdoc">Node Handle.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:269</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a3e6e1b5677e7760591f78fcaa0f2641d"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a3e6e1b5677e7760591f78fcaa0f2641d">fast::rf_ros::BaseNode::start</a></div><div class="ttdeci">virtual bool start()=0</div><div class="ttdoc">Start the Node. Should be called AFTER User runs init.</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a44767794a76dbeac511f4994b80e6f6f"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a44767794a76dbeac511f4994b80e6f6f">fast::rf_ros::BaseNode::pretty</a></div><div class="ttdeci">std::string pretty()</div><div class="ttdoc">Get a string representation of the node.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:5</div></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a4d4ae829d92454375f07c17b278e8910"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910">fast::rf_ros::BaseNode::get_nodename</a></div><div class="ttdeci">std::string get_nodename()</div><div class="ttdoc">Get the nodename object.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:250</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a5c3e7a6d77e6f0d60ae325265ebf4f63"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a5c3e7a6d77e6f0d60ae325265ebf4f63">fast::rf_ros::BaseNode::set_robotnamespace</a></div><div class="ttdeci">void set_robotnamespace(std::string _robot_namespace)</div><div class="ttdoc">Set the robotnamespace object.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:234</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a7627d88807cbdcf7e808208f73bd253a"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a7627d88807cbdcf7e808208f73bd253a">fast::rf_ros::BaseNode::base_start</a></div><div class="ttdeci">bool base_start()</div><div class="ttdoc">Start Base Node. Should be called AFTER User runs init.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:129</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a78877b5e2b434fda39fb15e79fbef280"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a78877b5e2b434fda39fb15e79fbef280">fast::rf_ros::BaseNode::base_run_1hz</a></div><div class="ttdeci">bool base_run_1hz()</div><div class="ttdoc">Base Node 1Hz Loop.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:222</div></div>
@@ -255,7 +258,7 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ab673dc1bab6f3fc5537e905d2f1ec2eb"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ab673dc1bab6f3fc5537e905d2f1ec2eb">fast::rf_ros::BaseNode::base_run_100hz</a></div><div class="ttdeci">bool base_run_100hz()</div><div class="ttdoc">Base Node 100Hz Loop.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:213</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ac0fd8abb9aa9d77ed10281ed12429a22"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ac0fd8abb9aa9d77ed10281ed12429a22">fast::rf_ros::BaseNode::base_init</a></div><div class="ttdeci">bool base_init()</div><div class="ttdoc">Initialize Base Node.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:76</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ad3d00acb050a632ee7789221e343b981"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ad3d00acb050a632ee7789221e343b981">fast::rf_ros::BaseNode::run_10hz</a></div><div class="ttdeci">virtual bool run_10hz()=0</div><div class="ttdoc">Gets called automatically to run at 10 Hz.</div></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ad413a08e67c0fda6835f63e39673252b"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">fast::rf_ros::BaseNode::set_diagnostics</a></div><div class="ttdeci">void set_diagnostics(std::vector&lt; fast::rf::messages::InfrastructureMsgs::DiagnosticMsg &gt; diagnostics)</div><div class="ttdoc">Set the diagnostics object.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:259</div></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ad413a08e67c0fda6835f63e39673252b"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">fast::rf_ros::BaseNode::set_diagnostics</a></div><div class="ttdeci">void set_diagnostics(std::vector&lt; fast::rf::messages::InfrastructureMsgs::DiagnosticMsg &gt; diagnostics)</div><div class="ttdoc">Set the diagnostics object.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:266</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ae256066b584cc9e3a471c41d02be56e5"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ae256066b584cc9e3a471c41d02be56e5">fast::rf_ros::BaseNode::base_run_10hz</a></div><div class="ttdeci">bool base_run_10hz()</div><div class="ttdoc">Base Node 10Hz Loop.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:214</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ae77680c9a304125b57428d292bd6166a"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ae77680c9a304125b57428d292bd6166a">fast::rf_ros::BaseNode::run_001hz</a></div><div class="ttdeci">virtual bool run_001hz()=0</div><div class="ttdoc">Gets called automatically to run at 0.01 Hz.</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ae83a2e36468991ee6b41c8ba4a075d17"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ae83a2e36468991ee6b41c8ba4a075d17">fast::rf_ros::BaseNode::run_loop1</a></div><div class="ttdeci">virtual bool run_loop1()=0</div><div class="ttdoc">User defined Loop, runs at user-defined rate. This is called automatially at the set rate.</div></div>
@@ -267,7 +270,7 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_43e5032e29db73fa2347f56d46df1a99.html">robot_framework_ros</a></li><li class="navelem"><a class="el" href="BaseNode_8hpp.html">BaseNode.hpp</a></li>
-    <li class="footer">Generated on Tue Jul 7 2026 04:07:17 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Jul 9 2026 21:17:50 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
