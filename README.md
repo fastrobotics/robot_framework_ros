@@ -41,12 +41,9 @@
 
 
 ## This PR
-| Item                                                   |
-| ------------------------------------------------------ |
-| Add topic names to configuration                       |
-| Add pub and sub to Teleop Control Node (joy --> twist) |
-| Testing                                                |
-| Check Doxygen                                          |
+| Item          |
+| ------------- |
+| Check Doxygen |
 
 
 # Setup

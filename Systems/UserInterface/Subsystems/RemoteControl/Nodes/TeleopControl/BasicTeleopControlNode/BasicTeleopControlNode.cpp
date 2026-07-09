@@ -41,9 +41,21 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             ROS_ERROR("Unable to set Operation Mode");
             return false;
         }
+        std::string topic_joy_command;
+        std::string param_topic_joy_command = get_nodename() + "/topic_joystick_command";
+        if (n->getParam(param_topic_joy_command, topic_joy_command) == false) {
+            return false;
+        }
 
-        joy_sub = n->subscribe<sensor_msgs::Joy>("/joy", 10, &BasicTeleopControlNode::joy_Callback, this);
-        twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + "/cmd_throttle", 1);
+        std::string topic_throttle_command;
+        std::string param_throttle_command = get_nodename() + "/topic_command_throttle";
+        if (n->getParam(param_throttle_command, topic_throttle_command) == false) {
+            return false;
+        }
+
+        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
+                                                 &BasicTeleopControlNode::joy_Callback, this);
+        twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 1);
         return true;
     }
 
@@ -54,10 +66,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         return true;
     }
     bool BasicTeleopControlNode::run_loop2() {
-        auto twist = process.get_twist_output();
-        twist_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(twist));
-        // bool diagnostic_check_ok = false;
-        /*
+        bool diagnostic_check_ok = false;
         auto diagnostics = process.get_diagnostics();
         for (auto diagnostic : diagnostics) {
             if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::REMOTE_CONTROL) and
@@ -66,21 +75,12 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             }
         }
         if (diagnostic_check_ok == true) {
-            fast::rf::NavigationSystem::NavigationExecutorSubsystem::IDriveExecutorOutput* general_output =
-                process.get_output();
-            fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput* output =
-                dynamic_cast<fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput*>(
-                    general_output);
-            std_msgs::Float64 left_drive;
-            left_drive.data = output->left_drive;
-            std_msgs::Float64 right_drive;
-            right_drive.data = output->right_drive;
-            left_drive_pub.publish(left_drive);
-            right_drive_pub.publish(right_drive);
+            auto twist = process.get_twist_output();
+            twist_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(twist));
         } else {
             ROS_WARN("Diagnostic Check Failed!  Disabling Outputs.");
         }
-            */
+
         return true;
     }
     bool BasicTeleopControlNode::run_loop3() { return true; }
@@ -89,13 +89,10 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     bool BasicTeleopControlNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
-
-        return true;
-    }
-    bool BasicTeleopControlNode::run_01hz() {
         ROS_WARN("%s", process.pretty().c_str());
         return true;
     }
+    bool BasicTeleopControlNode::run_01hz() { return true; }
     bool BasicTeleopControlNode::run_001hz() { return true; }
 
     void BasicTeleopControlNode::thread_loop() {

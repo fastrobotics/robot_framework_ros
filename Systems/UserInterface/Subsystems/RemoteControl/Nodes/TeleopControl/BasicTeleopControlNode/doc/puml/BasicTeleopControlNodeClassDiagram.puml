@@ -3,7 +3,10 @@ title Basic Teleop Control Node Class Diagram
 
 namespace ros {
   namespace geometry_msgs {
-      class Twist <<(M,#FFFF00)>> <<ROS>>
+    class Twist <<(M,#FFFF00)>> <<ROS>>
+  }
+  namespace sensor_msgs {
+    class Joy <<(M,#FFFF00)>> <<ROS>>
   }
 }
 namespace fast::rf {
@@ -18,11 +21,12 @@ namespace fast::rf {
 namespace fast::rf_ros {
    namespace UserInterfaceSystem {
         namespace RemoteControlSystem {
-            class BasicTeleopControlNode #Orange {
+            class BasicTeleopControlNode #LimeGreen {
                 -BasicTeleopControlProcess process
             }
             BasicTeleopControlNode --> BasicTeleopControlProcess: <<use>>
             BasicTeleopControlNode --> Twist: <<depend>>
+            BasicTeleopControlNode --> Joy: <<depend>>
         }
     }
 }

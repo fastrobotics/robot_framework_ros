@@ -1,8 +1,9 @@
+#include <geometry_msgs/Twist.h>
 #include <gtest/gtest.h>
 #include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/heartbeat.h>
 #include <ros/ros.h>
-#include <std_msgs/Float64.h>
+#include <sensor_msgs/Joy.h>
 
 #include "../BasicTeleopControlNode.hpp"
 
@@ -12,6 +13,8 @@ std::string robot_namespace = "/test/";
 std::string unittest_nodename = "nodeBasicTeleopControl";
 uint64_t heartbeat_rx_count = 0;
 uint64_t diagnostic_rx_count = 0;
+uint64_t twist_rx_count = 0;
+void twist_Callback([[maybe_unused]] const geometry_msgs::Twist& msg) { twist_rx_count++; }
 void heartbeat_Callback([[maybe_unused]] const robot_framework_ros::heartbeat& msg) { heartbeat_rx_count++; }
 void diagnostic_Callback([[maybe_unused]] const robot_framework_ros::diagnostic& msg) { diagnostic_rx_count++; }
 TEST(BasicTeleopControllerNode, TestBasics) {
@@ -22,7 +25,9 @@ TEST(BasicTeleopControllerNode, TestBasics) {
     std::string diagnostic_topic = robot_namespace + unittest_nodename + "/diagnostic";
     ros::Subscriber diagnostic_sub = nh.subscribe(diagnostic_topic, 100, &diagnostic_Callback);
 
-    // ros::Publisher throttle_cmd_pub = nh.advertise<geometry_msgs::Twist>(robot_namespace + "/cmd_throttle", 1);
+    ros::Subscriber twist_sub = nh.subscribe(robot_namespace + "/cmd_throttle", 100, &twist_Callback);
+
+    ros::Publisher joy_cmd_pub = nh.advertise<sensor_msgs::Joy>(robot_namespace + "/joy", 1);
 
     sleep(5.0);
     EXPECT_NE(ros::topic::waitForMessage<robot_framework_ros::heartbeat>(heartbeat_topic, ros::Duration(10)), nullptr);
@@ -35,6 +40,16 @@ TEST(BasicTeleopControllerNode, TestBasics) {
     sleep(1.0);  // Wait for DiagnosticNode to Start.
     EXPECT_TRUE(heartbeat_rx_count > 0);
     EXPECT_TRUE(diagnostic_rx_count > 0);
+
+    // Publish a Joy Message
+    sensor_msgs::Joy joy;
+    joy.axes.resize(5);
+    joy_cmd_pub.publish(joy);
+    sleep(1.0);
+
+    // Check that we received a Throttle Command
+    EXPECT_TRUE(twist_rx_count > 0);
+    // sleep(10000.0);
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
