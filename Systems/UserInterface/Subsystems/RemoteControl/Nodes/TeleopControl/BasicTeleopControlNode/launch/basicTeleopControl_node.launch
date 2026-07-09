@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <launch>
 <arg name="robot_namespace" default="/"/> 
-<node name="joy_node" pkg="joy" type="joy_node" output="screen" clear_params="true">
-</node>
+<!--
+
+-->
 <node name="nodeBasicTeleopControl" pkg="robot_framework_ros" type="nodeBasicTeleopControl"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="operation_mode" value="run" /> <!-- run, test-->
     <param name="loop1_rate" value="40.0" /> <!-- General Update -->
     <param name="loop2_rate" value="20.0" /> <!-- Publish Twist -->
 </node>

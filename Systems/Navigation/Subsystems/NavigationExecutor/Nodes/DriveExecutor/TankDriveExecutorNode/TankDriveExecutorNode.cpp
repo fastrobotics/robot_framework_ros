@@ -76,10 +76,13 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     bool TankDriveExecutorNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
+
+        return true;
+    }
+    bool TankDriveExecutorNode::run_01hz() {
         ROS_WARN("%s", process.pretty().c_str());
         return true;
     }
-    bool TankDriveExecutorNode::run_01hz() { return true; }
     bool TankDriveExecutorNode::run_001hz() { return true; }
 
     void TankDriveExecutorNode::thread_loop() {

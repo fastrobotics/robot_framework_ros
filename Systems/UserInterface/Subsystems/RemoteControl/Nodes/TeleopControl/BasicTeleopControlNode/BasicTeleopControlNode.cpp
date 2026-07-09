@@ -12,18 +12,36 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     BasicTeleopControlNode::BasicTeleopControlNode() {}
     BasicTeleopControlNode::~BasicTeleopControlNode() {}
     bool BasicTeleopControlNode::init() {
-        bool status = process.init();
-        if (status == false) {
-            ROS_ERROR("Unable to initialize Process!");
-            return false;
-        }
-        status =
-            process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::JOY_TEST);
-        status = BaseNode::base_init();
+        bool status = BaseNode::base_init();
         if (status == false) {
             ROS_ERROR("Unable to initialize Base Node!");
             return false;
         }
+
+        status =
+            process.init(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::ControlDevice::THRUSTMASTER_JOYSTICK);
+        if (status == false) {
+            ROS_ERROR("Unable to initialize Process!");
+            return false;
+        }
+        std::string operation_mode;
+        std::string param_op_mode = get_nodename() + "/operation_mode";
+        if (n->getParam(param_op_mode, operation_mode) == false) {
+            status =
+                process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::RUN);
+        }
+        if (operation_mode == "run") {
+            status =
+                process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::RUN);
+        } else if (operation_mode == "test") {
+            status = process.set_operation_mode(
+                fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::JOY_TEST);
+        }
+        if (status == false) {
+            ROS_ERROR("Unable to set Operation Mode");
+            return false;
+        }
+
         joy_sub = n->subscribe<sensor_msgs::Joy>("/joy", 10, &BasicTeleopControlNode::joy_Callback, this);
         twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + "/cmd_throttle", 1);
         return true;
@@ -71,11 +89,13 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     bool BasicTeleopControlNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
-        ROS_WARN("%s", process.pretty().c_str());
 
         return true;
     }
-    bool BasicTeleopControlNode::run_01hz() { return true; }
+    bool BasicTeleopControlNode::run_01hz() {
+        ROS_WARN("%s", process.pretty().c_str());
+        return true;
+    }
     bool BasicTeleopControlNode::run_001hz() { return true; }
 
     void BasicTeleopControlNode::thread_loop() {

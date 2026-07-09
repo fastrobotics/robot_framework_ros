@@ -7,6 +7,9 @@
 - [ToDo](#todo)
   - [This PR](#this-pr)
 - [Setup](#setup)
+- [Build](#build)
+  - [Build and run Unit Tests](#build-and-run-unit-tests)
+- [Execution](#execution)
 - [Documentation](#documentation)
   - [Interface Documentation](#interface-documentation)
 
@@ -41,11 +44,9 @@
 | Item                                                   |
 | ------------------------------------------------------ |
 | Add topic names to configuration                       |
-| Add specification launch joy node                      |
 | Add pub and sub to Teleop Control Node (joy --> twist) |
 | Testing                                                |
 | Check Doxygen                                          |
-| Config to set Process Operation Mode                   |
 
 
 # Setup
@@ -65,6 +66,29 @@ git submodule update --remote
 cd <repo>
 ./scripts/setup_ide.sh
 ./scripts/setup_robot.sh
+```
+
+# Build
+To build, run the following:
+```bash
+cd <workspace>
+catkin_make
+```
+
+## Build and run Unit Tests
+```bash
+cd <workspace>
+catkin_make
+catkin_make tests
+catkin_make run_tests
+```
+
+# Execution
+To launch the main content, run the following (after following [Build](#build))
+```bash
+cd <workspace>
+source devel/setup.bash
+roslaunch robot_framework_ros robot.launch
 ```
 
 # Documentation

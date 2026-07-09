@@ -243,6 +243,13 @@ namespace fast::rf_ros {
         std::string get_robotnamespace() { return robot_namespace; }
 
         /**
+         * @brief Get the nodename object
+         *
+         * @return std::string
+         */
+        std::string get_nodename() { return node_name; }
+
+        /**
          * @brief Validate Robot Namespace
          *
          * @param str
