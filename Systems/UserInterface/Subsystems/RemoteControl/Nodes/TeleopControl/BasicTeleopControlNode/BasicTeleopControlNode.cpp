@@ -1,5 +1,6 @@
 #include "BasicTeleopControlNode.hpp"
 
+#include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 
@@ -14,14 +15,14 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     bool BasicTeleopControlNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            ROS_ERROR("Unable to initialize Base Node!");
+            fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
 
         status =
             process.init(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::ControlDevice::THRUSTMASTER_JOYSTICK);
         if (status == false) {
-            ROS_ERROR("Unable to initialize Process!");
+            fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
         std::string operation_mode;
@@ -38,7 +39,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
                 fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::JOY_TEST);
         }
         if (status == false) {
-            ROS_ERROR("Unable to set Operation Mode");
+            fast::rf::Logger::log_error("Unable to set Operation Mode");
             return false;
         }
         std::string topic_joy_command;
@@ -78,7 +79,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             auto twist = process.get_twist_output();
             twist_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(twist));
         } else {
-            ROS_WARN("Diagnostic Check Failed!  Disabling Outputs.");
+            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
         }
 
         return true;
@@ -89,7 +90,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     bool BasicTeleopControlNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
-        ROS_WARN("%s", process.pretty().c_str());
+        fast::rf::Logger::log_notice(process.pretty());
         return true;
     }
     bool BasicTeleopControlNode::run_01hz() { return true; }
@@ -103,7 +104,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
 }  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
 
 void signalinterrupt_handler(int sig) {
-    ROS_WARN("Killing BasicTeleopControlNode with Signal: %d\n", sig);
+    fast::rf::Logger::log_warn("Killing BasicTeleopControlNode with Signal: " + std::to_string(sig));
     kill_node = true;
     exit(0);
 }

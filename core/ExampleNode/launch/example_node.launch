@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <launch>
+<arg name="robot_namespace" default="/"/> 
+<arg name="verbosity_level" default="NOTICE"/>
 <node name="example_node" pkg="robot_framework_ros" type="example_node"  output="screen" clear_params="true">
+    <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
     <!-- <param name="loop1_rate" value="1.0" /> -->
     <!-- <param name="loop2_rate" value="2.0" /> -->
     <!-- <param name="loop3_rate" value="3.0" /> -->

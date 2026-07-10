@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="robot_namespace" value="/robot" />
+    <arg name="verbosity_level" default="WARN"/>
     <arg name="topic_joystick_command" value ="joy"/>
     <arg name="topic_command_throttle" value="cmd_throttle"/> 
     <arg name="topic_left_drive" value ="left_drive"/>
@@ -12,6 +13,7 @@
         </node>
         <include file="$(find robot_framework_ros)/Systems/UserInterface/Subsystems/RemoteControl/Nodes/TeleopControl/BasicTeleopControlNode/launch/basicTeleopControl_node.launch">
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
             <!-- Input Topics -->
             <arg name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
             <!-- Output Topics -->
@@ -19,6 +21,7 @@
         </include>
         <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/DriveExecutor/TankDriveExecutorNode/launch/tankDriveExecutor_node.launch">
                 <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
                 <!-- Input Topics -->
                 <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
 
