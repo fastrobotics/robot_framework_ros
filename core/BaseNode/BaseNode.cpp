@@ -82,7 +82,30 @@ namespace fast::rf_ros {
         }
         node_namespace = ros::this_node::getNamespace();
         node_name = ros::this_node::getName();
-        status = fast::rf::Logger::init(fast::rf::Level::DEBUG, node_name);
+        std::string logger_verbosity;
+        std::string param_logger_verbosity = node_name + "/verbosity_level";
+        fast::rf::Level level;
+        if (n->getParam(param_logger_verbosity, logger_verbosity) == false) {
+            level = fast::rf::Level::NOTICE;
+        } else {
+            if (logger_verbosity == "DEBUG") {
+                level = fast::rf::Level::DEBUG;
+            } else if (logger_verbosity == "INFO") {
+                level = fast::rf::Level::INFO;
+            } else if (logger_verbosity == "NOTICE") {
+                level = fast::rf::Level::NOTICE;
+            } else if (logger_verbosity == "WARN") {
+                level = fast::rf::Level::WARN;
+            } else if (logger_verbosity == "ERROR") {
+                level = fast::rf::Level::ERROR;
+            } else if (logger_verbosity == "FATAL") {
+                level = fast::rf::Level::FATAL;
+            } else {
+                ROS_ERROR("Unsupported Logger Verbosity");
+                return false;
+            }
+        }
+        status = fast::rf::Logger::init(level, node_name);
         if (status == false) {
             ROS_ERROR("Unable to initialize Logger");
         }
@@ -95,36 +118,36 @@ namespace fast::rf_ros {
 
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
-            ROS_WARN("Missing parameter: loop1_rate.  Not running loop1 code.");
+            fast::rf::Logger::log_warn("Missing parameter: loop1_rate.  Not running loop1 code.");
             loop1_enabled = false;
         } else {
             loop1_enabled = true;
             if (loop1_rate > max_rate) {
-                ROS_WARN("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
+                fast::rf::Logger::log_warn("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
                 loop1_rate = max_rate;
             }
         }
 
         std::string param_loop2_rate = node_name + "/loop2_rate";
         if (n->getParam(param_loop2_rate, loop2_rate) == false) {
-            ROS_WARN("Missing parameter: loop2_rate.  Not running loop2 code.");
+            fast::rf::Logger::log_warn("Missing parameter: loop2_rate.  Not running loop2 code.");
             loop2_enabled = false;
         } else {
             loop2_enabled = true;
             if (loop2_rate > max_rate) {
-                ROS_WARN("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
+                fast::rf::Logger::log_warn("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
                 loop2_rate = max_rate;
             }
         }
 
         std::string param_loop3_rate = node_name + "/loop3_rate";
         if (n->getParam(param_loop3_rate, loop3_rate) == false) {
-            ROS_WARN("Missing parameter: loop3_rate.  Not running loop3 code.");
+            fast::rf::Logger::log_warn("Missing parameter: loop3_rate.  Not running loop3 code.");
             loop3_enabled = false;
         } else {
             loop3_enabled = true;
             if (loop3_rate > max_rate) {
-                ROS_WARN("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
+                fast::rf::Logger::log_warn("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
                 loop3_rate = max_rate;
             }
         }
@@ -267,7 +290,8 @@ namespace fast::rf_ros {
             node_state.state = new_state;
             return true;
         } else {
-            ROS_ERROR("Node State Change Not Allowed: %d -> %d", current_state, new_state);
+            fast::rf::Logger::log_error("Node State Change Not Allowed: " + std::to_string(current_state) + " -> " +
+                                        std::to_string(new_state));
             return false;
         }
     }

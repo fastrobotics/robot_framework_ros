@@ -4,8 +4,10 @@
 <arg name="topic_command_throttle" default="/"/>
 <arg name="topic_left_drive" default="/"/>
 <arg name="topic_right_drive" default="/"/>
+<arg name="verbosity_level" default="NOTICE"/>
 <node name="nodeTankDriveExecutor" pkg="robot_framework_ros" type="nodeTankDriveExecutor"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
     <!-- Input Topics -->
     <param name="topic_command_throttle" value="$(arg topic_command_throttle)"/>
     <!-- Output Topics -->

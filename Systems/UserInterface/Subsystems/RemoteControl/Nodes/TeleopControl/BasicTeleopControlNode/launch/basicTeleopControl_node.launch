@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <launch>
 <arg name="robot_namespace" default="/"/> 
+<arg name="verbosity_level" default="NOTICE"/>
 <arg name="topic_joystick_command" default="/"/>
 <arg name="topic_command_throttle" default="/"/>
 <node name="nodeBasicTeleopControl" pkg="robot_framework_ros" type="nodeBasicTeleopControl"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
     <!-- Input Topics -->
     <param name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
     <!-- Output Topics -->
