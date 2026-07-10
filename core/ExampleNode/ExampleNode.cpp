@@ -1,5 +1,6 @@
 #include "ExampleNode.hpp"
 
+#include <Infrastructure/Logger.hpp>
 #include <RobotFrameworkDefinitions.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
@@ -11,15 +12,15 @@ namespace fast::rf_ros::example_package {
 
     bool ExampleNode::start() { return BaseNode::base_start(); }
     bool ExampleNode::run_loop1() {
-        ROS_INFO("Loop1");
+        fast::rf::Logger::log_debug("Loop1");
         return true;
     }
     bool ExampleNode::run_loop2() {
-        ROS_INFO("Loop2");
+        fast::rf::Logger::log_debug("Loop2");
         return true;
     }
     bool ExampleNode::run_loop3() {
-        ROS_INFO("Loop3");
+        fast::rf::Logger::log_debug("Loop3");
         return true;
     }
     bool ExampleNode::run_100hz() { return true; }
@@ -49,7 +50,7 @@ namespace fast::rf_ros::example_package {
 }  // namespace fast::rf_ros::example_package
 
 void signalinterrupt_handler(int sig) {
-    ROS_WARN("Killing ExampleNode with Signal: %d\n", sig);
+    fast::rf::Logger::log_warn("Killing ExampleNode with Signal: " + std::to_string(sig));
     kill_node = true;
     exit(0);
 }

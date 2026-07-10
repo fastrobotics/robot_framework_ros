@@ -2,6 +2,7 @@
 
 #include <std_msgs/Float64.h>
 
+#include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
@@ -14,14 +15,14 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         process.new_cmd(fast::rf_ros::utils::TranslateUtility::convert(twist_msg));
     }
     bool TankDriveExecutorNode::init() {
-        bool status = process.init();
+        bool status = BaseNode::base_init();
         if (status == false) {
-            ROS_ERROR("Unable to initialize Process!");
+            fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        status = BaseNode::base_init();
+        status = process.init();
         if (status == false) {
-            ROS_ERROR("Unable to initialize Base Node!");
+            fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
         std::string topic_left_drive;
@@ -85,7 +86,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             left_drive_pub.publish(left_drive);
             right_drive_pub.publish(right_drive);
         } else {
-            ROS_WARN("Diagnostic Check Failed!  Disabling Outputs.");
+            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
         }
         return true;
     }
@@ -99,7 +100,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         return true;
     }
     bool TankDriveExecutorNode::run_01hz() {
-        ROS_WARN("%s", process.pretty().c_str());
+        fast::rf::Logger::log_notice(pretty());
         return true;
     }
     bool TankDriveExecutorNode::run_001hz() { return true; }
@@ -112,7 +113,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
 }  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
 
 void signalinterrupt_handler(int sig) {
-    ROS_WARN("Killing TankDriveExecutorNode with Signal: %d\n", sig);
+    fast::rf::Logger::log_warn("Killing TankDriveExecutorNode with Signal: " + std::to_string(sig));
     kill_node = true;
     exit(0);
 }

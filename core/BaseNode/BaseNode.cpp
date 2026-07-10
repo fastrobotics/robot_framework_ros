@@ -1,3 +1,4 @@
+#include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
@@ -81,6 +82,10 @@ namespace fast::rf_ros {
         }
         node_namespace = ros::this_node::getNamespace();
         node_name = ros::this_node::getName();
+        status = fast::rf::Logger::init(fast::rf::Level::DEBUG, node_name);
+        if (status == false) {
+            ROS_ERROR("Unable to initialize Logger");
+        }
         set_robotnamespace(read_robotnamespace());
         std::string heartbeat_topic = node_name + "/heartbeat";
         heartbeat_pub = n->advertise<robot_framework_ros::heartbeat>(heartbeat_topic, 1);
