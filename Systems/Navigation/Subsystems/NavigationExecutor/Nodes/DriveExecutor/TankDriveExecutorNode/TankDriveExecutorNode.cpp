@@ -53,7 +53,9 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             1000.0, 1500.0, 2000.0);
         fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig right_channel_config(
             1000.0, 1500.0, 2000.0);
-        process.set_config(left_channel_config, right_channel_config);
+        if (process.set_config(left_channel_config, right_channel_config) == false) {
+            return false;
+        }
 
         return true;
     }
