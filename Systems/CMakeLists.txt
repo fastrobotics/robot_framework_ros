@@ -1,2 +1,3 @@
 add_subdirectory(Navigation)
 add_subdirectory(UserInterface)
+add_subdirectory(BaseMachine)

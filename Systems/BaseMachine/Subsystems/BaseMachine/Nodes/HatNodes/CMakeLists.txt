@@ -1,1 +1,1 @@
-add_subdirectory(ServoHat)
+add_subdirectory(ServoHatNode)
