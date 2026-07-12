@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::{{cookiecutter.System}}System
+ * @brief The {{cookiecutter.System}} System for the ROS Robot Framework
+ */
