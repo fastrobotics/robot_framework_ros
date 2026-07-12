@@ -20,6 +20,7 @@
 # Systems
 | Status | System                                                                     |
 | ------ | -------------------------------------------------------------------------- |
+| DRAFT  | [Base Machine System](Systems/BaseMachine/doc/System-BaseMachine.md)       |
 | DRAFT  | [Navigation System](Systems/Navigation/doc/System-Navigation.md)           |
 | DRAFT  | [User Interface System](Systems/UserInterface/doc/System-UserInterface.md) |
 
