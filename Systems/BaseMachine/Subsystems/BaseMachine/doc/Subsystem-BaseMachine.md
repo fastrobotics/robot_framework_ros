@@ -64,8 +64,9 @@ The following outputs are provided by this system.
 
 # Nodes
 
-| Status | Node |
-| ------ | ---- |
+| Status | Node                                                |
+| ------ | --------------------------------------------------- |
+| DRAFT  | [Hat Nodes](../Nodes/HatNodes/doc/Nodes-HatNode.md) |
 
 
 ## Package Diagram
