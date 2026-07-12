@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="robot_namespace" default="/"/> 
+<arg name="verbosity_level" default="NOTICE"/>
+<node name="node{{cookiecutter.Node}}" pkg="robot_framework_ros" type="node{{cookiecutter.Node}}"  output="screen" clear_params="true">
+    <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
+    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
+    <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
+    <!-- Input Topics -->
+    <!-- Output Topics -->
+    
+    
+</node>
+</launch>

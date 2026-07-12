@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/test" />
+    <group ns="test">
+        <include file="$(find robot_framework_ros)/Systems/{{cookiecutter.System}}/Subsystems/{{cookiecutter.Subsystem}}/Nodes/<blah>/{{cookiecutter.Node}}Node/launch/{{cookiecutter.Node}}_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <!-- Input Topics -->
+            <!-- Output Topics -->
+        </include>
+        <test test-name="test_node{{cookiecutter.Node}}" pkg="robot_framework_ros" type="test_node{{cookiecutter.Node}}"/>
+    </group>
+   
+</launch>

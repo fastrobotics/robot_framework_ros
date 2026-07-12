@@ -12,6 +12,7 @@
 - [Execution](#execution)
 - [Documentation](#documentation)
   - [Interface Documentation](#interface-documentation)
+- [Templates](#templates)
 
 # Architecture
 ![](Legend.png)
@@ -90,3 +91,20 @@ roslaunch robot_framework_ros robot.launch
 # Documentation
 ## Interface Documentation
 [Interface Documentation](doc/InterfaceDefinitions/InterfaceDefinition.md)
+
+# Templates
+
+This project makes extensive use of cookiecutter templates.
+
+| Template  | Folder                 | Use Case                   |
+| --------- | ---------------------- | -------------------------- |
+| System    | `templates/System/`    | Used to create a System    |
+| Subsystem | `templates/Subsystem/` | Used to create a Subsystem |
+| Node      | `templates/Node/`      | Used to create a Node      |
+
+
+To use these templates, run:
+
+```bash
+cookiecutter <Template Folder containing cookiecutter.json> -o <Output Directory>
+```

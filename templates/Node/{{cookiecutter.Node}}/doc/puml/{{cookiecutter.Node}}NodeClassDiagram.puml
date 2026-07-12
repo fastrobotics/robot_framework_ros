@@ -1,0 +1,23 @@
+@startuml
+title {{cookiecutter.Node}} Node Class Diagram
+
+namespace ros {
+}
+namespace fast::rf {
+    namespace {{cookiecutter.System}}System {
+        namespace {{cookiecutter.Subsystem}}Subsystem {
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace {{cookiecutter.System}}System {
+        namespace {{cookiecutter.Subsystem}}Subsystem {
+            class {{cookiecutter.Node}}Node #Yellow {
+                -{{cookiecutter.Node}}Process process
+            }
+            {{cookiecutter.Node}}Node --> {{cookiecutter.Node}}Process: <<use>>
+        }
+    }
+}
+@enduml
+        
