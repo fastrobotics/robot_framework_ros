@@ -1,5 +1,0 @@
-@startuml
-title System-{{cookiecutter.System}} Package Diagram
-namespace fast::rf_ros::{{cookiecutter.System}}System {
-}
-@enduml

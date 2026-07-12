@@ -1,0 +1,10 @@
+@startuml
+title BaseMachine Subsystem Class Diagram
+
+namespace fast::rf_ros {
+    namespace BaseMachine {
+        namespace BaseMachineSubsystem {
+        }
+    }
+}
+@enduml
