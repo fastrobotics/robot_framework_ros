@@ -43,8 +43,9 @@
 
 
 ## This PR
-| Item          |
-| -------------
+| Item                   |
+| ---------------------- |
+| Remap topic to channel |
 
 # Setup
 

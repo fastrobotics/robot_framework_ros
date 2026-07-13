@@ -109,6 +109,12 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
          */
         void thread_loop();
 
+        /**
+         * @brief Process a drive command
+         *
+         * @param t_msg
+         * @param channel
+         */
         void drive_Callback(const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel);
 
        private:
