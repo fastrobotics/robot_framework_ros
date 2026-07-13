@@ -2,6 +2,11 @@ var annotated_dup =
 [
     [ "fast", "namespacefast.html", [
       [ "rf_ros", "namespacefast_1_1rf__ros.html", [
+        [ "BaseMachineSystem", "namespacefast_1_1rf__ros_1_1BaseMachineSystem.html", [
+          [ "BaseMachineSubsystem", "namespacefast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem.html", [
+            [ "ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode" ]
+          ] ]
+        ] ],
         [ "example_package", "namespacefast_1_1rf__ros_1_1example__package.html", [
           [ "ExampleNode", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode" ]
         ] ],

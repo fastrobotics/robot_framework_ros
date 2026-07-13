@@ -1,9 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this." alt="" coords="5,99,172,124"/>
-<area shape="rect" id="Node000001" href="$classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html" title="Tank Drive Executor Node." alt="" coords="220,5,499,60"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="143,92,219,69,258,57,260,63,221,74,144,97"/>
-<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html" title="Basic Teleop Control Node." alt="" coords="235,84,484,139"/>
-<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="186,109,234,109,234,114,186,114"/>
-<area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="268,163,451,203"/>
-<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="145,126,221,147,273,161,271,166,219,153,143,131"/>
+<area shape="rect" id="Node000000" href="$classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this." alt="" coords="5,139,172,164"/>
+<area shape="rect" id="Node000001" href="$classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html" title="ServoHat Node." alt="" coords="240,5,479,60"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="117,128,163,98,219,69,248,58,250,63,221,74,166,103,120,133"/>
+<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html" title="Tank Drive Executor Node." alt="" coords="220,84,499,139"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="185,134,219,129,220,135,186,140"/>
+<area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html" title="Basic Teleop Control Node." alt="" coords="235,163,484,217"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="186,163,235,170,234,175,185,168"/>
+<area shape="rect" id="Node000004" href="$classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="268,242,451,282"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="120,170,166,199,221,226,269,242,267,247,219,231,164,203,117,174"/>
 </map>
