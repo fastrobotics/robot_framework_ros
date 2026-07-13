@@ -1,6 +1,6 @@
 /**
  * @file ServoHatNode.hpp
- * @author your name (you@domain.com)
+ * @author David Gitz (davidgitz@gmail.com)
  * @brief
  * @version 0.1
  * @date 2026-07-05
@@ -9,8 +9,9 @@
  *
  */
 #pragma once
+#include <std_msgs/Float64.h>
 
-#include <ServoHatProcess/ServoHatProcess.hpp>
+#include <ServoHatDriverProcess/ServoHatDriverProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
 namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
     /**
@@ -108,7 +109,11 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
          */
         void thread_loop();
 
+        void drive_Callback(const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel);
+
        private:
-        fast::rf::BaseMachineSystem::BaseMachineSubsystem::ServoHatProcess process;  //!< Execution Process
+        fast::rf::BaseMachineSystem::BaseMachineSubsystem::ServoHatDriverProcess process;  //!< Execution Process
+        ros::Subscriber left_drive_sub;
+        ros::Subscriber right_drive_sub;
     };
 }  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem

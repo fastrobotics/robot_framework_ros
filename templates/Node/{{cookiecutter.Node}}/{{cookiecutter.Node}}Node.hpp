@@ -1,6 +1,6 @@
 /**
  * @file {{cookiecutter.Node}}Node.hpp
- * @author your name (you@domain.com)
+ * @author David Gitz (davidgitz@gmail.com)
  * @brief
  * @version 0.1
  * @date 2026-07-05

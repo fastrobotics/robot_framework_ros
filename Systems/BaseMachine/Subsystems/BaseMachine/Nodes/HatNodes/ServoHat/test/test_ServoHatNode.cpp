@@ -2,6 +2,7 @@
 #include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/heartbeat.h>
 #include <ros/ros.h>
+#include <std_msgs/Float64.h>
 
 #include "../ServoHatNode.hpp"
 
@@ -20,6 +21,13 @@ TEST(ServoHatNode, TestBasics) {
 
     std::string diagnostic_topic = robot_namespace + unittest_nodename + "/diagnostic";
     ros::Subscriber diagnostic_sub = nh.subscribe(diagnostic_topic, 100, &diagnostic_Callback);
+
+    std::string leftdrive_topic = robot_namespace + "/left_drive";
+    ros::Publisher leftdrive_pub = nh.advertise<std_msgs::Float64>(leftdrive_topic, 1);
+
+    std::string rightdrive_topic = robot_namespace + "/right_drive";
+    ros::Publisher rightdrive_pub = nh.advertise<std_msgs::Float64>(rightdrive_topic, 1);
+
     sleep(5.0);
     EXPECT_NE(ros::topic::waitForMessage<robot_framework_ros::heartbeat>(heartbeat_topic, ros::Duration(10)), nullptr);
     EXPECT_EQ(1, heartbeat_sub.getNumPublishers());
@@ -27,6 +35,8 @@ TEST(ServoHatNode, TestBasics) {
               nullptr);
     EXPECT_EQ(1, heartbeat_sub.getNumPublishers());
     EXPECT_EQ(1, diagnostic_sub.getNumPublishers());
+    EXPECT_EQ(1, leftdrive_pub.getNumSubscribers());
+    EXPECT_EQ(1, rightdrive_pub.getNumSubscribers());
 
     sleep(1.0);  // Wait for DiagnosticNode to Start.
     EXPECT_TRUE(heartbeat_rx_count > 0);

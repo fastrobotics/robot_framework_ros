@@ -47,6 +47,7 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_01hz() {
+        fast::rf::Logger::log_notice(process.pretty());
         fast::rf::Logger::log_notice(pretty());
         return true;
     }

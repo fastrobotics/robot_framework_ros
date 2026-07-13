@@ -1,6 +1,7 @@
 #include "ServoHatNode.hpp"
 
 #include <Infrastructure/Logger.hpp>
+#include <boost/bind/bind.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
@@ -8,6 +9,14 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
 
     ServoHatNode::ServoHatNode() {}
     ServoHatNode::~ServoHatNode() {}
+    void ServoHatNode::drive_Callback([[maybe_unused]] const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel) {
+        uint16_t value = (uint16_t)t_msg->data;
+        bool status = process.setServoValue(channel, value);
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to update Channel: " + std::to_string(channel) +
+                                        " with Value: " + std::to_string(value));
+        }
+    }
     bool ServoHatNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
@@ -19,6 +28,22 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        std::string topic_left_drive;
+        std::string param_left_drive = get_nodename() + "/topic_left_drive";
+        if (n->getParam(param_left_drive, topic_left_drive) == false) {
+            return false;
+        }
+
+        left_drive_sub = n->subscribe<std_msgs::Float64>(get_robotnamespace() + topic_left_drive, 10,
+                                                         boost::bind(&ServoHatNode::drive_Callback, this, _1, 0));
+
+        std::string topic_right_drive;
+        std::string param_right_drive = get_nodename() + "/topic_right_drive";
+        if (n->getParam(param_right_drive, topic_right_drive) == false) {
+            return false;
+        }
+        right_drive_sub = n->subscribe<std_msgs::Float64>(get_robotnamespace() + topic_right_drive, 10,
+                                                          boost::bind(&ServoHatNode::drive_Callback, this, _1, 1));
         return true;
     }
 
@@ -29,7 +54,23 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
         return true;
     }
     bool ServoHatNode::run_loop2() {
+        bool diag_actuator_check_ok = false;
+        bool diag_remotecontrol_check_ok = false;
+        auto diagnostics = process.get_diagnostics();
+        for (auto diagnostic : diagnostics) {
+            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::ACTUATORS) and
+                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
+                diag_actuator_check_ok = true;
+            }
+            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::REMOTE_CONTROL) and
+                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
+                diag_remotecontrol_check_ok = true;
+            }
+        }
         bool diagnostic_check_ok = false;
+        if ((diag_actuator_check_ok == true) && (diag_remotecontrol_check_ok == true)) {
+            diagnostic_check_ok = true;
+        }
         if (diagnostic_check_ok == true) {
         } else {
             fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
@@ -46,6 +87,7 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
         return true;
     }
     bool ServoHatNode::run_01hz() {
+        fast::rf::Logger::log_notice(process.pretty());
         fast::rf::Logger::log_notice(pretty());
         return true;
     }
