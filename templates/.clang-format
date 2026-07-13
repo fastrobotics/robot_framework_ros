@@ -1,0 +1,4 @@
+---
+# Disable formatting for all files in this directory and its subdirectories
+DisableFormat: true
+SortIncludes: false

@@ -1,5 +1,5 @@
 /**
- * @file {{cookiecutter.Node}}Node.hpp
+ * @file ServoHatNode.hpp
  * @author David Gitz (davidgitz@gmail.com)
  * @brief
  * @version 0.1
@@ -9,18 +9,19 @@
  *
  */
 #pragma once
+#include <std_msgs/Float64.h>
 
+#include <ServoHatDriverProcess/ServoHatDriverProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-#include <{{cookiecutter.Node}}Process/{{cookiecutter.Node}}Process.hpp>
-namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem {
+namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
     /**
-     * @brief {{cookiecutter.Node}} Node
+     * @brief ServoHat Node
      *
      */
-    class {{cookiecutter.Node}}Node : public BaseNode {
+    class ServoHatNode : public BaseNode {
        public:
-        {{cookiecutter.Node}}Node();
-        ~{{cookiecutter.Node}}Node();
+        ServoHatNode();
+        ~ServoHatNode();
 
         /**
          * @brief Initialize the Node
@@ -108,9 +109,17 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
          */
         void thread_loop();
 
+        /**
+         * @brief Process a drive command
+         *
+         * @param t_msg
+         * @param channel
+         */
+        void drive_Callback(const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel);
 
        private:
-        fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}}Process
-            process;  //!< Execution Process
+        fast::rf::BaseMachineSystem::BaseMachineSubsystem::ServoHatDriverProcess process;  //!< Execution Process
+        ros::Subscriber left_drive_sub;
+        ros::Subscriber right_drive_sub;
     };
-}  // namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem
+}  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem

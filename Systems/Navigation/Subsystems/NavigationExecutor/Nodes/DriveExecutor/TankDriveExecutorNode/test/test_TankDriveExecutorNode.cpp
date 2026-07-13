@@ -43,6 +43,7 @@ TEST(TankDriveExecutorNode, TestBasics) {
     EXPECT_EQ(1, diagnostic_sub.getNumPublishers());
     EXPECT_EQ(1, leftdrive_sub.getNumPublishers());
     EXPECT_EQ(1, rightdrive_sub.getNumPublishers());
+    EXPECT_EQ(1, throttle_cmd_pub.getNumSubscribers());
 
     sleep(1.0);  // Wait for DiagnosticNode to Start.
     EXPECT_TRUE(heartbeat_rx_count > 0);

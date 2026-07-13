@@ -1,0 +1,5 @@
+@startuml
+title System-BaseMachine Package Diagram
+namespace fast::rf_ros::BaseMachineSystem {
+}
+@enduml

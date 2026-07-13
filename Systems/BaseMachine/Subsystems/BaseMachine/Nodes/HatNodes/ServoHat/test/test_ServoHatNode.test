@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/test" />
+    <arg name="topic_left_drive" value ="left_drive"/>
+    <arg name="topic_right_drive" value="right_drive"/>
+    <group ns="test">
+        <include file="$(find robot_framework_ros)/Systems/BaseMachine/Subsystems/BaseMachine/Nodes/HatNodes/ServoHat/launch/ServoHat_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <!-- Input Topics -->
+            <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
+            <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
+            <!-- Output Topics -->
+        </include>
+        <test test-name="test_nodeServoHat" pkg="robot_framework_ros" type="test_nodeServoHat"/>
+    </group>
+   
+</launch>
