@@ -9,6 +9,6 @@
 # Overview
 
 # Nodes Available
-| Node                                                  |
-| ----------------------------------------------------- |
-| [Servo Hat Node](../ServoHatNode/doc/ServoHatNode.md) |
+| Node                                              |
+| ------------------------------------------------- |
+| [Servo Hat Node](../ServoHat/doc/ServoHatNode.md) |

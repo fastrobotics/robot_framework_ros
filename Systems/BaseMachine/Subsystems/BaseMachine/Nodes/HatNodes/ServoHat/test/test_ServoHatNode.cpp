@@ -1,4 +1,7 @@
 #include <gtest/gtest.h>
+#include <robot_framework_ros/diagnostic.h>
+#include <robot_framework_ros/heartbeat.h>
+#include <ros/ros.h>
 
 #include "../ServoHatNode.hpp"
 
@@ -6,20 +9,17 @@ using namespace fast::rf_ros;
 
 std::string robot_namespace = "/test/";
 std::string unittest_nodename = "nodeServoHat";
+uint64_t heartbeat_rx_count = 0;
+uint64_t diagnostic_rx_count = 0;
 void heartbeat_Callback([[maybe_unused]] const robot_framework_ros::heartbeat& msg) { heartbeat_rx_count++; }
 void diagnostic_Callback([[maybe_unused]] const robot_framework_ros::diagnostic& msg) { diagnostic_rx_count++; }
-TEST(
-    {
-        { cookiecutter.Node }
-    } Node,
-    TestBasics) {
+TEST(ServoHatNode, TestBasics) {
     ros::NodeHandle nh("~");
     std::string heartbeat_topic = robot_namespace + unittest_nodename + "/heartbeat";
     ros::Subscriber heartbeat_sub = nh.subscribe(heartbeat_topic, 100, &heartbeat_Callback);
 
     std::string diagnostic_topic = robot_namespace + unittest_nodename + "/diagnostic";
     ros::Subscriber diagnostic_sub = nh.subscribe(diagnostic_topic, 100, &diagnostic_Callback);
-
     sleep(5.0);
     EXPECT_NE(ros::topic::waitForMessage<robot_framework_ros::heartbeat>(heartbeat_topic, ros::Duration(10)), nullptr);
     EXPECT_EQ(1, heartbeat_sub.getNumPublishers());

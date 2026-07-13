@@ -12,33 +12,15 @@
 
 #include <ServoHatProcess/ServoHatProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::{
-    {
-        cookiecutter.System
-    }
-}  // namespace fast::rf_ros::
-System::{
-    { cookiecutter.Subsystem }
-}
-Subsystem {
+namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
     /**
      * @brief ServoHat Node
      *
      */
-    class {
-        {
-            cookiecutter.Node
-        }
-    } Node : public BaseNode {
+    class ServoHatNode : public BaseNode {
        public:
-        {
-            { cookiecutter.Node }
-        }
-        Node();
-        ~{
-            { cookiecutter.Node }
-        }
-        Node();
+        ServoHatNode();
+        ~ServoHatNode();
 
         /**
          * @brief Initialize the Node
@@ -127,15 +109,6 @@ Subsystem {
         void thread_loop();
 
        private:
-        fast::rf::{
-            { cookiecutter.System }
-        }
-        System::{
-            { cookiecutter.Subsystem }
-        }
-        Subsystem::{
-            { cookiecutter.Node }
-        }
-        Process process;  //!< Execution Process
+        fast::rf::BaseMachineSystem::BaseMachineSubsystem::ServoHatProcess process;  //!< Execution Process
     };
 }  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem
