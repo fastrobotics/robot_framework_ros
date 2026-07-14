@@ -9,10 +9,10 @@ namespace ros {
 namespace fast::rf {
     namespace NavigationSystem {
         namespace NavigationExecutorSubsystem {
-            interface IDriveExecutorProcess
-            interface IDriveExecutorOutput
-            class TankDriveExecutorProcess
-            class TankDriveExecutorOutput
+            interface IDriveExecutorProcess #LimeGreen {}
+            interface IDriveExecutorOutput #LimeGreen {}
+            class TankDriveExecutorProcess #LimeGreen {}
+            class TankDriveExecutorOutput #LimeGreen {}
             TankDriveExecutorProcess -up-|> IDriveExecutorProcess
             
             TankDriveExecutorOutput -up-|> IDriveExecutorOutput
@@ -22,8 +22,8 @@ namespace fast::rf {
 }
 namespace fast::rf_ros {
    namespace NavigationSystem {
-        namespace NavigationExecutorSubsystem {
-            class TankDriveExecutorNode #Orange {
+        package NavigationExecutorSubsystem #LightYellow;line:blue {
+            class TankDriveExecutorNode #LimeGreen {
                 -TankDriveExecutorProcess process
             }
             TankDriveExecutorNode --> TankDriveExecutorProcess: <<use>>

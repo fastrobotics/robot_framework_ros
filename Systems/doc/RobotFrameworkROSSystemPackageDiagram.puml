@@ -1,14 +1,22 @@
 @startuml
 title ROS Robot Framework Package Diagram
-namespace fast::rf_ros {
-    namespace NavigationSystem #Orange {
-        
+package fast::rf_ros #LightYellow;line:blue {
+    namespace NavigationSystem #LimeGreen {
+        namespace NavigationExecutorSubsystem #LimeGreen {
+            namespace DriveExecutor #LimeGreen {
+                 class TankDriveExecutorNode #LimeGreen {}
+            }
+        }
     }
-    namespace UserInterfaceSystem #Orange {
-        
+    namespace UserInterfaceSystem #LimeGreen {
+        namespace RemoteControlSubsystem #LimeGreen  {
+            class BasicTeleopControlNode #LimeGreen {}
+        }
     }
-    namespace BaseMachineSystem {
-        
+    namespace BaseMachineSystem #LimeGreen {
+        namespace BaseMachineSubsystem #LimeGreen {
+            class ServoHatNode #LimeGreen
+        }
     }
 }
 @enduml

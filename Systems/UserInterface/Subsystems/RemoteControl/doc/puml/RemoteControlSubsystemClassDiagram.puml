@@ -1,12 +1,10 @@
 @startuml
-title NavigationExecutor Subsystem Class Diagram
+title RemoteControl Subsystem Class Diagram
 
 namespace fast::rf_ros {
     namespace UserInterfaceSystem {
-        namespace RemoteControlSubsystem {
-            package TeleopControl #Orange {
-                
-            }
+        package RemoteControlSubsystem #LightYellow;line:blue  {
+            class BasicTeleopControlNode #LimeGreen {}
         }
     }
 }
