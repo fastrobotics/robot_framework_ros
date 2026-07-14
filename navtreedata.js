@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "robot_framework_ros", "index.html", [
+    [ "FAST Robotics: ROS Robot Framework", "index.html", "index" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
