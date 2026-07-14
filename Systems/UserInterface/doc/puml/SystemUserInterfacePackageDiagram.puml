@@ -1,8 +1,8 @@
 @startuml
-title System-Navigation Package Diagram
-namespace fast::rf_ros::UserInterfaceSystem {
-    namespace RemoteControlSubsystem {
-
+title System-UserInterface Package Diagram
+package fast::rf_ros::UserInterfaceSystem #LightYellow;line:blue {
+    namespace RemoteControlSubsystem #LimeGreen  {
+        class BasicTeleopControlNode #LimeGreen {}
     }
 }
 @enduml

@@ -1,5 +1,8 @@
 @startuml
 title System-BaseMachine Package Diagram
-namespace fast::rf_ros::BaseMachineSystem {
+package fast::rf_ros::BaseMachineSystem #LightYellow;line:blue {
+    namespace BaseMachineSubsystem #LimeGreen {
+        class ServoHatNode #LimeGreen
+    }
 }
 @enduml

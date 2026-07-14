@@ -1,8 +1,10 @@
 @startuml
 title System-Navigation Package Diagram
-namespace fast::rf_ros::NavigationSystem {
-    namespace NavigationExecutorSubsystem {
-
+package fast::rf_ros::NavigationSystem #LightYellow;line:blue {
+    namespace NavigationExecutorSubsystem #LimeGreen {
+        namespace DriveExecutor #LimeGreen {
+                 class TankDriveExecutorNode #LimeGreen {}
+        }
     }
 }
 @enduml

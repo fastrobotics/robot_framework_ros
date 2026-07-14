@@ -12,15 +12,15 @@ namespace ros {
 namespace fast::rf {
     namespace UserInterfaceSystem {
         namespace RemoteControlSystem {
-            interface ITeleopControlProcess
-            class BasicTeleopControlProcess
+            interface ITeleopControlProcess #LimeGreen {}
+            class BasicTeleopControlProcess #LimeGreen {}
             BasicTeleopControlProcess -up-|> ITeleopControlProcess
         }
     }
 }
 namespace fast::rf_ros {
    namespace UserInterfaceSystem {
-        namespace RemoteControlSystem {
+        package RemoteControlSystem #LightYellow;line:blue {
             class BasicTeleopControlNode #LimeGreen {
                 -BasicTeleopControlProcess process
             }
