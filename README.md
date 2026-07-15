@@ -1,3 +1,5 @@
+[![Build and Test CI](https://github.com/fastrobotics/robot_framework_ros/actions/workflows/build-test.yml/badge.svg)](https://github.com/fastrobotics/robot_framework_ros/actions/workflows/build-test.yml)
+
 # FAST Robotics - Robot Framework: ROS v1 Middleware
 
 - [FAST Robotics - Robot Framework: ROS v1 Middleware](#fast-robotics---robot-framework-ros-v1-middleware)
@@ -5,11 +7,10 @@
 - [Architecture](#architecture)
 - [Systems](#systems)
 - [Features](#features)
-- [ToDo](#todo)
-  - [This PR](#this-pr)
 - [Setup](#setup)
 - [Build](#build)
   - [Build and run Unit Tests](#build-and-run-unit-tests)
+- [Generate Code Coverage (after running Build and run Unit Tests)](#generate-code-coverage-after-running-build-and-run-unit-tests)
 - [Execution](#execution)
 - [Documentation](#documentation)
   - [Interface Documentation](#interface-documentation)
@@ -34,22 +35,6 @@
 | ------ | --------------------------------------------------- |
 | DRAFT  | [Core](include/robot_framework_ros/doc/Core.md)     |
 | DRAFT  | [Example Node](core/ExampleNode/doc/ExampleNode.md) |
-
-
-# ToDo
-| Item                                          |
-| --------------------------------------------- |
-| Change message definition namespace           |
-| Add code coverage for Example Node            |
-| Add guide for creating new node from BaseNode |
-| Doxygen hosted documentation                  |
-| Doxygen for messages?                         |
-
-
-## This PR
-| Item                   |
-| ---------------------- |
-| Remap topic to channel |
 
 # Setup
 
@@ -84,6 +69,14 @@ cd <workspace>
 catkin_make
 catkin_make tests
 catkin_make run_tests
+```
+
+# Generate Code Coverage (after running [Build and run Unit Tests](#build-and-run-unit-tests))
+
+```bash
+cd <repo>
+source repo_config
+./dev_tools/scripts/dev_tools.sh code_coverage
 ```
 
 # Execution
