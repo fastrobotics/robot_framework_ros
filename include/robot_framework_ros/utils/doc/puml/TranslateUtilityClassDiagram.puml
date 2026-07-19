@@ -39,7 +39,7 @@ namespace robot_framework_ros {
 }
 namespace fast::rf_ros {
     package utils  #LightYellow;line:blue {
-        class TranslateUtility #Orange {
+        class TranslateUtility #LimeGreen {
             -- Infrastructure Messages --
 
             +{static} DiagnosticMsg convert(robot_framework_ros::diagnostic diagnostic)
@@ -64,9 +64,6 @@ namespace fast::rf_ros {
             +{static} JoyMsg convert(sensor_msgs::Joy)
             +{static} sensor_msgs::Joy convert(JoyMsg joy)
         }
-        note bottom of TranslateUtility
-        Add `ArmStateChangeSrv` during AB#1774
-        end note
         
     }
 }
