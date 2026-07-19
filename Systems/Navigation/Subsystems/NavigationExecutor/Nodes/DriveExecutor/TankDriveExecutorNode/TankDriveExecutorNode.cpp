@@ -62,7 +62,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
 
     bool TankDriveExecutorNode::start() { return BaseNode::base_start(); }
     bool TankDriveExecutorNode::run_loop1() {
-        process.update(ros::Time::now().toSec(), 0.0);
+        process.update(ros::Time::now().toSec());
 
         return true;
     }
