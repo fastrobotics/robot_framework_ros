@@ -24,6 +24,7 @@ var classfast_1_1rf__ros_1_1BaseNode =
     [ "run_loop2", "classfast_1_1rf__ros_1_1BaseNode.html#a0504dfd815974273436ca87c2c92c562", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1BaseNode.html#a1fef4b64640588c15ac96fea6a0fd2ff", null ],
     [ "set_diagnostics", "classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b", null ],
+    [ "set_ready_to_arm", "classfast_1_1rf__ros_1_1BaseNode.html#ad23823602e342b17f7335b8e16fd27a6", null ],
     [ "set_robotnamespace", "classfast_1_1rf__ros_1_1BaseNode.html#a5c3e7a6d77e6f0d60ae325265ebf4f63", null ],
     [ "start", "classfast_1_1rf__ros_1_1BaseNode.html#a3e6e1b5677e7760591f78fcaa0f2641d", null ],
     [ "update", "classfast_1_1rf__ros_1_1BaseNode.html#a9c8fd412d28b6347a0af94e98ddc0bf3", null ],
