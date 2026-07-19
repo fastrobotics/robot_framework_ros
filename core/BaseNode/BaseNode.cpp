@@ -116,6 +116,9 @@ namespace fast::rf_ros {
         std::string diagnostic_topic = node_name + "/diagnostic";
         diagnostic_pub = n->advertise<robot_framework_ros::diagnostic>(diagnostic_topic, 1);
 
+        std::string ready_to_arm_topic = node_name + "/ready_to_arm";
+        ready_to_arm_pub = n->advertise<robot_framework_ros::ready_to_arm>(ready_to_arm_topic, 1);
+
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
             fast::rf::Logger::log_warn("Missing parameter: loop1_rate.  Not running loop1 code.");
@@ -250,12 +253,14 @@ namespace fast::rf_ros {
     bool BaseNode::base_run_1hz() {
         if (diagnostics_.size() > 0) {
             for (auto diagnostic : diagnostics_) {
+                fast::rf::Logger::log_diagnostic(diagnostic);
                 robot_framework_ros::diagnostic diagnostic_msg =
                     fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
                 diagnostic_msg.stamp = ros::Time::now();
                 diagnostic_pub.publish(diagnostic_msg);
             }
         }
+        ready_to_arm_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_));
         return run_1hz();
     }
 

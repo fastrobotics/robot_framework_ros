@@ -57,6 +57,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
                                                  &BasicTeleopControlNode::joy_Callback, this);
         twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 1);
+        set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
 
@@ -67,33 +68,29 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         return true;
     }
     bool BasicTeleopControlNode::run_loop2() {
-        bool diagnostic_check_ok = false;
-        auto diagnostics = process.get_diagnostics();
-        for (auto diagnostic : diagnostics) {
-            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::REMOTE_CONTROL) and
-                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
-                diagnostic_check_ok = true;
-            }
-        }
-        if (diagnostic_check_ok == true) {
+        if (process.get_ready_to_arm().ready_to_arm == true) {
             auto twist = process.get_twist_output();
             twist_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(twist));
-        } else {
-            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
         }
 
         return true;
     }
     bool BasicTeleopControlNode::run_loop3() { return true; }
     bool BasicTeleopControlNode::run_100hz() { return true; }
-    bool BasicTeleopControlNode::run_10hz() { return true; }
+    bool BasicTeleopControlNode::run_10hz() {
+        set_ready_to_arm(process.get_ready_to_arm());
+        return true;
+    }
     bool BasicTeleopControlNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
-        fast::rf::Logger::log_notice(process.pretty());
         return true;
     }
-    bool BasicTeleopControlNode::run_01hz() { return true; }
+    bool BasicTeleopControlNode::run_01hz() {
+        fast::rf::Logger::log_debug(process.pretty());
+        fast::rf::Logger::log_debug(pretty());
+        return true;
+    }
     bool BasicTeleopControlNode::run_001hz() { return true; }
 
     void BasicTeleopControlNode::thread_loop() {

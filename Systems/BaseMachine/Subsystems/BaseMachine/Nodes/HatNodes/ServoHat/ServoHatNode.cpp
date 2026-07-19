@@ -44,6 +44,7 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
         }
         right_drive_sub = n->subscribe<std_msgs::Float64>(get_robotnamespace() + topic_right_drive, 10,
                                                           boost::bind(&ServoHatNode::drive_Callback, this, _1, 1));
+        set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
 
@@ -54,41 +55,31 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
         return true;
     }
     bool ServoHatNode::run_loop2() {
-        bool diag_actuator_check_ok = false;
-        bool diag_remotecontrol_check_ok = false;
-        auto diagnostics = process.get_diagnostics();
-        for (auto diagnostic : diagnostics) {
-            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::ACTUATORS) and
-                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
-                diag_actuator_check_ok = true;
-            }
-            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::REMOTE_CONTROL) and
-                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
-                diag_remotecontrol_check_ok = true;
-            }
-        }
-        bool diagnostic_check_ok = false;
-        if ((diag_actuator_check_ok == true) && (diag_remotecontrol_check_ok == true)) {
-            diagnostic_check_ok = true;
-        }
-        if (diagnostic_check_ok == true) {
-        } else {
-            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
+        /**
+         * @todo Implement this during AB#1779
+         *
+         */
+        bool robot_armed = true;
+        if ((process.get_ready_to_arm().ready_to_arm == true) && (robot_armed == true)) {
         }
         return true;
     }
     bool ServoHatNode::run_loop3() { return true; }
     bool ServoHatNode::run_100hz() { return true; }
-    bool ServoHatNode::run_10hz() { return true; }
+    bool ServoHatNode::run_10hz() {
+        set_ready_to_arm(process.get_ready_to_arm());
+        return true;
+    }
     bool ServoHatNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
+
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool ServoHatNode::run_01hz() {
-        fast::rf::Logger::log_notice(process.pretty());
-        fast::rf::Logger::log_notice(pretty());
+        fast::rf::Logger::log_debug(process.pretty());
+        fast::rf::Logger::log_debug(pretty());
         return true;
     }
     bool ServoHatNode::run_001hz() { return true; }
