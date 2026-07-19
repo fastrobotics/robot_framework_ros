@@ -1,0 +1,6 @@
+# Armed State Change Service
+armedstate requested_armed_state
+
+---
+armedstate current_armed_state
+bool request_approved

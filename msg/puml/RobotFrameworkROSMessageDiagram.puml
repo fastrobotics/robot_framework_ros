@@ -1,7 +1,7 @@
 @startuml
 title Robot Framework ROS Message Diagram
-namespace robot_framework_ros {
-    class nodestate <<(M,#FFFF00)>> <<ROS>> {
+package robot_framework_ros #LightYellow;line:blue {
+    class nodestate <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
         +uint8_t state
         +uint8_t STATE_UNKNOWN = 0
         +uint8_t STATE_INITIALIZING = 1
@@ -12,14 +12,24 @@ namespace robot_framework_ros {
         +uint8_t STATE_FINISHED = 6
         +uint8_t STATE_END_OF_LIST = 7
     }
-    class heartbeat <<(M,#FFFF00)>> <<ROS>> {
+    class armedstate <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
+        +uint8_t state
+        +uint8_t UNKNOWN = 0
+        +uint8_t DISARMED = 1
+        +uint8_t DISARMED_CANNOTARM = 2
+        +uint8_t ARMING = 3
+        +uint8_t ARMED = 4
+        +uint8_t END_OF_LIST = 5      
+    }
+    class heartbeat <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
         +time stamp
         +string HostName
         +string BaseNodeName
         +string NodeName
         +nodestate NodeState
     }
-    class diagnostic <<(M,#FFFF00)>> <<ROS>> {
+    heartbeat --> nodestate: <<use>>
+    class diagnostic <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
         +time stamp
         +uint8_t SystemID
         +uint8_t SubsystemID
@@ -30,6 +40,17 @@ namespace robot_framework_ros {
         +string Description
 
     }
+    class ready_to_arm <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
+        +uint8_t SystemID
+        +uint8_t SubsystemID
+        +uint8_t ProcessID
+        +bool ready_to_arm
+    }
+
+    class arm_command <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
+        +armedstate armed_state
+    }
+    arm_command --> armedstate: <<use>>
 
 }
 @enduml

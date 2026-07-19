@@ -5,6 +5,7 @@
 - [FAST Robotics - Robot Framework: ROS v1 Middleware](#fast-robotics---robot-framework-ros-v1-middleware)
 - [Requirements](#requirements)
 - [Architecture](#architecture)
+- [Interfaces](#interfaces)
 - [Systems](#systems)
 - [Features](#features)
 - [Setup](#setup)
@@ -21,6 +22,11 @@
 
 # Architecture
 ![](Legend.png)
+
+# Interfaces
+![](msg/puml/RobotFrameworkROSMessageDiagram.png)
+
+![](srv/puml/RobotFrameworkROSServiceDiagram.png)
 
 # Systems
 | Status | System                                                                     |
