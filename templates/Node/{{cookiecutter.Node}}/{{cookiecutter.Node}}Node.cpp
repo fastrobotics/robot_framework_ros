@@ -25,7 +25,7 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
 
     bool {{cookiecutter.Node}}Node::start() { return BaseNode::base_start(); }
     bool {{cookiecutter.Node}}Node::run_loop1() {
-        process.update(ros::Time::now().toSec(), 0.0);
+        process.update(ros::Time::now().toSec());
 
         return true;
     }
