@@ -1,7 +1,14 @@
 @startuml
 title Base Node Class Diagram
+namespace fast::rf::messages {
+    namespace InfrastructureMsgs {
+        class DiagnosticMsg <<(M,#FFFF00)>>
+        class ReadyToArmStatusMsg <<(M,#FFFF00)>>
+    }
+}
 namespace robot_framework_ros {
-    class heartbeat <<(M,#FFFF00)>>
+    class heartbeat <<(M,#FFFF00)>> <<ROS>>
+    class ready_to_arm <<(M,#FFFF00)>> <<ROS>>
 }
 namespace fast::robot_framework_ros {
     namespace utils {
@@ -19,6 +26,11 @@ namespace fast::robot_framework_ros {
             +bool base_reset()
 
             +bool update()
+
+            --Data Update Functions--
+            
+            void set_diagnostics(DiagnosticMsg[] diagnostics)
+            void set_ready_to_arm(ReadyToArmStatusMsg ready_to_arm)
 
             --Timed Loop Functions--
             
@@ -39,6 +51,7 @@ namespace fast::robot_framework_ros {
 
             --Publishers and Subscribers--
             -ros::Publisher heartbeat_pub
+            -ros::Publisher ready_to_arm_pub
 
 
         }

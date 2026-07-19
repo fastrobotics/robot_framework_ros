@@ -20,6 +20,7 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
 
@@ -39,7 +40,9 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
     }
     bool {{cookiecutter.Node}}Node::run_loop3() { return true; }
     bool {{cookiecutter.Node}}Node::run_100hz() { return true; }
-    bool {{cookiecutter.Node}}Node::run_10hz() { return true; }
+    bool {{cookiecutter.Node}}Node::run_10hz() { 
+        set_ready_to_arm(process.get_ready_to_arm());
+    return true; }
     bool {{cookiecutter.Node}}Node::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
@@ -47,8 +50,8 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_01hz() {
-        fast::rf::Logger::log_notice(process.pretty());
-        fast::rf::Logger::log_notice(pretty());
+        fast::rf::Logger::log_debug(process.pretty());
+        fast::rf::Logger::log_debug(pretty());
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_001hz() { return true; }

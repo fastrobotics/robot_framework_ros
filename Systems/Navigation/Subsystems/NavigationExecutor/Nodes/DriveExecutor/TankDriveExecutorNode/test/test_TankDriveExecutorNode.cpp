@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/heartbeat.h>
+#include <robot_framework_ros/ready_to_arm.h>
 #include <ros/ros.h>
 #include <std_msgs/Float64.h>
 
@@ -12,10 +13,12 @@ std::string robot_namespace = "/test/";
 std::string unittest_nodename = "nodeTankDriveExecutor";
 uint64_t heartbeat_rx_count = 0;
 uint64_t diagnostic_rx_count = 0;
+uint64_t ready_to_arm_rx_count = 0;
 uint64_t leftdrive_rx_count = 0;
 uint64_t rightdrive_rx_count = 0;
 void heartbeat_Callback([[maybe_unused]] const robot_framework_ros::heartbeat& msg) { heartbeat_rx_count++; }
 void diagnostic_Callback([[maybe_unused]] const robot_framework_ros::diagnostic& msg) { diagnostic_rx_count++; }
+void ready_to_arm_Callback([[maybe_unused]] const robot_framework_ros::ready_to_arm& msg) { ready_to_arm_rx_count++; }
 void leftdrive_Callback([[maybe_unused]] const std_msgs::Float64& msg) { leftdrive_rx_count++; }
 void rightdrive_Callback([[maybe_unused]] const std_msgs::Float64& msg) { rightdrive_rx_count++; }
 TEST(TankDriveExecutorNode, TestBasics) {
@@ -25,6 +28,9 @@ TEST(TankDriveExecutorNode, TestBasics) {
 
     std::string diagnostic_topic = robot_namespace + unittest_nodename + "/diagnostic";
     ros::Subscriber diagnostic_sub = nh.subscribe(diagnostic_topic, 100, &diagnostic_Callback);
+
+    std::string ready_to_arm_topic = robot_namespace + unittest_nodename + "/ready_to_arm";
+    ros::Subscriber ready_to_arm_sub = nh.subscribe(ready_to_arm_topic, 100, &ready_to_arm_Callback);
 
     std::string leftdrive_topic = robot_namespace + "/left_drive";
     ros::Subscriber leftdrive_sub = nh.subscribe(leftdrive_topic, 100, &leftdrive_Callback);
@@ -41,13 +47,15 @@ TEST(TankDriveExecutorNode, TestBasics) {
               nullptr);
     EXPECT_EQ(1, heartbeat_sub.getNumPublishers());
     EXPECT_EQ(1, diagnostic_sub.getNumPublishers());
+    EXPECT_EQ(1, ready_to_arm_sub.getNumPublishers());
     EXPECT_EQ(1, leftdrive_sub.getNumPublishers());
     EXPECT_EQ(1, rightdrive_sub.getNumPublishers());
     EXPECT_EQ(1, throttle_cmd_pub.getNumSubscribers());
 
-    sleep(1.0);  // Wait for DiagnosticNode to Start.
+    sleep(1.0);  // Wait for TankDriveExecutorNode to Start.
     EXPECT_TRUE(heartbeat_rx_count > 0);
     EXPECT_TRUE(diagnostic_rx_count > 0);
+    EXPECT_TRUE(ready_to_arm_rx_count > 0);
 
     // Give it a Twist Command
     geometry_msgs::Twist twist;

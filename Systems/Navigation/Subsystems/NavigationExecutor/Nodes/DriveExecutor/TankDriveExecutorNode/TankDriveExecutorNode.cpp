@@ -56,7 +56,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         if (process.set_config(left_channel_config, right_channel_config) == false) {
             return false;
         }
-
+        set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
 
@@ -67,15 +67,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         return true;
     }
     bool TankDriveExecutorNode::run_loop2() {
-        bool diagnostic_check_ok = false;
-        auto diagnostics = process.get_diagnostics();
-        for (auto diagnostic : diagnostics) {
-            if ((diagnostic.diagnosticType == fast::rf::DiagnosticDefinition::DiagnosticType::REMOTE_CONTROL) and
-                (diagnostic.diagnosticMessage == fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR)) {
-                diagnostic_check_ok = true;
-            }
-        }
-        if (diagnostic_check_ok == true) {
+        if (process.get_ready_to_arm().ready_to_arm == true) {
             fast::rf::NavigationSystem::NavigationExecutorSubsystem::IDriveExecutorOutput* general_output =
                 process.get_output();
             fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput* output =
@@ -87,14 +79,15 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             right_drive.data = output->right_drive;
             left_drive_pub.publish(left_drive);
             right_drive_pub.publish(right_drive);
-        } else {
-            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
         }
         return true;
     }
     bool TankDriveExecutorNode::run_loop3() { return true; }
     bool TankDriveExecutorNode::run_100hz() { return true; }
-    bool TankDriveExecutorNode::run_10hz() { return true; }
+    bool TankDriveExecutorNode::run_10hz() {
+        set_ready_to_arm(process.get_ready_to_arm());
+        return true;
+    }
     bool TankDriveExecutorNode::run_1hz() {
         auto diagnostics = process.get_diagnostics();
         set_diagnostics(diagnostics);
@@ -102,7 +95,8 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         return true;
     }
     bool TankDriveExecutorNode::run_01hz() {
-        fast::rf::Logger::log_notice(pretty());
+        fast::rf::Logger::log_debug(process.pretty());
+        fast::rf::Logger::log_debug(pretty());
         return true;
     }
     bool TankDriveExecutorNode::run_001hz() { return true; }

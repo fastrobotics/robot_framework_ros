@@ -18,8 +18,10 @@
 #include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/heartbeat.h>
 #include <robot_framework_ros/nodestate.h>
+#include <robot_framework_ros/ready_to_arm.h>
 
 #include <DiagnosticMsg.hpp>
+#include <ReadyToArmStatusMsg.hpp>
 
 // ROS Dependencies
 
@@ -266,6 +268,14 @@ namespace fast::rf_ros {
         void set_diagnostics(std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics) {
             diagnostics_ = diagnostics;
         }
+        /**
+         * @brief Set the ready to arm object
+         *
+         * @param ready_to_arm
+         */
+        void set_ready_to_arm(fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm) {
+            ready_to_arm_ = ready_to_arm;
+        }
         boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
        private:
@@ -285,6 +295,7 @@ namespace fast::rf_ros {
         bool request_node_statechange(uint8_t new_state, bool override = false);
         ros::Publisher heartbeat_pub;
         ros::Publisher diagnostic_pub;
+        ros::Publisher ready_to_arm_pub;
 
         double ros_rate{400.0};
         double max_rate;
@@ -300,5 +311,6 @@ namespace fast::rf_ros {
         ros::Time last_loop3_timer;
 
         std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics_;
+        fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm_;
     };
 }  // namespace fast::rf_ros
