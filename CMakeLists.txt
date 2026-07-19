@@ -17,7 +17,12 @@ find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
 
 add_message_files(DIRECTORY msg FILES heartbeat.msg nodestate.msg
-                  diagnostic.msg)
+                  diagnostic.msg armedstate.msg ready_to_arm.msg arm_command.msg)
+add_service_files(
+  DIRECTORY srv
+  FILES
+  arm_state_change.srv
+)
 generate_messages(DEPENDENCIES std_msgs)
 
 catkin_package(INCLUDE_DIRS include DEPENDS)
