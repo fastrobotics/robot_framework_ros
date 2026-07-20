@@ -1,0 +1,5 @@
+<map id="fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManagerNode" name="fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManagerNode">
+<area shape="rect" id="Node000001" title="ArmedStateManager Node." alt="" coords="5,79,208,133"/>
+<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this." alt="" coords="23,5,190,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,44,109,79,104,79,104,44"/>
+</map>

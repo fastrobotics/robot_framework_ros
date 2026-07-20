@@ -48,7 +48,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"BaseNode_8hpp.html"
+"ArmedStateManagerNode_8hpp.html",
+"index.html#autotoc_md1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['get_5fnode_5fstate_0',['get_node_state',['../classfast_1_1rf__ros_1_1BaseNode.html#a17b03e834ba88acb15bd5878b94ebb42',1,'fast::rf_ros::BaseNode']]],
-  ['get_5fnodename_1',['get_nodename',['../classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910',1,'fast::rf_ros::BaseNode']]],
-  ['get_5frobotnamespace_2',['get_robotnamespace',['../classfast_1_1rf__ros_1_1BaseNode.html#a1bbeb4b893b43c63b01bea338f032a43',1,'fast::rf_ros::BaseNode']]]
+  ['disable_5fready_5fto_5farm_5fpublish_0',['disable_ready_to_arm_publish',['../classfast_1_1rf__ros_1_1BaseNode.html#acf2fe5f067b3e8ebae2f916ab16b2a70',1,'fast::rf_ros::BaseNode']]],
+  ['drive_5fcallback_1',['drive_Callback',['../classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#abb340eeead8fe5c31d35153c20cecaef',1,'fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::ServoHatNode']]]
 ];

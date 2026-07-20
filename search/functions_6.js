@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['measure_5ftime_5fdiff_0',['measure_time_diff',['../classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#a604e5254c803b1d567bd303b8984b7b3',1,'fast::rf_ros::utils::CoreUtility']]]
+  ['joy_5fcallback_0',['joy_Callback',['../classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#addf78a22f1358892917f03d53ab3b0cb',1,'fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode']]]
 ];

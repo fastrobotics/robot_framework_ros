@@ -1,8 +1,8 @@
 <map id="Systems/BaseMachine/Subsystems/BaseMachine/Nodes" name="Systems/BaseMachine/Subsystems/BaseMachine/Nodes">
 <area shape="rect" id="node2" href="dir_fe7a264047759a83d292537ff75b7b3d.html" title="HatNodes" alt="" coords="38,63,125,88"/>
 <area shape="rect" id="node3" href="dir_d44c64559bbebec7f509842c48db8b23.html" title="include" alt="" coords="47,136,116,161"/>
-<area shape="poly" id="edge1" href="dir_000015_000016.html" alt="" coords="84,88,84,122,79,122,79,88"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000015_000016.html" title="2" alt="" coords="85,110,94,125"/>
+<area shape="poly" id="edge1" href="dir_000018_000019.html" alt="" coords="84,88,84,122,79,122,79,88"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000018_000019.html" title="2" alt="" coords="85,110,94,125"/>
 <area shape="rect" id="clust2" href="dir_0d5c772ff6446c5c7dad5dec531b3ba4.html" alt="" coords="27,52,223,99"/>
 <area shape="rect" id="clust1" href="dir_08e3be0c3baee71c6480b9f98fd28e6c.html" title="BaseMachine" alt="" coords="16,16,233,109"/>
 </map>
