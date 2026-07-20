@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::SafetySystem
+ * @brief The Safety System for the ROS Robot Framework
+ */

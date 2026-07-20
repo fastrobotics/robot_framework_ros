@@ -1,0 +1,9 @@
+@startuml
+title System-Safety Package Diagram
+package fast::rf_ros::SafetySystem #LightYellow;line:blue {
+    namespace ModeManagerSubsystem #Yellow {
+        class ArmedStateManagerNode #LimeGreen {
+        }
+    }
+}
+@enduml

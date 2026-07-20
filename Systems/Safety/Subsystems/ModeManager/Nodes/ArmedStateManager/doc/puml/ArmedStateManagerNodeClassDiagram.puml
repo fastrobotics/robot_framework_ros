@@ -1,0 +1,22 @@
+@startuml
+title ArmedStateManager Node Class Diagram
+
+namespace fast::rf {
+    namespace SafetySystem {
+        namespace ModeManagerSubsystem {
+            class ArmedStateManagerProcess 
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace SafetySystem {
+        package ModeManagerSubsystem #LightYellow;line:blue {
+            class ArmedStateManagerNode #LimeGreen {
+                -ArmedStateManagerProcess process
+            }
+            ArmedStateManagerNode --> ArmedStateManagerProcess: <<use>>
+        }
+    }
+}
+@enduml
+        

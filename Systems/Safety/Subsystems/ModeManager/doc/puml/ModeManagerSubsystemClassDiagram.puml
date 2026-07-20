@@ -1,0 +1,13 @@
+@startuml
+title ModeManager Subsystem Class Diagram
+
+namespace fast::rf_ros {
+    namespace Safety {
+        package ModeManagerSubsystem #LightYellow;line:blue {
+            class ArmedStateManagerNode #LimeGreen {
+
+            }
+        }
+    }
+}
+@enduml

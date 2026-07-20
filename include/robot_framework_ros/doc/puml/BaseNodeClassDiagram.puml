@@ -32,6 +32,10 @@ namespace fast::robot_framework_ros {
             void set_diagnostics(DiagnosticMsg[] diagnostics)
             void set_ready_to_arm(ReadyToArmStatusMsg ready_to_arm)
 
+            --Concrete Node Control Functions--
+
+            #void disable_ready_to_arm_publish()
+            
             --Timed Loop Functions--
             
             #{abstract} bool run_100hz()
@@ -52,6 +56,7 @@ namespace fast::robot_framework_ros {
             --Publishers and Subscribers--
             -ros::Publisher heartbeat_pub
             -ros::Publisher ready_to_arm_pub
+            -ros::Publisher diagnostic_pub
 
 
         }

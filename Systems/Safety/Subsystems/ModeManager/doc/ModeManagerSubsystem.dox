@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem
+ * @brief The ModeManager Subsystem for the ROS Robot Framework
+ */
