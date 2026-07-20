@@ -19,6 +19,10 @@ uint64_t diagnostic_rx_count = 0;
 uint64_t arm_command_rx_count = 0;
 robot_framework_ros::arm_command arm_command;
 std::string arm_command_topic = "/test/arm_command";
+/**
+ * @todo Revisit during AB#1767
+ *
+ */
 std::string ready_to_arm_process1_topic = "/test/nodeBasicTeleopControl/ready_to_arm";
 std::string ready_to_arm_process2_topic = "/test/nodeServoHat/ready_to_arm";
 std::string ready_to_arm_process3_topic = "/test/nodeTankDriveExecutor/ready_to_arm";

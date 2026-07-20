@@ -109,15 +109,28 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
          */
         void thread_loop();
 
+        /**
+         * @brief Request to Change Armed State
+         *
+         * @param req
+         * @param res
+         * @return true
+         * @return false
+         */
         bool arm_statechange_service(robot_framework_ros::arm_state_change::Request& req,
                                      robot_framework_ros::arm_state_change::Response& res);
 
+        /**
+         * @brief Process a Ready to Arm Signal
+         *
+         * @param t_msg
+         */
         void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg);
 
        private:
         fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManagerProcess process;  //!< Execution Process
-        std::vector<ros::Subscriber> ready_to_arm_subs;
-        ros::Publisher arm_command_pub;
-        ros::ServiceServer armstate_change_srv;
+        std::vector<ros::Subscriber> ready_to_arm_subs;  //!< Container for multiple Ready to Arm Subscribers
+        ros::Publisher arm_command_pub;                  //!< Publish the robot's Arm State Command
+        ros::ServiceServer armstate_change_srv;          //!< Provide a Service to change the Arm State
     };
 }  // namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem

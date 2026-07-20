@@ -6,7 +6,7 @@
 # ArmedStateManager Node
 
 # Architecture
-![](../../../../../../../../Legend.png)
+![](../../../../../../../Legend.png)
 
 ## Class Diagram
 ![](puml/ArmedStateManagerNodeClassDiagram.png)

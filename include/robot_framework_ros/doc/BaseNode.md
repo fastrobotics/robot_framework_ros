@@ -6,6 +6,10 @@
   - [Sequence Diagrams](#sequence-diagrams)
   - [State Machine Diagrams](#state-machine-diagrams)
 - [Features](#features)
+  - [Common Publishers](#common-publishers)
+    - [Publisher: Heartbeat](#publisher-heartbeat)
+    - [Publisher: Diagnostic](#publisher-diagnostic)
+    - [Publisher: Ready To Arm](#publisher-ready-to-arm)
   - [Timed Loops](#timed-loops)
     - [Pre-Defined Loops](#pre-defined-loops)
       - [Loop: 100Hz](#loop-100hz)
@@ -30,6 +34,23 @@
 ![](puml/NodeStateMachineDiagram.png)
 
 # Features
+## Common Publishers
+The Base Node provides multiple common publishers:
+
+### Publisher: Heartbeat
+The Node will automatically publish a heartbeat at 10 Hz.
+
+### Publisher: Diagnostic
+The Node will automatically publish all diagnostics at 1 Hz.
+
+### Publisher: Ready To Arm
+Unless disabled, the Node will automatically publish a Ready to Arm signal at 1 Hz.
+To disable this, call this function before calling the Base Node's `base_init` function.
+
+```cpp
+disable_ready_to_arm_publish();
+```
+
 ## Timed Loops
 The Base Node provides 2 types of "Timed Loops": Pre-Defined Rate Loops and User-Defined Rate Loops.
 Note that with the Pre-Defined Rate Loops, the Base Node will do other things behind the scenes, detailed below:

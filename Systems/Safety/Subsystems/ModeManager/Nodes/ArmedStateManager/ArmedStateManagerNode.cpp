@@ -36,6 +36,11 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
             return false;
         }
 
+        /**
+         * @todo Configure this during AB#1767
+
+         *
+         */
         std::string arm_command_topic = get_robotnamespace() + "/arm_command";
         arm_command_pub = n->advertise<robot_framework_ros::arm_command>(arm_command_topic, 1);
 

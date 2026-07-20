@@ -18,5 +18,13 @@ package fast::rf_ros #LightYellow;line:blue {
             class ServoHatNode #LimeGreen
         }
     }
+
+    namespace SafetySystem #Yellow {
+        namespace ModeManagerSubsystem #Yellow {
+            class ArmedStateManagerNode #LimeGreen {
+
+            }
+        }
+    }
 }
 @enduml
