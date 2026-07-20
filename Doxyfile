@@ -859,7 +859,6 @@ INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =  *.dox \
                           *.hpp \
                           *.cpp \
-                          *.launch \
                           *.py
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
