@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="robot_namespace" default="/"/> 
+<arg name="verbosity_level" default="DEBUG"/>
+<node name="nodeArmedStateManager" pkg="robot_framework_ros" type="nodeArmedStateManager"  output="screen" clear_params="true">
+    <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
+    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
+    <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
+    <!-- Input Topics -->
+    <param name="000_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeBasicTeleopControl/ready_to_arm"/>
+    <param name="001_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeServoHat/ready_to_arm"/>
+    <param name="002_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeTankDriveExecutor/ready_to_arm"/>
+    <!-- Output Topics -->
+    
+    
+</node>
+</launch>

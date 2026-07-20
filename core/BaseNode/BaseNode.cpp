@@ -115,9 +115,10 @@ namespace fast::rf_ros {
 
         std::string diagnostic_topic = node_name + "/diagnostic";
         diagnostic_pub = n->advertise<robot_framework_ros::diagnostic>(diagnostic_topic, 1);
-
-        std::string ready_to_arm_topic = node_name + "/ready_to_arm";
-        ready_to_arm_pub = n->advertise<robot_framework_ros::ready_to_arm>(ready_to_arm_topic, 1);
+        if (ready_to_arm_publish_enabled) {
+            std::string ready_to_arm_topic = node_name + "/ready_to_arm";
+            ready_to_arm_pub = n->advertise<robot_framework_ros::ready_to_arm>(ready_to_arm_topic, 1);
+        }
 
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
@@ -260,7 +261,9 @@ namespace fast::rf_ros {
                 diagnostic_pub.publish(diagnostic_msg);
             }
         }
-        ready_to_arm_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_));
+        if (ready_to_arm_publish_enabled) {
+            ready_to_arm_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_));
+        }
         return run_1hz();
     }
 

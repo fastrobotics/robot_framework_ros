@@ -1,0 +1,10 @@
+@startuml
+title ModeManager Subsystem Class Diagram
+
+namespace fast::rf_ros {
+    namespace Safety {
+        namespace ModeManagerSubsystem {
+        }
+    }
+}
+@enduml

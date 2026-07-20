@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/test" />
+    <group ns="test">
+        <include file="$(find robot_framework_ros)/Systems/Safety/Subsystems/ModeManager/Nodes/ArmedStateManager/launch/ArmedStateManager_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <!-- Input Topics -->
+            <!-- Ready To Arm Topics -->
+
+            <!-- Output Topics -->
+        </include>
+        <test test-name="test_nodeArmedStateManager" pkg="robot_framework_ros" type="test_nodeArmedStateManager" time-limit="12000.0"/>
+    </group>
+   
+</launch>
