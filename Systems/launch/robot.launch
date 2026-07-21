@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="robot_namespace" value="/robot" />
-    <arg name="verbosity_level" default="NOTICE"/>
+    <arg name="verbosity_level" default="INFO"/>
     <arg name="topic_joystick_command" value ="joy"/>
     <arg name="topic_command_throttle" value="cmd_throttle"/> 
     <arg name="topic_left_drive" value ="left_drive"/>

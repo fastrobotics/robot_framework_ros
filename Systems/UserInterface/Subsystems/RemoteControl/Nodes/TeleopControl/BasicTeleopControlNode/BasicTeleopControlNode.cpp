@@ -10,6 +10,11 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         sensor_msgs::Joy joy_msg = *t_msg;
         process.new_joy(fast::rf_ros::utils::TranslateUtility::convert(joy_msg));
     }
+    void BasicTeleopControlNode::robot_armcommand_state_Callback(
+        const robot_framework_ros::arm_command::ConstPtr& t_msg) {
+        robot_framework_ros::arm_command msg = *t_msg;
+        process.update_RobotArmCommand(fast::rf_ros::utils::TranslateUtility::convert(msg));
+    }
     BasicTeleopControlNode::BasicTeleopControlNode() {}
     BasicTeleopControlNode::~BasicTeleopControlNode() {}
     bool BasicTeleopControlNode::init() {
@@ -57,6 +62,21 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
                                                  &BasicTeleopControlNode::joy_Callback, this);
         twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 1);
+
+        /**
+         * @todo Make this config during AB#1767
+         *
+         */
+        robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
+            get_robotnamespace() + "/arm_command", 10, &BasicTeleopControlNode::robot_armcommand_state_Callback, this);
+
+        /**
+         * @todo Make this config during AB#1767
+         *
+         */
+        armstate_change_client =
+            n->serviceClient<robot_framework_ros::arm_state_change>(get_robotnamespace() + "/arm_state_change");
+
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
@@ -79,6 +99,16 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     bool BasicTeleopControlNode::run_100hz() { return true; }
     bool BasicTeleopControlNode::run_10hz() {
         set_ready_to_arm(process.get_ready_to_arm());
+        auto request = process.get_armstate_change_request();
+        if (request.requested_armed_state != fast::rf::ArmedState::UNKNOWN) {
+            robot_framework_ros::arm_state_change req;
+            req.request = fast::rf_ros::utils::TranslateUtility::convert(request);
+            if (armstate_change_client.call(req) == true) {
+                fast::rf::Logger::log_notice("Requested Arm State Changed!");
+            } else {
+                fast::rf::Logger::log_error("Requested Arm State Rejected!");
+            }
+        }
         return true;
     }
     bool BasicTeleopControlNode::run_1hz() {
@@ -87,8 +117,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         return true;
     }
     bool BasicTeleopControlNode::run_01hz() {
-        fast::rf::Logger::log_debug(process.pretty());
-        fast::rf::Logger::log_debug(pretty());
+        fast::rf::Logger::log_info(process.pretty());
+        fast::rf::Logger::log_info(pretty());
         return true;
     }
     bool BasicTeleopControlNode::run_001hz() { return true; }

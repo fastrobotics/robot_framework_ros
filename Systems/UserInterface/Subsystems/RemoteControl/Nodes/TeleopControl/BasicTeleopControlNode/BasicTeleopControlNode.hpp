@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <geometry_msgs/Twist.h>
+#include <robot_framework_ros/arm_command.h>
 #include <sensor_msgs/Joy.h>
 
 #include <BasicTeleopControlProcess/BasicTeleopControlProcess.hpp>
@@ -117,9 +118,18 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
          */
         void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
+        /**
+         * @brief Process a RobotArm Commmand State
+         * @todo Handle this in BaseNode during AB#1782
+         * @param t_msg
+         */
+        void robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
+
        private:
         fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess
             process;  //!< Execution Process
+        ros::ServiceClient armstate_change_client;
+        ros::Subscriber robot_arm_command_state_sub;
         ros::Subscriber joy_sub;
         ros::Publisher twist_pub;
     };
