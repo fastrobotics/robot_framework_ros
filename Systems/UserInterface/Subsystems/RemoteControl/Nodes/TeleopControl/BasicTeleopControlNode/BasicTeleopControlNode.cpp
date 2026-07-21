@@ -31,10 +31,10 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             status =
                 process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::RUN);
         }
-        if (operation_mode == "run") {
+        if (operation_mode == "RUN") {
             status =
                 process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::RUN);
-        } else if (operation_mode == "test") {
+        } else if (operation_mode == "TEST") {
             status = process.set_operation_mode(
                 fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::JOY_TEST);
         }
