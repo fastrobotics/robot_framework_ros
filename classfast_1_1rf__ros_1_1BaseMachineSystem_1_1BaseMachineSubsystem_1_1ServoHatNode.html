@@ -157,6 +157,9 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>thread_loop</b> ()</td></tr>
 <tr class="memdesc:a646ea8736d87e8fdd7c60ecb5420d6ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">User Thread Loop. <br /></td></tr>
 <tr class="separator:a646ea8736d87e8fdd7c60ecb5420d6ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedeae7164dd41213878f85c60528f497" id="r_aedeae7164dd41213878f85c60528f497"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#aedeae7164dd41213878f85c60528f497">robot_armcommand_state_Callback</a> (const robot_framework_ros::arm_command::ConstPtr &amp;t_msg)</td></tr>
+<tr class="memdesc:aedeae7164dd41213878f85c60528f497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a RobotArm Commmand State.  <br /></td></tr>
+<tr class="separator:aedeae7164dd41213878f85c60528f497"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb340eeead8fe5c31d35153c20cecaef" id="r_abb340eeead8fe5c31d35153c20cecaef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#abb340eeead8fe5c31d35153c20cecaef">drive_Callback</a> (const std_msgs::Float64::ConstPtr &amp;t_msg, uint16_t channel)</td></tr>
 <tr class="memdesc:abb340eeead8fe5c31d35153c20cecaef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a drive command.  <br /></td></tr>
 <tr class="separator:abb340eeead8fe5c31d35153c20cecaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -300,8 +303,36 @@ boost::shared_ptr&lt; ros::NodeHandle &gt;&#160;</td><td class="memItemRight" va
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Make this config during AB#1767</dd></dl>
 
 <p>Implements <a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#aebb66a558c055aa1026dd6d62ecc3349">fast::rf_ros::BaseNode</a>.</p>
+
+</div>
+</div>
+<a id="aedeae7164dd41213878f85c60528f497" name="aedeae7164dd41213878f85c60528f497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedeae7164dd41213878f85c60528f497">&#9670;&#160;</a></span>robot_armcommand_state_Callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::ServoHatNode::robot_armcommand_state_Callback </td>
+          <td>(</td>
+          <td class="paramtype">const robot_framework_ros::arm_command::ConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>t_msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process a RobotArm Commmand State. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Handle this in <a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this.">BaseNode</a> during AB#1782 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t_msg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -524,7 +555,6 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Implement this during AB#1779</dd></dl>
 
 <p>Implements <a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a0504dfd815974273436ca87c2c92c562">fast::rf_ros::BaseNode</a>.</p>
 
@@ -604,7 +634,7 @@ false </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1BaseMachineSystem.html">BaseMachineSystem</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem.html">BaseMachineSubsystem</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html">ServoHatNode</a></li>
-    <li class="footer">Generated on Tue Jul 21 2026 01:44:28 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Jul 21 2026 08:50:34 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

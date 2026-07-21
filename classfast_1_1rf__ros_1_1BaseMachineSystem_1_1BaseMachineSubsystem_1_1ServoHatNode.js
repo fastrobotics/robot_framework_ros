@@ -2,6 +2,7 @@ var classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHa
 [
     [ "drive_Callback", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#abb340eeead8fe5c31d35153c20cecaef", null ],
     [ "init", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#afb5468a8732963b1acce9bb3f6635ce3", null ],
+    [ "robot_armcommand_state_Callback", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#aedeae7164dd41213878f85c60528f497", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#a9bde028e88dcca93e8c49226ff209827", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#a6cb9955ca54e6169f13824b5a9e653e0", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#aa74adf57880f0b08178cafdd5df6ec74", null ],
