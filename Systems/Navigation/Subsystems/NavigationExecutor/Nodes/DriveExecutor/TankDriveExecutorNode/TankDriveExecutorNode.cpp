@@ -95,8 +95,8 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         return true;
     }
     bool TankDriveExecutorNode::run_01hz() {
-        fast::rf::Logger::log_debug(process.pretty());
-        fast::rf::Logger::log_debug(pretty());
+        fast::rf::Logger::log_info(process.pretty());
+        fast::rf::Logger::log_info(pretty());
         return true;
     }
     bool TankDriveExecutorNode::run_001hz() { return true; }

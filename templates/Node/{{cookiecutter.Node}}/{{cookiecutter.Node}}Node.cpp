@@ -50,8 +50,8 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_01hz() {
-        fast::rf::Logger::log_debug(process.pretty());
-        fast::rf::Logger::log_debug(pretty());
+        fast::rf::Logger::log_info(process.pretty());
+        fast::rf::Logger::log_info(pretty());
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_001hz() { return true; }

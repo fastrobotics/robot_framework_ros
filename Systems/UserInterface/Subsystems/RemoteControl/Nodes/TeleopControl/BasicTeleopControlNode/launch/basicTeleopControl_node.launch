@@ -2,6 +2,7 @@
 <launch>
 <arg name="robot_namespace" default="/"/> 
 <arg name="verbosity_level" default="NOTICE"/>
+<arg name="operation_mode" default="RUN"/> <!-- RUN, TEST-->
 <arg name="topic_joystick_command" default="/"/>
 <arg name="topic_command_throttle" default="/"/>
 <node name="nodeBasicTeleopControl" pkg="robot_framework_ros" type="nodeBasicTeleopControl"  output="screen" clear_params="true">
@@ -12,7 +13,7 @@
     <!-- Output Topics -->
     <param name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
 
-    <param name="operation_mode" value="run" /> <!-- run, test-->
+    <param name="operation_mode" value="$(arg operation_mode)" />
     <param name="loop1_rate" value="40.0" /> <!-- General Update -->
     <param name="loop2_rate" value="20.0" /> <!-- Publish Twist -->
 </node>
