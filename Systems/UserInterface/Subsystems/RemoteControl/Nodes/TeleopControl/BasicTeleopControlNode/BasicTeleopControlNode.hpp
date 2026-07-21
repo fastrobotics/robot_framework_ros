@@ -112,18 +112,18 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         void thread_loop();
 
         /**
-         * @brief Process a Joystick Message
-         *
-         * @param t_msg
-         */
-        void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
-
-        /**
          * @brief Process a RobotArm Commmand State
          * @todo Handle this in BaseNode during AB#1782
          * @param t_msg
          */
         void robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
+
+        /**
+         * @brief Process a Joystick Message
+         *
+         * @param t_msg
+         */
+        void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
        private:
         fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess

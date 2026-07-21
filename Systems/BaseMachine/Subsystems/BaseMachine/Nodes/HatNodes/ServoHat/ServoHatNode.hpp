@@ -9,6 +9,7 @@
  *
  */
 #pragma once
+#include <robot_framework_ros/arm_command.h>
 #include <std_msgs/Float64.h>
 
 #include <ServoHatDriverProcess/ServoHatDriverProcess.hpp>
@@ -110,6 +111,13 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
         void thread_loop();
 
         /**
+         * @brief Process a RobotArm Commmand State
+         * @todo Handle this in BaseNode during AB#1782
+         * @param t_msg
+         */
+        void robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
+
+        /**
          * @brief Process a drive command
          *
          * @param t_msg
@@ -119,6 +127,7 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
 
        private:
         fast::rf::BaseMachineSystem::BaseMachineSubsystem::ServoHatDriverProcess process;  //!< Execution Process
+        ros::Subscriber robot_arm_command_state_sub;
         ros::Subscriber left_drive_sub;
         ros::Subscriber right_drive_sub;
     };

@@ -9,11 +9,15 @@ namespace ros {
     class Joy <<(M,#FFFF00)>> <<ROS>>
   }
 }
+namespace robot_framework_ros {
+    class BaseNode
+    class arm_command <<(M,#FFFF00)>> <<ROS>>
+}
 namespace fast::rf {
     namespace UserInterfaceSystem {
         namespace RemoteControlSystem {
-            interface ITeleopControlProcess #LimeGreen {}
-            class BasicTeleopControlProcess #LimeGreen {}
+            interface ITeleopControlProcess
+            class BasicTeleopControlProcess
             BasicTeleopControlProcess -up-|> ITeleopControlProcess
         }
     }
@@ -24,6 +28,7 @@ namespace fast::rf_ros {
             class BasicTeleopControlNode #LimeGreen {
                 -BasicTeleopControlProcess process
             }
+            BasicTeleopControlNode -up-|> BaseNode
             BasicTeleopControlNode --> BasicTeleopControlProcess: <<use>>
             BasicTeleopControlNode --> Twist: <<depend>>
             BasicTeleopControlNode --> Joy: <<depend>>

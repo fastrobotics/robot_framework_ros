@@ -9,6 +9,10 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
 
     ServoHatNode::ServoHatNode() {}
     ServoHatNode::~ServoHatNode() {}
+    void ServoHatNode::robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
+        robot_framework_ros::arm_command msg = *t_msg;
+        process.update_RobotArmCommand(fast::rf_ros::utils::TranslateUtility::convert(msg));
+    }
     void ServoHatNode::drive_Callback([[maybe_unused]] const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel) {
         uint16_t value = (uint16_t)t_msg->data;
         bool status = process.setServoValue(channel, value);
@@ -28,6 +32,14 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+
+        /**
+         * @todo Make this config during AB#1767
+         *
+         */
+        robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
+            get_robotnamespace() + "/arm_command", 10, &ServoHatNode::robot_armcommand_state_Callback, this);
+
         std::string topic_left_drive;
         std::string param_left_drive = get_nodename() + "/topic_left_drive";
         if (n->getParam(param_left_drive, topic_left_drive) == false) {
@@ -54,16 +66,7 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
 
         return true;
     }
-    bool ServoHatNode::run_loop2() {
-        /**
-         * @todo Implement this during AB#1779
-         *
-         */
-        bool robot_armed = true;
-        if ((process.get_ready_to_arm().ready_to_arm == true) && (robot_armed == true)) {
-        }
-        return true;
-    }
+    bool ServoHatNode::run_loop2() { return true; }
     bool ServoHatNode::run_loop3() { return true; }
     bool ServoHatNode::run_100hz() { return true; }
     bool ServoHatNode::run_10hz() {
