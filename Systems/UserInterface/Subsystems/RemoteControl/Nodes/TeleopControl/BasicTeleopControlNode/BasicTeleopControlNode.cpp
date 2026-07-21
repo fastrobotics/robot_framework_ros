@@ -6,15 +6,16 @@ bool kill_node = false;
 
 using namespace fast::rf_ros;
 namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
-    void BasicTeleopControlNode::joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg) {
-        sensor_msgs::Joy joy_msg = *t_msg;
-        process.new_joy(fast::rf_ros::utils::TranslateUtility::convert(joy_msg));
-    }
     void BasicTeleopControlNode::robot_armcommand_state_Callback(
         const robot_framework_ros::arm_command::ConstPtr& t_msg) {
         robot_framework_ros::arm_command msg = *t_msg;
         process.update_RobotArmCommand(fast::rf_ros::utils::TranslateUtility::convert(msg));
     }
+    void BasicTeleopControlNode::joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg) {
+        sensor_msgs::Joy joy_msg = *t_msg;
+        process.new_joy(fast::rf_ros::utils::TranslateUtility::convert(joy_msg));
+    }
+
     BasicTeleopControlNode::BasicTeleopControlNode() {}
     BasicTeleopControlNode::~BasicTeleopControlNode() {}
     bool BasicTeleopControlNode::init() {
@@ -47,21 +48,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             fast::rf::Logger::log_error("Unable to set Operation Mode");
             return false;
         }
-        std::string topic_joy_command;
-        std::string param_topic_joy_command = get_nodename() + "/topic_joystick_command";
-        if (n->getParam(param_topic_joy_command, topic_joy_command) == false) {
-            return false;
-        }
-
-        std::string topic_throttle_command;
-        std::string param_throttle_command = get_nodename() + "/topic_command_throttle";
-        if (n->getParam(param_throttle_command, topic_throttle_command) == false) {
-            return false;
-        }
-
-        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
-                                                 &BasicTeleopControlNode::joy_Callback, this);
-        twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 1);
 
         /**
          * @todo Make this config during AB#1767
@@ -77,6 +63,21 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         armstate_change_client =
             n->serviceClient<robot_framework_ros::arm_state_change>(get_robotnamespace() + "/arm_state_change");
 
+        std::string topic_joy_command;
+        std::string param_topic_joy_command = get_nodename() + "/topic_joystick_command";
+        if (n->getParam(param_topic_joy_command, topic_joy_command) == false) {
+            return false;
+        }
+
+        std::string topic_throttle_command;
+        std::string param_throttle_command = get_nodename() + "/topic_command_throttle";
+        if (n->getParam(param_throttle_command, topic_throttle_command) == false) {
+            return false;
+        }
+
+        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
+                                                 &BasicTeleopControlNode::joy_Callback, this);
+        twist_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 1);
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }

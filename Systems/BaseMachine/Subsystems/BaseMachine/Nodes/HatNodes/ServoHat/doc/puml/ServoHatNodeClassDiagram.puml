@@ -1,9 +1,13 @@
 @startuml
 title ServoHat Node Class Diagram
+namespace robot_framework_ros {
+    class BaseNode
+    class arm_command <<(M,#FFFF00)>> <<ROS>>
+}
 namespace fast::rf {
     namespace BaseMachineSystem {
         namespace BaseMachineSubsystem {
-            class ServoHatProcess #LimeGreen
+            class ServoHatProcess
         }
     }
 }
@@ -14,6 +18,7 @@ namespace fast::rf_ros {
                 -ServoHatProcess process
             }
             ServoHatNode --> ServoHatProcess: <<use>>
+            ServoHatNode -up-|> BaseNode
         }
     }
 }
