@@ -2,7 +2,6 @@
 
 
 - [System: Safety](#system-safety)
-- [Document History](#document-history)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
@@ -19,12 +18,6 @@
 
 
 # System: Safety
-
-# Document History
-
-| Version Number | Date        | Author     | Change           |
-| :------------: | ----------- | ---------- | ---------------- |
-|       0        | 5-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 

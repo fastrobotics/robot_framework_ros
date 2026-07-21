@@ -1,8 +1,7 @@
 [README](../../../README.md)
 
 
-- [System: BaseMachine](#system-cookiecuttersystem)
-- [Document History](#document-history)
+- [System: BaseMachine](#system-basemachine)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
@@ -19,12 +18,6 @@
 
 
 # System: BaseMachine
-
-# Document History
-
-| Version Number | Date        | Author     | Change           |
-| :------------: | ----------- | ---------- | ---------------- |
-|       0        | 5-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 
