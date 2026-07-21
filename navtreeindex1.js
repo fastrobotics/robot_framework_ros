@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"index.html":[],
+"index.html":[0],
 "index.html#autotoc_md1":[0,0],
 "namespacefast.html":[2,0,0],
 "namespacefast_1_1rf__ros.html":[2,0,0,0],

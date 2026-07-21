@@ -2,6 +2,7 @@ var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1Bas
 [
     [ "init", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a627849495848f12b9c55fe1076316b4b", null ],
     [ "joy_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#addf78a22f1358892917f03d53ab3b0cb", null ],
+    [ "robot_armcommand_state_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#adc393ea8e1e2f8c24e7e9b464b58075f", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#ac508700d94a88048c25cfcf6f886a8f4", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a484d34458a42c98603d2eb57b00053af", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a8641fbf477da1fb353271892eb51ccfe", null ],
