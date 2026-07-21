@@ -1,7 +1,6 @@
 [BaseMachine System](../../../doc/System-BaseMachine.md)
 
 - [Subsystem: BaseMachine](#subsystem-basemachine)
-- [Document History](#document-history)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
@@ -19,12 +18,6 @@
 
 
 # Subsystem: BaseMachine
-
-# Document History
-
-| Version Number | Date        | Author     | Change           |
-| :------------: | ----------- | ---------- | ---------------- |
-|       0        | 5-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 

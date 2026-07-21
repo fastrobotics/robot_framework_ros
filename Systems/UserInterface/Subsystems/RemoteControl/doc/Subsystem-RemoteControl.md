@@ -1,7 +1,6 @@
 [Navigation System](../../../doc/System-UserInterface.md)
 
 - [Subsystem: Remote Control](#subsystem-remote-control)
-- [Document History](#document-history)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
@@ -19,12 +18,6 @@
 
 
 # Subsystem: Remote Control
-
-# Document History
-
-| Version Number | Date        | Author     | Change           |
-| :------------: | ----------- | ---------- | ---------------- |
-|       0        | 8-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 

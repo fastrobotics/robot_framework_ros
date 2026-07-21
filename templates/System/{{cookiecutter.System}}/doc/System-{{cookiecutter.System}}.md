@@ -2,7 +2,6 @@
 
 
 - [System: {{cookiecutter.System}}](#system-cookiecuttersystem)
-- [Document History](#document-history)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
@@ -19,12 +18,6 @@
 
 
 # System: {{cookiecutter.System}}
-
-# Document History
-
-| Version Number | Date        | Author     | Change           |
-| :------------: | ----------- | ---------- | ---------------- |
-|       0        | 5-July-2026 | David Gitz | Drafted Document |
 
 # Overview
 
