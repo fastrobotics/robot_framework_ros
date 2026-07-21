@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS
 )
 if(${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DARCHITECTURE_ARMV7L")
+  add_compile_options(-Wno-psabi)
 endif()
 add_definitions(-std=c++14 -Wall -Wextra -Wno-switch -Werror)
 option(CATKIN_ENABLE_TESTING "Build the test suite" ON)
