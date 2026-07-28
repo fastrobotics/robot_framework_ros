@@ -15,6 +15,11 @@ var annotated_dup =
             [ "TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode" ]
           ] ]
         ] ],
+        [ "PoseSystem", "namespacefast_1_1rf__ros_1_1PoseSystem.html", [
+          [ "InertialSensorSubsystem", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem.html", [
+            [ "IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode" ]
+          ] ]
+        ] ],
         [ "SafetySystem", "namespacefast_1_1rf__ros_1_1SafetySystem.html", [
           [ "ModeManagerSubsystem", "namespacefast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem.html", [
             [ "ArmedStateManagerNode", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode.html", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode" ]

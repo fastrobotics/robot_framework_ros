@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['servohatnode_2ehpp_0',['ServoHatNode.hpp',['../ServoHatNode_8hpp.html',1,'']]]
+  ['imunode_2ehpp_0',['IMUNode.hpp',['../IMUNode_8hpp.html',1,'']]]
 ];
