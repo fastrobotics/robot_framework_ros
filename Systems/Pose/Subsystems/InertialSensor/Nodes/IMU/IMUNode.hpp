@@ -11,9 +11,11 @@
 #pragma once
 
 #include <sensor_msgs/Imu.h>
+#include <sensor_msgs/MagneticField.h>
 
 #include <IMUProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
+
 namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
     /**
      * @brief IMU Node
@@ -112,6 +114,8 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
 
        private:
         fast::rf::PoseSystem::InertialSensorSubsystem::IMUProcess process;  //!< Execution Process
+        std::string imu_frame{""};
         ros::Publisher imu_pub;
+        ros::Publisher magnetometer_pub;
     };
 }  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem

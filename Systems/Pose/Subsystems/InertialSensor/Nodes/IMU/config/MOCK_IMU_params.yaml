@@ -1,0 +1,2 @@
+imu_type: "MOCK"
+frame: "/base_link/imu"

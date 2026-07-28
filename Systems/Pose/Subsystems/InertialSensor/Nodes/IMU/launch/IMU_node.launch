@@ -2,13 +2,22 @@
 <launch>
 <arg name="robot_namespace" default="/"/> 
 <arg name="verbosity_level" default="INFO"/>
+<arg name="imu_type" default="SYDTM151"/> <!-- MOCK,SYDTM151,RAZOR9DOF -->
+<arg name="topic_imu" default="imu" />
+<arg name="topic_magnetometer" default="magnetometer" />
 <node name="nodeIMU" pkg="robot_framework_ros" type="nodeIMU"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>
     <param name="loop1_rate" value="200.0" /> <!-- General Update -->
     <param name="loop2_rate" value="100.0" /> <!-- Publish IMU Data -->
+    <param name="imu_type" value="$(arg imu_type)"/>
+    <rosparam file="$(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/config/$(arg imu_type)_IMU_params.yaml" command="load" />
+    
     <!-- Input Topics -->
     <!-- Output Topics -->
+    <param name="topic_imu" value="$(arg topic_imu)"/>
+    <param name="topic_magnetometer" value="$(arg topic_magnetometer)"/>
+    
     
     
 </node>

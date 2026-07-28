@@ -14,14 +14,33 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::IMUDevice::RAZOR9DOF_IMU);
-        // status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::IMUDevice::SYDTM151_IMU);
-        //  status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::IMUDevice::MOCK_IMU);
+        std::string imu_type;
+        if (n->getParam("imu_type", imu_type) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: imu_type");
+        }
+        status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type));
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
-        imu_pub = n->advertise<sensor_msgs::Imu>("/imu", 1);
+        if (n->getParam("frame", imu_frame) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: frame");
+            return false;
+        }
+        std::string imu_topic;
+        if (n->getParam("topic_imu", imu_topic) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: topic_imu");
+            return false;
+        }
+        imu_pub = n->advertise<sensor_msgs::Imu>(get_robotnamespace() + imu_topic, 1);
+
+        std::string magnetometer_topic;
+        if (n->getParam("topic_magnetometer", magnetometer_topic) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: topic_magnetometer");
+            return false;
+        }
+        magnetometer_pub = n->advertise<sensor_msgs::MagneticField>(get_robotnamespace() + magnetometer_topic, 1);
+        process.update(ros::Time::now().toSec());  // Kick off the Process
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
@@ -34,8 +53,12 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
     }
     bool IMUNode::run_loop2() {
         auto imu_data = fast::rf_ros::utils::TranslateUtility::convert(process.get_imu_data());
-        imu_data.header.frame_id = "base_link";
+        imu_data.header.frame_id = imu_frame;
         imu_pub.publish(imu_data);
+
+        auto magnetic_data = fast::rf_ros::utils::TranslateUtility::convert(process.get_magnetic_data());
+        magnetic_data.header.frame_id = imu_frame;
+        magnetometer_pub.publish(magnetic_data);
         return true;
     }
     bool IMUNode::run_loop3() { return true; }

@@ -1,6 +1,6 @@
 #include <geometry_msgs/Quaternion.h>
-#include <tf/LinearMath/Matrix3x3.h>
-#include <tf/transform_datatypes.h>
+#include <tf2/LinearMath/Matrix3x3.h>
+#include <tf2/transform_datatypes.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
@@ -97,11 +97,11 @@ namespace fast::rf_ros::utils {
     fast::rf::messages::GeometryMsgs::OrientationMsg TranslateUtility::convert(const geometry_msgs::Quaternion& msg) {
         fast::rf::messages::GeometryMsgs::OrientationMsg orientation;
         // 1. Convert geometry_msgs to tf Quaternion
-        tf::Quaternion tf_quat;
-        tf::quaternionMsgToTF(msg, tf_quat);
+        tf2::Quaternion tf_quat;
+        tf2::convert(msg, tf_quat);
 
         // 2. Convert tf Quaternion to Matrix3x3
-        tf::Matrix3x3 matrix(tf_quat);
+        tf2::Matrix3x3 matrix(tf_quat);
 
         // 3. Extract Roll, Pitch, and Yaw (in radians)
         double roll, pitch, yaw;
@@ -180,11 +180,7 @@ namespace fast::rf_ros::utils {
     }
     sensor_msgs::Imu TranslateUtility::convert(fast::rf::messages::SensorMsgs::ImuMsg data) {
         sensor_msgs::Imu msg;
-        /**
-         * @todo NOT WORKING
-         *
-         */
-        // msg.header.stamp = ros::Time(data.time_stamp);
+        msg.header.stamp = ros::Time(data.time_stamp);
         msg.orientation = convert(data.orientation);
         msg.orientation_covariance = convert_covariance3D(data.orientation_covariance);
         msg.angular_velocity = convert(data.angular_velocity);

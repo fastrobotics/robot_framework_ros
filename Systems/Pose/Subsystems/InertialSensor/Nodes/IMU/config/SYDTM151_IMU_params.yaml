@@ -1,0 +1,2 @@
+imu_type: "SYDTM151"
+frame: "/base_link/imu"
