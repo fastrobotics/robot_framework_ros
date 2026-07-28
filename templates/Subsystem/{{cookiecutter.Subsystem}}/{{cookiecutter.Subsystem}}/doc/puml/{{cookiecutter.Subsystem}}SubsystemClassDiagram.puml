@@ -2,8 +2,8 @@
 title {{cookiecutter.Subsystem}} Subsystem Class Diagram
 
 namespace fast::rf_ros {
-    namespace {{cookiecutter.System}} {
-        namespace {{cookiecutter.Subsystem}}Subsystem {
+    namespace {{cookiecutter.System}}System {
+        package {{cookiecutter.Subsystem}}Subsystem #LightYellow;line:blue {
         }
     }
 }

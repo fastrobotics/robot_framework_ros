@@ -1,0 +1,28 @@
+@startuml
+title IMU Node Class Diagram
+
+namespace ros {
+}
+namespace fast::rf {
+    namespace PoseSystem {
+        namespace InertialSensorSubsystem {
+            interface IIMUProcess
+            class IMUProcess
+            IMUProcess -up-|> IIMUProcess
+            interface IIMUDriver
+            IMUProcess --> IIMUDriver: <<use>>
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace PoseSystem {
+        package InertialSensorSubsystem #LightYellow;line:blue {
+            class IMUNode <<Orange>> #Orange {
+                -IMUProcess process
+            }
+            IMUNode --> IMUProcess: <<use>>
+        }
+    }
+}
+@enduml
+        

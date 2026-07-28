@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::PoseSystem
+ * @brief The Pose System for the ROS Robot Framework
+ */

@@ -7,6 +7,9 @@ namespace ros {
     }
     namespace sensor_msgs {
         class Joy <<(M,#FFFF00)>> <<ROS>>
+        class Imu <<(M,#FFFF00)>> <<ROS>>
+        class MagneticField <<(M,#FFFF00)>> <<ROS>>
+
     }
 }
 namespace fast::rf::messages {
@@ -28,6 +31,8 @@ namespace fast::rf::messages {
     }
     namespace SensorMsgs {
         class JoyMsg <<(M,#FFFF00)>>
+        class MagneticFieldMsg <<(M,#FFFF00)>>
+        class ImuMsg <<(M,#FFFF00)>>
     }
 }
 namespace robot_framework_ros {
@@ -61,8 +66,13 @@ namespace fast::rf_ros {
             +{static} geometry_msgs::Twist convert(TwistMsg msg)
 
             -- Sensor Messages --
-            +{static} JoyMsg convert(sensor_msgs::Joy)
-            +{static} sensor_msgs::Joy convert(JoyMsg joy)
+            +{static} JoyMsg convert(sensor_msgs::Joy data)
+            +{static} sensor_msgs::Joy convert(JoyMsg data)
+            +{static} ImuMsg convert(sensor_msgs::Imu data)
+            +{static} sensor_msgs::Imu convert(ImuMsg data)
+            +{static} MagneticFieldMsg convert(sensor_msgs::MagneticField data)
+            +{static} sensor_msgs::MagneticField convert(MagneticFieldMsg data)
+            
         }
         
     }

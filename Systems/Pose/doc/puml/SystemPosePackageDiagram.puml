@@ -1,0 +1,13 @@
+@startuml
+title Pose System Class Diagram
+
+namespace fast::rf_ros {
+    package PoseSystem #LightYellow;line:blue {
+        namespace InertialSensorSubsystem #Orange {
+            class IMUNode <<ROS>> #Orange {
+
+            }
+        }
+    }
+}
+@enduml
