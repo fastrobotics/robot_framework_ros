@@ -10,7 +10,9 @@
  */
 #pragma once
 
-// #include <IMUProcess/IMUProcess.hpp>
+#include <sensor_msgs/Imu.h>
+
+#include <IMUProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
 namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
     /**
@@ -110,5 +112,6 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
 
        private:
         fast::rf::PoseSystem::InertialSensorSubsystem::IMUProcess process;  //!< Execution Process
+        ros::Publisher imu_pub;
     };
 }  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem

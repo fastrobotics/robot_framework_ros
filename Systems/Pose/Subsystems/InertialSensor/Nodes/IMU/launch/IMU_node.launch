@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <launch>
 <arg name="robot_namespace" default="/"/> 
-<arg name="verbosity_level" default="NOTICE"/>
+<arg name="verbosity_level" default="INFO"/>
 <node name="nodeIMU" pkg="robot_framework_ros" type="nodeIMU"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>
-    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
-    <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
+    <param name="loop1_rate" value="200.0" /> <!-- General Update -->
+    <param name="loop2_rate" value="100.0" /> <!-- Publish IMU Data -->
     <!-- Input Topics -->
     <!-- Output Topics -->
     

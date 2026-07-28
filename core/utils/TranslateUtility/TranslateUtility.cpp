@@ -180,7 +180,11 @@ namespace fast::rf_ros::utils {
     }
     sensor_msgs::Imu TranslateUtility::convert(fast::rf::messages::SensorMsgs::ImuMsg data) {
         sensor_msgs::Imu msg;
-        msg.header.stamp = ros::Time(data.time_stamp);
+        /**
+         * @todo NOT WORKING
+         *
+         */
+        // msg.header.stamp = ros::Time(data.time_stamp);
         msg.orientation = convert(data.orientation);
         msg.orientation_covariance = convert_covariance3D(data.orientation_covariance);
         msg.angular_velocity = convert(data.angular_velocity);

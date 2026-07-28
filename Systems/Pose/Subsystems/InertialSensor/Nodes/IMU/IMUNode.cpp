@@ -14,11 +14,14 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        status = process.init();
+        status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::IMUDevice::RAZOR9DOF_IMU);
+        // status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::IMUDevice::SYDTM151_IMU);
+        //  status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::IMUDevice::MOCK_IMU);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        imu_pub = n->advertise<sensor_msgs::Imu>("/imu", 1);
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
@@ -30,11 +33,9 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
         return true;
     }
     bool IMUNode::run_loop2() {
-        bool diagnostic_check_ok = false;
-        if (diagnostic_check_ok == true) {
-        } else {
-            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
-        }
+        auto imu_data = fast::rf_ros::utils::TranslateUtility::convert(process.get_imu_data());
+        imu_data.header.frame_id = "base_link";
+        imu_pub.publish(imu_data);
         return true;
     }
     bool IMUNode::run_loop3() { return true; }

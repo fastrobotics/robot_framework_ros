@@ -36,7 +36,7 @@ namespace fast::rf_ros {
        public:
         BaseNode() : n(new ros::NodeHandle("~")) {
             node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
-            max_rate = ros_rate / 10.0;  // Max rate is 10Hz
+            max_rate = ros_rate / 10.0;  // Max rate is 400 Hz
         }
         virtual ~BaseNode() = default;
         // Initialization Functions
@@ -305,7 +305,7 @@ namespace fast::rf_ros {
         ros::Publisher diagnostic_pub;
         ros::Publisher ready_to_arm_pub;
 
-        double ros_rate{400.0};
+        double ros_rate{4000.0};
         double max_rate;
 
         ros::Time last_100hz_timer;
