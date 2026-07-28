@@ -2,6 +2,10 @@
 title IMU Node Class Diagram
 
 namespace ros {
+    namespace sensor_msgs {
+        class Imu <<(M,#FFFF00)>> <<ROS>>
+        class MagneticField <<(M,#FFFF00)>> <<ROS>>
+    }
 }
 namespace fast::rf {
     namespace PoseSystem {
@@ -11,14 +15,24 @@ namespace fast::rf {
             IMUProcess -up-|> IIMUProcess
             interface IIMUDriver
             IMUProcess --> IIMUDriver: <<use>>
+            class MockIMUDriver
+            MockIMUDriver -up-|> IIMUDriver
+            class IMUSYDTM151Driver
+            IMUSYDTM151Driver -up-|> IIMUDriver
+            class IMURazor9DOFDriver
+            IMURazor9DOFDriver -up-|> IIMUDriver
+
         }
     }
 }
 namespace fast::rf_ros {
    namespace PoseSystem {
         package InertialSensorSubsystem #LightYellow;line:blue {
-            class IMUNode <<Orange>> #Orange {
+            class IMUNode <<Orange>> #LimeGreen {
                 -IMUProcess process
+                -std::string imu_frame
+                -ros::Publisher imu_pub
+                -ros::Publisher magnetometer_pub
             }
             IMUNode --> IMUProcess: <<use>>
         }
