@@ -14,7 +14,7 @@
 ![](puml/IMUNodeClassDiagram.png)
 
 ## Middle-Ware Libraries
-The IMU Node uses the [IMUProcess](TODO) Middleware Library. 
+The IMU Node uses the [IMUProcess](https://github.com/fastrobotics/robot_framework/blob/master/Systems/Pose/Subsystems/InertialSensor/Processes/IMU/doc/Process-IMU.md) Middleware Library. 
 
 # Configuration
 The IMU Node has the following configuration options
