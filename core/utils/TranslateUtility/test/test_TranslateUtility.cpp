@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
+
 using namespace fast::rf_ros::utils;
 
 TEST(TestConversion, InfrastructureMessageConvertDiagnostic) {
@@ -113,6 +114,56 @@ TEST(TestConversion, InfrastructureMessageConvertRequestArmStateChange) {
         ASSERT_EQ(resp.request_approved, response.request_approved);
     }
 }
+
+TEST(TestConversion, GeometryMessageConvertQuaternion) {
+    {// Convert from ROS Message
+     {geometry_msgs::Quaternion data;
+    data.w = 1.0;
+    data.x = 0.0;
+    data.y = 0.0;
+    data.z = 0.0;
+    auto msg = TranslateUtility::convert(data);
+    ASSERT_FLOAT_EQ(msg.roll, 0.0);
+    ASSERT_FLOAT_EQ(msg.pitch, 0.0);
+    ASSERT_FLOAT_EQ(msg.yaw, 0.0);
+}
+{
+    geometry_msgs::Quaternion data;
+    data.w = 0.844623198620733;
+    data.x = 0.191341716182545;
+    data.y = 0.461939766255643;
+    data.z = 0.191341716182545;
+    auto msg = TranslateUtility::convert(data);
+    ASSERT_FLOAT_EQ(msg.roll, 45.0 * M_PI / 180.0);
+    ASSERT_FLOAT_EQ(msg.pitch, 45.0 * M_PI / 180.0);
+    ASSERT_FLOAT_EQ(msg.yaw, 45.0 * M_PI / 180.0);
+}
+}
+{  // Convert to ROS Message
+    {
+        fast::rf::messages::GeometryMsgs::OrientationMsg data;
+        data.roll = 0.0;
+        data.pitch = 0.0;
+        data.yaw = 0.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.w, 1.0);
+        ASSERT_FLOAT_EQ(msg.x, 0.0);
+        ASSERT_FLOAT_EQ(msg.y, 0.0);
+        ASSERT_FLOAT_EQ(msg.z, 0.0);
+    }
+    {
+        fast::rf::messages::GeometryMsgs::OrientationMsg data;
+        data.roll = 45.0 * M_PI / 180.0;
+        data.pitch = 45.0 * M_PI / 180.0;
+        data.yaw = 45.0 * M_PI / 180.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.w, 0.844623198620733);
+        ASSERT_FLOAT_EQ(msg.x, 0.191341716182545);
+        ASSERT_FLOAT_EQ(msg.y, 0.461939766255643);
+        ASSERT_FLOAT_EQ(msg.z, 0.191341716182545);
+    }
+}
+}
 TEST(TestConversion, GeometryMessageConvertVector) {
     {  // Convert to ROS Message
         fast::rf::messages::StandardMsgs::Vector3DMsg data;
@@ -136,7 +187,32 @@ TEST(TestConversion, GeometryMessageConvertVector) {
         ASSERT_FLOAT_EQ(data.z, msg.z);
     }
 }
-
+TEST(TestConversion, StandardMessageConvertCovariance) {
+    {  // Convert to ROS Message
+        fast::rf::messages::StandardMsgs::Covariance3DMsg data;
+        ASSERT_EQ(data.covariance.size(), Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION);
+        for (std::size_t i = 0; i < data.covariance.size(); ++i) {
+            data.covariance[i] = (double)i + 1;
+        }
+        auto msg = TranslateUtility::convert_covariance3D(data);
+        ASSERT_EQ(msg.size(), Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION);
+        for (std::size_t i = 0; i < msg.size(); ++i) {
+            ASSERT_EQ(data.covariance[i], msg[i]);
+        }
+    }
+    {  // Convert from ROS Message
+        boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> data;
+        ASSERT_EQ(data.size(), Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION);
+        for (std::size_t i = 0; i < data.size(); ++i) {
+            data[i] = (double)i + 1;
+        }
+        auto msg = TranslateUtility::convert_covariance3D(data);
+        ASSERT_EQ(msg.covariance.size(), Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION);
+        for (std::size_t i = 0; i < msg.covariance.size(); ++i) {
+            ASSERT_EQ(data[i], msg.covariance[i]);
+        }
+    }
+}
 TEST(TestConversion, GeometryMessageConvertTwist) {
     {  // Convert to ROS Message
         fast::rf::messages::GeometryMsgs::TwistMsg twist;
@@ -188,6 +264,49 @@ TEST(TestConversion, SensorMsgsConvertJoy) {
         auto msg = TranslateUtility::convert(joy);
         ASSERT_EQ(msg.axes.size(), joy.axes.size());
         ASSERT_EQ(msg.buttons.size(), joy.buttons.size());
+    }
+}
+TEST(TestConversion, SensorMsgsConvertImu) {
+    {  // Convert to ROS Message
+        fast::rf::messages::SensorMsgs::ImuMsg data;
+        data.time_stamp = 1.0;
+        data.seq = 2;
+        data.orientation.roll = 0.0;
+        data.orientation.pitch = 0.0;
+        data.orientation.yaw = 0.0;
+        auto msg = TranslateUtility::convert(data);
+        auto msg_orientation_euler = TranslateUtility::convert(msg.orientation);
+        ASSERT_FLOAT_EQ(msg_orientation_euler.roll, data.orientation.roll);
+        ASSERT_FLOAT_EQ(msg_orientation_euler.pitch, data.orientation.pitch);
+        ASSERT_FLOAT_EQ(msg_orientation_euler.yaw, data.orientation.yaw);
+    }
+    {  // Convert from ROS Message
+        sensor_msgs::Imu data;
+        data.orientation.w = 1.0;
+        data.orientation.x = 0.0;
+        data.orientation.y = 0.0;
+        data.orientation.z = 0.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.orientation.roll, 0.0);
+        ASSERT_FLOAT_EQ(msg.orientation.pitch, 0.0);
+        ASSERT_FLOAT_EQ(msg.orientation.yaw, 0.0);
+    }
+}
+TEST(TestConversion, SensorMsgsConvertMagneticField) {
+    {  // Convert to ROS Message
+        fast::rf::messages::SensorMsgs::MagneticFieldMsg data;
+        data.time_stamp = 1.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.magnetic_field.x, data.magnetic_field.x);
+        ASSERT_FLOAT_EQ(msg.magnetic_field.y, data.magnetic_field.y);
+        ASSERT_FLOAT_EQ(msg.magnetic_field.z, data.magnetic_field.z);
+    }
+    {  // Convert from ROS Message
+        sensor_msgs::MagneticField data;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.magnetic_field.x, data.magnetic_field.x);
+        ASSERT_FLOAT_EQ(msg.magnetic_field.y, data.magnetic_field.y);
+        ASSERT_FLOAT_EQ(msg.magnetic_field.z, data.magnetic_field.z);
     }
 }
 int main(int argc, char** argv) {

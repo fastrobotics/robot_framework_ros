@@ -10,6 +10,7 @@ if(${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
 endif()
 add_definitions(-std=c++14 -Wall -Wextra -Wno-switch -Werror)
 option(CATKIN_ENABLE_TESTING "Build the test suite" ON)
+option(CMAKE_EXPORT_COMPILE_COMMANDS "Export Commands" ON)
 
 # Find catkin macros and libraries if COMPONENTS list like find_package(catkin
 # REQUIRED COMPONENTS xyz) is used, also find other catkin packages

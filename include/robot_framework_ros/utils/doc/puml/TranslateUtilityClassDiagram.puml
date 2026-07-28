@@ -4,6 +4,7 @@ namespace ros {
     namespace geometry_msgs {
         class Twist <<(M,#FFFF00)>> <<ROS>>
         class Vector3 <<(M,#FFFF00)>> <<ROS>>
+        class Quaternion <<(M,#FFFF00)>> <<ROS>>
     }
     namespace sensor_msgs {
         class Joy <<(M,#FFFF00)>> <<ROS>>
@@ -15,9 +16,11 @@ namespace ros {
 namespace fast::rf::messages {
     namespace StandardMsgs {
         class Vector3DMsg <<(M,#FFFF00)>>
+        class Covariance3DMsg <<(M,#FFFF00)>>
     }
     namespace GeometryMsgs {
         class TwistMsg <<(M,#FFFF00)>>
+        class OrientationMsg <<(M,#FFFF00)>>
     }
     namespace InfrastructureMsgs {
         class DiagnosticMsg <<(M,#FFFF00)>>
@@ -60,10 +63,14 @@ namespace fast::rf_ros {
             
 
             -- Geometry Messages --
-            +{static} Vector3DMsg convert(geometry_msgs::Vector3 data)
+            +{static} Vector3DMsg convert(geometry_msgs::Vector3 msg)
             +{static} geometry_msgs::Vector3 convert(Vector3DMsg msg)
-            +{static} TwistMsg convert(geometry_msgs::Twist twist)
+            +{static} TwistMsg convert(geometry_msgs::Twist msg)
             +{static} geometry_msgs::Twist convert(TwistMsg msg)
+            +{static} OrientationMsg convert(geometry_msgs::Quaternion msg)
+            +{static} geometry_msgs::Quaternion convert(OrientationMsg msg)
+            +{static} Covariance3DMsg convert_covariance3D(double[] covariance)
+            +{static} double[] convert_covariance3D(Covariance3DMsg msg)
 
             -- Sensor Messages --
             +{static} JoyMsg convert(sensor_msgs::Joy data)

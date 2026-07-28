@@ -1,3 +1,8 @@
+#include <geometry_msgs/Quaternion.h>
+#include <tf/LinearMath/Matrix3x3.h>
+#include <tf/transform_datatypes.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 namespace fast::rf_ros::utils {
     fast::rf::messages::InfrastructureMsgs::DiagnosticMsg TranslateUtility::convert(
@@ -89,7 +94,29 @@ namespace fast::rf_ros::utils {
         data.angular = convert(msg.angular);
         return data;
     }
+    fast::rf::messages::GeometryMsgs::OrientationMsg TranslateUtility::convert(const geometry_msgs::Quaternion& msg) {
+        fast::rf::messages::GeometryMsgs::OrientationMsg orientation;
+        // 1. Convert geometry_msgs to tf Quaternion
+        tf::Quaternion tf_quat;
+        tf::quaternionMsgToTF(msg, tf_quat);
 
+        // 2. Convert tf Quaternion to Matrix3x3
+        tf::Matrix3x3 matrix(tf_quat);
+
+        // 3. Extract Roll, Pitch, and Yaw (in radians)
+        double roll, pitch, yaw;
+        matrix.getRPY(roll, pitch, yaw);
+        orientation.roll = roll;
+        orientation.pitch = pitch;
+        orientation.yaw = yaw;
+        return orientation;
+    }
+    geometry_msgs::Quaternion TranslateUtility::convert(fast::rf::messages::GeometryMsgs::OrientationMsg msg) {
+        tf2::Quaternion tf_quaternion;
+        tf_quaternion.setRPY(msg.roll, msg.pitch, msg.yaw);
+        geometry_msgs::Quaternion data = tf2::toMsg(tf_quaternion);
+        return data;
+    }
     geometry_msgs::Twist TranslateUtility::convert(fast::rf::messages::GeometryMsgs::TwistMsg msg) {
         geometry_msgs::Twist data;
         data.linear = convert(msg.linear);
@@ -112,6 +139,18 @@ namespace fast::rf_ros::utils {
         data.z = msg.z;
         return data;
     }
+    fast::rf::messages::StandardMsgs::Covariance3DMsg TranslateUtility::convert_covariance3D(
+        boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> msg) {
+        fast::rf::messages::StandardMsgs::Covariance3DMsg data;
+        data.covariance.assign(msg.begin(), msg.end());
+        return data;
+    }
+    boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION>
+    TranslateUtility::convert_covariance3D(fast::rf::messages::StandardMsgs::Covariance3DMsg msg) {
+        boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> data;
+        std::copy(msg.covariance.begin(), msg.covariance.end(), data.begin());
+        return data;
+    }
     fast::rf::messages::SensorMsgs::JoyMsg TranslateUtility::convert(sensor_msgs::Joy msg) {
         fast::rf::messages::SensorMsgs::JoyMsg joy;
         joy.time_stamp = msg.header.stamp.toSec();
@@ -126,6 +165,43 @@ namespace fast::rf_ros::utils {
         joy.axes.assign(msg.axes.begin(), msg.axes.end());
         joy.buttons.assign(msg.buttons.begin(), msg.buttons.end());
         return joy;
+    }
+    fast::rf::messages::SensorMsgs::ImuMsg TranslateUtility::convert(sensor_msgs::Imu data) {
+        fast::rf::messages::SensorMsgs::ImuMsg msg;
+        msg.time_stamp = data.header.stamp.toSec();
+        msg.orientation = convert(data.orientation);
+        msg.orientation = convert(data.orientation);
+        msg.orientation_covariance = convert_covariance3D(data.orientation_covariance);
+        msg.angular_velocity = convert(data.angular_velocity);
+        msg.angular_velocity_covariance = convert_covariance3D(data.angular_velocity_covariance);
+        msg.linear_acceleration = convert(data.linear_acceleration);
+        msg.linear_acceleration_covariance = convert_covariance3D(data.linear_acceleration_covariance);
+        return msg;
+    }
+    sensor_msgs::Imu TranslateUtility::convert(fast::rf::messages::SensorMsgs::ImuMsg data) {
+        sensor_msgs::Imu msg;
+        msg.header.stamp = ros::Time(data.time_stamp);
+        msg.orientation = convert(data.orientation);
+        msg.orientation_covariance = convert_covariance3D(data.orientation_covariance);
+        msg.angular_velocity = convert(data.angular_velocity);
+        msg.angular_velocity_covariance = convert_covariance3D(data.angular_velocity_covariance);
+        msg.linear_acceleration = convert(data.linear_acceleration);
+        msg.linear_acceleration_covariance = convert_covariance3D(data.linear_acceleration_covariance);
+        return msg;
+    }
+    fast::rf::messages::SensorMsgs::MagneticFieldMsg TranslateUtility::convert(sensor_msgs::MagneticField data) {
+        fast::rf::messages::SensorMsgs::MagneticFieldMsg msg;
+        msg.time_stamp = data.header.stamp.toSec();
+        msg.magnetic_field = convert(data.magnetic_field);
+        msg.magnetic_field_covariance = convert_covariance3D(data.magnetic_field_covariance);
+        return msg;
+    }
+    sensor_msgs::MagneticField TranslateUtility::convert(fast::rf::messages::SensorMsgs::MagneticFieldMsg data) {
+        sensor_msgs::MagneticField msg;
+        msg.header.stamp = ros::Time(data.time_stamp);
+        msg.magnetic_field = convert(data.magnetic_field);
+        msg.magnetic_field_covariance = convert_covariance3D(data.magnetic_field_covariance);
+        return msg;
     }
 
 }  // namespace fast::rf_ros::utils
