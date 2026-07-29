@@ -22,9 +22,9 @@ jobs:
           apt-get update -q
           apt-get install -y python3-catkin-tools python3-osrf-pycommon git
 
-      - name: Install Other dependencies
-        run: |
-          apt-get install -y libgeographic-dev
+      - name: Install Dependencies
+        run: ./scripts/setup_robot.sh
+        working-directory: catkin_ws/src/robot_framework_ros
     
       - name: Rosdep Install Dependencies
         run: |

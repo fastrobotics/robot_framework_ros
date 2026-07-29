@@ -11,7 +11,7 @@ namespace fast::rf {
 }
 namespace fast::rf_ros {
    namespace {{cookiecutter.System}}System {
-        namespace {{cookiecutter.Subsystem}}Subsystem {
+        package {{cookiecutter.Subsystem}}Subsystem #LightYellow;line:blue {
             class {{cookiecutter.Node}}Node #Yellow {
                 -{{cookiecutter.Node}}Process process
             }

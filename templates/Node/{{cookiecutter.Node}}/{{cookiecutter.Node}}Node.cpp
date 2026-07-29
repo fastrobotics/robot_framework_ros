@@ -31,11 +31,6 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_loop2() {
-        bool diagnostic_check_ok = false;
-        if (diagnostic_check_ok == true) {
-        } else {
-            fast::rf::Logger::log_warn("Diagnostic Check Failed!  Disabling Outputs.");
-        }
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_loop3() { return true; }

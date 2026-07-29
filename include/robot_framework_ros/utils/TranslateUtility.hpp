@@ -14,12 +14,17 @@
 #include <robot_framework_ros/arm_state_change.h>
 #include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/ready_to_arm.h>
+#include <sensor_msgs/Imu.h>
 #include <sensor_msgs/Joy.h>
+#include <sensor_msgs/MagneticField.h>
 
 #include <ArmCommandMsg.hpp>
 #include <ArmStateChangeSrv.hpp>
 #include <DiagnosticMsg.hpp>
+#include <ImuMsg.hpp>
 #include <JoyMsg.hpp>
+#include <MagneticFieldMsg.hpp>
+#include <OrientationMsg.hpp>
 #include <ReadyToArmStatusMsg.hpp>
 #include <TwistMsg.hpp>
 #include <Vector3DMsg.hpp>
@@ -122,6 +127,22 @@ namespace fast::rf_ros::utils {
         // Geometry Messages
 
         /**
+         * @brief Convert from a ROS message to a Core message of type Quaternion->Orientation
+         *
+         * @param msg
+         * @return fast::rf::messages::GeometryMsgs::OrientationMsg
+         */
+        static fast::rf::messages::GeometryMsgs::OrientationMsg convert(const geometry_msgs::Quaternion& msg);
+
+        /**
+         * @brief Convert from a Core Message to a ROS message of type Orientation->Quaternion
+         *
+         * @param msg
+         * @return geometry_msgs::Quaternion
+         */
+        static geometry_msgs::Quaternion convert(fast::rf::messages::GeometryMsgs::OrientationMsg msg);
+
+        /**
          * @brief Translate from a ROS mesage to a Core message of type Twist
          *
          * @param msg
@@ -154,6 +175,26 @@ namespace fast::rf_ros::utils {
         static geometry_msgs::Vector3 convert(fast::rf::messages::StandardMsgs::Vector3DMsg msg);
 
         /**
+         * @brief Convert from a ROS Message to a Core Message of type Covariance3D
+         *
+         * @param msg
+         * @return fast::rf::messages::StandardMsgs::Covariance3DMsg
+         */
+        static fast::rf::messages::StandardMsgs::Covariance3DMsg convert_covariance3D(
+            boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> msg);
+
+        /**
+         * @brief Convert from a Core Message to a ROS Message of type Covariance3D
+         *
+         * @param msg
+         * @return boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION>
+         */
+        static boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> convert_covariance3D(
+            fast::rf::messages::StandardMsgs::Covariance3DMsg msg);
+
+        // Sensor Messages
+
+        /**
          * @brief Convert from a ROS message to a Core message of type Joy
          *
          * @param msg
@@ -168,5 +209,37 @@ namespace fast::rf_ros::utils {
          * @return sensor_msgs::Joy
          */
         static sensor_msgs::Joy convert(fast::rf::messages::SensorMsgs::JoyMsg msg);
+
+        /**
+         * @brief Convert from a ROS message to a Core message of type Imu
+         *
+         * @param data
+         * @return fast::rf::messages::SensorMsgs::ImuMsg
+         */
+        static fast::rf::messages::SensorMsgs::ImuMsg convert(sensor_msgs::Imu data);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type IMU
+         *
+         * @param data
+         * @return sensor_msgs::Imu
+         */
+        static sensor_msgs::Imu convert(fast::rf::messages::SensorMsgs::ImuMsg data);
+
+        /**
+         * @brief Convert from a ROS message to a Core message of type MagneticField
+         *
+         * @param data
+         * @return fast::rf::messages::SensorMsgs::MagneticFieldMsg
+         */
+        static fast::rf::messages::SensorMsgs::MagneticFieldMsg convert(sensor_msgs::MagneticField data);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type MagneticField
+         *
+         * @param data
+         * @return sensor_msgs::MagneticField
+         */
+        static sensor_msgs::MagneticField convert(fast::rf::messages::SensorMsgs::MagneticFieldMsg data);
     };
 }  // namespace fast::rf_ros::utils
