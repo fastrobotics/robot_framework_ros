@@ -180,6 +180,9 @@ namespace fast::rf_ros::utils {
     }
     sensor_msgs::Imu TranslateUtility::convert(fast::rf::messages::SensorMsgs::ImuMsg data) {
         sensor_msgs::Imu msg;
+        if (data.time_stamp < 0.0) {
+            return msg;
+        }
         msg.header.stamp = ros::Time(data.time_stamp);
         msg.orientation = convert(data.orientation);
         msg.orientation_covariance = convert_covariance3D(data.orientation_covariance);
@@ -198,6 +201,9 @@ namespace fast::rf_ros::utils {
     }
     sensor_msgs::MagneticField TranslateUtility::convert(fast::rf::messages::SensorMsgs::MagneticFieldMsg data) {
         sensor_msgs::MagneticField msg;
+        if (data.time_stamp < 0.0) {
+            return msg;
+        }
         msg.header.stamp = ros::Time(data.time_stamp);
         msg.magnetic_field = convert(data.magnetic_field);
         msg.magnetic_field_covariance = convert_covariance3D(data.magnetic_field_covariance);
