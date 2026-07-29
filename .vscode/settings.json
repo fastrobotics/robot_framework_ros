@@ -17,5 +17,5 @@
     },
     "[plantuml]": {
         "editor.formatOnSave": false
-    }
+    },
 }
