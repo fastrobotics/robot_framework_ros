@@ -1,0 +1,18 @@
+function B=gauss_filter_3_3(A)
+   x=size(A,2);
+   y=size(A,1);
+   B = zeros(y, x);
+   for j = 2:y-1
+       for i= 2:x-1
+           val= 4*A(j,i)+2*(A(j,i-1)+A(j,i+1)+A(j+1,i)+A(j-1,i))+A(j+1,i+1)+A(j-1,i+1)+A(j+1,i-1)+A(j-1,i-1);
+           B(j,i) = val/16;
+       end
+   end
+endfunction
+ 
+A = rand(10, 10) * 256;
+B = gauss_filter_3_3(A);
+figure()
+Matplot(A)
+figure()
+Matplot(B)

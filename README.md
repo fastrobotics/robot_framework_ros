@@ -10,6 +10,7 @@
 - [Features](#features)
 - [Scripts](#scripts)
   - [Script: `extract_bag_to_csv.py`](#script-extract_bag_to_csvpy)
+- [Analysis](#analysis)
 - [Setup](#setup)
 - [Build](#build)
   - [Build and run Unit Tests](#build-and-run-unit-tests)
@@ -52,6 +53,9 @@ Usage:
 python scripts/extract_bag_to_csv.py -b <Bag File>
 ```
 Will convert all messages in a bag file to csv files in a folder with the input bag file.
+
+# Analysis
+[Analysis](analysis/Analysis.md)
 
 # Setup
 
