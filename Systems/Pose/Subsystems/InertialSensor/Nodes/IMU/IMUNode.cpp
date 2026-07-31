@@ -52,13 +52,22 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
         return true;
     }
     bool IMUNode::run_loop2() {
-        auto imu_data = fast::rf_ros::utils::TranslateUtility::convert(process.get_imu_data());
-        imu_data.header.frame_id = imu_frame;
-        imu_pub.publish(imu_data);
-
-        auto magnetic_data = fast::rf_ros::utils::TranslateUtility::convert(process.get_magnetic_data());
-        magnetic_data.header.frame_id = imu_frame;
-        magnetometer_pub.publish(magnetic_data);
+        {
+            fast::rf::messages::SensorMsgs::ImuMsg data;
+            if (process.get_imu_data(data)) {
+                auto imu_data = fast::rf_ros::utils::TranslateUtility::convert(data);
+                imu_data.header.frame_id = imu_frame;
+                imu_pub.publish(imu_data);
+            }
+        }
+        {
+            fast::rf::messages::SensorMsgs::MagneticFieldMsg data;
+            if (process.get_magnetic_data(data)) {
+                auto magnetic_data = fast::rf_ros::utils::TranslateUtility::convert(data);
+                magnetic_data.header.frame_id = imu_frame;
+                magnetometer_pub.publish(magnetic_data);
+            }
+        }
         return true;
     }
     bool IMUNode::run_loop3() { return true; }
