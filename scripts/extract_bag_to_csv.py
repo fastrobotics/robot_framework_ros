@@ -9,7 +9,7 @@ def extract_bags(bag_file):
         csv_data = bag.message_by_topic(topic)
 def main():
     parser = OptionParser()#"extract_bag_to_csv.py [options]")
-    parser.add_option("-b","--bag_file",dest="bag_file",default="",help="Bag File")
+    parser.add_option("-b","--bag-file",dest="bag_file",default="",help="Bag File")
     (opts,args) = parser.parse_args()
     extract_bags(opts.bag_file)
 
