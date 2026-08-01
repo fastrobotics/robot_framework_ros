@@ -3,4 +3,4 @@ install/
 *~
 html/
 coverage/
-__pycache__/
+*.pyc
