@@ -14,10 +14,16 @@ def read_csv_ros_msg(csv_file,data_type):
     with open(csv_file, 'r') as f:
         lines = f.readlines()
         first = True
+        counter = 0
         for line in lines:
             if first == True:
                 first = False
                 continue
+            if counter % 1000 == 0:
+                remaining_amount_perc = ((len(lines)-1 - counter)/(len(lines)-1)) * 100
+
+                print(f"[INFO] Lines Processed: [{counter}/{len(lines)-1}] Remaining: {remaining_amount_perc:.2f}% for CSV file: {csv_file}")
+
             if data_type == "sensor_msgs/Imu":
                 msg_data = parse_csv_ros_sensor_msgs_imu(line.strip())
                 if msg_data is not None:
@@ -29,4 +35,5 @@ def read_csv_ros_msg(csv_file,data_type):
             else:
                 print("[ERROR] Unsupported data type: " + data_type)
                 return msg_series
+            counter = counter + 1
         return msg_series
