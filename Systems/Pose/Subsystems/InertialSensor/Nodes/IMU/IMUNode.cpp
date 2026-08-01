@@ -17,8 +17,15 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
         std::string imu_type;
         if (n->getParam("imu_type", imu_type) == false) {
             fast::rf::Logger::log_error("Can't find parameter: imu_type");
+            return false;
         }
-        status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type));
+        std::string imu_device_name;
+        if (n->getParam("imu_device_name", imu_device_name) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: imu_device_name");
+            return false;
+        }
+        status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type),
+                              imu_device_name);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
             return false;
