@@ -46,7 +46,7 @@ Determine the following attributes of the analysis:
 ## Execution
 Run:
 ```bash
-python scripts/analysis/IMUCovarianceAnalysis/imu_covariance_analysis.py --output-dir <Ouput Directory for artifacts> --imu-csv-file <Path to IMUDataChannel.csv> --imu-magnetic-csv-file <Path to IMUMagneticDataChannel.csv> 
+python scripts/analysis/IMUCovarianceAnalysis/imu_covariance_analysis.py --config-file <path to IMU config yaml> --output-dir <Ouput Directory for artifacts> --imu-csv-file <Path to IMUDataChannel.csv> --imu-magnetic-csv-file <Path to IMUMagneticDataChannel.csv> 
 ```
   
 

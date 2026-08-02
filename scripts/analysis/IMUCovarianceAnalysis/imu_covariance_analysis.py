@@ -8,6 +8,7 @@ import numpy as np
 import yaml
 import matplotlib.pyplot as plt
 from mdutils.mdutils import MdUtils
+from datetime import datetime
 quiet_mode=False
 parent_dir = str(Path(__file__).resolve().parent.parent)
 if parent_dir not in sys.path:
@@ -35,6 +36,7 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
     md_file = MdUtils(file_name=os.path.join(output_dir, config_data["info"]["name"]), title="IMU Covariance Analysis Report: "+config_data["info"]["name"] ) 
   
     md_file.new_header(level=1, title="Overview")
+    md_file.new_paragraph("Generated on: " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     md_file.new_paragraph("This report provides an analysis of the IMU data, including covariance matrices for orientation, gyroscope, linear acceleration, and magnetometer data. The analysis is based on the provided CSV files containing IMU and magnetic field data.")    
 
     md_file.new_header(level=2, title="IMU Parameters")
@@ -54,6 +56,8 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
         imu_average_frequency = len(imu_time_stamps) / imu_duration
 
         md_file.new_header(level=1, title="IMU Analysis")
+        tempstr = "IMU Message Count: {}".format(len(data_series["imu"]))
+        md_file.new_paragraph(tempstr)
         tempstr = "IMU Data Duration: {:.2f} seconds".format(imu_duration)
         md_file.new_paragraph(tempstr)
         tempstr = "IMU Data Average Frequency: {:.2f} Hz".format(imu_average_frequency)
@@ -68,8 +72,15 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
         orientation_x = np.array(orientation_x)
         orientation_y = np.array(orientation_y)
         orientation_z = np.array(orientation_z)
+        
 
         md_file.new_header(level=2, title="Orientation Analysis")
+        tempstr = "Orientation Roll Average: {:.8f} (rad) Standard Deviation: {:.4f}".format(np.mean(orientation_x), np.std(orientation_x))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Orientation Pitch Average: {:.8f} (rad) Standard Deviation: {:.4f}".format(np.mean(orientation_y), np.std(orientation_y))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Orientation Yaw Average: {:.8f} (rad) Standard Deviation: {:.4f}".format(np.mean(orientation_z), np.std(orientation_z))
+        md_file.new_paragraph(tempstr)
 
         # Calculate covariance matrix for Orientation data
         orientation_covariance_matrix = np.cov(np.vstack((orientation_x, orientation_y, orientation_z)))
@@ -92,6 +103,13 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
         gyro_z = np.array(gyro_z)
 
         md_file.new_header(level=2, title="Gyroscope Analysis")
+        tempstr = "Gyroscope X Average: {:.8f} (rad/s) Standard Deviation: {:.4f}".format(np.mean(gyro_x), np.std(gyro_x))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Gyroscope Y Average: {:.8f} (rad/s) Standard Deviation: {:.4f}".format(np.mean(gyro_y), np.std(gyro_y))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Gyroscope Z Average: {:.8f} (rad/s) Standard Deviation: {:.4f}".format(np.mean(gyro_z), np.std(gyro_z))
+        md_file.new_paragraph(tempstr)
+
         # Calculate covariance matrix for Gyroscope data
         gyro_covariance_matrix = np.cov(np.vstack((gyro_x, gyro_y, gyro_z)))
         tempstr = "Gyroscope Covariance Matrix:\n" + matrix_to_latex_str(gyro_covariance_matrix)
@@ -111,6 +129,12 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
         linear_acc_z = np.array(linear_acc_z)
 
         md_file.new_header(level=2, title="Linear Acceleration Analysis")
+        tempstr = "Linear Acceleration X Average: {:.8f} (m/s^2) Standard Deviation: {:.4f}".format(np.mean(linear_acc_x), np.std(linear_acc_x))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Linear Acceleration Y Average: {:.8f} (m/s^2) Standard Deviation: {:.4f}".format(np.mean(linear_acc_y), np.std(linear_acc_y))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Linear Acceleration Z Average: {:.8f} (m/s^2) Standard Deviation: {:.4f}".format(np.mean(linear_acc_z), np.std(linear_acc_z))
+        md_file.new_paragraph(tempstr)
         # Calculate covariance matrix for the Linear Acceleration data
         linear_accel_covariance_matrix = np.cov(np.vstack((linear_acc_x, linear_acc_y, linear_acc_z)))
 
@@ -142,12 +166,15 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
     if(data_series["magnetic"] is None or len(data_series["magnetic"]) == 0):
         print("[WARN] No valid IMU Magnetic data found.")
     else:
-        md_file.new_header(level=1, title="IMU Magnetometer Analysis")
         magnetic_time_stamps = [magnetic.header.stamp.to_sec() for magnetic in data_series["magnetic"]]
         magnetic_time_stamps = np.array(magnetic_time_stamps)
         magnetic_start_time = magnetic_time_stamps[0]
         magnetic_duration = magnetic_time_stamps[-1] - magnetic_start_time
         magnetic_average_frequency = len(magnetic_time_stamps) / magnetic_duration
+
+        md_file.new_header(level=1, title="IMU Magnetometer Analysis")
+        tempstr = "Magnetic Data Message Count: {}".format(len(data_series["magnetic"]))
+        md_file.new_paragraph(tempstr)
         tempstr = "Magnetic Data Duration: {:.2f} seconds".format(magnetic_duration)
         md_file.new_paragraph(tempstr)
         
@@ -165,6 +192,13 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
         magnetic_z = np.array(magnetic_z)
 
         md_file.new_header(level=2, title="Magnetometer Analysis")
+        tempstr = "Magnetometer X Average: {:.8f} (T) Standard Deviation: {:.4f}".format(np.mean(magnetic_x), np.std(magnetic_x))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Magnetometer Y Average: {:.8f} (T) Standard Deviation: {:.4f}".format(np.mean(magnetic_y), np.std(magnetic_y))
+        md_file.new_paragraph(tempstr)
+        tempstr = "Magnetometer Z Average: {:.8f} (T) Standard Deviation: {:.4f}".format(np.mean(magnetic_z), np.std(magnetic_z))
+        md_file.new_paragraph(tempstr)
+
         # Calculate covariance matrix for Magnetometer data
         magnetic_covariance_matrix = np.cov(np.vstack((magnetic_x, magnetic_y, magnetic_z)))
         tempstr = "Magnetometer Covariance Matrix:\n" + matrix_to_latex_str(magnetic_covariance_matrix)
