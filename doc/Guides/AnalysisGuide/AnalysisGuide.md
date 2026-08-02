@@ -8,6 +8,8 @@
 - [IMU Covariance Analysis](#imu-covariance-analysis)
   - [Setup](#setup)
   - [Execution](#execution)
+- [Helpful Commands](#helpful-commands)
+  - [UDEV Device Lookup](#udev-device-lookup)
 
 # Analysis Guide
 
@@ -35,14 +37,20 @@ The following Analysis Processes are supported:
 
 # IMU Covariance Analysis
 ## Setup
-Determine the following attributes of the analysis:
-- IMU Vendor
-- IMU Device Name
+1. Determine the following attributes of the analysis:
 - Which IMU CSV channel(s) should be read.  Typically for this analysis, at least one of the following are required, but both are desirable:
     - a CSV File "IMUDataChannel" that supports `IMUMsg` Data (such as ROSv1 sensor_msgs/Imu)
     - a CSV File "IMUMagneticDataChannel" that supports `MagneticFieldMsg` Data (such as ROSv1 sensor_msgs/MagneticField)
   
-
+1. Construct a configuration yaml file:
+```yaml
+info:
+  name: <Name of IMU>
+  device_name: <Linux File Path>
+  description: <Human description of device>
+  manufacturer: <Manufacturer>
+  full_serial_number: <Full Serial Number, use `udev` lookup below>
+```
 ## Execution
 Run:
 ```bash
@@ -50,3 +58,8 @@ python scripts/analysis/IMUCovarianceAnalysis/imu_covariance_analysis.py --confi
 ```
   
 
+# Helpful Commands
+## UDEV Device Lookup
+```bash
+udevadm info -a -n <Linux Device Path>
+```

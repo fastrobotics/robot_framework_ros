@@ -1,6 +1,8 @@
 #include "IMUNode.hpp"
 
+#include <Covariance3DMsg.hpp>
 #include <Infrastructure/Logger.hpp>
+#include <robot_framework_ros/utils/CoreUtility.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
@@ -24,6 +26,71 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             fast::rf::Logger::log_error("Can't find parameter: imu_device_name");
             return false;
         }
+        // Load Covariance Matrix's
+        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg orientation_covariance_matrix;
+        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg gyro_covariance_matrix;
+        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg linear_acc_covariance_matrix;
+        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg magnetometer_covariance_matrix;
+        {  // Orientation Covariance Matrix
+            std::vector<double> values;
+            if (n->getParam("orientation_covariance_matrix", values)) {
+                if (values.size() == 9) {
+                    auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
+                    orientation_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
+                } else {
+                    fast::rf::Logger::log_error("Orientation Covariance Matrix not defined properly!");
+                    return false;
+                }
+            } else {
+                fast::rf::Logger::log_warn("Unable to load orientation_covariance_matrix.  Using Default.");
+            }
+        }
+        {  // Gyro Covariance Matrix
+            std::vector<double> values;
+            if (n->getParam("gyro_covariance_matrix", values)) {
+                if (values.size() == 9) {
+                    auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
+                    gyro_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
+                } else {
+                    fast::rf::Logger::log_error("Gyro Covariance Matrix not defined properly!");
+                    return false;
+                }
+            } else {
+                fast::rf::Logger::log_warn("Unable to load gyro_covariance_matrix.  Using Default.");
+            }
+        }
+        {  // Linear Acc Covariance Matrix
+            std::vector<double> values;
+            if (n->getParam("linear_accel_covariance_matrix", values)) {
+                if (values.size() == 9) {
+                    auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
+                    linear_acc_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
+                } else {
+                    fast::rf::Logger::log_error("Linear Acc Covariance Matrix not defined properly!");
+                    return false;
+                }
+            } else {
+                fast::rf::Logger::log_warn("Unable to load linear_accel_covariance_matrix.  Using Default.");
+            }
+        }
+        {  // Magnetometer Covariance Matrix
+            std::vector<double> values;
+            if (n->getParam("magnetic_covariance_matrix", values)) {
+                if (values.size() == 9) {
+                    auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
+                    magnetometer_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
+                } else {
+                    fast::rf::Logger::log_error("Magnetometer Covariance Matrix not defined properly!");
+                    return false;
+                }
+            } else {
+                fast::rf::Logger::log_warn("Unable to load magnetic_covariance_matrix.  Using Default.");
+            }
+        }
+        /**
+         * @todo During AB1795, initialize IMU Process with covariance matrix's above
+         *
+         */
         status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type),
                               imu_device_name);
         if (status == false) {

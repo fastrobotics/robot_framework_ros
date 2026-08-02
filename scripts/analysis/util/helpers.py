@@ -9,7 +9,7 @@ def matrix_to_latex_str(matrix):
     latex_str = "$$\n\\begin{bmatrix}\n"
     
     for i in range(rows):
-        row_str = " & ".join(f"{matrix[i, j]:.8f}" for j in range(cols))
+        row_str = " & ".join(f"{matrix[i, j]:.16f}" for j in range(cols))
         latex_str += row_str + " \\\\\n"
     
     latex_str += "\\end{bmatrix}\n$$"
@@ -22,11 +22,6 @@ def matrix_to_yaml_str(matrix):
     if matrix.ndim != 2:
         raise ValueError("Input must be a 2D matrix.")
     
-    rows, cols = matrix.shape
-    yaml_str = "matrix:\n"
-    
-    for i in range(rows):
-        row_str = "  - [" + ", ".join(f"{matrix[i, j]:.8f}" for j in range(cols)) + "]\n"
-        yaml_str += row_str
+    yaml_str = matrix.flatten().tolist()
     
     return yaml_str

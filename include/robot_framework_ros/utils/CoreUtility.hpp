@@ -10,7 +10,12 @@
  */
 #pragma once
 
+#include <algorithm>
+#include <boost/array.hpp>
+#include <vector>
+
 #include "ros/ros.h"
+
 namespace fast::rf_ros {
     namespace utils {
         /**
@@ -27,6 +32,8 @@ namespace fast::rf_ros {
              * @return double
              */
             static double measure_time_diff(ros::Time time_a, ros::Time time_b);
+
+            static boost::array<double, 9> convert_boostarray_9(std::vector<double> vector);
         };
     }  // namespace utils
 }  // namespace fast::rf_ros
