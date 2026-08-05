@@ -1,5 +1,11 @@
 <map id="include/robot_framework_ros/utils/CoreUtility.hpp" name="include/robot_framework_ros/utils/CoreUtility.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,191,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="59,93,137,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,46,101,79,95,79,95,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="142,5,327,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,91,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,48,89,90,87,85,189,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="115,93,237,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,47,195,84,191,80,218,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="262,93,325,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="251,44,278,80,274,84,247,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="349,93,427,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="273,43,355,85,352,89,270,48"/>
 </map>
