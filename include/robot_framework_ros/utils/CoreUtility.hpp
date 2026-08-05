@@ -33,6 +33,12 @@ namespace fast::rf_ros {
              */
             static double measure_time_diff(ros::Time time_a, ros::Time time_b);
 
+            /**
+             * @brief Convert a std vector to a boost array
+             *
+             * @param vector
+             * @return boost::array<double, 9>
+             */
             static boost::array<double, 9> convert_boostarray_9(std::vector<double> vector);
         };
     }  // namespace utils

@@ -87,12 +87,14 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
                 fast::rf::Logger::log_warn("Unable to load magnetic_covariance_matrix.  Using Default.");
             }
         }
-        /**
-         * @todo During AB1795, initialize IMU Process with covariance matrix's above
-         *
-         */
-        status = process.init(fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type),
-                              imu_device_name);
+        fast::rf::PoseSystem::InertialSensorSubsystem::IIMUProcess::IMUConfig imu_config;
+        imu_config.imu_type = fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type);
+        imu_config.imu_device_name = imu_device_name;
+        imu_config.linear_accelerometer_covariance = linear_acc_covariance_matrix;
+        imu_config.gyro_covariance = gyro_covariance_matrix;
+        imu_config.magnetometer_covariance = magnetometer_covariance_matrix;
+        imu_config.orientation_covariance = orientation_covariance_matrix;
+        status = process.init(imu_config);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
             return false;
