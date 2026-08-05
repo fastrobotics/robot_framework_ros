@@ -17,20 +17,20 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             return false;
         }
         std::string imu_type;
-        if (n->getParam("imu_type", imu_type) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: imu_type");
+        if (n->getParam("info/type", imu_type) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: info/imu_type");
             return false;
         }
         std::string imu_device_name;
-        if (n->getParam("imu_device_name", imu_device_name) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: imu_device_name");
+        if (n->getParam("info/device_name", imu_device_name) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: info/device_name");
             return false;
         }
         // Load Covariance Matrix's
-        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg orientation_covariance_matrix;
-        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg gyro_covariance_matrix;
-        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg linear_acc_covariance_matrix;
-        [[maybe_unused]] fast::rf::messages::StandardMsgs::Covariance3DMsg magnetometer_covariance_matrix;
+        fast::rf::messages::StandardMsgs::Covariance3DMsg orientation_covariance_matrix;
+        fast::rf::messages::StandardMsgs::Covariance3DMsg gyro_covariance_matrix;
+        fast::rf::messages::StandardMsgs::Covariance3DMsg linear_acc_covariance_matrix;
+        fast::rf::messages::StandardMsgs::Covariance3DMsg magnetometer_covariance_matrix;
         {  // Orientation Covariance Matrix
             std::vector<double> values;
             if (n->getParam("orientation_covariance_matrix", values)) {
@@ -99,7 +99,7 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
-        if (n->getParam("frame", imu_frame) == false) {
+        if (n->getParam("imu_frame", imu_frame) == false) {
             fast::rf::Logger::log_error("Can't find parameter: frame");
             return false;
         }

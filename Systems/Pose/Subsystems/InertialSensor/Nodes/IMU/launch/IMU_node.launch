@@ -2,19 +2,16 @@
 <launch>
 <arg name="robot_namespace" default="/"/> 
 <arg name="verbosity_level" default="INFO"/>
-<arg name="imu_type" default="MOCK"/> <!-- MOCK,SYDTM151,RAZOR9DOF -->
-<arg name="imu_device_name" default="/mock"/> <!-- /dev/imu_SparkFun_183F, /dev/imu_SparkFun_2115, SYDTM151: /dev/imu_STMicroelectronics_3435 -->-->
 <arg name="topic_imu" default="imu" />
 <arg name="topic_magnetometer" default="magnetometer" />
+<arg name="imu_frame" default="/base_link/imu"/>
 <arg name="imu_device_config_file" default="$(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/config/Fake_IMU_Device.yaml" />
 <node name="nodeIMU" pkg="robot_framework_ros" type="nodeIMU"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>
     <param name="loop1_rate" value="200.0" /> <!-- General Update -->
     <param name="loop2_rate" value="200.0" /> <!-- Publish IMU Data -->
-    <param name="imu_type" value="$(arg imu_type)"/>
-    <param name="imu_device_name" value="$(arg imu_device_name)"/>
-    <rosparam file="$(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/config/$(arg imu_type)_IMU_params.yaml" command="load" />
+    <param name="imu_frame" value="$(arg imu_frame)"/>
     <rosparam file="$(arg imu_device_config_file)" command="load" />
     
     <!-- Input Topics -->

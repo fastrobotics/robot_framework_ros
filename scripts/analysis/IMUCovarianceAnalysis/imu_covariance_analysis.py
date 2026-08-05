@@ -53,7 +53,7 @@ def read_data(imu_csv_file, imu_magnetic_csv_file):
 
 def run_analysis(data_series, config_file="", save_output=False, show_plots=False,output_dir="~/tmp/output"):
     config_data = None
-    
+    date_generated=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(config_file, "r") as file:
         # safe_load prevents arbitrary code execution vulnerabilities
         config_data = yaml.safe_load(file) 
@@ -61,10 +61,13 @@ def run_analysis(data_series, config_file="", save_output=False, show_plots=Fals
     generated_config_file = output_dir + "/" + config_data["info"]["name"] + ".yaml"
     with open(generated_config_file, "w") as file:
         yaml.dump(config_data, file)
+        yaml.safe_dump({"date_generated":date_generated},file)
+
+    
     md_file = MdUtils(file_name=os.path.join(output_dir, config_data["info"]["name"]), title="IMU Covariance Analysis Report: "+ config_data["info"]["name"] ) 
-  
+    
     md_file.new_header(level=1, title="Overview")
-    md_file.new_paragraph("Generated on: " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    md_file.new_paragraph("Generated on: " + date_generated)
     md_file.new_paragraph("This report provides an analysis of the IMU data, including covariance matrices for orientation, gyroscope, linear acceleration, and magnetometer data. The analysis is based on the provided CSV files containing IMU and magnetic field data.")    
 
     md_file.new_header(level=2, title="IMU Parameters")
