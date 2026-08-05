@@ -3,3 +3,4 @@ install/
 *~
 html/
 coverage/
+*.pyc

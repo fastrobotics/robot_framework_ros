@@ -1,2 +1,0 @@
-imu_type: "RAZOR9DOF"
-frame: "/base_link/imu"

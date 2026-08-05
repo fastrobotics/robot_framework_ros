@@ -8,8 +8,7 @@
 - [Interfaces](#interfaces)
 - [Systems](#systems)
 - [Features](#features)
-- [Scripts](#scripts)
-  - [Script: `extract_bag_to_csv.py`](#script-extract_bag_to_csvpy)
+- [Guides](#guides)
 - [Setup](#setup)
 - [Build](#build)
   - [Build and run Unit Tests](#build-and-run-unit-tests)
@@ -45,13 +44,8 @@
 | DRAFT  | [Core](include/robot_framework_ros/doc/Core.md)     |
 | DRAFT  | [Example Node](core/ExampleNode/doc/ExampleNode.md) |
 
-# Scripts
-## Script: `extract_bag_to_csv.py`
-Usage:
-```bash
-python scripts/extract_bag_to_csv.py -b <Bag File>
-```
-Will convert all messages in a bag file to csv files in a folder with the input bag file.
+# Guides
+- [Analysis Guide](doc/Guides/AnalysisGuide/AnalysisGuide.md)
 
 # Setup
 
