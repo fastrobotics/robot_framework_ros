@@ -11,4 +11,5 @@
 # Nodes Available
 | Node                                                                                 |
 | ------------------------------------------------------------------------------------ |
+| [Joystick Calibration Node](../JoystickCalibration/doc/JoystickCalibrationNode.md)   |
 | [Basic Teleop Control Node](../BasicTeleopControlNode/doc/BasicTeleopControlNode.md) |
