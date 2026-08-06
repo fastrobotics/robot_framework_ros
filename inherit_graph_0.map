@@ -1,15 +1,17 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this." alt="" coords="5,217,172,243"/>
+<area shape="rect" id="Node000000" href="$classfast_1_1rf__ros_1_1BaseNode.html" title="BaseNode, all other Nodes should inherit from this." alt="" coords="5,256,172,281"/>
 <area shape="rect" id="Node000001" href="$classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html" title="ServoHat Node." alt="" coords="240,5,479,60"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="101,204,147,136,180,100,219,69,239,58,241,62,221,74,184,104,152,140,106,207"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="97,242,115,204,141,157,176,110,218,69,238,57,241,62,222,73,180,113,145,160,120,206,102,244"/>
 <area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html" title="Tank Drive Executor Node." alt="" coords="220,84,499,139"/>
-<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="117,207,163,177,219,148,248,136,250,141,221,152,166,181,120,212"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="107,244,155,195,185,170,219,148,243,136,245,141,221,152,189,174,158,199,111,247"/>
 <area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode.html" title="IMU Node." alt="" coords="263,163,455,217"/>
-<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="185,213,263,202,264,207,186,218"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="143,249,219,226,263,214,264,219,221,231,144,254"/>
 <area shape="rect" id="Node000004" href="$classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode.html" title="ArmedStateManager Node." alt="" coords="258,241,461,296"/>
-<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="186,241,258,252,258,257,185,246"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="186,266,258,266,258,271,186,271"/>
 <area shape="rect" id="Node000005" href="$classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html" title="Basic Teleop Control Node." alt="" coords="235,320,484,375"/>
-<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="121,248,167,277,221,305,254,317,252,322,219,310,164,282,118,253"/>
-<area shape="rect" id="Node000006" href="$classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="268,399,451,439"/>
-<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="106,253,151,319,184,354,221,384,269,404,267,409,219,388,180,358,147,323,101,256"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="147,283,221,305,264,317,263,323,219,310,145,288"/>
+<area shape="rect" id="Node000006" href="$classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html" title="JoystickCalibration Node." alt="" coords="235,399,484,453"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="112,290,159,338,189,362,221,384,248,396,245,401,219,388,186,367,155,342,108,294"/>
+<area shape="rect" id="Node000007" href="$classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html" title="Example Node." alt="" coords="268,478,451,518"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="102,293,119,331,145,377,179,424,222,463,244,475,269,484,267,489,242,480,218,467,175,427,141,380,115,334,97,295"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['servohatnode_2ehpp_0',['ServoHatNode.hpp',['../ServoHatNode_8hpp.html',1,'']]]
+  ['joystickcalibrationnode_2ehpp_0',['JoystickCalibrationNode.hpp',['../JoystickCalibrationNode_8hpp.html',1,'']]]
 ];
