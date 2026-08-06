@@ -75,7 +75,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         std::string topic_joy_command = "/robot/joy";
         if (n->getParam(get_nodename() + "/topic_joy_command", topic_joy_command) == false) {
             fast::rf::Logger::log_warn("topic_joy_command Not specified.  Using default: " + topic_joy_command);
-            return false;
         }
         joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
                                                  &JoystickCalibrationNode::joy_Callback, this);
