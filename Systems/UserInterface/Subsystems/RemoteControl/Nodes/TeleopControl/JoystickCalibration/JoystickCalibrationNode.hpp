@@ -24,16 +24,20 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
      */
     class JoystickCalibrationNode : public BaseNode {
        public:
+        /**
+         * @brief CalibrationData Structure
+         *
+         */
         struct CalibrationData {
-            double x_min;
-            double x_max;
-            double x_deadband;
-            double y_min;
-            double y_max;
-            double y_deadband;
-            double throttle_min;
-            double throttle_max;
-            double throttle_deadband;
+            double x_min;              //!< Min X value
+            double x_max;              //!< Max X Value
+            double x_deadband;         //!< X Deadband
+            double y_min;              //!< Min Y Value
+            double y_max;              //!< Max Y Value
+            double y_deadband;         //!< Y Deadband
+            double throttle_min;       //!< Min Throttle
+            double throttle_max;       //!< Max Throttle
+            double throttle_deadband;  //!< Throttle Deadband
             CalibrationData() {
                 x_deadband = 0.0;
                 x_min = INFINITY;
@@ -45,6 +49,11 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
                 throttle_max = -INFINITY;
                 throttle_deadband = 0.0;
             }
+            /**
+             * @brief Pretty print joystick dalibration data
+             *
+             * @return std::string
+             */
             std::string pretty() {
                 std::string str = "\nX:\n\t DB: " + std::to_string(x_deadband) + " min: " + std::to_string(x_min) +
                                   " max: " + std::to_string(x_max) + "\n";
@@ -145,6 +154,11 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
          */
         void thread_loop();
 
+        /**
+         * @brief Process a Joy Message
+         *
+         * @param t_msg
+         */
         void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
        private:

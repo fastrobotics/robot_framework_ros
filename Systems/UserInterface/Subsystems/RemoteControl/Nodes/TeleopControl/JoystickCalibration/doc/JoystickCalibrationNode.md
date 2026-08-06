@@ -1,4 +1,4 @@
-[Nodes - <blah>](../../doc/Nodes-blah.md)
+[Teleop Control Nodes](../../doc/Nodes-TeleopControl.md)
 - [JoystickCalibration Node](#joystickcalibration-node)
 - [Architecture](#architecture)
   - [Class Diagram](#class-diagram)
@@ -11,6 +11,7 @@
 
 ## Class Diagram
 ![](puml/JoystickCalibrationNodeClassDiagram.png)
+
 
 # Usage Example:
 ```bash
