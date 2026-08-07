@@ -9,7 +9,6 @@ var hierarchy =
       [ "fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html", null ],
       [ "fast::rf_ros::example_package::ExampleNode", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html", null ]
     ] ],
-    [ "fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationNode::CalibrationData", "structfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode_1_1CalibrationData.html", null ],
     [ "fast::rf_ros::utils::CoreUtility", "classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html", null ],
     [ "fast::rf_ros::utils::TranslateUtility", "classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html", null ]
 ];

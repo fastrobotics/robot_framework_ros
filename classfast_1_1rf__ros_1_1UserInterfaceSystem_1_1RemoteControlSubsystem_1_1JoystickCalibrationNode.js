@@ -1,6 +1,5 @@
 var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode =
 [
-    [ "CalibrationData", "structfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode_1_1CalibrationData.html", "structfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode_1_1CalibrationData" ],
     [ "init", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html#a95010811dd4dc65e2793d38969faa308", null ],
     [ "joy_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html#a7f0194d8f7ca10b71ce91b1df072bfcc", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html#a979cb199380a75a4d4dda7fac72c5173", null ],
