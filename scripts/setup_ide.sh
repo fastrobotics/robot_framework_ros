@@ -1,6 +1,6 @@
 echo "Setting up IDE"
 sudo apt update
-sudo apt install -y default-jre graphviz  ros-noetic-imu-pipeline
+sudo apt install -y default-jre graphviz  ros-noetic-imu-pipeline #Can only install on x86.  Resolve during AB#1810
 pip install --upgrade pip
 pip install pre-commit cmakelang bagpy mdutils
 pipx install cmake-format
