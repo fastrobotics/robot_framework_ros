@@ -24,9 +24,31 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationData joy_calibration_data;
+        XmlRpc::XmlRpcValue calibration_config;
+        if (n->getParam(get_nodename() + "/calibration", calibration_config)) {
+            if (calibration_config.getType() == XmlRpc::XmlRpcValue::TypeStruct) {
+                joy_calibration_data.x_max = calibration_config["x_max"];
+                joy_calibration_data.x_deadband = calibration_config["x_deadband"];
+                joy_calibration_data.x_min = calibration_config["x_min"];
+                joy_calibration_data.y_max = calibration_config["y_max"];
+                joy_calibration_data.y_deadband = calibration_config["y_deadband"];
+                joy_calibration_data.y_min = calibration_config["y_min"];
+                joy_calibration_data.throttle_max = calibration_config["throttle_max"];
+                joy_calibration_data.throttle_deadband = calibration_config["throttle_deadband"];
+                joy_calibration_data.throttle_min = calibration_config["throttle_min"];
 
+            } else {
+                fast::rf::Logger::log_error("Error parsing Joystick Calibration.  Exiting.");
+                return false;
+            }
+        } else {
+            fast::rf::Logger::log_warn("No Joystick Calibration Found.  Using default!");
+            joy_calibration_data.optional_init();
+        }
         status =
-            process.init(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::ControlDevice::THRUSTMASTER_JOYSTICK);
+            process.init(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::ControlDevice::THRUSTMASTER_JOYSTICK,
+                         joy_calibration_data);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;

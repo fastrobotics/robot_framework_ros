@@ -5,9 +5,11 @@
 <arg name="operation_mode" default="RUN"/> <!-- RUN, TEST-->
 <arg name="topic_joystick_command" default="/"/>
 <arg name="topic_command_throttle" default="/"/>
+<arg name="joystick_calibration_config_file" default="$(find robot_framework_ros)/Systems/UserInterface/Subsystems/RemoteControl/Nodes/TeleopControl/BasicTeleopControlNode/config/Mock_Joystick.yaml" />
 <node name="nodeBasicTeleopControl" pkg="robot_framework_ros" type="nodeBasicTeleopControl"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>
+    <rosparam file="$(arg joystick_calibration_config_file)" command="load" />
     <!-- Input Topics -->
     <param name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
     <!-- Output Topics -->

@@ -1,12 +1,13 @@
 #include "JoystickCalibrationNode.hpp"
 
+#include <ITeleopControlProcess.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <chrono>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
 std::ofstream output_config_fd;
-fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationNode::CalibrationData calibration_data;
+fast::rf::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationData calibration_data;
 namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
 
     JoystickCalibrationNode::JoystickCalibrationNode() {}
