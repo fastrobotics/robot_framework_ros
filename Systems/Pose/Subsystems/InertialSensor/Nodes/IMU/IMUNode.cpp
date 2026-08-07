@@ -1,5 +1,9 @@
 #include "IMUNode.hpp"
 
+#include <geometry_msgs/AccelStamped.h>
+#include <sensor_msgs/Imu.h>
+#include <sensor_msgs/MagneticField.h>
+
 #include <Covariance3DMsg.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
@@ -99,7 +103,7 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
-        if (n->getParam("imu_frame", imu_frame) == false) {
+        if (n->getParam("imu_sensor_frame", imu_sensor_frame) == false) {
             fast::rf::Logger::log_error("Can't find parameter: frame");
             return false;
         }
@@ -116,6 +120,13 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             return false;
         }
         magnetometer_pub = n->advertise<sensor_msgs::MagneticField>(get_robotnamespace() + magnetometer_topic, 1);
+
+        std::string imu_acc_topic;
+        if (n->getParam("topic_imu_acc", imu_acc_topic) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: topic_imu_acc");
+            return false;
+        }
+        imu_accel_pub = n->advertise<geometry_msgs::AccelStamped>(get_robotnamespace() + imu_acc_topic, 1);
         process.update(ros::Time::now().toSec());  // Kick off the Process
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
@@ -132,18 +143,24 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             fast::rf::messages::SensorMsgs::ImuMsg data;
             if (process.get_imu_data(data)) {
                 auto imu_data = fast::rf_ros::utils::TranslateUtility::convert(data);
-                imu_data.header.frame_id = imu_frame;
+                imu_data.header.frame_id = imu_sensor_frame;
                 imu_pub.publish(imu_data);
+
+                geometry_msgs::AccelStamped accel;
+                accel.header = imu_data.header;
+                accel.accel.linear = imu_data.linear_acceleration;
+                imu_accel_pub.publish(accel);
             }
         }
         {
             fast::rf::messages::SensorMsgs::MagneticFieldMsg data;
             if (process.get_magnetic_data(data)) {
                 auto magnetic_data = fast::rf_ros::utils::TranslateUtility::convert(data);
-                magnetic_data.header.frame_id = imu_frame;
+                magnetic_data.header.frame_id = imu_sensor_frame;
                 magnetometer_pub.publish(magnetic_data);
             }
         }
+
         return true;
     }
     bool IMUNode::run_loop3() { return true; }
