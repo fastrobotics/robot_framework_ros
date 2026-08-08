@@ -4,8 +4,16 @@ title InertialSensorFuser Node Class Diagram
 namespace ros {
     class Subscriber
     class Publisher
+    namespace sensor_msgs {
+        class Imu <<(M,#FFFF00)>> <<ROS>>
+    }
 }
 namespace fast::rf {
+    namespace messages {
+        namespace SensorMsgs {
+            class ImuMsg <<(M,#FFFF00)>>
+        }
+    }
     namespace PoseSystem {
         namespace LocalPoseSubsystem {
             interface IInertialSensorFuserProcess

@@ -151,6 +151,20 @@ namespace fast::rf_ros::utils {
         std::copy(msg.covariance.begin(), msg.covariance.end(), data.begin());
         return data;
     }
+    fast::rf::messages::GeometryMsgs::OdomMsg TranslateUtility::convert(nav_msgs::Odometry msg) {
+        fast::rf::messages::GeometryMsgs::OdomMsg data;
+        data.time_stamp = msg.header.stamp.toSec();
+        // data.pose = convert(msg.pose);  // Translate this and any other attribute during AB#1813
+        data.twist.twist = convert(msg.twist.twist);
+        return data;
+    }
+    nav_msgs::Odometry TranslateUtility::convert(fast::rf::messages::GeometryMsgs::OdomMsg msg) {
+        nav_msgs::Odometry data;
+        data.header.stamp = ros::Time(msg.time_stamp);
+        // data.pose = convert(msg.pose);  // Translate this and any other attribute during AB#1813
+        data.twist.twist = convert(msg.twist.twist);
+        return data;
+    }
     fast::rf::messages::SensorMsgs::JoyMsg TranslateUtility::convert(sensor_msgs::Joy msg) {
         fast::rf::messages::SensorMsgs::JoyMsg joy;
         joy.time_stamp = msg.header.stamp.toSec();

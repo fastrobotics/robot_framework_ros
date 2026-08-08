@@ -1,6 +1,6 @@
 [Pose System](../../../doc/System-Pose.md)
 
-- [Subsystem: LocalPose](#subsystem-cookiecuttersubsystem)
+- [Subsystem: LocalPose](#subsystem-localpose)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
