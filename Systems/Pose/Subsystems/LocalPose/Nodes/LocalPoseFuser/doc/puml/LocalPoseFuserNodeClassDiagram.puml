@@ -17,7 +17,7 @@ namespace fast::rf {
 namespace fast::rf_ros {
    namespace PoseSystem {
         package LocalPoseSubsystem #LightYellow;line:blue {
-            class LocalPoseFuserNode #Yellow {
+            class LocalPoseFuserNode #LimeGreen {
                 -ILocalPoseFuserProcess process
                 -Subscriber machine_inertial_sub
                 -Publisher local_pose_pub
