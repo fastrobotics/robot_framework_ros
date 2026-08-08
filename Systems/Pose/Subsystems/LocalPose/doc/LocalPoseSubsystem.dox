@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem
+ * @brief The LocalPose Subsystem for the ROS Robot Framework
+ */

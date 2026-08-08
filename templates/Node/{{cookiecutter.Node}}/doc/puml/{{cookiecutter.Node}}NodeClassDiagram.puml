@@ -2,6 +2,8 @@
 title {{cookiecutter.Node}} Node Class Diagram
 
 namespace ros {
+    class Subscriber
+    class Publisher
 }
 namespace fast::rf {
     namespace {{cookiecutter.System}}System {

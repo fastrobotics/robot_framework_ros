@@ -1,0 +1,10 @@
+@startuml
+title LocalPose Subsystem Class Diagram
+
+namespace fast::rf_ros {
+    namespace PoseSystem {
+        package LocalPoseSubsystem #LightYellow;line:blue {
+        }
+    }
+}
+@enduml

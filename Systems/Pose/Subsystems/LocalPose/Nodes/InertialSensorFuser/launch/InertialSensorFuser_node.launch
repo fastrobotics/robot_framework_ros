@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="robot_namespace" default="/"/> 
+<arg name="verbosity_level" default="NOTICE"/>
+<arg name="topic_imu1_input" default="/"/>
+<arg name="topic_machine_inertial_output" default="/" />
+<node name="nodeInertialSensorFuser" pkg="robot_framework_ros" type="nodeInertialSensorFuser"  output="screen" clear_params="true">
+    <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
+    <param name="loop1_rate" value="20.0" /> <!-- General Update -->
+    <!-- Input Topics -->
+    <param name="topic_imu1_input" value="$(arg topic_imu1_input)"/>
+    <!-- Add more IMU's in AB#1814 -->
+
+    <!-- Output Topics -->
+    <param name="topic_machine_inertial_output" value="$(arg topic_machine_inertial_output)"/>
+    
+</node>
+</launch>

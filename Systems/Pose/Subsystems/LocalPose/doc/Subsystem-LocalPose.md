@@ -1,33 +1,39 @@
-[README](../../../README.md)
+[Pose System](../../../doc/System-Pose.md)
 
-
-- [System: Pose](#system-pose)
+- [Subsystem: LocalPose](#subsystem-cookiecuttersubsystem)
 - [Overview](#overview)
   - [Purpose](#purpose)
   - [General Requirements](#general-requirements)
-- [System Architecture](#system-architecture)
+- [Subsystem Architecture](#subsystem-architecture)
+  - [Class Diagram](#class-diagram)
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [How It Works](#how-it-works)
   - [Detailed Documentation](#detailed-documentation)
   - [Software Content](#software-content)
-- [Subsystems](#subsystems)
+- [Nodes](#nodes)
   - [Package Diagram](#package-diagram)
 - [Usage Instructions](#usage-instructions)
 - [Validation](#validation)
 
 
-# System: Pose
+# Subsystem: LocalPose
 
 # Overview
 
 ## Purpose
 
-The Pose System's role in the Robot Framework is to ???
+The LocalPose Subsystem's role in the Robot Framework is to ???
 
 ## General Requirements
 
-# System Architecture
+# Subsystem Architecture
+
+![](../../../../../Legend.png)
+
+## Class Diagram
+
+![](puml/LocalPoseSubsystemClassDiagram.png)
 
 # Inputs
 
@@ -49,21 +55,14 @@ The following outputs are provided by this system.
 
 ## Software Content
 
-# Subsystems
+# Nodes
 
-The following Subsystems are provided in this System:
-
-| State | Subsystem                                                                       | Purpose |
-| ----- | ------------------------------------------------------------------------------- | ------- |
-| DRAFT | [Inertial Sensor](../Subsystems/InertialSensor/doc/Subsystem-InertialSensor.md) |         |
-| DRAFT | [Local Pose](../Subsystems/LocalPose/doc/Subsystem-LocalPose.md)                |         |
+| Status | Node |
+| ------ | ---- |
 
 
 ## Package Diagram
 
-![](puml/SystemPosePackageDiagram.png)
-
 # Usage Instructions
 
 # Validation
-

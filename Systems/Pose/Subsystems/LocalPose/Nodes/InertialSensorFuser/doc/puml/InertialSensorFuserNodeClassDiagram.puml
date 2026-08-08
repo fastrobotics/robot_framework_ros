@@ -1,0 +1,32 @@
+@startuml
+title InertialSensorFuser Node Class Diagram
+
+namespace ros {
+    class Subscriber
+    class Publisher
+}
+namespace fast::rf {
+    namespace PoseSystem {
+        namespace LocalPoseSubsystem {
+            interface IInertialSensorFuserProcess
+            class BasicInertialSensorFuserProcess
+            BasicInertialSensorFuserProcess -up-|> IInertialSensorFusersProcess
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace PoseSystem {
+        package LocalPoseSubsystem #LightYellow;line:blue {
+            class InertialSensorFuserNode #LimeGreen {
+                -IInertialSensorFuserProcess process
+                -void IMU_Callback()
+                -Subscriber imu_sub
+                -Publisher machine_inertial_pub
+            }
+            InertialSensorFuserNode --> IInertialSensorFuserProcess: <<use>>
+            InertialSensorFuserNode *-> BasicInertialSensorFuserProcess
+        }
+    }
+}
+@enduml
+        
