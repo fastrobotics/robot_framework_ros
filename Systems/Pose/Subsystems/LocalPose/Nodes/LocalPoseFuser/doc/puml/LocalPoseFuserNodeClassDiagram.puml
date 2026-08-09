@@ -1,0 +1,31 @@
+@startuml
+title LocalPoseFuser Node Class Diagram
+
+namespace ros {
+    class Subscriber
+    class Publisher
+}
+namespace fast::rf {
+    namespace PoseSystem {
+        namespace LocalPoseSubsystem {
+            interface ILocalPoseFuserProcess
+            class BasicLocalPoseFuserProcess
+            BasicLocalPoseFuserProcess -up-|> ILocalPoseFuserProcess
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace PoseSystem {
+        package LocalPoseSubsystem #LightYellow;line:blue {
+            class LocalPoseFuserNode #LimeGreen {
+                -ILocalPoseFuserProcess process
+                -Subscriber machine_inertial_sub
+                -Publisher local_pose_pub
+            }
+            LocalPoseFuserNode --> ILocalPoseFuserProcess: <<use>>
+            LocalPoseFuserNode *--> BasicLocalPoseFuserProcess
+        }
+    }
+}
+@enduml
+        

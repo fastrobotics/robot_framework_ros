@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="robot_namespace" default="/"/> 
+<arg name="verbosity_level" default="NOTICE"/>
+<arg name="topic_machine_inertial_input" default="/"/>
+<arg name="topic_local_pose_output" default="/" />
+<node name="nodeLocalPoseFuser" pkg="robot_framework_ros" type="nodeLocalPoseFuser"  output="screen" clear_params="true">
+    <param name="robot_namespace" value="$(arg robot_namespace)"/>
+    <param name="verbosity_level"       value="$(arg verbosity_level)"/>
+    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
+    <!-- Input Topics -->
+    <param name="topic_machine_inertial_input" value="$(arg topic_machine_inertial_input)"/>
+    <!-- Output Topics -->
+    <param name="topic_local_pose_output" value="$(arg topic_local_pose_output)"/>
+    
+</node>
+</launch>

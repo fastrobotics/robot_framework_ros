@@ -3,13 +3,15 @@
     <arg name="robot_namespace" value="/test" />
     <arg name="verbosity_level" value="NOTICE"/>
     <group ns="test">
-        <include file="$(find robot_framework_ros)/Systems/{{cookiecutter.System}}/Subsystems/{{cookiecutter.Subsystem}}/Nodes/<blah>/{{cookiecutter.Node}}Node/launch/{{cookiecutter.Node}}_node.launch">
+        <include file="$(find robot_framework_ros)/Systems/Pose/Subsystems/LocalPose/Nodes/LocalPoseFuser/launch/LocalPoseFuser_node.launch">
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
             <arg name="verbosity_level" value="$(arg verbosity_level)"/>
             <!-- Input Topics -->
+            <arg name="topic_machine_inertial_input" value="imu"/>
             <!-- Output Topics -->
+            <arg name="topic_local_pose_output" value="local_pose"/>
         </include>
-        <test test-name="test_node{{cookiecutter.Node}}" pkg="robot_framework_ros" type="test_node{{cookiecutter.Node}}"/>
+        <test test-name="test_nodeLocalPoseFuser" pkg="robot_framework_ros" type="test_nodeLocalPoseFuser"/>
     </group>
    
 </launch>

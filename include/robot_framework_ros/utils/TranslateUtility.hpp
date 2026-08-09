@@ -10,6 +10,7 @@
  */
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
+#include <nav_msgs/Odometry.h>
 #include <robot_framework_ros/arm_command.h>
 #include <robot_framework_ros/arm_state_change.h>
 #include <robot_framework_ros/diagnostic.h>
@@ -24,6 +25,7 @@
 #include <ImuMsg.hpp>
 #include <JoyMsg.hpp>
 #include <MagneticFieldMsg.hpp>
+#include <OdomMsg.hpp>
 #include <OrientationMsg.hpp>
 #include <ReadyToArmStatusMsg.hpp>
 #include <TwistMsg.hpp>
@@ -191,6 +193,22 @@ namespace fast::rf_ros::utils {
          */
         static boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> convert_covariance3D(
             fast::rf::messages::StandardMsgs::Covariance3DMsg msg);
+
+        /**
+         * @brief Translate from a ROS mesage to a Core message of type Odometry
+         *
+         * @param msg
+         * @return fast::rf::messages::GeometryMsgs::OdomMsg
+         */
+        static fast::rf::messages::GeometryMsgs::OdomMsg convert(nav_msgs::Odometry msg);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type Odometry
+         *
+         * @param msg
+         * @return nav_msgs::Odometry
+         */
+        static nav_msgs::Odometry convert(fast::rf::messages::GeometryMsgs::OdomMsg msg);
 
         // Sensor Messages
 
