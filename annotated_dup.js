@@ -18,6 +18,10 @@ var annotated_dup =
         [ "PoseSystem", "namespacefast_1_1rf__ros_1_1PoseSystem.html", [
           [ "InertialSensorSubsystem", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem.html", [
             [ "IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode" ]
+          ] ],
+          [ "LocalPoseSubsystem", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem.html", [
+            [ "InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode" ],
+            [ "LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuserNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuserNode" ]
           ] ]
         ] ],
         [ "SafetySystem", "namespacefast_1_1rf__ros_1_1SafetySystem.html", [

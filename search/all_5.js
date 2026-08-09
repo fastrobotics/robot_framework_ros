@@ -10,10 +10,11 @@ var searchData=
   ['fast_3a_3arf_5fros_3a_3anavigationsystem_3a_3anavigationexecutorsubsystem_7',['NavigationExecutorSubsystem',['../namespacefast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem.html',1,'fast::rf_ros::NavigationSystem']]],
   ['fast_3a_3arf_5fros_3a_3aposesystem_8',['PoseSystem',['../namespacefast_1_1rf__ros_1_1PoseSystem.html',1,'fast::rf_ros']]],
   ['fast_3a_3arf_5fros_3a_3aposesystem_3a_3ainertialsensorsubsystem_9',['InertialSensorSubsystem',['../namespacefast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem.html',1,'fast::rf_ros::PoseSystem']]],
-  ['fast_3a_3arf_5fros_3a_3asafetysystem_10',['SafetySystem',['../namespacefast_1_1rf__ros_1_1SafetySystem.html',1,'fast::rf_ros']]],
-  ['fast_3a_3arf_5fros_3a_3asafetysystem_3a_3amodemanagersubsystem_11',['ModeManagerSubsystem',['../namespacefast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem.html',1,'fast::rf_ros::SafetySystem']]],
-  ['fast_3a_3arf_5fros_3a_3auserinterfacesystem_12',['UserInterfaceSystem',['../namespacefast_1_1rf__ros_1_1UserInterfaceSystem.html',1,'fast::rf_ros']]],
-  ['fast_3a_3arf_5fros_3a_3auserinterfacesystem_3a_3aremotecontrolsubsystem_13',['RemoteControlSubsystem',['../namespacefast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem.html',1,'fast::rf_ros::UserInterfaceSystem']]],
-  ['fast_3a_3arf_5fros_3a_3autils_14',['utils',['../namespacefast_1_1rf__ros_1_1utils.html',1,'fast::rf_ros']]],
-  ['framework_15',['FAST Robotics: ROS Robot Framework',['../index.html',1,'']]]
+  ['fast_3a_3arf_5fros_3a_3aposesystem_3a_3alocalposesubsystem_10',['LocalPoseSubsystem',['../namespacefast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem.html',1,'fast::rf_ros::PoseSystem']]],
+  ['fast_3a_3arf_5fros_3a_3asafetysystem_11',['SafetySystem',['../namespacefast_1_1rf__ros_1_1SafetySystem.html',1,'fast::rf_ros']]],
+  ['fast_3a_3arf_5fros_3a_3asafetysystem_3a_3amodemanagersubsystem_12',['ModeManagerSubsystem',['../namespacefast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem.html',1,'fast::rf_ros::SafetySystem']]],
+  ['fast_3a_3arf_5fros_3a_3auserinterfacesystem_13',['UserInterfaceSystem',['../namespacefast_1_1rf__ros_1_1UserInterfaceSystem.html',1,'fast::rf_ros']]],
+  ['fast_3a_3arf_5fros_3a_3auserinterfacesystem_3a_3aremotecontrolsubsystem_14',['RemoteControlSubsystem',['../namespacefast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem.html',1,'fast::rf_ros::UserInterfaceSystem']]],
+  ['fast_3a_3arf_5fros_3a_3autils_15',['utils',['../namespacefast_1_1rf__ros_1_1utils.html',1,'fast::rf_ros']]],
+  ['framework_16',['FAST Robotics: ROS Robot Framework',['../index.html',1,'']]]
 ];

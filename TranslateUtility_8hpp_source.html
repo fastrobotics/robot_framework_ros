@@ -100,94 +100,100 @@ $(document).ready(function(){initNavTree('TranslateUtility_8hpp_source.html','')
 <a href="TranslateUtility_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;geometry_msgs/Twist.h&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;geometry_msgs/Vector3.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;robot_framework_ros/arm_command.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;robot_framework_ros/arm_state_change.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;robot_framework_ros/diagnostic.h&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;robot_framework_ros/ready_to_arm.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;sensor_msgs/Imu.h&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;sensor_msgs/Joy.h&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;sensor_msgs/MagneticField.h&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;ArmCommandMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;ArmStateChangeSrv.hpp&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;DiagnosticMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;ImuMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;JoyMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;MagneticFieldMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;OrientationMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;ReadyToArmStatusMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;TwistMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;Vector3DMsg.hpp&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefast_1_1rf__ros_1_1utils.html">fast::rf_ros::utils</a> {</div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">   37</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">TranslateUtility</a> {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>       <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="comment">// Infrastructure Messages</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::DiagnosticMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(robot_framework_ros::diagnostic msg);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">static</span> robot_framework_ros::diagnostic <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::InfrastructureMsgs::DiagnosticMsg msg);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            robot_framework_ros::ready_to_arm msg);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">static</span> robot_framework_ros::ready_to_arm <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg msg);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ArmCommandMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(robot_framework_ros::arm_command msg);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">static</span> robot_framework_ros::arm_command <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvRequest <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            robot_framework_ros::arm_state_change::Request req);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">static</span> robot_framework_ros::arm_state_change::Request <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvRequest req);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvResponse <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            robot_framework_ros::arm_state_change::Response resp);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keyword">static</span> robot_framework_ros::arm_state_change::Response <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvResponse resp);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// Geometry Messages</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;nav_msgs/Odometry.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;robot_framework_ros/arm_command.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;robot_framework_ros/arm_state_change.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;robot_framework_ros/diagnostic.h&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;robot_framework_ros/ready_to_arm.h&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;sensor_msgs/Imu.h&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;sensor_msgs/Joy.h&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;sensor_msgs/MagneticField.h&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;ArmCommandMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;ArmStateChangeSrv.hpp&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;DiagnosticMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;ImuMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;JoyMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;MagneticFieldMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;OdomMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;OrientationMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;ReadyToArmStatusMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;TwistMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;Vector3DMsg.hpp&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefast_1_1rf__ros_1_1utils.html">fast::rf_ros::utils</a> {</div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">   39</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">TranslateUtility</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>       <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">// Infrastructure Messages</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::DiagnosticMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(robot_framework_ros::diagnostic msg);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">static</span> robot_framework_ros::diagnostic <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::InfrastructureMsgs::DiagnosticMsg msg);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            robot_framework_ros::ready_to_arm msg);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">static</span> robot_framework_ros::ready_to_arm <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg msg);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ArmCommandMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(robot_framework_ros::arm_command msg);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keyword">static</span> robot_framework_ros::arm_command <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvRequest <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            robot_framework_ros::arm_state_change::Request req);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">static</span> robot_framework_ros::arm_state_change::Request <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvRequest req);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keyword">static</span> fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvResponse <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            robot_framework_ros::arm_state_change::Response resp);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keyword">static</span> robot_framework_ros::arm_state_change::Response <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            fast::rf::messages::InfrastructureMsgs::ArmStateChangeSrv::ArmStateChangeSrvResponse resp);</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keyword">static</span> fast::rf::messages::GeometryMsgs::OrientationMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(<span class="keyword">const</span> geometry_msgs::Quaternion&amp; msg);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">static</span> geometry_msgs::Quaternion <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::GeometryMsgs::OrientationMsg msg);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keyword">static</span> fast::rf::messages::GeometryMsgs::TwistMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(geometry_msgs::Twist msg);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keyword">static</span> geometry_msgs::Twist <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::GeometryMsgs::TwistMsg msg);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">static</span> fast::rf::messages::StandardMsgs::Vector3DMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(geometry_msgs::Vector3 msg);</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keyword">static</span> geometry_msgs::Vector3 <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::StandardMsgs::Vector3DMsg msg);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keyword">static</span> fast::rf::messages::StandardMsgs::Covariance3DMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ab74aa2be5dc6ff51b708a9e1636b1cc5">convert_covariance3D</a>(</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            boost::array&lt;double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION&gt; msg);</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keyword">static</span> boost::array&lt;double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION&gt; <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ab74aa2be5dc6ff51b708a9e1636b1cc5">convert_covariance3D</a>(</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            fast::rf::messages::StandardMsgs::Covariance3DMsg msg);</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="comment">// Sensor Messages</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="comment">// Geometry Messages</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keyword">static</span> fast::rf::messages::GeometryMsgs::OrientationMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(<span class="keyword">const</span> geometry_msgs::Quaternion&amp; msg);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keyword">static</span> geometry_msgs::Quaternion <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::GeometryMsgs::OrientationMsg msg);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">static</span> fast::rf::messages::GeometryMsgs::TwistMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(geometry_msgs::Twist msg);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keyword">static</span> geometry_msgs::Twist <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::GeometryMsgs::TwistMsg msg);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keyword">static</span> fast::rf::messages::StandardMsgs::Vector3DMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(geometry_msgs::Vector3 msg);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keyword">static</span> geometry_msgs::Vector3 <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::StandardMsgs::Vector3DMsg msg);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keyword">static</span> fast::rf::messages::StandardMsgs::Covariance3DMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ab74aa2be5dc6ff51b708a9e1636b1cc5">convert_covariance3D</a>(</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            boost::array&lt;double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION&gt; msg);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keyword">static</span> boost::array&lt;double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION&gt; <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ab74aa2be5dc6ff51b708a9e1636b1cc5">convert_covariance3D</a>(</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            fast::rf::messages::StandardMsgs::Covariance3DMsg msg);</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keyword">static</span> fast::rf::messages::SensorMsgs::JoyMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(sensor_msgs::Joy msg);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keyword">static</span> fast::rf::messages::GeometryMsgs::OdomMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(nav_msgs::Odometry msg);</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keyword">static</span> sensor_msgs::Joy <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::SensorMsgs::JoyMsg msg);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keyword">static</span> nav_msgs::Odometry <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::GeometryMsgs::OdomMsg msg);</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keyword">static</span> fast::rf::messages::SensorMsgs::ImuMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(sensor_msgs::Imu data);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <span class="keyword">static</span> sensor_msgs::Imu <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::SensorMsgs::ImuMsg data);</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keyword">static</span> fast::rf::messages::SensorMsgs::MagneticFieldMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(sensor_msgs::MagneticField data);</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="keyword">static</span> sensor_msgs::MagneticField <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::SensorMsgs::MagneticFieldMsg data);</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    };</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="comment">// Sensor Messages</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keyword">static</span> fast::rf::messages::SensorMsgs::JoyMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(sensor_msgs::Joy msg);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keyword">static</span> sensor_msgs::Joy <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::SensorMsgs::JoyMsg msg);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keyword">static</span> fast::rf::messages::SensorMsgs::ImuMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(sensor_msgs::Imu data);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keyword">static</span> sensor_msgs::Imu <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::SensorMsgs::ImuMsg data);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        <span class="keyword">static</span> fast::rf::messages::SensorMsgs::MagneticFieldMsg <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(sensor_msgs::MagneticField data);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <span class="keyword">static</span> sensor_msgs::MagneticField <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">convert</a>(fast::rf::messages::SensorMsgs::MagneticFieldMsg data);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    };</div>
 </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>}  <span class="comment">// namespace fast::rf_ros::utils</span></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">fast::rf_ros::utils::TranslateUtility</a></div><div class="ttdoc">Translation Utilities.</div><div class="ttdef"><b>Definition</b> TranslateUtility.hpp:37</div></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>}  <span class="comment">// namespace fast::rf_ros::utils</span></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">fast::rf_ros::utils::TranslateUtility</a></div><div class="ttdoc">Translation Utilities.</div><div class="ttdef"><b>Definition</b> TranslateUtility.hpp:39</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html_ab74aa2be5dc6ff51b708a9e1636b1cc5"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ab74aa2be5dc6ff51b708a9e1636b1cc5">fast::rf_ros::utils::TranslateUtility::convert_covariance3D</a></div><div class="ttdeci">static fast::rf::messages::StandardMsgs::Covariance3DMsg convert_covariance3D(boost::array&lt; double, Covariance3DMsg::DIMENSION *Covariance3DMsg::DIMENSION &gt; msg)</div><div class="ttdoc">Convert from a ROS Message to a Core Message of type Covariance3D.</div><div class="ttdef"><b>Definition</b> TranslateUtility.cpp:142</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1TranslateUtility_html_ae18f6d4cc07b5046cdd9ff42be034533"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#ae18f6d4cc07b5046cdd9ff42be034533">fast::rf_ros::utils::TranslateUtility::convert</a></div><div class="ttdeci">static fast::rf::messages::InfrastructureMsgs::DiagnosticMsg convert(robot_framework_ros::diagnostic msg)</div><div class="ttdoc">Translate from a ROS message to a Core message of type Diagnostic.</div><div class="ttdef"><b>Definition</b> TranslateUtility.cpp:8</div></div>
 <div class="ttc" id="anamespacefast_1_1rf__ros_1_1utils_html"><div class="ttname"><a href="namespacefast_1_1rf__ros_1_1utils.html">fast::rf_ros::utils</a></div><div class="ttdoc">Namespace for Utilities.</div><div class="ttdef"><b>Definition</b> CoreUtility.hpp:20</div></div>
@@ -197,7 +203,7 @@ $(document).ready(function(){initNavTree('TranslateUtility_8hpp_source.html','')
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_43e5032e29db73fa2347f56d46df1a99.html">robot_framework_ros</a></li><li class="navelem"><a class="el" href="dir_7d9a3312d6c2f07c607bce157ff3227f.html">utils</a></li><li class="navelem"><a class="el" href="TranslateUtility_8hpp.html">TranslateUtility.hpp</a></li>
-    <li class="footer">Generated on Fri Aug 7 2026 23:50:17 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Aug 9 2026 02:40:22 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

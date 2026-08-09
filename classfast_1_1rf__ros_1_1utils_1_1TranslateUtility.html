@@ -157,6 +157,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7fb58842aa0ca4fcdc2a4b63d29c1430" id="r_a7fb58842aa0ca4fcdc2a4b63d29c1430"><td class="memItemLeft" align="right" valign="top">static boost::array&lt; double, Covariance3DMsg::DIMENSION *Covariance3DMsg::DIMENSION &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a7fb58842aa0ca4fcdc2a4b63d29c1430">convert_covariance3D</a> (fast::rf::messages::StandardMsgs::Covariance3DMsg msg)</td></tr>
 <tr class="memdesc:a7fb58842aa0ca4fcdc2a4b63d29c1430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from a Core Message to a ROS Message of type Covariance3D.  <br /></td></tr>
 <tr class="separator:a7fb58842aa0ca4fcdc2a4b63d29c1430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6efa55dba40f5d4ae24008326520c84a" id="r_a6efa55dba40f5d4ae24008326520c84a"><td class="memItemLeft" align="right" valign="top">static fast::rf::messages::GeometryMsgs::OdomMsg&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a6efa55dba40f5d4ae24008326520c84a">convert</a> (nav_msgs::Odometry msg)</td></tr>
+<tr class="memdesc:a6efa55dba40f5d4ae24008326520c84a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate from a ROS mesage to a Core message of type Odometry.  <br /></td></tr>
+<tr class="separator:a6efa55dba40f5d4ae24008326520c84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2cf54df71ff0d4a76d23e79f820163" id="r_a3f2cf54df71ff0d4a76d23e79f820163"><td class="memItemLeft" align="right" valign="top">static nav_msgs::Odometry&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a3f2cf54df71ff0d4a76d23e79f820163">convert</a> (fast::rf::messages::GeometryMsgs::OdomMsg msg)</td></tr>
+<tr class="memdesc:a3f2cf54df71ff0d4a76d23e79f820163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from a Core message to a ROS message of type Odometry.  <br /></td></tr>
+<tr class="separator:a3f2cf54df71ff0d4a76d23e79f820163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f3836916897360573fb9359caf30e34" id="r_a0f3836916897360573fb9359caf30e34"><td class="memItemLeft" align="right" valign="top">static fast::rf::messages::SensorMsgs::JoyMsg&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html#a0f3836916897360573fb9359caf30e34">convert</a> (sensor_msgs::Joy msg)</td></tr>
 <tr class="memdesc:a0f3836916897360573fb9359caf30e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from a ROS message to a Core message of type Joy.  <br /></td></tr>
 <tr class="separator:a0f3836916897360573fb9359caf30e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,7 +186,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Translation Utilities. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a03f783bd39d33be8429c887fc09846aa" name="a03f783bd39d33be8429c887fc09846aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03f783bd39d33be8429c887fc09846aa">&#9670;&#160;</a></span>convert() <span class="overload">[1/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f783bd39d33be8429c887fc09846aa">&#9670;&#160;</a></span>convert() <span class="overload">[1/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,8 +220,43 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3f2cf54df71ff0d4a76d23e79f820163" name="a3f2cf54df71ff0d4a76d23e79f820163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2cf54df71ff0d4a76d23e79f820163">&#9670;&#160;</a></span>convert() <span class="overload">[2/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nav_msgs::Odometry fast::rf_ros::utils::TranslateUtility::convert </td>
+          <td>(</td>
+          <td class="paramtype">fast::rf::messages::GeometryMsgs::OdomMsg&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert from a Core message to a ROS message of type Odometry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nav_msgs::Odometry </dd></dl>
+
+</div>
+</div>
 <a id="a4414ee05f649d5b5d48df97fbdbb6472" name="a4414ee05f649d5b5d48df97fbdbb6472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4414ee05f649d5b5d48df97fbdbb6472">&#9670;&#160;</a></span>convert() <span class="overload">[2/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4414ee05f649d5b5d48df97fbdbb6472">&#9670;&#160;</a></span>convert() <span class="overload">[3/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +291,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="af356ac9ab7eb2efd569353611d09e810" name="af356ac9ab7eb2efd569353611d09e810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af356ac9ab7eb2efd569353611d09e810">&#9670;&#160;</a></span>convert() <span class="overload">[3/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af356ac9ab7eb2efd569353611d09e810">&#9670;&#160;</a></span>convert() <span class="overload">[4/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +326,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a24ded892ee00af64313b337f3de862ae" name="a24ded892ee00af64313b337f3de862ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24ded892ee00af64313b337f3de862ae">&#9670;&#160;</a></span>convert() <span class="overload">[4/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a24ded892ee00af64313b337f3de862ae">&#9670;&#160;</a></span>convert() <span class="overload">[5/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +361,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a03d30e29f5231fb54e8fcb72a5cb7047" name="a03d30e29f5231fb54e8fcb72a5cb7047"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03d30e29f5231fb54e8fcb72a5cb7047">&#9670;&#160;</a></span>convert() <span class="overload">[5/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a03d30e29f5231fb54e8fcb72a5cb7047">&#9670;&#160;</a></span>convert() <span class="overload">[6/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,7 +396,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a68049582d7f1020da554cd828d28686f" name="a68049582d7f1020da554cd828d28686f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68049582d7f1020da554cd828d28686f">&#9670;&#160;</a></span>convert() <span class="overload">[6/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a68049582d7f1020da554cd828d28686f">&#9670;&#160;</a></span>convert() <span class="overload">[7/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -390,7 +431,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a42be48454c6b6c682228452b08fb18fa" name="a42be48454c6b6c682228452b08fb18fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42be48454c6b6c682228452b08fb18fa">&#9670;&#160;</a></span>convert() <span class="overload">[7/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42be48454c6b6c682228452b08fb18fa">&#9670;&#160;</a></span>convert() <span class="overload">[8/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,7 +466,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="acfaa05100212e9a6be0232eacb4e155e" name="acfaa05100212e9a6be0232eacb4e155e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfaa05100212e9a6be0232eacb4e155e">&#9670;&#160;</a></span>convert() <span class="overload">[8/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acfaa05100212e9a6be0232eacb4e155e">&#9670;&#160;</a></span>convert() <span class="overload">[9/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +501,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="af7af4134498e06e34bae787651f23b05" name="af7af4134498e06e34bae787651f23b05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7af4134498e06e34bae787651f23b05">&#9670;&#160;</a></span>convert() <span class="overload">[9/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af7af4134498e06e34bae787651f23b05">&#9670;&#160;</a></span>convert() <span class="overload">[10/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,7 +536,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a78acead32112ab76673ccdc6d6c47dbd" name="a78acead32112ab76673ccdc6d6c47dbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78acead32112ab76673ccdc6d6c47dbd">&#9670;&#160;</a></span>convert() <span class="overload">[10/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78acead32112ab76673ccdc6d6c47dbd">&#9670;&#160;</a></span>convert() <span class="overload">[11/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -530,7 +571,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a09645d718bd0268636340a3b3cb87c98" name="a09645d718bd0268636340a3b3cb87c98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09645d718bd0268636340a3b3cb87c98">&#9670;&#160;</a></span>convert() <span class="overload">[11/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a09645d718bd0268636340a3b3cb87c98">&#9670;&#160;</a></span>convert() <span class="overload">[12/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -565,7 +606,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a12af8a753493712762dd077b4f3393f2" name="a12af8a753493712762dd077b4f3393f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12af8a753493712762dd077b4f3393f2">&#9670;&#160;</a></span>convert() <span class="overload">[12/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12af8a753493712762dd077b4f3393f2">&#9670;&#160;</a></span>convert() <span class="overload">[13/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -600,7 +641,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5e16d0927fd06fcb4deb7fafedb9bcac" name="a5e16d0927fd06fcb4deb7fafedb9bcac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e16d0927fd06fcb4deb7fafedb9bcac">&#9670;&#160;</a></span>convert() <span class="overload">[13/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e16d0927fd06fcb4deb7fafedb9bcac">&#9670;&#160;</a></span>convert() <span class="overload">[14/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,7 +676,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe71fdc5b8fc4e6145d2876a55e52c5a" name="abe71fdc5b8fc4e6145d2876a55e52c5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe71fdc5b8fc4e6145d2876a55e52c5a">&#9670;&#160;</a></span>convert() <span class="overload">[14/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe71fdc5b8fc4e6145d2876a55e52c5a">&#9670;&#160;</a></span>convert() <span class="overload">[15/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -669,8 +710,43 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6efa55dba40f5d4ae24008326520c84a" name="a6efa55dba40f5d4ae24008326520c84a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efa55dba40f5d4ae24008326520c84a">&#9670;&#160;</a></span>convert() <span class="overload">[16/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fast::rf::messages::GeometryMsgs::OdomMsg fast::rf_ros::utils::TranslateUtility::convert </td>
+          <td>(</td>
+          <td class="paramtype">nav_msgs::Odometry&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Translate from a ROS mesage to a Core message of type Odometry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>fast::rf::messages::GeometryMsgs::OdomMsg </dd></dl>
+
+</div>
+</div>
 <a id="ad28ceb2876876b5e5e0204bccc608f3d" name="ad28ceb2876876b5e5e0204bccc608f3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad28ceb2876876b5e5e0204bccc608f3d">&#9670;&#160;</a></span>convert() <span class="overload">[15/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad28ceb2876876b5e5e0204bccc608f3d">&#9670;&#160;</a></span>convert() <span class="overload">[17/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -705,7 +781,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8e86a8d3f202e85312f461946902193a" name="a8e86a8d3f202e85312f461946902193a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e86a8d3f202e85312f461946902193a">&#9670;&#160;</a></span>convert() <span class="overload">[16/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e86a8d3f202e85312f461946902193a">&#9670;&#160;</a></span>convert() <span class="overload">[18/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -740,7 +816,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3b511a4784733bef7634d7ffb30fba9b" name="a3b511a4784733bef7634d7ffb30fba9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b511a4784733bef7634d7ffb30fba9b">&#9670;&#160;</a></span>convert() <span class="overload">[17/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b511a4784733bef7634d7ffb30fba9b">&#9670;&#160;</a></span>convert() <span class="overload">[19/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -775,7 +851,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae18f6d4cc07b5046cdd9ff42be034533" name="ae18f6d4cc07b5046cdd9ff42be034533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae18f6d4cc07b5046cdd9ff42be034533">&#9670;&#160;</a></span>convert() <span class="overload">[18/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae18f6d4cc07b5046cdd9ff42be034533">&#9670;&#160;</a></span>convert() <span class="overload">[20/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -810,7 +886,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9acee6f35222da345e287b535f6d9c1d" name="a9acee6f35222da345e287b535f6d9c1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9acee6f35222da345e287b535f6d9c1d">&#9670;&#160;</a></span>convert() <span class="overload">[19/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9acee6f35222da345e287b535f6d9c1d">&#9670;&#160;</a></span>convert() <span class="overload">[21/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -845,7 +921,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5171943c9928cba093bea5fc1fa53967" name="a5171943c9928cba093bea5fc1fa53967"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5171943c9928cba093bea5fc1fa53967">&#9670;&#160;</a></span>convert() <span class="overload">[20/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5171943c9928cba093bea5fc1fa53967">&#9670;&#160;</a></span>convert() <span class="overload">[22/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -880,7 +956,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0f3836916897360573fb9359caf30e34" name="a0f3836916897360573fb9359caf30e34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f3836916897360573fb9359caf30e34">&#9670;&#160;</a></span>convert() <span class="overload">[21/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3836916897360573fb9359caf30e34">&#9670;&#160;</a></span>convert() <span class="overload">[23/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -915,7 +991,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a720b9941ada8db2e70ba6a7286f0905c" name="a720b9941ada8db2e70ba6a7286f0905c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a720b9941ada8db2e70ba6a7286f0905c">&#9670;&#160;</a></span>convert() <span class="overload">[22/22]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a720b9941ada8db2e70ba6a7286f0905c">&#9670;&#160;</a></span>convert() <span class="overload">[24/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1029,7 +1105,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1utils.html">utils</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html">TranslateUtility</a></li>
-    <li class="footer">Generated on Fri Aug 7 2026 23:50:17 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Aug 9 2026 02:40:22 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
