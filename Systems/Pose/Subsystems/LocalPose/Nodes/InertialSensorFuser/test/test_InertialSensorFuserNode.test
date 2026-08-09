@@ -10,7 +10,7 @@
             <arg name="topic_imu1_input" value="imu1"/>
             <!-- Output Topics -->
             <arg name="topic_machine_inertial_output" value="imu"/>
-        </include>
+        </include>  
         <test test-name="test_nodeInertialSensorFuser" pkg="robot_framework_ros" type="test_nodeInertialSensorFuser"/>
     </group>
    
