@@ -1,0 +1,14 @@
+<library path="lib/librobot_framework_ros_gui">
+  <class name="PIDTunerPlugin" type="robot_framework_ros::PIDTunerPlugin" base_class_type="rqt_gui_cpp::Plugin">
+    <description>
+      Integrated framework GUI control panel.
+    </description>
+    <qtgui>
+      <group>
+        <label>Robot Tools</label>
+      </group>
+      <label>Framework Control Panel</label>
+      <icon type="theme">system-run</icon>
+    </qtgui>
+  </class>
+</library>
