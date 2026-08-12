@@ -61,6 +61,9 @@ TEST(TrajectoryControllerNode, TestBasics) {
     ASSERT_TRUE(heartbeat_rx_count > 0);
     ASSERT_TRUE(diagnostic_rx_count > 0);
     ASSERT_TRUE(ready_to_arm_rx_count > 0);
+    ASSERT_NE(ready_to_arm_data.SystemID, 0);
+    ASSERT_NE(ready_to_arm_data.SubsystemID, 0);
+    ASSERT_NE(ready_to_arm_data.ProcessID, 0);
     ASSERT_TRUE(command_rx_count == 0);
 
     double current_time = 0.0;
