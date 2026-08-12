@@ -1,0 +1,39 @@
+@startuml
+title TrajectoryController Node Class Diagram
+
+namespace ros {
+    class Subscriber
+    class Publisher
+}
+namespace geometry_msgs {
+    class Twist <<(M,#FFFF00)>> <<ROS>>
+}
+namespace nav_msgs {
+    class Odometry <<(M,#FFFF00)>> <<ROS>>
+}
+namespace fast::rf {
+    namespace NavigationSystem {
+        namespace NavigationExecutorSubsystem {
+            interface ITrajectoryControllerProcess
+            class BasicTrajectoryControllerProcess
+            BasicTrajectoryControllerProcess -up-|> ITrajectoryControllerProcess
+        }
+    }
+}
+namespace fast::rf_ros {
+   namespace NavigationSystem {
+        package NavigationExecutorSubsystem #LightYellow;line:blue {
+            class TrajectoryControllerNode #Yellow {
+                -BasicTrajectoryControllerProcess process
+                -void desired_command_Callback(const Twist t_msg)
+                -void pose_Callback(const Odometry t_msg)
+                -Subscriber pose_sub
+                -Subscriber desired_command_sub
+                -Publisher command_pub
+            }
+            TrajectoryControllerNode --> BasicTrajectoryControllerProcess: <<use>>
+        }
+    }
+}
+@enduml
+        

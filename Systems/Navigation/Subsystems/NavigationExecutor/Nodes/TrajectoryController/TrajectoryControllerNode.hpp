@@ -1,5 +1,5 @@
 /**
- * @file TankDriveExecutorNode.hpp
+ * @file TrajectoryControllerNode.hpp
  * @author David Gitz (davidgitz@gmail.com)
  * @brief
  * @version 0.1
@@ -9,19 +9,21 @@
  *
  */
 #pragma once
-#include <geometry_msgs/Twist.h>
 
-#include <TankDriveExecutorProcess/TankDriveExecutorProcess.hpp>
+#include <geometry_msgs/Twist.h>
+#include <nav_msgs/Odometry.h>
+
+#include <BasicTrajectoryControllerProcess/BasicTrajectoryControllerProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
 namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     /**
-     * @brief Tank Drive Executor Node
+     * @brief TrajectoryController Node
      *
      */
-    class TankDriveExecutorNode : public BaseNode {
+    class TrajectoryControllerNode : public BaseNode {
        public:
-        TankDriveExecutorNode();
-        ~TankDriveExecutorNode();
+        TrajectoryControllerNode();
+        ~TrajectoryControllerNode();
 
         /**
          * @brief Initialize the Node
@@ -109,18 +111,25 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
          */
         void thread_loop();
 
+       private:
         /**
-         * @brief Process a Twist
+         *
+         * @brief Process a Command
          *
          * @param t_msg
          */
-        void twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
+        void desired_command_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
 
-       private:
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess
+        /**
+         * @brief Process a Pose
+         *
+         * @param t_msg
+         */
+        void pose_Callback(const nav_msgs::Odometry::ConstPtr& t_msg);
+        ros::Subscriber pose_sub;
+        ros::Subscriber desired_command_sub;
+        ros::Publisher command_pub;
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::BasicTrajectoryControllerProcess
             process;  //!< Execution Process
-        ros::Subscriber twist_sub;
-        ros::Publisher left_drive_pub;
-        ros::Publisher right_drive_pub;
     };
 }  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
