@@ -12,6 +12,7 @@
     <param name="000_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeBasicTeleopControl/ready_to_arm"/>
     <param name="001_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeServoHat/ready_to_arm"/>
     <param name="002_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeTankDriveExecutor/ready_to_arm"/>
+    <param name="003_ReadyToArm_Topic" value="$(arg robot_namespace)/nodeTrajectoryController/ready_to_arm"/>
     <!-- Output Topics -->
     
     

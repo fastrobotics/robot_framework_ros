@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/test" />
+    <arg name="verbosity_level" value="DEBUG"/>
+    <group ns="test">
+        <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/TrajectoryController/launch/TrajectoryController_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <arg name="verbosity_level" value="$(arg verbosity_level)"/>
+            <!-- Input Topics -->
+            <arg name="topic_pose_input" value="pose" />
+            <arg name="topic_command_throttle_input" value="desired_command"/>
+            
+            <!-- Output Topics -->
+            <arg name="topic_command_robot_output" value="command" />
+        </include>
+        <test test-name="test_nodeTrajectoryController" pkg="robot_framework_ros" type="test_nodeTrajectoryController"/>
+    </group>
+   
+</launch>
