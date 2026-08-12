@@ -3,6 +3,7 @@ var hierarchy =
     [ "fast::rf_ros::BaseNode", "classfast_1_1rf__ros_1_1BaseNode.html", [
       [ "fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html", null ],
       [ "fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html", null ],
+      [ "fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html", null ],
       [ "fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode.html", null ],
       [ "fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html", null ],
       [ "fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuserNode.html", null ],

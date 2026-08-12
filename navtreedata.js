@@ -49,7 +49,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ArmedStateManagerNode_8hpp.html",
-"classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a8641fbf477da1fb353271892eb51ccfe"
+"classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode.html#a6577917760b60153b97e4d05b35f7d4f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
