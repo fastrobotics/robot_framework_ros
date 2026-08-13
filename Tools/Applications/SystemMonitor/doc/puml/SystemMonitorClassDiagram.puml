@@ -1,0 +1,58 @@
+@startuml
+title System Monitor Class Diagram
+
+namespace fast::rf_ros {
+    namespace Tools::Applications {
+        package SystemMonitor #LightYellow;line:blue {
+            namespace Definitions {
+                enum Color
+                struct ScreenCoordinatePerc
+                struct MessageText
+                struct KeyEventContainer
+                enum Key
+            }
+            interface IWindow {
+                +{abstract} string get_name()
+                +{abstract} bool update(double current_time_sec)
+                +{abstract} bool has_focus()
+                +{abstract} bool set_focus()
+                +{abstract} 
+            }
+            abstract BaseWindow {
+
+            }
+            BaseWindow .up.|> IWindow
+
+            class HeaderWindow {
+
+            }
+            HeaderWindow -up-|> BaseWindow
+
+            class NodeInfoWindow {
+
+            }
+            NodeInfoWindow -up-|> BaseWindow
+            class DeviceInfoWindow {
+
+            }
+            DeviceInfoWindow -up-|> BaseWindow
+
+            class DiagnosticWindow {
+
+            }
+            DiagnosticWindow -up-|> BaseWindow
+
+            class StatusWindow {
+
+            }
+            StatusWindow -up-|> BaseWindow
+
+            class MenuWindow {
+
+            }
+            MenuWindow -up-|> BaseWindow
+
+        }
+    }
+}
+@enduml
