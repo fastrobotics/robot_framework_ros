@@ -28,9 +28,10 @@
   <exec_depend>tf2_geometry_msgs</exec_depend>
   <exec_depend>rqt_gui</exec_depend>
   <exec_depend>rqt_gui_cpp</exec_depend>
+
   
   
   <export>
-  <rqt_gui plugin="${prefix}/tools/plugin.xml"/>
+  <rqt_gui plugin="${prefix}/tools/plugins/plugin.xml"/>
 </export>
 </package>

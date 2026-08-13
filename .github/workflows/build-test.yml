@@ -20,7 +20,7 @@ jobs:
       - name: Install Build Tools
         run: |
           apt-get update -q
-          apt-get install -y python3-catkin-tools python3-osrf-pycommon git ros-noetic-imu-pipeline ros-noetic-rviz
+          apt-get install -y python3-catkin-tools python3-osrf-pycommon git ros-noetic-imu-pipeline ros-noetic-rviz ros-noetic-topic-tools libqt5charts5-dev
 
       - name: Install Dependencies
         run: ./scripts/setup_robot.sh

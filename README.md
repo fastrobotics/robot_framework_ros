@@ -14,6 +14,7 @@
   - [Build and run Unit Tests](#build-and-run-unit-tests)
 - [Generate Code Coverage (after running Build and run Unit Tests)](#generate-code-coverage-after-running-build-and-run-unit-tests)
 - [Execution](#execution)
+- [Tools](#tools)
 - [Documentation](#documentation)
   - [Interface Documentation](#interface-documentation)
 - [Templates](#templates)
@@ -98,11 +99,15 @@ source devel/setup.bash
 roslaunch robot_framework_ros robot.launch
 ```
 
+# Tools
+Various tools exist for the Robot Framework.  More information can be found under [Tools](tools/doc/Tools.md).
+
 # Documentation
 ## Interface Documentation
 [Interface Documentation](doc/InterfaceDefinitions/InterfaceDefinition.md)
 
 # Templates
+>> Add Template for QT Ros Plugin
 
 This project makes extensive use of cookiecutter templates.
 

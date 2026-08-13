@@ -19,8 +19,6 @@ find_package(catkin REQUIRED COMPONENTS roscpp tf2 tf2_geometry_msgs tf2_ros std
                                         rqt_gui_cpp)
 find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Widgets Core)
-set(CMAKE_AUTOMOC ON)
 
 
 add_message_files(DIRECTORY msg FILES heartbeat.msg nodestate.msg
