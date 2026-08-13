@@ -107,7 +107,7 @@ Various tools exist for the Robot Framework.  More information can be found unde
 [Interface Documentation](doc/InterfaceDefinitions/InterfaceDefinition.md)
 
 # Templates
->> Add Template for QT Ros Plugin
+>> Add during AB#1815 Template for QT Ros Plugin
 
 This project makes extensive use of cookiecutter templates.
 

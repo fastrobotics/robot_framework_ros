@@ -1,1 +1,1 @@
-add_subdirectory(plugins)
+add_subdirectory(rqt_plugins)

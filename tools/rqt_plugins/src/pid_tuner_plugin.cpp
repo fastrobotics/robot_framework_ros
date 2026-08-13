@@ -1,23 +1,26 @@
 #include "robot_framework_ros/pid_tuner_plugin.h"
 
-#include <pluginlib/class_list_macros.h>
 #include <ros/package.h>
+#include <ros/ros.h>
+#include <std_msgs/Float32.h>
 
 #include <QFile>
 #include <QVBoxLayout>
 #include <QtUiTools/QUiLoader>
+#include <pluginlib/class_list_macros.hpp>
 
 namespace robot_framework_ros {
     PIDTunerPlugin::PIDTunerPlugin() : rqt_gui_cpp::Plugin() { setObjectName("PIDTunerPlugin"); }
     void PIDTunerPlugin::setpoint_Callback(const std_msgs::Float32::ConstPtr& t_msg) { latest_setpoint_ = t_msg->data; }
     void PIDTunerPlugin::sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg) { latest_sensor_ = t_msg->data; }
-
+    void PIDTunerPlugin::knobPGainChanged(int value) { tuner_P.indicator_->setText(QString::number(value)); }
+    void PIDTunerPlugin::knobSensorScaleChanged(int value) {
+        tuner_sensor_scale.indicator_->setText(QString::number(value));
+    }
     void PIDTunerPlugin::initPlugin(qt_gui_cpp::PluginContext& context) {
-        // 1. Instantiate your master wrapper window
         widget_ = new QWidget();
-
         std::string package_path = ros::package::getPath("robot_framework_ros");
-        std::string ui_file_path = package_path + "/tools/plugins/resource/pid_tuner_plugin.ui";
+        std::string ui_file_path = package_path + "/tools/rqt_plugins/resource/pid_tuner_plugin.ui";
 
         QUiLoader loader;
         QFile file(QString::fromStdString(ui_file_path));
@@ -92,6 +95,28 @@ namespace robot_framework_ros {
             connect(slider_, &QSlider::valueChanged, this, &PIDTunerPlugin::onSliderMoved);
         }
 
+        tuner_sensor_scale.dial_ = loaded_layout->findChild<QDial*>("dial_SensorScaleTuner");
+        if (tuner_sensor_scale.dial_) {
+            connect(tuner_sensor_scale.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobSensorScaleChanged);
+        }
+        tuner_sensor_scale.indicator_ = loaded_layout->findChild<QLabel*>("text_SensorScaleValue");
+
+        if (tuner_sensor_scale.is_initialized() == false) {
+            ROS_ERROR("Sensor Scaling Tuner not fully initialized!  Exiting.");
+            return;
+        }
+
+        tuner_P.dial_ = loaded_layout->findChild<QDial*>("dial_PGainTuner");
+        if (tuner_P.dial_) {
+            connect(tuner_P.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobPGainChanged);
+        }
+        tuner_P.indicator_ = loaded_layout->findChild<QLabel*>("text_PGainValue");
+
+        if (tuner_P.is_initialized() == false) {
+            ROS_ERROR("P Tuner not fully initialized!  Exiting.");
+            return;
+        }
+
         std::string setpoint_topic_name = "/pidtuner_setpoint";
         setpoint_sub_ = nh_.subscribe(setpoint_topic_name, 100, &PIDTunerPlugin::setpoint_Callback, this);
 
@@ -101,6 +126,8 @@ namespace robot_framework_ros {
         update_timer_ = new QTimer(this);
         connect(update_timer_, &QTimer::timeout, this, &PIDTunerPlugin::updateGraphLoop);
         update_timer_->start(33);
+        // initialize start time for graphing
+        start_time_ = ros::Time::now();
     }
 
     void PIDTunerPlugin::updateGraphLoop() {

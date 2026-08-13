@@ -6,6 +6,8 @@
 #include <std_msgs/Int32.h>
 #include <std_msgs/String.h>
 
+#include <QDial>
+#include <QLabel>
 #include <QSlider>
 #include <QTimer>
 #include <QWidget>
@@ -20,8 +22,22 @@ namespace Ui {
 namespace robot_framework_ros {
 
     class PIDTunerPlugin : public rqt_gui_cpp::Plugin {
-        Q_OBJECT
+        //Q_OBJECT
        public:
+        struct TunerUIContainer {
+            QDial* dial_;
+            QLabel* indicator_;
+            TunerUIContainer() : dial_{nullptr}, indicator_{nullptr} {}
+            bool is_initialized() {
+                if (dial_ == nullptr) {
+                    return false;
+                }
+                if (indicator_ == nullptr) {
+                    return false;
+                }
+                return true;
+            }
+        };
         PIDTunerPlugin();
         virtual void initPlugin(qt_gui_cpp::PluginContext& context) override;
         virtual void shutdownPlugin() override;
@@ -29,6 +45,9 @@ namespace robot_framework_ros {
         void sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg);
        private slots:
         void onSliderMoved(int value);
+        void knobSensorScaleChanged(int value);
+        void knobPGainChanged(int value);
+
         void updateGraphLoop();
 
        private:
@@ -40,6 +59,9 @@ namespace robot_framework_ros {
         QtCharts::QChartView* chart_view_{nullptr};
         QtCharts::QValueAxis* axis_x_{nullptr};
         QtCharts::QValueAxis* axis_y_{nullptr};
+
+        TunerUIContainer tuner_sensor_scale;
+        TunerUIContainer tuner_P;
 
         QTimer* update_timer_{nullptr};
         ros::Time start_time_;
