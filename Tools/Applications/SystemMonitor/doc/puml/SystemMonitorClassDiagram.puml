@@ -16,10 +16,9 @@ namespace fast::rf_ros {
                 +{abstract} bool update(double current_time_sec)
                 +{abstract} bool has_focus()
                 +{abstract} bool set_focus()
-                +{abstract} 
             }
             abstract BaseWindow {
-
+                
             }
             BaseWindow .up.|> IWindow
 
