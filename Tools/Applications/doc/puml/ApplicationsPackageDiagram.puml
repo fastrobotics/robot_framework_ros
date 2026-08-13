@@ -1,0 +1,10 @@
+@startuml
+title Applications Package Diagram
+
+namespace fast::rf_ros {
+    namespace Tools {
+        package Applications #LightYellow;line:blue {
+        }
+    }
+}
+@enduml
