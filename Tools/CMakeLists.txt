@@ -1,1 +1,1 @@
-add_subdirectory(Subsystems)
+add_subdirectory(Applications)

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_namespace" value="/test" />
+    <arg name="verbosity_level" value="NOTICE"/>
+    <group ns="test">
+        <include file="$(find robot_framework_ros)/Systems/Tools/Subsystems/Applications/Nodes/<blah>/SystemMonitorNode/launch/SystemMonitor_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <arg name="verbosity_level" value="$(arg verbosity_level)"/>
+            <!-- Input Topics -->
+            <!-- Output Topics -->
+        </include>
+        <test test-name="test_nodeSystemMonitor" pkg="robot_framework_ros" type="test_nodeSystemMonitor"/>
+    </group>
+   
+</launch>

@@ -11,18 +11,18 @@ namespace fast::rf_ros {
                 struct KeyEventContainer
                 enum Key
             }
-            interface IWindow {
+            interface IWindow #Orange {
                 +{abstract} string get_name()
                 +{abstract} bool update(double current_time_sec)
                 +{abstract} bool has_focus()
                 +{abstract} bool set_focus()
             }
-            abstract BaseWindow {
+            abstract BaseWindow #Orange {
                 
             }
             BaseWindow .up.|> IWindow
 
-            class HeaderWindow {
+            class HeaderWindow #Orange {
 
             }
             HeaderWindow -up-|> BaseWindow
