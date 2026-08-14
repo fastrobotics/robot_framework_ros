@@ -38,13 +38,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @param mainwindow_height
          * @param mainwindow_width
          */
-        BaseWindow(const std::string name, int16_t tab_order, ros::NodeHandle* nodeHandle, std::string robot_namespace,
-                   double start_x_perc, double start_y_perc, double width_perc, double height_perc,
-                   uint16_t mainwindow_height, uint16_t mainwindow_width)
+        BaseWindow(const std::string name, int16_t tab_order, double start_x_perc, double start_y_perc,
+                   double width_perc, double height_perc, uint16_t mainwindow_height, uint16_t mainwindow_width)
             : name(name),
               tab_order(tab_order),
-              nodeHandle(nodeHandle),
-              robot_namespace(robot_namespace),
               screen_coord_perc(start_x_perc, start_y_perc, width_perc, height_perc),
               screen_coord_pixel(0, 0, 0, 0),
               mainwindow_height(mainwindow_height),
@@ -147,8 +144,6 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         WINDOW* win_{nullptr};
         std::string name{""};
         int16_t tab_order;
-        ros::NodeHandle* nodeHandle;
-        std::string robot_namespace;
         ScreenCoordinatePerc screen_coord_perc;
         ScreenCoordinatePixel screen_coord_pixel;
         uint16_t mainwindow_height;

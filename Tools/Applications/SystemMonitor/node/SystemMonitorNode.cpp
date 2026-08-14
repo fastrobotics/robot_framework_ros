@@ -70,7 +70,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         uint16_t mainwindow_width, mainwindow_height;
         getmaxyx(stdscr, mainwindow_height, mainwindow_width);
         {
-            IWindow* window = new HeaderWindow(-1, n.get(), get_robotnamespace(), mainwindow_height, mainwindow_width);
+            IWindow* window = new HeaderWindow(-1, mainwindow_height, mainwindow_width);
             if (window->is_initialized() == false) {
                 return false;
             }
@@ -78,7 +78,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             windows[window->get_name()] = window;
         }
         {
-            IWindow* window = new StatusWindow(-1, n.get(), get_robotnamespace(), mainwindow_height, mainwindow_width);
+            IWindow* window = new StatusWindow(-1, mainwindow_height, mainwindow_width);
             if (window->is_initialized() == false) {
                 return false;
             }

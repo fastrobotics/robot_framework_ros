@@ -36,7 +36,7 @@ namespace fast::rf_ros {
                 +{abstract} bool set_focus(bool cmd_focus)
             }
             abstract BaseWindow #Orange {
-                +BaseWindow(string name, \n int16 tab_order, \n NodeHandle nodeHandle, \n string robot_namespace, \n double start_x_perc, \n double start_y_perc)
+                +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
                 +bool is_initialized()
                 +string get_name()
                 +bool has_focus()
@@ -55,7 +55,6 @@ namespace fast::rf_ros {
                 -WINDOW win
                 -string name
                 -int16 tab_order
-                -NodeHandle nodeHandle
                 -ScreenCoordinatePerc screen_coord_perc
                 -ScreenCoordinatePixel get_screen_coordinates_pixel
                 -uint16 mainwindow_height
