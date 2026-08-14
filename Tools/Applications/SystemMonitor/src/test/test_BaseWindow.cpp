@@ -7,10 +7,8 @@
 using namespace fast::rf_ros::Tools::Applications::SystemMonitor;
 class TestBaseWindow : public BaseWindow {
    public:
-    TestBaseWindow(int16_t tab_order, ros::NodeHandle* nodeHandle, std::string robot_namespace,
-                   int16_t mainwindow_height, uint16_t mainwindow_width)
-        : BaseWindow("test_window", tab_order, nodeHandle, robot_namespace, 0.0, 0.0, 100.0, 100.0, mainwindow_height,
-                     mainwindow_width) {
+    TestBaseWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
+        : BaseWindow("test_window", tab_order, 0.0, 0.0, 100.0, 100.0, mainwindow_height, mainwindow_width) {
         ScreenCoordinatePixel coord_pix =
             convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
         WINDOW* win =
@@ -19,6 +17,7 @@ class TestBaseWindow : public BaseWindow {
         set_window(win);
         wrefresh(win);
     }
+    void new_ArmCommandMsg([[maybe_unused]] fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {}
     std::string pretty() {
         std::string str = "---Test Base Window---\n";
         str += BaseWindow::pretty();
@@ -34,7 +33,7 @@ class TestBaseWindow : public BaseWindow {
     bool update_window() { return true; }
 };
 TEST(TestBaseWindow, BasicTests) {
-    TestBaseWindow SUT(-1, nullptr, "", 0, 0);
+    TestBaseWindow SUT(-1, 0, 0);
     ASSERT_NE(SUT.get_name(), "");
     ASSERT_FALSE(SUT.is_initialized());
     fast::rf::Logger::log_debug(SUT.pretty());

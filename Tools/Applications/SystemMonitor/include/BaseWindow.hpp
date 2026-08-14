@@ -30,8 +30,6 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          *
          * @param name
          * @param tab_order
-         * @param nodeHandle
-         * @param robot_namespace
          * @param start_x_perc
          * @param start_y_perc
          * @param width_perc
