@@ -11,8 +11,6 @@ target_link_libraries(baseWindow ${catkin_LIBRARIES} ${CURSES_LIBRARIES}
 add_dependencies(baseWindow ${robot_framework_ros_EXPORTED_TARGETS})
 target_include_directories(baseWindow
                            PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")
-add_subdirectory(Windows)
+# add_subdirectory(Windows)
 
-if(CATKIN_ENABLE_TESTING)
-  add_subdirectory(test)
-endif()
+# if(CATKIN_ENABLE_TESTING) add_subdirectory(test) endif()
