@@ -2,6 +2,7 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMoni
 [
     [ "SystemMonitorNode", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#a9d7ed66f385face1b81a0070d5c2e98a", null ],
     [ "~SystemMonitorNode", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#af15a05418863d6f3070bf222d275fe49", null ],
+    [ "arm_command_Callback", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#ae7d7d4cf5c114715ae9c9ec3513c4fad", null ],
     [ "init", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#ad87ee7fb44fba4860db488b050e89a2a", null ],
     [ "init_screen", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#acd4045cf8493fe49afface6d7fee3137", null ],
     [ "init_windows", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#a6d213b64d8ddc632a16e248a3e1baee6", null ],

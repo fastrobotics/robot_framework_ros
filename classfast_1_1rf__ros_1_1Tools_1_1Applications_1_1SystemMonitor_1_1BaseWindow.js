@@ -2,6 +2,7 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow
 [
     [ "BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af146759105a3426d92b0732396215210", null ],
     [ "~BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a1336beab77c1556cdec205c93626dd23", null ],
+    [ "get_current_time_sec", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a59c646396825ce78738f11dca13580a8", null ],
     [ "get_name", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a296093aae6e389c2ba43f4e80d2a17c1", null ],
     [ "get_screen_coordinates_perc", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a9c7d62fed1861dacb4a5a2b1b6c46570", null ],
     [ "get_screen_coordinates_pixel", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ad10e3ecd6353107657e9b53dca0652ef", null ],
