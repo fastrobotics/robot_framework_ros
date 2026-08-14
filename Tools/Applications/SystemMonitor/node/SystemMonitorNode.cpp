@@ -1,8 +1,8 @@
 #include "SystemMonitorNode.hpp"
 
-#include <HeaderWindow.hpp>
 #include <Infrastructure/Logger.hpp>
-#include <StatusWindow.hpp>
+#include <Windows/HeaderWindow.hpp>
+#include <Windows/StatusWindow.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
