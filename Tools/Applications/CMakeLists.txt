@@ -1,2 +1,2 @@
 find_package(Curses REQUIRED)
-# add_subdirectory(SystemMonitor)
+add_subdirectory(SystemMonitor)
