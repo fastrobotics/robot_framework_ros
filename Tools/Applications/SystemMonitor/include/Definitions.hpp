@@ -11,6 +11,10 @@
 #pragma once
 #include <cstdint>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
+    /**
+     * @brief Key Definitions
+     *
+     */
     struct Key {
         static constexpr int KEY_q = 113;
         static constexpr int KEY_Q = 81;
@@ -49,6 +53,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         static constexpr int KEY_space = 32;
         static constexpr int KEY_esc = 27;
     };
+    /**
+     * @brief Color Definitions
+     *
+     */
     enum class Color {
         UNKNOWN = 0,      /*!< Uninitialized value. */
         NO_COLOR = 1,     /*!< No Color. */

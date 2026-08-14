@@ -1,7 +1,27 @@
 #include <BaseWindow.hpp>
+#include <Infrastructure/Logger.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
-    std::string BaseWindow::pretty() {
+    bool BaseWindow::is_initialized() {
+        if (name == "") {
+            fast::rf::Logger::log_error("Window Name is Not Set!");
+            return false;
+        }
         if (win_ == nullptr) {
+            fast::rf::Logger::log_error("Window: " + name + " Pointer is Null!");
+            return false;
+        }
+        if (nodeHandle == nullptr) {
+            fast::rf::Logger::log_error("Window: " + name + " Node Handle is Null!");
+            return false;
+        }
+        return true;
+    }
+    bool BaseWindow::update(double current_time_sec) {
+        current_time_sec_ = current_time_sec;
+        return true;
+    }
+    std::string BaseWindow::pretty() {
+        if (is_initialized() == false) {
             return name + " Is Uninitialized.";
         } else {
             char tempstr[128];

@@ -7,17 +7,11 @@ target_include_directories(commonWindowUtility
 
 add_library(baseWindow BaseWindow.cpp)
 target_link_libraries(baseWindow ${catkin_LIBRARIES} ${CURSES_LIBRARIES}
-                      commonWindowUtility)
+                      commonWindowUtility logger)
 add_dependencies(baseWindow ${robot_framework_ros_EXPORTED_TARGETS})
 target_include_directories(baseWindow
                            PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")
-
-add_library(headerWindow HeaderWindow.cpp)
-target_link_libraries(headerWindow ${catkin_LIBRARIES} ${CURSES_LIBRARIES}
-                      baseWindow)
-add_dependencies(headerWindow ${robot_framework_ros_EXPORTED_TARGETS})
-target_include_directories(headerWindow
-                           PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")
+add_subdirectory(Windows)
 
 if(CATKIN_ENABLE_TESTING)
   add_subdirectory(test)

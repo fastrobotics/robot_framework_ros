@@ -2,6 +2,7 @@
 
 #include <HeaderWindow.hpp>
 #include <Infrastructure/Logger.hpp>
+#include <StatusWindow.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
@@ -69,7 +70,18 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         uint16_t mainwindow_width, mainwindow_height;
         getmaxyx(stdscr, mainwindow_height, mainwindow_width);
         {
-            IWindow* window = new HeaderWindow(mainwindow_height, mainwindow_width);
+            IWindow* window = new HeaderWindow(-1, n.get(), get_robotnamespace(), mainwindow_height, mainwindow_width);
+            if (window->is_initialized() == false) {
+                return false;
+            }
+            // highest_tab_index++;
+            windows[window->get_name()] = window;
+        }
+        {
+            IWindow* window = new StatusWindow(-1, n.get(), get_robotnamespace(), mainwindow_height, mainwindow_width);
+            if (window->is_initialized() == false) {
+                return false;
+            }
             // highest_tab_index++;
             windows[window->get_name()] = window;
         }
@@ -123,6 +135,7 @@ int main(int argc, char** argv) {
     if (status == false) {
         // No practical way to unit test
         // LCOV_EXCL_START
+        endwin();
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }

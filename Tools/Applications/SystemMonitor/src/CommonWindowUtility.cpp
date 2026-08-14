@@ -2,13 +2,9 @@
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     WINDOW* create_newwin(int height, int width, int starty, int startx) {
         WINDOW* local_win;
-
         local_win = newwin(height, width, starty, startx);
-        box(local_win, 0, 0); /* 0, 0 gives default characters
-                               * for the vertical and horizontal
-                               * lines			*/
-        wrefresh(local_win);  /* Show that box 		*/
-
+        box(local_win, 0, 0);
+        wrefresh(local_win);
         return local_win;
     }
     ScreenCoordinatePixel convertCoordinate(ScreenCoordinatePerc coord_perc, uint16_t width_pix, uint16_t height_pix) {
