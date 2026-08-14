@@ -1,5 +1,8 @@
 #include <Windows/HeaderWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
+    void HeaderWindow::ready_to_arm_Callback([[maybe_unused]] const robot_framework_ros::ready_to_arm& msg) {
+        fast::rf::Logger::log_warn("Got it!");
+    }
     std::string HeaderWindow::pretty() {
         std::string str = "---Header Window---\n";
         str += BaseWindow::pretty();

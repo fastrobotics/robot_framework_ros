@@ -9,6 +9,8 @@
  *
  */
 #pragma once
+#include <robot_framework_ros/ready_to_arm.h>
+
 #include <BaseWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
@@ -44,6 +46,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_screen_coordinates_pix(coord_pix);
             set_window(win);
             wrefresh(win);
+            if (nodeHandle != nullptr) {
+                armedstate_sub = nodeHandle->subscribe(robot_namespace + "/arm_command", 100,
+                                                       &HeaderWindow::ready_to_arm_Callback, this);
+            }
         }
         /**
          * @brief Human readable string
@@ -63,6 +69,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
        private:
         bool update_window();
+        void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm& msg);
         double current_time_sec_;
+        ros::Subscriber armedstate_sub;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

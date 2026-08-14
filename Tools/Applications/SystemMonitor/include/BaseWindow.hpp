@@ -15,6 +15,7 @@
 #include <CommonWindowUtility.hpp>
 #include <Definitions.hpp>
 #include <IWindow.hpp>
+#include <Infrastructure/Logger.hpp>
 
 #include "ros/ros.h"
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
