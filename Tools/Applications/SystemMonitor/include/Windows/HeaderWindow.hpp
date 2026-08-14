@@ -28,8 +28,6 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @brief Construct a new Header Window object
          *
          * @param tab_order
-         * @param nodeHandle
-         * @param robot_namespace
          * @param mainwindow_height
          * @param mainwindow_width
          */

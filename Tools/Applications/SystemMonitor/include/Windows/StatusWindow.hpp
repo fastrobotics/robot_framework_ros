@@ -23,8 +23,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             80.0; /*!< What percentage of the screen to put top left corner (Y) of window. */
         static constexpr double WIDTH_PERC = 30.0;  /*!< What percentage of the screen (Width) to draw the window. */
         static constexpr double HEIGHT_PERC = 20.0; /*!< What percentage of the screen (Height) to draw the window. */
-        StatusWindow(int16_t tab_order, std::string robot_namespace, int16_t mainwindow_height,
-                     uint16_t mainwindow_width)
+        StatusWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
             : BaseWindow("status_window", tab_order, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
                          mainwindow_height, mainwindow_width) {
             ScreenCoordinatePixel coord_pix =
