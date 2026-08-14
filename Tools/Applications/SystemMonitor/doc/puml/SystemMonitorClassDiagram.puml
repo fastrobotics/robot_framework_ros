@@ -1,0 +1,149 @@
+@startuml
+title System Monitor Class Diagram
+namespace ros {
+    class NodeHandle
+}
+namespace ncurses {
+    class WINDOW
+}
+namespace fast::rf_ros {
+    class BaseNode
+    namespace Tools::Applications {
+        package SystemMonitor #LightYellow;line:blue {
+            namespace Definitions {
+                enum Color
+                struct ScreenCoordinatePerc #Orange {
+                    +double start_x_perc
+                    +double start_y_perc
+                    +double width_perc
+                    +double height_perc
+                }
+                struct ScreenCoordinatePixel #Orange {
+                    +uint16 start_x_pix
+                    +uint16 start_y_pix
+                    +uint16 width_pix
+                    +uint16 height_pix
+
+                }
+                struct Key
+            }
+            interface IWindow #Orange {
+                +{abstract} string get_name()
+                +{abstract} bool is_initialized()
+                +{abstract} bool update(double current_time_sec)
+                +{abstract} string pretty()
+                +{abstract} bool has_focus()
+                +{abstract} bool set_focus(bool cmd_focus)
+            }
+            abstract BaseWindow #Orange {
+                +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
+                +bool is_initialized()
+                +string get_name()
+                +bool has_focus()
+                +bool set_focus(bool cmd_focus)
+                #bool update(double current_time_sec)
+                #{abstract} bool update_window()
+                #string pretty()
+                #void set_window(WINDOW win)
+                #WINDOW get_window()
+                #void set_screen_coordinates(ScreenCoordinatePixel coord)
+                #ScreenCoordinatePerc get_screen_coordinates_perc()
+                #ScreenCoordinatePixel get_screen_coordinates_pixel()
+                #int16 get_tab_order()
+                #double get_current_time_sec()
+                
+                -WINDOW win
+                -string name
+                -int16 tab_order
+                -ScreenCoordinatePerc screen_coord_perc
+                -ScreenCoordinatePixel get_screen_coordinates_pixel
+                -uint16 mainwindow_height
+                -uint16_t mainwindow_width
+                -bool focused
+                -int[] supported_keys
+                -double current_time_sec_
+            }
+            BaseWindow .up.|> IWindow
+            BaseWindow --> ScreenCoordinatePerc: <<use>>
+            BaseWindow --> ScreenCoordinatePixel: <<use>>
+
+            class HeaderWindow #Orange {
+                +{static} double START_X_PERC
+                +{static} double START_Y_PERC
+                +{static} double WIDTH_PERC
+                +{static} double HEIGHT_PERC
+                +string pretty()
+                +bool update(double current_time_sec)
+                #bool update_window()
+            }
+            HeaderWindow -up-|> BaseWindow
+
+            class NodeInfoWindow #Orange {
+                +{static} double START_X_PERC
+                +{static} double START_Y_PERC
+                +{static} double WIDTH_PERC
+                +{static} double HEIGHT_PERC
+                +string pretty()
+                +bool update(double current_time_sec)
+                #bool update_window()
+            }
+            NodeInfoWindow -up-|> BaseWindow
+            class DeviceInfoWindow #Orange {
+                +{static} double START_X_PERC
+                +{static} double START_Y_PERC
+                +{static} double WIDTH_PERC
+                +{static} double HEIGHT_PERC
+                +string pretty()
+                +bool update(double current_time_sec)
+                #bool update_window()
+            }
+            DeviceInfoWindow -up-|> BaseWindow
+
+            class DiagnosticWindow #Orange {
+                +{static} double START_X_PERC
+                +{static} double START_Y_PERC
+                +{static} double WIDTH_PERC
+                +{static} double HEIGHT_PERC
+                +string pretty()
+                +bool update(double current_time_sec)
+                #bool update_window()
+            }
+            DiagnosticWindow -up-|> BaseWindow
+
+            class StatusWindow #Orange {
+                +{static} double START_X_PERC
+                +{static} double START_Y_PERC
+                +{static} double WIDTH_PERC
+                +{static} double HEIGHT_PERC
+                +string pretty()
+                +bool update(double current_time_sec)
+                #bool update_window()
+            }
+            StatusWindow -up-|> BaseWindow
+
+            class MenuWindow #Orange {
+                +{static} double START_X_PERC
+                +{static} double START_Y_PERC
+                +{static} double WIDTH_PERC
+                +{static} double HEIGHT_PERC
+                +string pretty()
+                +bool update(double current_time_sec)
+                #bool update_window()
+            }
+            MenuWindow -up-|> BaseWindow
+
+            class SystemMonitorNode #Orange {
+                -IWindow[] windows
+            }
+            SystemMonitorNode -up-|> BaseNode
+            SystemMonitorNode *-up-> HeaderWindow
+            SystemMonitorNode *-up-> NodeInfoWindow
+            SystemMonitorNode *-up-> DeviceInfoWindow
+            SystemMonitorNode *-up-> DiagnosticWindow
+            SystemMonitorNode *-up-> StatusWindow
+            SystemMonitorNode *-up-> MenuWindow
+
+        }
+    }
+}
+@enduml
