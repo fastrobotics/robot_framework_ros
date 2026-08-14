@@ -1,5 +1,7 @@
 var classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode =
 [
+    [ "InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html#a1d670ddef945b4ca988c42f1109c898a", null ],
+    [ "~InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html#a3aff4811543c6dcc0192042df0f600c8", null ],
     [ "init", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html#a76dfd5277b66b62df865ff5458a14b44", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html#a7621017e675c8df00cef11152ed5461b", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html#aff31a1825c344450b8d7a525c8015dea", null ],

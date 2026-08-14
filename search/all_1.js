@@ -8,8 +8,16 @@ var searchData=
   ['base_5frun_5f10hz_5',['base_run_10hz',['../classfast_1_1rf__ros_1_1BaseNode.html#ae256066b584cc9e3a471c41d02be56e5',1,'fast::rf_ros::BaseNode']]],
   ['base_5frun_5f1hz_6',['base_run_1hz',['../classfast_1_1rf__ros_1_1BaseNode.html#a78877b5e2b434fda39fb15e79fbef280',1,'fast::rf_ros::BaseNode']]],
   ['base_5fstart_7',['base_start',['../classfast_1_1rf__ros_1_1BaseNode.html#a7627d88807cbdcf7e808208f73bd253a',1,'fast::rf_ros::BaseNode']]],
-  ['basenode_8',['BaseNode',['../classfast_1_1rf__ros_1_1BaseNode.html',1,'fast::rf_ros']]],
-  ['basenode_2ehpp_9',['BaseNode.hpp',['../BaseNode_8hpp.html',1,'']]],
-  ['basicteleopcontrolnode_10',['BasicTeleopControlNode',['../classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html',1,'fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem']]],
-  ['basicteleopcontrolnode_2ehpp_11',['BasicTeleopControlNode.hpp',['../BasicTeleopControlNode_8hpp.html',1,'']]]
+  ['basemachinesubsystem_2edox_8',['BaseMachineSubsystem.dox',['../BaseMachineSubsystem_8dox.html',1,'']]],
+  ['basemachinesystem_2edox_9',['BaseMachineSystem.dox',['../BaseMachineSystem_8dox.html',1,'']]],
+  ['basenode_10',['basenode',['../classfast_1_1rf__ros_1_1BaseNode.html',1,'fast::rf_ros::BaseNode'],['../classfast_1_1rf__ros_1_1BaseNode.html#a51ed7fc31a89230432cc4d408dae386f',1,'fast::rf_ros::BaseNode::BaseNode()']]],
+  ['basenode_2ecpp_11',['BaseNode.cpp',['../BaseNode_8cpp.html',1,'']]],
+  ['basenode_2ehpp_12',['BaseNode.hpp',['../BaseNode_8hpp.html',1,'']]],
+  ['basewindow_13',['basewindow',['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html',1,'fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow'],['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af146759105a3426d92b0732396215210',1,'fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow::BaseWindow()']]],
+  ['basewindow_2ecpp_14',['BaseWindow.cpp',['../BaseWindow_8cpp.html',1,'']]],
+  ['basewindow_2ehpp_15',['BaseWindow.hpp',['../BaseWindow_8hpp.html',1,'']]],
+  ['basicteleopcontrolnode_16',['basicteleopcontrolnode',['../classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html',1,'fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode'],['../classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#aea550f31e73a3990dbb08f558c63501a',1,'fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode::BasicTeleopControlNode()']]],
+  ['basicteleopcontrolnode_2ecpp_17',['BasicTeleopControlNode.cpp',['../BasicTeleopControlNode_8cpp.html',1,'']]],
+  ['basicteleopcontrolnode_2ehpp_18',['BasicTeleopControlNode.hpp',['../BasicTeleopControlNode_8hpp.html',1,'']]],
+  ['blue_5fcolor_19',['BLUE_COLOR',['../namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#a8f28dabaca300f2e44e8447ab90cbc52a6afbf6c79a1413494d060fb4a356debd',1,'fast::rf_ros::Tools::Applications::SystemMonitor']]]
 ];

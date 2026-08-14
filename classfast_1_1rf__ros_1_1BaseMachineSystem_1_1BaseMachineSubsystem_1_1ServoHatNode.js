@@ -1,5 +1,7 @@
 var classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode =
 [
+    [ "ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#a04ea74466d23d401a0f8d0145d0c8d58", null ],
+    [ "~ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#a2387661c6bed81247a55f05e79a3c682", null ],
     [ "drive_Callback", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#abb340eeead8fe5c31d35153c20cecaef", null ],
     [ "init", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#afb5468a8732963b1acce9bb3f6635ce3", null ],
     [ "robot_armcommand_state_Callback", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#aedeae7164dd41213878f85c60528f497", null ],

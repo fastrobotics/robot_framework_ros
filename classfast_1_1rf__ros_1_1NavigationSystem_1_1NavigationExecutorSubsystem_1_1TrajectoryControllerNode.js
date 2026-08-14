@@ -1,5 +1,7 @@
 var classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode =
 [
+    [ "TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html#ac4e0d6df5e2e1894925a8131a48bff46", null ],
+    [ "~TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html#a17f07ce167e985e3c27cf08f4c6a1d72", null ],
     [ "init", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html#adf9ab1f4caf9383f4530bd958a523cb3", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html#a4f545d893874abf54d4c439c9e491a91", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html#aace59ed6d460c6a8471a1b637f41c045", null ],

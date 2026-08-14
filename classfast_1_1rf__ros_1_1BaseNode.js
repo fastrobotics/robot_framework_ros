@@ -1,5 +1,7 @@
 var classfast_1_1rf__ros_1_1BaseNode =
 [
+    [ "BaseNode", "classfast_1_1rf__ros_1_1BaseNode.html#a51ed7fc31a89230432cc4d408dae386f", null ],
+    [ "~BaseNode", "classfast_1_1rf__ros_1_1BaseNode.html#a1ede4da43e3fe8c08adb6e1d0df482f3", null ],
     [ "base_init", "classfast_1_1rf__ros_1_1BaseNode.html#ac0fd8abb9aa9d77ed10281ed12429a22", null ],
     [ "base_restart", "classfast_1_1rf__ros_1_1BaseNode.html#a10dfb889d36635c3991dfc4e012c5dda", null ],
     [ "base_run_001hz", "classfast_1_1rf__ros_1_1BaseNode.html#a1e83551f2d24530f295397acd09b5fa9", null ],

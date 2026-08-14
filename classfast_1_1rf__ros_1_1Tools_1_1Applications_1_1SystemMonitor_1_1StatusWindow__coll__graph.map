@@ -1,0 +1,7 @@
+<map id="fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow" name="fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow">
+<area shape="rect" id="Node000001" title="Status Window." alt="" coords="5,211,223,265"/>
+<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html" title="Abstract Base Window." alt="" coords="5,108,223,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,176,117,211,111,211,111,176"/>
+<area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html" title="A generic Window interface." alt="" coords="5,5,223,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,74,117,108,111,108,111,74"/>
+</map>

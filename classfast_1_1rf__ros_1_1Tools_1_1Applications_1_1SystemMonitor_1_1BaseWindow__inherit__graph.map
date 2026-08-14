@@ -1,0 +1,9 @@
+<map id="fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow" name="fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow">
+<area shape="rect" id="Node000001" title="Abstract Base Window." alt="" coords="271,45,488,100"/>
+<area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html" title="A Header Window." alt="" coords="536,5,753,60"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="501,52,536,46,536,52,502,57"/>
+<area shape="rect" id="Node000004" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html" title="Status Window." alt="" coords="536,84,753,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="502,88,536,93,536,98,501,93"/>
+<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html" title="A generic Window interface." alt="" coords="5,45,223,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,70,271,70,271,75,236,75"/>
+</map>

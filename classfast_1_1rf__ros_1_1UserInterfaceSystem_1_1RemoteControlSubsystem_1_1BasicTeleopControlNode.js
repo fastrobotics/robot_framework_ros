@@ -1,5 +1,7 @@
 var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode =
 [
+    [ "BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#aea550f31e73a3990dbb08f558c63501a", null ],
+    [ "~BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#ab36feb56ec1d4743e06f4632024fd182", null ],
     [ "init", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#a627849495848f12b9c55fe1076316b4b", null ],
     [ "joy_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#addf78a22f1358892917f03d53ab3b0cb", null ],
     [ "robot_armcommand_state_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html#adc393ea8e1e2f8c24e7e9b464b58075f", null ],
