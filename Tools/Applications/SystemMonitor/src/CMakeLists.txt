@@ -13,4 +13,6 @@ target_include_directories(baseWindow
                            PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")
 # add_subdirectory(Windows)
 
-# if(CATKIN_ENABLE_TESTING) add_subdirectory(test) endif()
+if(CATKIN_ENABLE_TESTING)
+  add_subdirectory(test)
+endif()
