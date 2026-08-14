@@ -12,6 +12,13 @@ add_dependencies(statusWindow ${robot_framework_ros_EXPORTED_TARGETS})
 target_include_directories(statusWindow
                            PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")
 
+add_library(nodeWindow NodeWindow.cpp)
+target_link_libraries(nodeWindow ${catkin_LIBRARIES} ${CURSES_LIBRARIES}
+                      baseWindow)
+add_dependencies(nodeWindow ${robot_framework_ros_EXPORTED_TARGETS})
+target_include_directories(nodeWindow
+                           PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")
+
 if(CATKIN_ENABLE_TESTING)
   add_subdirectory(test)
 endif()

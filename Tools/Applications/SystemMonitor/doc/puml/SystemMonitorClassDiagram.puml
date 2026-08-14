@@ -1,5 +1,12 @@
 @startuml
 title System Monitor Class Diagram
+namespace fast::rf {
+    namespace messages {
+        namespace InfrastructureMsgs {
+            class ArmCommandMsg <<(M,#FFFF00)>>
+        }
+    }
+}
 namespace ros {
     class NodeHandle
 }
@@ -34,6 +41,7 @@ namespace fast::rf_ros {
                 +{abstract} string pretty()
                 +{abstract} bool has_focus()
                 +{abstract} bool set_focus(bool cmd_focus)
+                +{abstract} void new_ArmCommandMsg(ArmCommandMsg msg)
             }
             abstract BaseWindow #Orange {
                 +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
@@ -74,6 +82,7 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void new_ArmCommandMsg(ArmCommandMsg msg)
                 #bool update_window()
             }
             HeaderWindow -up-|> BaseWindow
@@ -85,6 +94,7 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void new_ArmCommandMsg(ArmCommandMsg msg)
                 #bool update_window()
             }
             NodeInfoWindow -up-|> BaseWindow
@@ -95,6 +105,7 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void new_ArmCommandMsg(ArmCommandMsg msg)
                 #bool update_window()
             }
             DeviceInfoWindow -up-|> BaseWindow
@@ -106,6 +117,7 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void new_ArmCommandMsg(ArmCommandMsg msg)
                 #bool update_window()
             }
             DiagnosticWindow -up-|> BaseWindow
@@ -117,6 +129,7 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void new_ArmCommandMsg(ArmCommandMsg msg)
                 #bool update_window()
             }
             StatusWindow -up-|> BaseWindow
@@ -128,6 +141,7 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void new_ArmCommandMsg(ArmCommandMsg msg)
                 #bool update_window()
             }
             MenuWindow -up-|> BaseWindow

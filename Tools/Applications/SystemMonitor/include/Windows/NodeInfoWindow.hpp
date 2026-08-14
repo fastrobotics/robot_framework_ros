@@ -1,5 +1,5 @@
 /**
- * @file HeaderWindow.hpp
+ * @file NodeInfoWindow.hpp
  * @author David Gitz (davidgitz@gmail.com)
  * @brief
  * @version 0.1
@@ -17,14 +17,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
      * @brief A Header Window
      *
      */
-    class HeaderWindow : public BaseWindow {
+    class NodeInfoWindow : public BaseWindow {
        public:
         static constexpr double START_X_PERC =
             0.0; /*!< What percentage of the screen to put top left corner (X) of window. */
         static constexpr double START_Y_PERC =
-            0.0; /*!< What percentage of the screen to put top left corner (Y) of window. */
-        static constexpr double WIDTH_PERC = 100.0; /*!< What percentage of the screen (Width) to draw the window. */
-        static constexpr double HEIGHT_PERC = 15.0; /*!< What percentage of the screen (Height) to draw the window. */
+            15.0; /*!< What percentage of the screen to put top left corner (Y) of window. */
+        static constexpr double WIDTH_PERC = 66.0;  /*!< What percentage of the screen (Width) to draw the window. */
+        static constexpr double HEIGHT_PERC = 60.0; /*!< What percentage of the screen (Height) to draw the window. */
         /**
          * @brief Construct a new Header Window object
          *
@@ -32,7 +32,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @param mainwindow_height
          * @param mainwindow_width
          */
-        HeaderWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
+        NodeInfoWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
             : BaseWindow("header_window", tab_order, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
                          mainwindow_height, mainwindow_width) {
             ScreenCoordinatePixel coord_pix =
@@ -43,7 +43,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
-        void new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg);
+        void new_ArmCommandMsg([[maybe_unused]] fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {}
 
         /**
          * @brief Human readable string
@@ -63,6 +63,5 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
        private:
         bool update_window();
-        fast::rf::messages::InfrastructureMsgs::ArmCommandMsg latest_arm_command;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

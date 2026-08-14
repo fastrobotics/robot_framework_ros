@@ -2,6 +2,7 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <Windows/HeaderWindow.hpp>
+#include <Windows/NodeInfoWindow.hpp>
 #include <Windows/StatusWindow.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
