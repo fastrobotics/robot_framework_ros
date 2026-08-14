@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <cstdint>
+#include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     /**
      * @brief Key Definitions
@@ -89,5 +90,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         uint16_t start_y_pix;
         uint16_t width_pix;
         uint16_t height_pix;
+    };
+    /*! \struct Field
+    \brief Field container, used for holding Field attributes.
+    */
+    struct Field {
+        Field(std::string text, uint16_t width) : text(text), width(width) {}
+        std::string text;
+        std::size_t width;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

@@ -81,6 +81,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             // highest_tab_index++;
         }
         {
+            auto window = std::make_shared<NodeInfoWindow>(-1, mainwindow_height, mainwindow_width);
+            windows[window->get_name()] = window;
+            // highest_tab_index++;
+        }
+        {
             auto window = std::make_shared<StatusWindow>(-1, mainwindow_height, mainwindow_width);
             windows[window->get_name()] = window;
             // highest_tab_index++;

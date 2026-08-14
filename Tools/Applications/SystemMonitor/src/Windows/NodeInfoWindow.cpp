@@ -1,0 +1,226 @@
+#include <Windows/NodeInfoWindow.hpp>
+namespace fast::rf_ros::Tools::Applications::SystemMonitor {
+    std::string NodeInfoWindow::pretty() {
+        std::string str = "---Node Info Window---\n";
+        str += BaseWindow::pretty();
+        return str;
+    }
+    bool NodeInfoWindow::insertNode(NodeType node_type, std::string device, std::string base_node_name,
+                                    std::string node_name) {
+        std::lock_guard<std::mutex> guard(node_list_mutex);
+        std::size_t before = nodes.size();
+        NodeData newNode(nodes.size(), node_type, device, base_node_name, node_name);
+        nodes[newNode.get_hash()] = newNode;
+        std::size_t after = nodes.size();
+        update_record_count((uint16_t)after);
+        return after > before;
+    }
+    std::string NodeInfoWindow::get_nodeheader() {
+        std::string str = "";
+        std::map<NodeFieldColumn, Field>::iterator it = node_window_fields.begin();
+        while (it != node_window_fields.end()) {
+            // Check if field name is too long:
+            if (it->second.text.size() > it->second.width) {
+                str += it->second.text.substr(0, it->second.width);
+            } else {
+                str += it->second.text;
+                // Figure out how many spaces to add
+                std::size_t spaces = it->second.width - it->second.text.size();
+                for (std::size_t j = 0; j < spaces; ++j) {
+                    str += " ";
+                }
+            }
+            ++it;
+        }
+
+        if (str.size() > get_mainwindow_width()) {
+            fast::rf::Logger::log_warn("Node Header too long for Window!.");
+            return "";
+        }
+        return str;
+    }
+    bool NodeInfoWindow::update(double current_time_sec) {
+        bool status = BaseWindow::update(current_time_sec);
+        if (status == false) {
+            return false;
+        }
+        for (auto& pair : nodes) {
+            pair.second.last_heartbeat_delta += 0.1;
+        }
+        status = update_window();
+        return status;
+    }
+    bool NodeInfoWindow::update_window() {
+        if (get_window() == nullptr) {
+            return false;
+        }
+        // GCOVR_EXCL_START
+        const uint16_t TASKSTART_COORD_Y = 1;
+        const uint16_t TASKSTART_COORD_X = 1;
+        uint16_t index = 0;
+        for (const auto& pair : nodes) {
+            Color color = Color::RED_COLOR;
+            /*
+            switch (node_it->state) {
+                case eros::Node::State::UNKNOWN:
+                    color = eros_window::Color::RED_COLOR;
+                    break;
+                case eros::Node::State::START:
+                    color = eros_window::Color::YELLOW_COLOR;
+                    break;
+                case eros::Node::State::INITIALIZING:
+                    color = eros_window::Color::YELLOW_COLOR;
+                    break;
+                case eros::Node::State::INITIALIZED:
+                    color = eros_window::Color::YELLOW_COLOR;
+                    break;
+                case eros::Node::State::RUNNING:
+                    color = eros_window::Color::BLUE_COLOR;
+                    break;
+                case eros::Node::State::PAUSED:
+                    color = eros_window::Color::GREEN_COLOR;
+                    break;
+                case eros::Node::State::RESET:
+                    color = eros_window::Color::YELLOW_COLOR;
+                    break;
+                case eros::Node::State::FINISHED:
+                    color = eros_window::Color::YELLOW_COLOR;
+                    break;
+                default:
+                    color = eros_window::Color::RED_COLOR;
+                    break;
+            }
+            */
+            wattron(get_window(), COLOR_PAIR(color));
+            std::string str = get_node_info(pair.second, false);  // get_selected_record());
+            mvwprintw(get_window(), TASKSTART_COORD_Y + 2 + (int)index, TASKSTART_COORD_X + 1, str.c_str());
+            wclrtoeol(get_window());
+            wattroff(get_window(), COLOR_PAIR(color));
+            index++;
+        }
+        // if (focused) {
+        //     box(get_window(), '.', '.');
+        // } else {
+        box(get_window(), 0, 0);
+        //}
+
+        wrefresh(get_window());
+        return true;
+    }
+    std::string NodeInfoWindow::get_node_info(NodeData node, bool selected) {
+        std::string str = "";
+        std::size_t width = 0;
+        {
+            width = node_window_fields.find(NodeFieldColumn::MARKER)->second.width;
+            for (std::size_t i = 0; i < width; ++i) {
+                if (selected == true) {
+                    str += "*";
+                } else {
+                    str += " ";
+                }
+            }
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::ID)->second.width;
+            std::string tempstr = std::to_string(node.id);
+            std::size_t spaces = width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::HOSTNAME)->second.width;
+            std::string tempstr = node.host_device;
+            if (tempstr.size() > width) {
+                tempstr = tempstr.substr(0, width - 4) + "... ";
+            } else {
+                if (tempstr.size() > (std::size_t)(width - 1)) {
+                    tempstr = tempstr.substr(0, (width - 1));
+                    tempstr += " ";
+                } else {
+                    std::size_t spaces = width - tempstr.size();
+                    if (spaces > 0) {
+                        tempstr += std::string(spaces, ' ');
+                    }
+                }
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::NODENAME)->second.width;
+            std::string tempstr = node.node_name;
+            std::size_t found_hostname = node.node_name.find(node.host_device);
+            if (found_hostname != std::string::npos) {
+                tempstr.replace(found_hostname, node.host_device.length(), "");
+            }
+            if (tempstr.size() > width) {
+                tempstr = tempstr.substr(0, width - 4) + "... ";
+            } else {
+                std::size_t spaces = width - tempstr.size();
+                if (spaces > 0) {
+                    tempstr += std::string(spaces, ' ');
+                }
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::RESTARTS)->second.width;
+            std::string tempstr = std::to_string(node.restart_count);
+            std::size_t spaces = width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::PID)->second.width;
+            std::string tempstr = std::to_string(node.pid);
+            std::size_t spaces = width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::CPU)->second.width;
+            char c_tempstr[8];
+            sprintf(c_tempstr, "%3.2f", node.cpu_used_perc);
+            std::string tempstr = std::string(c_tempstr);
+            std::size_t spaces = width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::RAM)->second.width;
+            char c_tempstr[8];
+            sprintf(c_tempstr, "%3.2f", node.mem_used_perc);
+            std::string tempstr = std::string(c_tempstr);
+            std::size_t spaces = width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
+        {
+            width = node_window_fields.find(NodeFieldColumn::RX)->second.width;
+            std::string max_number_str(width - 4, '9');
+            double max_num = std::atof(max_number_str.c_str()) + 0.99;
+            if (node.last_heartbeat_delta > max_num) {
+                node.last_heartbeat_delta = max_num;
+            }
+            char tempstr[2 * width];
+            sprintf(tempstr, "%2.2f", node.last_heartbeat_delta);
+            std::string tempstr_str = std::string(tempstr);
+            std::size_t spaces = width - tempstr_str.size();
+            if (spaces > 0) {
+                tempstr_str += std::string(spaces, ' ');
+            }
+            str += tempstr_str;
+        }
+
+        return str;
+    }
+}  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
