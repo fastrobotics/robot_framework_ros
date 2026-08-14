@@ -9,7 +9,6 @@
  *
  */
 #pragma once
-#include <robot_framework_ros/ready_to_arm.h>
 
 #include <BaseWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
@@ -35,10 +34,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @param mainwindow_height
          * @param mainwindow_width
          */
-        HeaderWindow(int16_t tab_order, ros::NodeHandle* nodeHandle, std::string robot_namespace,
-                     int16_t mainwindow_height, uint16_t mainwindow_width)
-            : BaseWindow("header_window", tab_order, nodeHandle, robot_namespace, START_X_PERC, START_Y_PERC,
-                         WIDTH_PERC, HEIGHT_PERC, mainwindow_height, mainwindow_width) {
+        HeaderWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
+            : BaseWindow("header_window", tab_order, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
+                         mainwindow_height, mainwindow_width) {
             ScreenCoordinatePixel coord_pix =
                 convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
             WINDOW* win =
@@ -46,11 +44,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_screen_coordinates_pix(coord_pix);
             set_window(win);
             wrefresh(win);
-            if (nodeHandle != nullptr) {
-                armedstate_sub = nodeHandle->subscribe(robot_namespace + "/arm_command", 100,
-                                                       &HeaderWindow::ready_to_arm_Callback, this);
-            }
         }
+        void new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg);
+
         /**
          * @brief Human readable string
          *
@@ -69,8 +65,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
        private:
         bool update_window();
-        void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm& msg);
-        double current_time_sec_;
-        ros::Subscriber armedstate_sub;
+        uint64_t counter{0};
+        fast::rf::messages::InfrastructureMsgs::ArmCommandMsg latest_arm_command;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

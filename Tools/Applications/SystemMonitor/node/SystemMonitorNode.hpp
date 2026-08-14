@@ -9,6 +9,8 @@
  *
  */
 #pragma once
+#include <robot_framework_ros/arm_command.h>
+
 #include <Definitions.hpp>
 #include <IWindow.hpp>
 #include <map>
@@ -112,7 +114,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         void thread_loop();
 
+        void arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
+
        private:
-        std::map<std::string, IWindow*> windows;
+        std::map<std::string, std::shared_ptr<IWindow>> windows;
+
+        ros::Subscriber arm_command_sub;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

@@ -10,10 +10,6 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             fast::rf::Logger::log_error("Window: " + name + " Pointer is Null!");
             return false;
         }
-        if (nodeHandle == nullptr) {
-            fast::rf::Logger::log_error("Window: " + name + " Node Handle is Null!");
-            return false;
-        }
         return true;
     }
     bool BaseWindow::update(double current_time_sec) {
