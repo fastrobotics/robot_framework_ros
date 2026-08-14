@@ -15,6 +15,7 @@
 #include <CommonWindowUtility.hpp>
 #include <Definitions.hpp>
 #include <IWindow.hpp>
+#include <Infrastructure/Logger.hpp>
 
 #include "ros/ros.h"
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
@@ -88,6 +89,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return false
          */
         bool update(double current_time_sec);
+
+        double get_current_time_sec() { return current_time_sec_; }
         /**
          * @brief Update the window details
          *

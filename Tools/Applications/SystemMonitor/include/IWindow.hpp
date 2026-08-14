@@ -9,6 +9,7 @@
  *
  */
 #pragma once
+#include <ArmCommandMsg.hpp>
 #include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     /**
@@ -62,5 +63,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return false
          */
         virtual bool set_focus(bool cmd_focus) = 0;
+
+        virtual void new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) = 0;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

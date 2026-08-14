@@ -10,11 +10,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
     SystemMonitorNode::SystemMonitorNode() {}
     SystemMonitorNode::~SystemMonitorNode() {
-        for (auto& window : windows) {
-            delete window.second;
-        }
         windows.clear();
         endwin();
+    }
+    void SystemMonitorNode::arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
+        for (const auto& window : windows) {
+            robot_framework_ros::arm_command msg = *t_msg;
+            window.second->new_ArmCommandMsg(fast::rf_ros::utils::TranslateUtility::convert(msg));
+        }
     }
     bool SystemMonitorNode::init() {
         bool status = BaseNode::base_init();
@@ -28,6 +31,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             fast::rf::Logger::log_error("Unable to initialize Screen!");
             return false;
         }
+        arm_command_sub = n->subscribe<robot_framework_ros::arm_command>(
+            get_robotnamespace() + "/arm_command", 10, &SystemMonitorNode::arm_command_Callback, this);
         return true;
     }
 
@@ -70,21 +75,16 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         uint16_t mainwindow_width, mainwindow_height;
         getmaxyx(stdscr, mainwindow_height, mainwindow_width);
         {
-            IWindow* window = new HeaderWindow(-1, mainwindow_height, mainwindow_width);
-            if (window->is_initialized() == false) {
-                return false;
-            }
-            // highest_tab_index++;
+            auto window = std::make_shared<HeaderWindow>(-1, mainwindow_height, mainwindow_width);
             windows[window->get_name()] = window;
+            // highest_tab_index++;
         }
         {
-            IWindow* window = new StatusWindow(-1, mainwindow_height, mainwindow_width);
-            if (window->is_initialized() == false) {
-                return false;
-            }
-            // highest_tab_index++;
+            auto window = std::make_shared<StatusWindow>(-1, mainwindow_height, mainwindow_width);
             windows[window->get_name()] = window;
+            // highest_tab_index++;
         }
+
         return true;
     }
     bool SystemMonitorNode::start() { return BaseNode::base_start(); }
@@ -98,7 +98,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             kill_node = true;
         }
         // Update all Windows
-        for (auto& window : windows) {
+        for (const auto& window : windows) {
             // window->new_command(window_commands);
             window.second->update(ros::Time::now().toSec());
         }

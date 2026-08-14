@@ -1,5 +1,8 @@
 #include <Windows/HeaderWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
+    void HeaderWindow::new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {
+        latest_arm_command = msg;
+    }
     std::string HeaderWindow::pretty() {
         std::string str = "---Header Window---\n";
         str += BaseWindow::pretty();
@@ -19,7 +22,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
         //  GCOVR_EXCL_START
         {  // Time
-            std::string str = "Time: " + std::to_string(current_time_sec_);
+            std::string str = "Time: " + std::to_string(get_current_time_sec());
             str.insert(str.end(), 40 - str.size(), ' ');
             Color color;
             color = Color::RED_COLOR;
@@ -32,10 +35,26 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         {  // Armed State
 
             Color color;
-            std::string str = "Armed State: Unknown";
+            std::string str = "Armed State: " + fast::rf::pretty(latest_arm_command.armed_state);
             str.insert(str.end(), 40 - str.size(), ' ');
 
-            color = Color::RED_COLOR;
+            switch (latest_arm_command.armed_state) {
+                case fast::rf::ArmedState::ARMED:
+                    color = Color::BLUE_COLOR;
+                    break;  // Should be BLUE for RC Mode, GREEN for Manual, PURPLE for Auto
+                case fast::rf::ArmedState::DISARMED_CANNOTARM:
+                    color = Color::RED_COLOR;
+                    break;
+                case fast::rf::ArmedState::DISARMED:
+                    color = Color::GREEN_COLOR;
+                    break;
+                case fast::rf::ArmedState::ARMING:
+                    color = Color::GREEN_COLOR;
+                    break;
+                default:
+                    color = Color::RED_COLOR;
+                    break;
+            }
 
             wattron(get_window(), COLOR_PAIR(color));
             mvwprintw(get_window(), 2, 1, str.c_str());

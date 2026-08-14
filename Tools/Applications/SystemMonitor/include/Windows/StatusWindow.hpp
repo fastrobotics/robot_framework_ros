@@ -34,6 +34,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
+        void new_ArmCommandMsg([[maybe_unused]] fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {}
         /**
          * @brief Human readable string
          *
@@ -52,6 +53,5 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
        private:
         bool update_window();
-        double current_time_sec_;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

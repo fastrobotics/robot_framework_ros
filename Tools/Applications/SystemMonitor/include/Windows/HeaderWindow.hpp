@@ -9,6 +9,7 @@
  *
  */
 #pragma once
+
 #include <BaseWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
@@ -42,6 +43,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
+        void new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg);
+
         /**
          * @brief Human readable string
          *
@@ -60,6 +63,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
        private:
         bool update_window();
-        double current_time_sec_;
+        uint64_t counter{0};
+        fast::rf::messages::InfrastructureMsgs::ArmCommandMsg latest_arm_command;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
