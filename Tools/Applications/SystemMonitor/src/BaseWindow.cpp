@@ -12,6 +12,22 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
         return true;
     }
+    void BaseWindow::decrement_selected_record() {
+        auto _current_record = record_selected;
+        _current_record--;
+        if (_current_record < 0) {
+            _current_record = 0;
+        }
+        record_selected = _current_record;
+    }
+    void BaseWindow::increment_selected_record() {
+        auto _current_record = record_selected;
+        _current_record++;
+        if (_current_record >= (record_count - 1)) {
+            _current_record = (record_count - 1);
+        }
+        record_selected = _current_record;
+    }
     void BaseWindow::update_record_count(uint16_t count) { record_count = count; }
     bool BaseWindow::update(double current_time_sec) {
         current_time_sec_ = current_time_sec;

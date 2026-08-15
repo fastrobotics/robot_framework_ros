@@ -34,6 +34,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
+        KeyEventContainer new_keyevent([[maybe_unused]] int key) override {
+            KeyEventContainer container;
+            return container;
+        }
         void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
         void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}

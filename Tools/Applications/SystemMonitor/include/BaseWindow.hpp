@@ -143,9 +143,15 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         int16_t get_tab_order() { return tab_order; }
 
+        int16_t get_selected_record() { return record_selected; }
+
         void update_record_count(uint16_t count);
         uint16_t get_mainwindow_height() { return mainwindow_height; }
         uint16_t get_mainwindow_width() { return mainwindow_width; }
+        void decrement_selected_record();
+        void increment_selected_record();
+        bool get_focused() { return focused; }
+        std::vector<int> supported_keys;
 
        private:
         WINDOW* win_{nullptr};
@@ -157,8 +163,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         uint16_t mainwindow_width;
         bool focused{false};
 
-        std::vector<int> supported_keys;
         double current_time_sec_;
+        int16_t record_selected{0};
         uint16_t record_count{0};
     };
 

@@ -95,7 +95,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
         {
             auto window = std::make_shared<NodeInfoWindow>(-1, mainwindow_height, mainwindow_width);
+            window->set_focus(true);
             windows[window->get_name()] = window;
+
             // highest_tab_index++;
         }
         {
@@ -118,8 +120,18 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
         // Update all Windows
         for (const auto& window : windows) {
-            // window->new_command(window_commands);
+            if (window.second->has_focus()) {
+                auto output = window.second->new_keyevent(key_pressed);
+                if (output.message.level > fast::rf::Level::NOTICE) {
+                    fast::rf::Logger::log_warn(output.message.text);
+                }
+            }
             window.second->update(ros::Time::now().toSec());
+            if (window.second->get_name() == "node_info_window") {
+                auto node_info_window = std::dynamic_pointer_cast<NodeInfoWindow>(window.second);
+                std::string selected_node = node_info_window->get_selected_node();
+                // Do something with this selected_node during AB#1821
+            }
         }
         flushinp();
         return true;

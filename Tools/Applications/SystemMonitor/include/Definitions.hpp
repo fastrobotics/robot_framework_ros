@@ -9,10 +9,41 @@
  *
  */
 #pragma once
+#include <RobotFrameworkDefinitions.hpp>
 #include <cstdint>
 #include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     const double COMMTIMEOUT_THRESHOLD = 5.0f;
+    enum class WindowCommandType {
+        UNKNOWN = 0,                 /*!< Uninitialized value. */
+        VIEW_DIAGNOSTICS_NODE = 1,   /*!< View Diagnostics for a Node. */
+        VIEW_DIAGNOSTICS_SYSTEM = 2, /*!< View Diagnostics for the System. */
+        END_OF_LIST = 3              /*!< Last item of list. Used for Range Checks. */
+    };
+    /**
+     * @brief WindowCommand container
+     *
+     */
+    struct WindowCommand {
+        WindowCommand() : type(WindowCommandType::UNKNOWN) {}
+        WindowCommandType type;
+        std::string option;
+    };
+    /**
+     * @brief Text that's rendered to Message Window
+     *
+     */
+    struct MessageText {
+        MessageText(std::string text, fast::rf::Level level) : text(text), level(level) {}
+        MessageText() : text(""), level(fast::rf::Level::DEBUG) {}
+        std::string text;
+        fast::rf::Level level;
+    };
+    struct KeyEventContainer {
+        WindowCommand command;
+        MessageText message;
+    };
+
     /**
      * @brief Key Definitions
      *

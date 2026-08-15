@@ -67,6 +67,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         virtual bool set_focus(bool cmd_focus) = 0;
 
+        virtual KeyEventContainer new_keyevent(int key) = 0;
+
         virtual void new_ArmCommandMsg(robot_framework_ros::arm_command msg) = 0;
 
         virtual void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) = 0;

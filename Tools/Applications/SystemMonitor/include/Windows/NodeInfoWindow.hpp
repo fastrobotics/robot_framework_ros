@@ -54,6 +54,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                          mainwindow_height, mainwindow_width) {
             ScreenCoordinatePixel coord_pix =
                 convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
+            supported_keys.push_back(KEY_UP);
+            supported_keys.push_back(KEY_DOWN);
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::MARKER, Field("", 3)));
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::ID, Field("ID", 4)));
             // node_window_fields.insert(
@@ -82,11 +84,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             mvwprintw(win, 2, 1, dashed.c_str());
             wrefresh(win);
         }
+        KeyEventContainer new_keyevent(int key) override;
         void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
         void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) override;
 
         void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
+
+        std::string get_selected_node() { return selected_node; }
 
         /**
          * @brief Human readable string
@@ -146,7 +151,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         int previous_key{-1};
         std::mutex node_list_mutex;
         std::map<NodeFieldColumn, Field> node_window_fields;
-
+        std::string selected_node{""};
         std::map<std::string, NodeData> nodes;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

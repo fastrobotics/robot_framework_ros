@@ -125,22 +125,45 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                     color = Color::RED_COLOR;
                     break;
             }
+            if (index == get_selected_record()) {
+                selected_node = pair.second.node_name;
+            }
 
             wattron(get_window(), COLOR_PAIR(color));
-            std::string str = get_node_info(pair.second, false);  // get_selected_record());
+            std::string str = get_node_info(pair.second, index == get_selected_record());
             mvwprintw(get_window(), TASKSTART_COORD_Y + 2 + (int)index, TASKSTART_COORD_X + 1, str.c_str());
             wclrtoeol(get_window());
             wattroff(get_window(), COLOR_PAIR(color));
             index++;
         }
-        // if (focused) {
-        //     box(get_window(), '.', '.');
-        // } else {
-        box(get_window(), 0, 0);
-        //}
+        if (get_focused()) {
+            box(get_window(), '.', '.');
+        } else {
+            box(get_window(), 0, 0);
+        }
 
         wrefresh(get_window());
         return true;
+    }
+    KeyEventContainer NodeInfoWindow::new_keyevent(int key) {
+        KeyEventContainer output;
+        MessageText message;
+        if (std::find(supported_keys.begin(), supported_keys.end(), key) != supported_keys.end()) {
+            output.message.level = fast::rf::Level::ERROR;  // Set default Level to error, so if any supported keys
+                                                            // are not processed, will actively fail.
+        } else {
+            return output;
+        }
+        if (get_focused() == true) {
+            if (key == KEY_UP) {
+                decrement_selected_record();
+            } else if (key == KEY_DOWN) {
+                increment_selected_record();
+            }
+        }
+        previous_key = key;
+        output.message = message;
+        return output;
     }
     std::string NodeInfoWindow::get_node_info(NodeData node, bool selected) {
         std::string str = "";
