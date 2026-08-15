@@ -82,9 +82,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             mvwprintw(win, 2, 1, dashed.c_str());
             wrefresh(win);
         }
-        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) {}
+        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
         void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) override;
+
+        void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
 
         /**
          * @brief Human readable string
@@ -130,6 +132,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             std::string host_device;
             std::string base_node_name;
             std::string node_name;
+            std::string ready_to_arm{"UNKNOWN"};
             double cpu_used_perc;
             double mem_used_perc;
             double last_heartbeat;

@@ -1,5 +1,6 @@
 #diagnostic
 time stamp
+string NodeName
 uint8 SystemID
 uint8 SubsystemID
 uint8 ProcessID

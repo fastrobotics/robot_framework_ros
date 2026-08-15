@@ -237,12 +237,17 @@ namespace fast::rf_ros {
                 fast::rf::Logger::log_diagnostic(diagnostic);
                 robot_framework_ros::diagnostic diagnostic_msg =
                     fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
+
                 diagnostic_msg.stamp = ros::Time::now();
+                diagnostic_msg.NodeName = node_name;
                 diagnostic_pub.publish(diagnostic_msg);
             }
         }
         if (ready_to_arm_publish_enabled) {
-            ready_to_arm_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_));
+            auto data = fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_);
+            data.stamp = ros::Time::now();
+            data.NodeName = node_name;
+            ready_to_arm_pub.publish(data);
         }
         return run_1hz();
     }

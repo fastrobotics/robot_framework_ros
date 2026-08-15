@@ -34,9 +34,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
-        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) {}
+        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
-        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) {}
+        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
+
+        void new_ReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
         /**
          * @brief Human readable string
          *

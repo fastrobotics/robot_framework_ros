@@ -15,15 +15,21 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         endwin();
     }
     void SystemMonitorNode::arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
+        robot_framework_ros::arm_command msg = *t_msg;
         for (const auto& window : windows) {
-            robot_framework_ros::arm_command msg = *t_msg;
             window.second->new_ArmCommandMsg(msg);
         }
     }
     void SystemMonitorNode::heartbeat_Callback(const robot_framework_ros::heartbeat::ConstPtr& t_msg) {
+        robot_framework_ros::heartbeat msg = *t_msg;
         for (const auto& window : windows) {
-            robot_framework_ros::heartbeat msg = *t_msg;
             window.second->new_HeartbeatMsg(msg);
+        }
+    }
+    void SystemMonitorNode::ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg) {
+        robot_framework_ros::ready_to_arm msg = *t_msg;
+        for (const auto& window : windows) {
+            window.second->new_ReadyToArmMsg(msg);
         }
     }
     bool SystemMonitorNode::init() {
@@ -137,7 +143,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
     }
     bool SystemMonitorNode::update_monitorlist(std::vector<std::string> heartbeat_list,
-                                               std::vector<std::string>& new_heartbeat_topics_to_subscribe) {
+                                               std::vector<std::string>& new_heartbeat_topics_to_subscribe,
+                                               std::vector<std::string> readytoarm_list,
+                                               std::vector<std::string>& new_readytoarm_topics_to_subscribe) {
         for (auto heartbeat : heartbeat_list) {
             bool found_it = false;
             for (auto monitored_heartbeat : monitored_heartbeat_topics) {
@@ -149,6 +157,19 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             if (found_it == false) {
                 monitored_heartbeat_topics.push_back(heartbeat);
                 new_heartbeat_topics_to_subscribe.push_back(heartbeat);
+            }
+        }
+        for (auto readytoarm : readytoarm_list) {
+            bool found_it = false;
+            for (auto monitored_readytoarm : monitored_readytoarm_topics) {
+                if (monitored_readytoarm == readytoarm) {
+                    found_it = true;
+                    break;
+                }
+            }
+            if (found_it == false) {
+                monitored_readytoarm_topics.push_back(readytoarm);
+                new_readytoarm_topics_to_subscribe.push_back(readytoarm);
             }
         }
         return true;
@@ -187,6 +208,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         ros::master::V_TopicInfo master_topics;
         ros::master::getTopics(master_topics);
         std::vector<std::string> heartbeat_list;
+        std::vector<std::string> readytoarm_list;
         for (ros::master::V_TopicInfo::iterator it = master_topics.begin(); it != master_topics.end(); it++) {
             const ros::master::TopicInfo& info = *it;
             /*
@@ -201,9 +223,16 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                     heartbeat_list.push_back(info.name);
                 }
             }
+            if (info.datatype == "robot_framework_ros/ready_to_arm") {
+                if (info.name.rfind(get_robotnamespace(), 0) == 0) {
+                    readytoarm_list.push_back(info.name);
+                }
+            }
         }
         std::vector<std::string> new_heartbeat_topics_to_subscribe;
-        bool status = update_monitorlist(heartbeat_list, new_heartbeat_topics_to_subscribe);
+        std::vector<std::string> new_readytoarm_topics_to_subscribe;
+        bool status = update_monitorlist(heartbeat_list, new_heartbeat_topics_to_subscribe, readytoarm_list,
+                                         new_readytoarm_topics_to_subscribe);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to update Monitor List!");
             return false;
@@ -212,6 +241,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             ros::Subscriber sub = n->subscribe<robot_framework_ros::heartbeat>(
                 new_heartbeat_topics_to_subscribe.at(i), 50, &SystemMonitorNode::heartbeat_Callback, this);
             heartbeat_subs.push_back(sub);
+        }
+        for (std::size_t i = 0; i < new_readytoarm_topics_to_subscribe.size(); ++i) {
+            ros::Subscriber sub = n->subscribe<robot_framework_ros::ready_to_arm>(
+                new_readytoarm_topics_to_subscribe.at(i), 50, &SystemMonitorNode::ready_to_arm_Callback, this);
+            readytoarm_subs.push_back(sub);
         }
         return true;
     }

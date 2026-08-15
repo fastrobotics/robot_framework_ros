@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <robot_framework_ros/arm_command.h>
+#include <robot_framework_ros/ready_to_arm.h>
 
 #include <Definitions.hpp>
 #include <IWindow.hpp>
@@ -121,13 +122,20 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         void heartbeat_Callback(const robot_framework_ros::heartbeat::ConstPtr& msg);
 
+        void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& msg);
+
         bool update_monitorlist(std::vector<std::string> heartbeat_list,
-                                std::vector<std::string>& new_heartbeat_topics_to_subscribe);
+                                std::vector<std::string>& new_heartbeat_topics_to_subscribe,
+                                std::vector<std::string> readytoarm_list,
+                                std::vector<std::string>& new_readytoarm_topics_to_subscribe);
         std::map<std::string, std::shared_ptr<IWindow>> windows;
 
         std::map<std::string, bool> filter_list;
         ros::Subscriber arm_command_sub;
         std::vector<std::string> monitored_heartbeat_topics;
         std::vector<ros::Subscriber> heartbeat_subs;
+
+        std::vector<std::string> monitored_readytoarm_topics;
+        std::vector<ros::Subscriber> readytoarm_subs;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

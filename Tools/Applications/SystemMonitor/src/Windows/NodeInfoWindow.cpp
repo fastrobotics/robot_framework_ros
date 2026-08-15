@@ -9,12 +9,31 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     void NodeInfoWindow::new_HeartbeatMsg(robot_framework_ros::heartbeat msg) {
         auto it = nodes.find(msg.NodeName);
         if (it != nodes.end()) {
+            it->second.host_device = msg.HostName;
+            it->second.base_node_name = msg.BaseNodeName;
             it->second.state = msg.NodeState;
             it->second.last_heartbeat_delta = 0.0;
             it->second.last_heartbeat = get_current_time_sec();
 
         } else {
             insertNode(NodeType::FAST, msg.HostName, msg.BaseNodeName, msg.NodeName);
+        }
+    }
+    void NodeInfoWindow::new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) {
+        auto it = nodes.find(msg.NodeName);
+        if (it != nodes.end()) {
+            if ((msg.SystemID == 0) || (msg.SubsystemID == 0) || (msg.ProcessID == 0)) {
+                it->second.ready_to_arm = "INVALID";
+            } else if (msg.ready_to_arm == true) {
+                it->second.ready_to_arm = "TRUE";
+            } else {
+                it->second.ready_to_arm = "FALSE";
+            }
+            it->second.last_heartbeat_delta = 0.0;
+            it->second.last_heartbeat = get_current_time_sec();
+
+        } else {
+            insertNode(NodeType::FAST, "", "", msg.NodeName);
         }
     }
     bool NodeInfoWindow::insertNode(NodeType node_type, std::string device, std::string base_node_name,
@@ -60,6 +79,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             pair.second.last_heartbeat_delta = current_time_sec - pair.second.last_heartbeat;
             if (pair.second.last_heartbeat_delta > COMMTIMEOUT_THRESHOLD) {
                 pair.second.state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
+                pair.second.ready_to_arm = "UNKNOWN";
             }
         }
         status = update_window();
@@ -192,7 +212,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
         it = node_window_fields.find(NodeFieldColumn::READY_TO_ARM);
         if (it != node_window_fields.end()) {
-            std::string tempstr = "  UNKNOWN";  // Fill this in during AB#1822
+            std::string tempstr = node.ready_to_arm;
             std::size_t spaces = it->second.width - tempstr.size();
             if (spaces > 0) {
                 tempstr += std::string(spaces, ' ');
