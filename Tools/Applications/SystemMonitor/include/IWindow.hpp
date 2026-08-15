@@ -11,6 +11,7 @@
 #pragma once
 #include <robot_framework_ros/arm_command.h>
 #include <robot_framework_ros/heartbeat.h>
+#include <robot_framework_ros/ready_to_arm.h>
 
 #include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
@@ -69,5 +70,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         virtual void new_ArmCommandMsg(robot_framework_ros::arm_command msg) = 0;
 
         virtual void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) = 0;
+
+        virtual void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) = 0;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

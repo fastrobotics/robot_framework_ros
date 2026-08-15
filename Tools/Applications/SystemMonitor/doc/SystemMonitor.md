@@ -21,7 +21,7 @@ The System Monitor has the following requirements:
 ## Execution
 To run, do the following:
 ```bash
-rosrun robot_framework_ros syste_monitor _robot_namespace:=/robot 
+rosrun robot_framework_ros system_monitor _robot_namespace:=/robot 
 ```
 ## Software Design
 ![](../../../../Legend.png)
@@ -37,7 +37,14 @@ The Header Window provides quick run-time status, such as:
 - Pose
 
 ### Node Info
-The Node Info Window provides details on every Node running on the system.  This is an extensive Window.  Here are some maintenance notes:
+The Node Info Window provides details on every Node running on the system.  This is an extensive Window. 
+The following information is currently reported in this Window:
+- Node Name
+- The Node State
+- If the Node is in a Ready To Arm State or Not
+- How long since the Node has been updated in the System Monitor
+
+Here are some maintenance notes:
 #### Adding a new field
 - To add a new field to be displayed, there are 3 main sections of the code to modify.  Additionally there is a prerequisite that the data that is going to be populated in the field is already being computed.
 First, before making a code change, inspect the System Monitor Class Diagram and determine the appropriate architecture changes required.
