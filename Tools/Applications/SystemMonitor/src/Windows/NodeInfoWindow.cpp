@@ -92,8 +92,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         // GCOVR_EXCL_START
         const uint16_t TASKSTART_COORD_Y = 1;
         const uint16_t TASKSTART_COORD_X = 1;
+        std::vector<std::pair<std::string, NodeData>> sortedNodes(nodes.begin(), nodes.end());
+        std::sort(sortedNodes.begin(), sortedNodes.end(), [](const auto& a, const auto& b) {
+            return a.second.id < b.second.id;  // Accesses the struct 'id' via pair.second
+        });
         uint16_t index = 0;
-        for (const auto& pair : nodes) {
+        for (const auto& pair : sortedNodes) {
             Color color = Color::UNKNOWN;
             switch (pair.second.state.state) {
                 case robot_framework_ros::nodestate::STATE_UNKNOWN:
