@@ -34,9 +34,11 @@ var annotated_dup =
           [ "Applications", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications.html", [
             [ "SystemMonitor", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html", [
               [ "BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow" ],
+              [ "Field", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Field.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Field" ],
               [ "HeaderWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow" ],
               [ "IWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow" ],
               [ "Key", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Key.html", null ],
+              [ "NodeInfoWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow" ],
               [ "ScreenCoordinatePerc", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc" ],
               [ "ScreenCoordinatePixel", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel" ],
               [ "StatusWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow" ],

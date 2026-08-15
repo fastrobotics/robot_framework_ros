@@ -1,7 +1,9 @@
 <map id="Tools/Applications/SystemMonitor/include/IWindow.hpp" name="Tools/Applications/SystemMonitor/include/IWindow.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="72,5,248,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,176,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,62,111,99,107,95,137,58"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="200,108,259,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,58,213,95,209,99,179,62"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="183,5,359,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,167,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,62,137,104,135,99,218,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="191,108,352,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="274,60,274,94,269,94,269,60"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="377,115,435,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="311,58,380,105,377,110,308,62"/>
 </map>

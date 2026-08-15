@@ -14,9 +14,11 @@ var hierarchy =
       [ "fast::rf_ros::example_package::ExampleNode", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html", null ]
     ] ],
     [ "fast::rf_ros::utils::CoreUtility", "classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html", null ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::Field", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Field.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::IWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html", [
       [ "fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html", [
         [ "fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html", null ],
+        [ "fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html", null ],
         [ "fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html", null ]
       ] ]
     ] ],

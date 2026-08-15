@@ -3,6 +3,8 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow
     [ "BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af146759105a3426d92b0732396215210", null ],
     [ "~BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a1336beab77c1556cdec205c93626dd23", null ],
     [ "get_current_time_sec", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a59c646396825ce78738f11dca13580a8", null ],
+    [ "get_mainwindow_height", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a92ccaa402b1c9884dede212879430dc8", null ],
+    [ "get_mainwindow_width", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ab987c909a1ee53aedc20882c4c5c3efb", null ],
     [ "get_name", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a296093aae6e389c2ba43f4e80d2a17c1", null ],
     [ "get_screen_coordinates_perc", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a9c7d62fed1861dacb4a5a2b1b6c46570", null ],
     [ "get_screen_coordinates_pixel", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ad10e3ecd6353107657e9b53dca0652ef", null ],
@@ -15,5 +17,6 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow
     [ "set_screen_coordinates_pix", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a7f92be7fa52728f428cd2353a5e53932", null ],
     [ "set_window", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a0f5eb46f8ff038e0c1a18691f643c7ad", null ],
     [ "update", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a383603c1572bd03eec33e2c3cc7125e5", null ],
+    [ "update_record_count", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a1f14f197a1583239cd46bc94c63973f0", null ],
     [ "update_window", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af13ce66d8a0aad277396db3d25084458", null ]
 ];

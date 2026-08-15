@@ -100,29 +100,33 @@ $(document).ready(function(){initNavTree('CoreUtility_8hpp_source.html',''); ini
 <a href="CoreUtility_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;boost/array.hpp&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;ros/ros.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;robot_framework_ros/nodestate.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;boost/array.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefast_1_1rf__ros.html">fast::rf_ros</a> {</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="namespacefast_1_1rf__ros_1_1utils.html">   20</a></span>    <span class="keyword">namespace </span>utils {</div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html">   25</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html">CoreUtility</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>           <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#a604e5254c803b1d567bd303b8984b7b3">measure_time_diff</a>(ros::Time time_a, ros::Time time_b);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keyword">static</span> boost::array&lt;double, 9&gt; <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#aaad1ed5ec0519d547735a26d17353001">convert_boostarray_9</a>(std::vector&lt;double&gt; vector);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        };</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;ros/ros.h&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefast_1_1rf__ros.html">fast::rf_ros</a> {</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespacefast_1_1rf__ros_1_1utils.html">   22</a></span>    <span class="keyword">namespace </span>utils {</div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html">   27</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html">CoreUtility</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>           <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keyword">static</span> std::string <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#affbb1559f0257ada227214e7cd029ab5">pretty</a>(robot_framework_ros::nodestate state);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#a604e5254c803b1d567bd303b8984b7b3">measure_time_diff</a>(ros::Time time_a, ros::Time time_b);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keyword">static</span> boost::array&lt;double, 9&gt; <a class="code hl_function" href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#aaad1ed5ec0519d547735a26d17353001">convert_boostarray_9</a>(std::vector&lt;double&gt; vector);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        };</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }  <span class="comment">// namespace utils</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }  <span class="comment">// namespace utils</span></div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}  <span class="comment">// namespace fast::rf_ros</span></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html">fast::rf_ros::utils::CoreUtility</a></div><div class="ttdoc">CoreUtility class that provides utility functions.</div><div class="ttdef"><b>Definition</b> CoreUtility.hpp:25</div></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html_a604e5254c803b1d567bd303b8984b7b3"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#a604e5254c803b1d567bd303b8984b7b3">fast::rf_ros::utils::CoreUtility::measure_time_diff</a></div><div class="ttdeci">static double measure_time_diff(ros::Time time_a, ros::Time time_b)</div><div class="ttdoc">Measure the time difference between two ros::Time objects.</div><div class="ttdef"><b>Definition</b> CoreUtility.cpp:3</div></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html_aaad1ed5ec0519d547735a26d17353001"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#aaad1ed5ec0519d547735a26d17353001">fast::rf_ros::utils::CoreUtility::convert_boostarray_9</a></div><div class="ttdeci">static boost::array&lt; double, 9 &gt; convert_boostarray_9(std::vector&lt; double &gt; vector)</div><div class="ttdoc">Convert a std vector to a boost array.</div><div class="ttdef"><b>Definition</b> CoreUtility.cpp:7</div></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}  <span class="comment">// namespace fast::rf_ros</span></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html">fast::rf_ros::utils::CoreUtility</a></div><div class="ttdoc">CoreUtility class that provides utility functions.</div><div class="ttdef"><b>Definition</b> CoreUtility.hpp:27</div></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html_a604e5254c803b1d567bd303b8984b7b3"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#a604e5254c803b1d567bd303b8984b7b3">fast::rf_ros::utils::CoreUtility::measure_time_diff</a></div><div class="ttdeci">static double measure_time_diff(ros::Time time_a, ros::Time time_b)</div><div class="ttdoc">Measure the time difference between two ros::Time objects.</div><div class="ttdef"><b>Definition</b> CoreUtility.cpp:33</div></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html_aaad1ed5ec0519d547735a26d17353001"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#aaad1ed5ec0519d547735a26d17353001">fast::rf_ros::utils::CoreUtility::convert_boostarray_9</a></div><div class="ttdeci">static boost::array&lt; double, 9 &gt; convert_boostarray_9(std::vector&lt; double &gt; vector)</div><div class="ttdoc">Convert a std vector to a boost array.</div><div class="ttdef"><b>Definition</b> CoreUtility.cpp:37</div></div>
+<div class="ttc" id="aclassfast_1_1rf__ros_1_1utils_1_1CoreUtility_html_affbb1559f0257ada227214e7cd029ab5"><div class="ttname"><a href="classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html#affbb1559f0257ada227214e7cd029ab5">fast::rf_ros::utils::CoreUtility::pretty</a></div><div class="ttdeci">static std::string pretty(robot_framework_ros::nodestate state)</div><div class="ttdef"><b>Definition</b> CoreUtility.cpp:3</div></div>
 <div class="ttc" id="anamespacefast_1_1rf__ros_html"><div class="ttname"><a href="namespacefast_1_1rf__ros.html">fast::rf_ros</a></div><div class="ttdoc">Namespace for FAST Robotics ROS Robot Framework.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -130,7 +134,7 @@ $(document).ready(function(){initNavTree('CoreUtility_8hpp_source.html',''); ini
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_43e5032e29db73fa2347f56d46df1a99.html">robot_framework_ros</a></li><li class="navelem"><a class="el" href="dir_7d9a3312d6c2f07c607bce157ff3227f.html">utils</a></li><li class="navelem"><a class="el" href="CoreUtility_8hpp.html">CoreUtility.hpp</a></li>
-    <li class="footer">Generated on Fri Aug 14 2026 19:32:40 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sat Aug 15 2026 11:04:05 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

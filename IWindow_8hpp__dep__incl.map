@@ -1,21 +1,26 @@
 <map id="Tools/Applications/SystemMonitor/include/IWindow.hpp" name="Tools/Applications/SystemMonitor/include/IWindow.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="140,5,316,60"/>
-<area shape="rect" id="Node000002" href="$BaseWindow_8hpp.html" title=" " alt="" coords="292,108,468,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,65,342,106,339,110,277,70"/>
-<area shape="rect" id="Node000009" href="$SystemMonitorNode_8hpp.html" title=" " alt="" coords="32,108,219,163"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="193,72,154,110,150,106,190,68"/>
-<area shape="rect" id="Node000003" href="$HeaderWindow_8hpp.html" title=" " alt="" coords="585,211,799,265"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="475,164,612,208,610,213,474,169"/>
-<area shape="rect" id="Node000006" href="$StatusWindow_8hpp.html" title=" " alt="" coords="65,211,274,265"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="314,171,225,213,223,208,312,166"/>
-<area shape="rect" id="Node000008" href="$BaseWindow_8cpp.html" title=" " alt="" coords="298,218,561,258"/>
-<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="401,174,422,216,417,219,397,176"/>
-<area shape="rect" id="Node000004" href="$SystemMonitorNode_8cpp.html" title=" " alt="" coords="5,313,192,368"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="571,268,467,283,386,291,306,300,204,316,193,318,192,313,204,311,305,295,385,286,467,278,570,263"/>
-<area shape="rect" id="Node000005" href="$HeaderWindow_8cpp.html" title=" " alt="" coords="587,313,797,368"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="695,279,695,313,689,313,689,279"/>
-<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="145,278,119,315,115,312,141,275"/>
-<area shape="rect" id="Node000007" href="$StatusWindow_8cpp.html" title=" " alt="" coords="216,313,427,368"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="222,271,283,311,280,315,219,275"/>
-<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="81,174,66,192,54,212,49,238,55,265,65,289,79,312,75,314,60,292,49,266,43,238,50,210,62,188,77,170"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="663,5,839,60"/>
+<area shape="rect" id="Node000002" href="$BaseWindow_8hpp.html" title=" " alt="" coords="561,108,737,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="717,72,677,110,674,106,713,68"/>
+<area shape="rect" id="Node000011" href="$SystemMonitorNode_8hpp.html" title=" " alt="" coords="849,108,1035,163"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="814,64,893,105,891,110,812,69"/>
+<area shape="rect" id="Node000003" href="$HeaderWindow_8hpp.html" title=" " alt="" coords="777,211,992,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="724,166,824,208,822,213,722,170"/>
+<area shape="rect" id="Node000006" href="$NodeInfoWindow_8hpp.html" title=" " alt="" coords="293,211,519,265"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="574,170,470,213,468,208,572,165"/>
+<area shape="rect" id="Node000008" href="$StatusWindow_8hpp.html" title=" " alt="" coords="544,211,753,265"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="651,176,651,211,646,211,646,176"/>
+<area shape="rect" id="Node000010" href="$BaseWindow_8cpp.html" title=" " alt="" coords="5,218,268,258"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="548,159,233,221,232,215,547,154"/>
+<area shape="rect" id="Node000004" href="$SystemMonitorNode_8cpp.html" title=" " alt="" coords="774,313,961,368"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="880,280,874,314,869,313,875,279"/>
+<area shape="rect" id="Node000005" href="$HeaderWindow_8cpp.html" title=" " alt="" coords="985,313,1195,368"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="951,269,1038,311,1035,316,949,274"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="533,263,763,311,774,313,773,319,761,316,532,268"/>
+<area shape="rect" id="Node000007" href="$NodeInfoWindow_8cpp.html" title=" " alt="" coords="301,313,511,368"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="409,279,409,313,403,313,403,279"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="719,269,811,311,809,316,717,273"/>
+<area shape="rect" id="Node000009" href="$StatusWindow_8cpp.html" title=" " alt="" coords="539,313,750,368"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="650,279,648,313,643,313,644,279"/>
+<area shape="poly" id="edge13_Node000011_Node000004" title=" " alt="" coords="983,171,996,189,1006,210,1014,239,1012,252,1006,267,981,295,949,316,946,311,977,291,1001,264,1007,250,1008,239,1001,212,991,192,978,174"/>
 </map>
