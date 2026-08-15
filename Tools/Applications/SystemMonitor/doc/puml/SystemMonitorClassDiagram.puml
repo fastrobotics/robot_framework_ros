@@ -1,20 +1,29 @@
 @startuml
 title System Monitor Class Diagram
+namespace fast::rf {
+    namespace messages {
+        namespace InfrastructureMsgs {
+            class ArmCommandMsg <<(M,#FFFF00)>>
+        }
+    }
+}
 namespace robot_framework_ros {
     class arm_command <<(M,#FFFF00)>> <<ROS>>
-}
-namespace ros {
-    class NodeHandle
+    class heartbeat <<(M,#FFFF00)>> <<ROS>>
 }
 namespace ncurses {
     class WINDOW
 }
 namespace fast::rf_ros {
+    namespace utils {
+        class CoreUtility
+        class TranslateUtility
+    }
     class BaseNode
     namespace Tools::Applications {
         package SystemMonitor #LightYellow;line:blue {
             namespace Definitions {
-                enum Color
+                enum Color #LimeGreen
                 struct ScreenCoordinatePerc #Orange {
                     +double start_x_perc
                     +double start_y_perc
@@ -37,7 +46,9 @@ namespace fast::rf_ros {
                 +{abstract} string pretty()
                 +{abstract} bool has_focus()
                 +{abstract} bool set_focus(bool cmd_focus)
+                ---Messages To Implment---
                 +{abstract} void new_ArmCommandMsg(arm_command msg)
+                +{abstract} void new_HeartbeatMsg(heartbeat msg)
             }
             abstract BaseWindow #Orange {
                 +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
@@ -54,6 +65,7 @@ namespace fast::rf_ros {
                 #ScreenCoordinatePerc get_screen_coordinates_perc()
                 #ScreenCoordinatePixel get_screen_coordinates_pixel()
                 #int16 get_tab_order()
+                #void update_record_count(uint16 count)
                 #double get_current_time_sec()
                 
                 -WINDOW win
@@ -66,6 +78,7 @@ namespace fast::rf_ros {
                 -bool focused
                 -int[] supported_keys
                 -double current_time_sec_
+                -uint16 record_count
             }
             BaseWindow .up.|> IWindow
             BaseWindow --> ScreenCoordinatePerc: <<use>>
@@ -79,10 +92,46 @@ namespace fast::rf_ros {
                 +string pretty()
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
+                +void new_HeartbeatMsg(heartbeat msg)
                 #bool update_window()
+                -ArmCommandMsg latest_arm_command
             }
             HeaderWindow -up-|> BaseWindow
+            enum NodeType #LimeGreen {
+                UNKNOWN = 0,
+                FAST = 1,
+                NON_FAST = 2
+            }
+            enum NodeFieldColumn #Orange {
+                MARKER = 0,
+                ID = 1,
+                HOSTNAME = 2,
+                NODENAME = 3,
+                STATUS = 4,
+                READY_TO_ARM = 5,
+                RESTARTS = 6,
+                PID = 7,
+                CPU = 8,
+                RAM = 9,
+                RX = 10
 
+            }
+            struct NodeData {
+                +bool initialized
+                +uint16 id
+                +nodestate state
+                +NodeType type
+                +uint16 pid
+                +string host_device
+                +string base_node_name
+                +string node_name
+                +double cpu_used_perc
+                +double mem_used_perc
+                +double last_heartbeat
+                +double last_heartbeat_delta
+                +uint64 restart_count
+            }
+            NodeData --> NodeType: <<use>>
             class NodeInfoWindow #Orange {
                 +{static} double START_X_PERC
                 +{static} double START_Y_PERC
@@ -91,10 +140,17 @@ namespace fast::rf_ros {
                 +string pretty()
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
+                +void new_HeartbeatMsg(heartbeat msg)
                 #bool update_window()
+                -bool insertNode(NodeType node_type,string device, string base_node_name, string node_name)
+                -string get_window_header()
+
             }
+            NodeInfoWindow +-- NodeType
+            NodeInfoWindow +-- NodeFieldColumn
+            NodeInfoWindow +-- NodeData
             NodeInfoWindow -up-|> BaseWindow
-            class DeviceInfoWindow #Orange {
+            class DeviceInfoWindow  {
                 +{static} double START_X_PERC
                 +{static} double START_Y_PERC
                 +{static} double WIDTH_PERC
@@ -102,11 +158,12 @@ namespace fast::rf_ros {
                 +string pretty()
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
+                +void new_HeartbeatMsg(heartbeat msg)
                 #bool update_window()
             }
             DeviceInfoWindow -up-|> BaseWindow
 
-            class DiagnosticWindow #Orange {
+            class DiagnosticWindow {
                 +{static} double START_X_PERC
                 +{static} double START_Y_PERC
                 +{static} double WIDTH_PERC
@@ -114,6 +171,7 @@ namespace fast::rf_ros {
                 +string pretty()
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
+                +void new_HeartbeatMsg(heartbeat msg)
                 #bool update_window()
             }
             DiagnosticWindow -up-|> BaseWindow
@@ -126,11 +184,12 @@ namespace fast::rf_ros {
                 +string pretty()
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
+                +void new_HeartbeatMsg(heartbeat msg)
                 #bool update_window()
             }
             StatusWindow -up-|> BaseWindow
 
-            class MenuWindow #Orange {
+            class MenuWindow {
                 +{static} double START_X_PERC
                 +{static} double START_Y_PERC
                 +{static} double WIDTH_PERC
@@ -138,12 +197,20 @@ namespace fast::rf_ros {
                 +string pretty()
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
+                +void new_HeartbeatMsg(heartbeat msg)
                 #bool update_window()
             }
             MenuWindow -up-|> BaseWindow
 
             class SystemMonitorNode #Orange {
+                -bool rescan_rosnetwork()
+                -void arm_command_callback(arm_command msg)
+                -void heartbeat_Callback(heartbeat msg)
+                -bool update_monitorlist(string[] heartbeat_list, string[] new_heartbeat_topics_to_subscribe)
                 -IWindow[] windows
+                -ros::Subscriber arm_command_sub
+                -string[] monitored_heartbeat_topics
+                -ros::Subscriber[] heartbeat_subs
             }
             SystemMonitorNode -up-|> BaseNode
             SystemMonitorNode *-up-> HeaderWindow

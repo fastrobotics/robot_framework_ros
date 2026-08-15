@@ -27,7 +27,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         update_record_count((uint16_t)after);
         return after > before;
     }
-    std::string NodeInfoWindow::get_nodeheader() {
+    std::string NodeInfoWindow::get_window_header() {
         std::string str = "";
         std::map<NodeFieldColumn, Field>::iterator it = node_window_fields.begin();
         while (it != node_window_fields.end()) {
@@ -121,8 +121,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     std::string NodeInfoWindow::get_node_info(NodeData node, bool selected) {
         std::string str = "";
         std::size_t width = 0;
-        {
-            width = node_window_fields.find(NodeFieldColumn::MARKER)->second.width;
+        std::map<NodeFieldColumn, Field>::iterator it;
+        it = node_window_fields.find(NodeFieldColumn::MARKER);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             for (std::size_t i = 0; i < width; ++i) {
                 if (selected == true) {
                     str += "*";
@@ -131,8 +133,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                 }
             }
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::ID)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::ID);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string tempstr = std::to_string(node.id);
             std::size_t spaces = width - tempstr.size();
             if (spaces > 0) {
@@ -140,8 +143,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::HOSTNAME)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::HOSTNAME);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string tempstr = node.host_device;
             if (tempstr.size() > width) {
                 tempstr = tempstr.substr(0, width - 4) + "... ";
@@ -158,8 +162,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::NODENAME)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::NODENAME);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string tempstr = node.node_name;
             std::size_t found_hostname = node.node_name.find(node.host_device);
             if (found_hostname != std::string::npos) {
@@ -175,8 +180,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::STATUS)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::STATUS);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string tempstr = fast::rf_ros::utils::CoreUtility::pretty(node.state);
             std::size_t spaces = width - tempstr.size();
             if (spaces > 0) {
@@ -184,9 +190,19 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
+        it = node_window_fields.find(NodeFieldColumn::READY_TO_ARM);
+        if (it != node_window_fields.end()) {
+            std::string tempstr = "  UNKNOWN";  // Fill this in during AB#1822
+            std::size_t spaces = it->second.width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
 
-        {
-            width = node_window_fields.find(NodeFieldColumn::RESTARTS)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::RESTARTS);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string tempstr = std::to_string(node.restart_count);
             std::size_t spaces = width - tempstr.size();
             if (spaces > 0) {
@@ -194,8 +210,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::PID)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::PID);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string tempstr = std::to_string(node.pid);
             std::size_t spaces = width - tempstr.size();
             if (spaces > 0) {
@@ -203,8 +220,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::CPU)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::CPU);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             char c_tempstr[8];
             sprintf(c_tempstr, "%3.2f", node.cpu_used_perc);
             std::string tempstr = std::string(c_tempstr);
@@ -214,8 +232,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::RAM)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::RAM);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             char c_tempstr[8];
             sprintf(c_tempstr, "%3.2f", node.mem_used_perc);
             std::string tempstr = std::string(c_tempstr);
@@ -225,8 +244,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
-        {
-            width = node_window_fields.find(NodeFieldColumn::RX)->second.width;
+        it = node_window_fields.find(NodeFieldColumn::RX);
+        if (it != node_window_fields.end()) {
+            width = it->second.width;
             std::string max_number_str(width - 4, '9');
             double max_num = std::atof(max_number_str.c_str()) + 0.99;
             if (node.last_heartbeat_delta > max_num) {

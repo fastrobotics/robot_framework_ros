@@ -35,11 +35,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             HOSTNAME = 2,
             NODENAME = 3,
             STATUS = 4,
-            RESTARTS = 5,
-            PID = 6,
-            CPU = 7,
-            RAM = 8,
-            RX = 9
+            READY_TO_ARM = 5,
+            RESTARTS = 6,
+            PID = 7,
+            CPU = 8,
+            RAM = 9,
+            RX = 10
         };
         /**
          * @brief Construct a new Header Window object
@@ -55,24 +56,27 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                 convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::MARKER, Field("", 3)));
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::ID, Field("ID", 4)));
-            node_window_fields.insert(
-                std::pair<NodeFieldColumn, Field>(NodeFieldColumn::HOSTNAME, Field(" Host ", 20)));
+            // node_window_fields.insert(
+            //     std::pair<NodeFieldColumn, Field>(NodeFieldColumn::HOSTNAME, Field(" Host ", 20)));
             node_window_fields.insert(
                 std::pair<NodeFieldColumn, Field>(NodeFieldColumn::NODENAME, Field(" NodeName ", 30)));
             node_window_fields.insert(
                 std::pair<NodeFieldColumn, Field>(NodeFieldColumn::STATUS, Field(" Status ", 14)));
             node_window_fields.insert(
-                std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RESTARTS, Field(" Restarts ", 10)));
-            node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::PID, Field(" PID ", 8)));
-            node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::CPU, Field(" CPU(%) ", 10)));
-            node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RAM, Field(" RAM(%) ", 10)));
+                std::pair<NodeFieldColumn, Field>(NodeFieldColumn::READY_TO_ARM, Field(" Ready To Arm ", 15)));
+            // node_window_fields.insert(
+            //    std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RESTARTS, Field(" Restarts ", 10)));
+            // node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::PID, Field(" PID ", 8)));
+            // node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::CPU, Field(" CPU(%) ",
+            // 10))); node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RAM, Field(" RAM(%)",
+            // 10)));
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RX, Field(" Rx ", 6)));
             WINDOW* win =
                 create_newwin(coord_pix.height_pix, coord_pix.width_pix, coord_pix.start_y_pix, coord_pix.start_x_pix);
             set_screen_coordinates_pix(coord_pix);
             set_window(win);
 
-            std::string header = get_nodeheader();
+            std::string header = get_window_header();
             mvwprintw(win, 1, 1, header.c_str());
             std::string dashed(get_screen_coordinates_pixel().width_pix - 2, '-');
             mvwprintw(win, 2, 1, dashed.c_str());
@@ -99,6 +103,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         bool update(double current_time_sec) override;
 
        protected:
+        bool update_window();
+
        private:
         struct NodeData {
             NodeData() = default;
@@ -131,9 +137,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             uint64_t restart_count;
         };
         bool insertNode(NodeType node_type, std::string device, std::string base_node_name, std::string node_name);
-        std::string get_nodeheader();
+        std::string get_window_header();
         std::string get_node_info(NodeData node, bool selected);
-        bool update_window();
+
         int previous_key{-1};
         std::mutex node_list_mutex;
         std::map<NodeFieldColumn, Field> node_window_fields;

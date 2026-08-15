@@ -65,6 +65,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         init_color(COLOR_GREEN, 0, 600, 0);
         init_color(10, 500, 0, 500);
         init_pair((uint8_t)Color::NO_COLOR, COLOR_WHITE, COLOR_BLACK);
+        init_pair((uint8_t)Color::WHITE_COLOR, COLOR_BLACK, COLOR_WHITE);
         init_pair((uint8_t)Color::RED_COLOR, COLOR_WHITE, COLOR_RED);
         init_pair((uint8_t)Color::YELLOW_COLOR, COLOR_WHITE, COLOR_YELLOW);
         init_pair((uint8_t)Color::GREEN_COLOR, COLOR_WHITE, COLOR_GREEN);

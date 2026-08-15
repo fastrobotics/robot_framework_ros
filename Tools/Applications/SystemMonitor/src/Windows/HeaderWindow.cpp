@@ -25,7 +25,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             std::string str = "Time: " + std::to_string(get_current_time_sec());
             str.insert(str.end(), 40 - str.size(), ' ');
             Color color;
-            color = Color::RED_COLOR;
+            color = Color::WHITE_COLOR;
 
             wattron(get_window(), COLOR_PAIR(color));
             mvwprintw(get_window(), 1, 1, str.c_str());

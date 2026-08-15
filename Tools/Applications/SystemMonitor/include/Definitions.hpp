@@ -66,7 +66,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         YELLOW_COLOR = 3, /*!< Yellow. */
         GREEN_COLOR = 4,  /*!< Green. */
         BLUE_COLOR = 5,   /*!< Blue. */
-        GRAY_COLOR = 6,   /*!< Gray. */
+        WHITE_COLOR = 6,  /*!< White. */
         PURPLE_COLOR = 7, /*!< Purple. */
         END_OF_LIST = 8   /*!< Last item of list. Used for Range Checks. */
     };

@@ -114,11 +114,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         void thread_loop();
 
+       private:
         bool rescan_rosnetwork();
 
         void arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
 
-       private:
         void heartbeat_Callback(const robot_framework_ros::heartbeat::ConstPtr& msg);
 
         bool update_monitorlist(std::vector<std::string> heartbeat_list,

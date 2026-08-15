@@ -53,7 +53,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         bool update(double current_time_sec) override;
 
-       private:
+       protected:
         bool update_window();
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
