@@ -10,6 +10,7 @@ namespace fast::rf {
 namespace robot_framework_ros {
     class arm_command <<(M,#FFFF00)>> <<ROS>>
     class heartbeat <<(M,#FFFF00)>> <<ROS>>
+    class ready_to_arm <<(M,#FFFF00)>> <<ROS>>
 }
 namespace ncurses {
     class WINDOW
@@ -49,6 +50,7 @@ namespace fast::rf_ros {
                 ---Messages To Implment---
                 +{abstract} void new_ArmCommandMsg(arm_command msg)
                 +{abstract} void new_HeartbeatMsg(heartbeat msg)
+                +{abstract} void new_ReadyToArmMsg(ready_to_arm msg)
             }
             abstract BaseWindow #Orange {
                 +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
@@ -93,6 +95,7 @@ namespace fast::rf_ros {
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
                 +void new_HeartbeatMsg(heartbeat msg)
+                +void new_ReadyToArmMsg(heartbeat msg)
                 #bool update_window()
                 -ArmCommandMsg latest_arm_command
             }
@@ -141,6 +144,7 @@ namespace fast::rf_ros {
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
                 +void new_HeartbeatMsg(heartbeat msg)
+                +void new_ReadyToArmMsg(heartbeat msg)
                 #bool update_window()
                 -bool insertNode(NodeType node_type,string device, string base_node_name, string node_name)
                 -string get_window_header()
@@ -159,6 +163,7 @@ namespace fast::rf_ros {
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
                 +void new_HeartbeatMsg(heartbeat msg)
+                +void new_ReadyToArmMsg(heartbeat msg)
                 #bool update_window()
             }
             DeviceInfoWindow -up-|> BaseWindow
@@ -172,6 +177,7 @@ namespace fast::rf_ros {
                 +bool update(double current_time_sec)
                 +void new_ArmCommandMsg(arm_command msg)
                 +void new_HeartbeatMsg(heartbeat msg)
+                +void new_ReadyToArmMsg(heartbeat msg)
                 #bool update_window()
             }
             DiagnosticWindow -up-|> BaseWindow
@@ -206,11 +212,14 @@ namespace fast::rf_ros {
                 -bool rescan_rosnetwork()
                 -void arm_command_callback(arm_command msg)
                 -void heartbeat_Callback(heartbeat msg)
-                -bool update_monitorlist(string[] heartbeat_list, string[] new_heartbeat_topics_to_subscribe)
+                -void ready_to_arm_Callback(heartbeat msg)
+                -bool update_monitorlist(string[] heartbeat_list, \nstring[] new_heartbeat_topics_to_subscribe, \nstring[] readytoarm_list, \nstring[] new_readytoarm_topics_to_subscribe)
                 -IWindow[] windows
                 -ros::Subscriber arm_command_sub
                 -string[] monitored_heartbeat_topics
                 -ros::Subscriber[] heartbeat_subs
+                -string[] monitored_readytoarm_topics
+                -ros::Subscriber[] readytoarm_subs
             }
             SystemMonitorNode -up-|> BaseNode
             SystemMonitorNode *-up-> HeaderWindow

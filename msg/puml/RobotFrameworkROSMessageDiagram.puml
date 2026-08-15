@@ -31,6 +31,7 @@ package robot_framework_ros #LightYellow;line:blue {
     heartbeat --> nodestate: <<use>>
     class diagnostic <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
         +time stamp
+        +string HostName
         +uint8_t SystemID
         +uint8_t SubsystemID
         +uint8_t ProcessID
@@ -41,6 +42,8 @@ package robot_framework_ros #LightYellow;line:blue {
 
     }
     class ready_to_arm <<(M,#FFFF00)>> <<ROS>> #LimeGreen {
+        +time stamp
+        +string HostName
         +uint8_t SystemID
         +uint8_t SubsystemID
         +uint8_t ProcessID
