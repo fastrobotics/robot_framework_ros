@@ -16,6 +16,8 @@
 #include <Definitions.hpp>
 #include <IWindow.hpp>
 #include <Infrastructure/Logger.hpp>
+#include <robot_framework_ros/utils/CoreUtility.hpp>
+#include <robot_framework_ros/utils/TranslateUtility.hpp>
 
 #include "ros/ros.h"
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
@@ -141,6 +143,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         int16_t get_tab_order() { return tab_order; }
 
+        void update_record_count(uint16_t count);
+        uint16_t get_mainwindow_height() { return mainwindow_height; }
+        uint16_t get_mainwindow_width() { return mainwindow_width; }
+
        private:
         WINDOW* win_{nullptr};
         std::string name{""};
@@ -153,6 +159,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         std::vector<int> supported_keys;
         double current_time_sec_;
+        uint16_t record_count{0};
     };
 
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

@@ -17,7 +17,8 @@ class TestBaseWindow : public BaseWindow {
         set_window(win);
         wrefresh(win);
     }
-    void new_ArmCommandMsg([[maybe_unused]] fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {}
+    void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) {}
+    void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) {}
     std::string pretty() {
         std::string str = "---Test Base Window---\n";
         str += BaseWindow::pretty();

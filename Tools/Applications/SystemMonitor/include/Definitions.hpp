@@ -10,7 +10,9 @@
  */
 #pragma once
 #include <cstdint>
+#include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
+    const double COMMTIMEOUT_THRESHOLD = 5.0f;
     /**
      * @brief Key Definitions
      *
@@ -64,7 +66,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         YELLOW_COLOR = 3, /*!< Yellow. */
         GREEN_COLOR = 4,  /*!< Green. */
         BLUE_COLOR = 5,   /*!< Blue. */
-        GRAY_COLOR = 6,   /*!< Gray. */
+        WHITE_COLOR = 6,  /*!< White. */
         PURPLE_COLOR = 7, /*!< Purple. */
         END_OF_LIST = 8   /*!< Last item of list. Used for Range Checks. */
     };
@@ -89,5 +91,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         uint16_t start_y_pix;
         uint16_t width_pix;
         uint16_t height_pix;
+    };
+    /*! \struct Field
+    \brief Field container, used for holding Field attributes.
+    */
+    struct Field {
+        Field(std::string text, uint16_t width) : text(text), width(width) {}
+        std::string text;
+        std::size_t width;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

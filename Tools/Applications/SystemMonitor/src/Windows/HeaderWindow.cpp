@@ -1,7 +1,7 @@
 #include <Windows/HeaderWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
-    void HeaderWindow::new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {
-        latest_arm_command = msg;
+    void HeaderWindow::new_ArmCommandMsg(robot_framework_ros::arm_command msg) {
+        latest_arm_command = fast::rf_ros::utils::TranslateUtility::convert(msg);
     }
     std::string HeaderWindow::pretty() {
         std::string str = "---Header Window---\n";
@@ -25,7 +25,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             std::string str = "Time: " + std::to_string(get_current_time_sec());
             str.insert(str.end(), 40 - str.size(), ' ');
             Color color;
-            color = Color::RED_COLOR;
+            color = Color::WHITE_COLOR;
 
             wattron(get_window(), COLOR_PAIR(color));
             mvwprintw(get_window(), 1, 1, str.c_str());

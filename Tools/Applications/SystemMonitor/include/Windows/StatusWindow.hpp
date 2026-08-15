@@ -34,7 +34,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
-        void new_ArmCommandMsg([[maybe_unused]] fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {}
+        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) {}
+
+        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) {}
         /**
          * @brief Human readable string
          *
@@ -51,7 +53,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         bool update(double current_time_sec) override;
 
-       private:
+       protected:
         bool update_window();
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

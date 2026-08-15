@@ -9,7 +9,7 @@
  *
  */
 #pragma once
-
+#include <ArmCommandMsg.hpp>
 #include <BaseWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
@@ -43,7 +43,9 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
-        void new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg);
+        void new_ArmCommandMsg(robot_framework_ros::arm_command msg);
+
+        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) {}
 
         /**
          * @brief Human readable string
@@ -61,9 +63,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         bool update(double current_time_sec) override;
 
-       private:
+       protected:
         bool update_window();
-        uint64_t counter{0};
+
+       private:
         fast::rf::messages::InfrastructureMsgs::ArmCommandMsg latest_arm_command;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

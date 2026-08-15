@@ -4,7 +4,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 namespace fast::rf_ros {
     std::string BaseNode::pretty() {
-        std::string str = "Node State: " + convert(node_state);
+        std::string str = "Node State: " + fast::rf_ros::utils::CoreUtility::pretty(node_state);
         return str;
     }
     std::string BaseNode::validate_robotnamespace(std::string str) {
@@ -53,27 +53,7 @@ namespace fast::rf_ros {
         _robot_namespace = validate_robotnamespace(_robot_namespace);
         return _robot_namespace;
     }
-    std::string BaseNode::convert(robot_framework_ros::nodestate state) {
-        std::string str;
-        switch (state.state) {
-            case robot_framework_ros::nodestate::STATE_UNKNOWN:
-                str = "STATE_UNKNOWN";
-                break;
-            case robot_framework_ros::nodestate::STATE_INITIALIZING:
-                str = "STATE_INITIALIZING";
-                break;
-            case robot_framework_ros::nodestate::STATE_STARTING:
-                str = "STATE_STARTING";
-                break;
-            case robot_framework_ros::nodestate::STATE_RUNNING:
-                str = "STATE_RUNNING";
-                break;
-            default:
-                str = "STATE_UNKNOWN";
-                break;
-        }
-        return str;
-    }
+
     bool BaseNode::base_init() {
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_INITIALIZING, false);
 

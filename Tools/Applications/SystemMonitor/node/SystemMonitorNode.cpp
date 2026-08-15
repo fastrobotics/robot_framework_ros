@@ -2,13 +2,14 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <Windows/HeaderWindow.hpp>
+#include <Windows/NodeInfoWindow.hpp>
 #include <Windows/StatusWindow.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
-    SystemMonitorNode::SystemMonitorNode() {}
+    SystemMonitorNode::SystemMonitorNode() { filter_list.insert(std::make_pair("rostopic", true)); }
     SystemMonitorNode::~SystemMonitorNode() {
         windows.clear();
         endwin();
@@ -16,7 +17,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     void SystemMonitorNode::arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
         for (const auto& window : windows) {
             robot_framework_ros::arm_command msg = *t_msg;
-            window.second->new_ArmCommandMsg(fast::rf_ros::utils::TranslateUtility::convert(msg));
+            window.second->new_ArmCommandMsg(msg);
+        }
+    }
+    void SystemMonitorNode::heartbeat_Callback(const robot_framework_ros::heartbeat::ConstPtr& t_msg) {
+        for (const auto& window : windows) {
+            robot_framework_ros::heartbeat msg = *t_msg;
+            window.second->new_HeartbeatMsg(msg);
         }
     }
     bool SystemMonitorNode::init() {
@@ -58,6 +65,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         init_color(COLOR_GREEN, 0, 600, 0);
         init_color(10, 500, 0, 500);
         init_pair((uint8_t)Color::NO_COLOR, COLOR_WHITE, COLOR_BLACK);
+        init_pair((uint8_t)Color::WHITE_COLOR, COLOR_BLACK, COLOR_WHITE);
         init_pair((uint8_t)Color::RED_COLOR, COLOR_WHITE, COLOR_RED);
         init_pair((uint8_t)Color::YELLOW_COLOR, COLOR_WHITE, COLOR_YELLOW);
         init_pair((uint8_t)Color::GREEN_COLOR, COLOR_WHITE, COLOR_GREEN);
@@ -76,6 +84,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         getmaxyx(stdscr, mainwindow_height, mainwindow_width);
         {
             auto window = std::make_shared<HeaderWindow>(-1, mainwindow_height, mainwindow_width);
+            windows[window->get_name()] = window;
+            // highest_tab_index++;
+        }
+        {
+            auto window = std::make_shared<NodeInfoWindow>(-1, mainwindow_height, mainwindow_width);
             windows[window->get_name()] = window;
             // highest_tab_index++;
         }
@@ -105,7 +118,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         flushinp();
         return true;
     }
-    bool SystemMonitorNode::run_1hz() { return true; }
+    bool SystemMonitorNode::run_1hz() {
+        bool status = rescan_rosnetwork();
+        if (status == false) {
+            fast::rf::Logger::log_warn("Problem during ROS Scan!");
+        }
+        return status;
+    }
     bool SystemMonitorNode::run_01hz() {
         fast::rf::Logger::log_info(pretty());
         return true;
@@ -117,6 +136,86 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             ros::Duration(1.0).sleep();
         }
     }
+    bool SystemMonitorNode::update_monitorlist(std::vector<std::string> heartbeat_list,
+                                               std::vector<std::string>& new_heartbeat_topics_to_subscribe) {
+        for (auto heartbeat : heartbeat_list) {
+            bool found_it = false;
+            for (auto monitored_heartbeat : monitored_heartbeat_topics) {
+                if (monitored_heartbeat == heartbeat) {
+                    found_it = true;
+                    break;
+                }
+            }
+            if (found_it == false) {
+                monitored_heartbeat_topics.push_back(heartbeat);
+                new_heartbeat_topics_to_subscribe.push_back(heartbeat);
+            }
+        }
+        return true;
+    }
+    bool SystemMonitorNode::rescan_rosnetwork() {
+        ros::V_string nodes;
+        ros::master::getNodes(nodes);
+        std::vector<std::string> node_list;
+        for (ros::V_string::iterator it = nodes.begin(); it != nodes.end(); it++) {
+            const std::string& _node_name = *it;
+            /*
+            std::size_t found = _node_name.find(BASE_NODE_NAME);
+            if (found != std::string::npos) {
+                continue;
+            }
+                */
+            bool add_me = true;
+            if (_node_name.rfind(get_robotnamespace(), 0) != 0) {
+                add_me = false;
+            }
+            if (add_me == true) {
+                std::map<std::string, bool>::iterator filter_it = filter_list.begin();
+                while (filter_it != filter_list.end()) {
+                    if (filter_it->second == true) {
+                        if (_node_name.find(filter_it->first) != std::string::npos) {
+                            add_me = false;
+                        }
+                    }
+                    filter_it++;
+                }
+            }
+            if (add_me == true) {
+                node_list.push_back(_node_name);
+            }
+        }
+        ros::master::V_TopicInfo master_topics;
+        ros::master::getTopics(master_topics);
+        std::vector<std::string> heartbeat_list;
+        for (ros::master::V_TopicInfo::iterator it = master_topics.begin(); it != master_topics.end(); it++) {
+            const ros::master::TopicInfo& info = *it;
+            /*
+            std::size_t found = info.name.find(BASE_NODE_NAME);
+            if (found != std::string::npos) {
+                continue;
+            }
+            */
+
+            if (info.datatype == "robot_framework_ros/heartbeat") {
+                if (info.name.rfind(get_robotnamespace(), 0) == 0) {
+                    heartbeat_list.push_back(info.name);
+                }
+            }
+        }
+        std::vector<std::string> new_heartbeat_topics_to_subscribe;
+        bool status = update_monitorlist(heartbeat_list, new_heartbeat_topics_to_subscribe);
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to update Monitor List!");
+            return false;
+        }
+        for (std::size_t i = 0; i < new_heartbeat_topics_to_subscribe.size(); ++i) {
+            ros::Subscriber sub = n->subscribe<robot_framework_ros::heartbeat>(
+                new_heartbeat_topics_to_subscribe.at(i), 50, &SystemMonitorNode::heartbeat_Callback, this);
+            heartbeat_subs.push_back(sub);
+        }
+        return true;
+    }
+
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
 
 void signalinterrupt_handler(int sig) {
