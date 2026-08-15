@@ -205,46 +205,45 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">  271</a></span>        boost::shared_ptr&lt;ros::NodeHandle&gt; <a class="code hl_variable" href="classfast_1_1rf__ros_1_1BaseNode.html#a373112da309f3748981b67f91fc16db5">n</a>;  </div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="comment">// Concrete Node Controls</span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="classfast_1_1rf__ros_1_1BaseNode.html#acf2fe5f067b3e8ebae2f916ab16b2a70">  278</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classfast_1_1rf__ros_1_1BaseNode.html#acf2fe5f067b3e8ebae2f916ab16b2a70">disable_ready_to_arm_publish</a>() { ready_to_arm_publish_enabled = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>       <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordtype">bool</span> ready_to_arm_publish_enabled{<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        robot_framework_ros::nodestate node_state;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        std::string node_namespace{<span class="stringliteral">&quot;&quot;</span>};</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        std::string node_name{<span class="stringliteral">&quot;&quot;</span>};</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        std::string robot_namespace{<span class="stringliteral">&quot;/&quot;</span>};</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordtype">double</span> loop1_rate{-1.0};</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordtype">bool</span> loop1_enabled{<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordtype">double</span> loop2_rate{-1.0};</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keywordtype">bool</span> loop2_enabled{<span class="keyword">true</span>};</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordtype">double</span> loop3_rate{-1.0};</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="keywordtype">bool</span> loop3_enabled{<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>       <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="keywordtype">bool</span> ready_to_arm_publish_enabled{<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        robot_framework_ros::nodestate node_state;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        std::string node_namespace{<span class="stringliteral">&quot;&quot;</span>};</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        std::string node_name{<span class="stringliteral">&quot;&quot;</span>};</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        std::string robot_namespace{<span class="stringliteral">&quot;/&quot;</span>};</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordtype">double</span> loop1_rate{-1.0};</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordtype">bool</span> loop1_enabled{<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="keywordtype">double</span> loop2_rate{-1.0};</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keywordtype">bool</span> loop2_enabled{<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordtype">double</span> loop3_rate{-1.0};</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <span class="keywordtype">bool</span> loop3_enabled{<span class="keyword">true</span>};</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keywordtype">bool</span> request_node_statechange(uint8_t new_state, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        ros::Publisher heartbeat_pub;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        ros::Publisher diagnostic_pub;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        ros::Publisher ready_to_arm_pub;</div>
 <div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="keywordtype">bool</span> request_node_statechange(uint8_t new_state, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        ros::Publisher heartbeat_pub;</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        ros::Publisher diagnostic_pub;</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        ros::Publisher ready_to_arm_pub;</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <span class="keywordtype">double</span> ros_rate{4000.0};</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <span class="keywordtype">double</span> max_rate;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        ros::Time last_100hz_timer;</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        ros::Time last_10hz_timer;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        ros::Time last_1hz_timer;</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        ros::Time last_01hz_timer;</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        ros::Time last_001hz_timer;</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        ros::Time last_loop1_timer;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        ros::Time last_loop2_timer;</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        ros::Time last_loop3_timer;</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        std::vector&lt;fast::rf::messages::InfrastructureMsgs::DiagnosticMsg&gt; diagnostics_;</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm_;</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    };</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="keywordtype">double</span> ros_rate{4000.0};</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="keywordtype">double</span> max_rate;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        ros::Time last_100hz_timer;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        ros::Time last_10hz_timer;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        ros::Time last_1hz_timer;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        ros::Time last_01hz_timer;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        ros::Time last_001hz_timer;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        ros::Time last_loop1_timer;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        ros::Time last_loop2_timer;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        ros::Time last_loop3_timer;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        std::vector&lt;fast::rf::messages::InfrastructureMsgs::DiagnosticMsg&gt; diagnostics_;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm_;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    };</div>
 </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>}  <span class="comment">// namespace fast::rf_ros</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>}  <span class="comment">// namespace fast::rf_ros</span></div>
 </div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html">fast::rf_ros::BaseNode</a></div><div class="ttdoc">BaseNode, all other Nodes should inherit from this.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:35</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_a0504dfd815974273436ca87c2c92c562"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#a0504dfd815974273436ca87c2c92c562">fast::rf_ros::BaseNode::run_loop2</a></div><div class="ttdeci">virtual bool run_loop2()=0</div><div class="ttdoc">User defined Loop, runs at user-defined rate. This is called automatially at the set rate.</div></div>
@@ -271,7 +270,6 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_aa1646f383dbb08366378dd6d903b9db3"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#aa1646f383dbb08366378dd6d903b9db3">fast::rf_ros::BaseNode::base_run_01hz</a></div><div class="ttdeci">bool base_run_01hz()</div><div class="ttdoc">Base Node 0.1Hz Loop.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:255</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ab673dc1bab6f3fc5537e905d2f1ec2eb"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ab673dc1bab6f3fc5537e905d2f1ec2eb">fast::rf_ros::BaseNode::base_run_100hz</a></div><div class="ttdeci">bool base_run_100hz()</div><div class="ttdoc">Base Node 100Hz Loop.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:225</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ac0fd8abb9aa9d77ed10281ed12429a22"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ac0fd8abb9aa9d77ed10281ed12429a22">fast::rf_ros::BaseNode::base_init</a></div><div class="ttdeci">bool base_init()</div><div class="ttdoc">Initialize Base Node.</div><div class="ttdef"><b>Definition</b> BaseNode.cpp:57</div></div>
-<div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_acf2fe5f067b3e8ebae2f916ab16b2a70"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#acf2fe5f067b3e8ebae2f916ab16b2a70">fast::rf_ros::BaseNode::disable_ready_to_arm_publish</a></div><div class="ttdeci">void disable_ready_to_arm_publish()</div><div class="ttdoc">Disable the Node's ability to publish a ready to arm topic.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:278</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ad23823602e342b17f7335b8e16fd27a6"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ad23823602e342b17f7335b8e16fd27a6">fast::rf_ros::BaseNode::set_ready_to_arm</a></div><div class="ttdeci">void set_ready_to_arm(fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm)</div><div class="ttdoc">Set the ready to arm object.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:268</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ad3d00acb050a632ee7789221e343b981"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ad3d00acb050a632ee7789221e343b981">fast::rf_ros::BaseNode::run_10hz</a></div><div class="ttdeci">virtual bool run_10hz()=0</div><div class="ttdoc">Gets called automatically to run at 10 Hz.</div></div>
 <div class="ttc" id="aclassfast_1_1rf__ros_1_1BaseNode_html_ad413a08e67c0fda6835f63e39673252b"><div class="ttname"><a href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">fast::rf_ros::BaseNode::set_diagnostics</a></div><div class="ttdeci">void set_diagnostics(std::vector&lt; fast::rf::messages::InfrastructureMsgs::DiagnosticMsg &gt; diagnostics)</div><div class="ttdoc">Set the diagnostics object.</div><div class="ttdef"><b>Definition</b> BaseNode.hpp:260</div></div>
@@ -286,7 +284,7 @@ $(document).ready(function(){initNavTree('BaseNode_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_43e5032e29db73fa2347f56d46df1a99.html">robot_framework_ros</a></li><li class="navelem"><a class="el" href="BaseNode_8hpp.html">BaseNode.hpp</a></li>
-    <li class="footer">Generated on Sat Aug 15 2026 17:59:22 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sat Aug 15 2026 19:58:38 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
