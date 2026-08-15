@@ -10,6 +10,8 @@
  */
 #pragma once
 
+#include <robot_framework_ros/nodestate.h>
+
 #include <BaseWindow.hpp>
 #include <mutex>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
@@ -57,8 +59,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                 std::pair<NodeFieldColumn, Field>(NodeFieldColumn::HOSTNAME, Field(" Host ", 20)));
             node_window_fields.insert(
                 std::pair<NodeFieldColumn, Field>(NodeFieldColumn::NODENAME, Field(" NodeName ", 30)));
-            // node_window_fields.insert(
-            //     std::pair<NodeFieldColumn, Field>(NodeFieldColumn::STATUS, Field(" Status ", 10)));
+            node_window_fields.insert(
+                std::pair<NodeFieldColumn, Field>(NodeFieldColumn::STATUS, Field(" Status ", 14)));
             node_window_fields.insert(
                 std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RESTARTS, Field(" Restarts ", 10)));
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::PID, Field(" PID ", 8)));
@@ -75,13 +77,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             std::string dashed(get_screen_coordinates_pixel().width_pix - 2, '-');
             mvwprintw(win, 2, 1, dashed.c_str());
             wrefresh(win);
-            // Debug: Build some fake Nodes
-            insertNode(NodeType::UNKNOWN, "a", "b", "Node1");
-            insertNode(NodeType::UNKNOWN, "a", "b", "Node2");
-            insertNode(NodeType::UNKNOWN, "a", "b", "Node3");
-            fast::rf::Logger::log_warn("Node Count: " + std::to_string(nodes.size()));
         }
-        void new_ArmCommandMsg([[maybe_unused]] fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {}
+        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) {}
+
+        void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) override;
 
         /**
          * @brief Human readable string
@@ -106,7 +105,6 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             NodeData(int16_t _id, NodeType _type, std::string _host_device, std::string _base_node_name,
                      std::string _node_name)
                 : id(_id),
-                  // state(eros::Node::State::START),
                   type(_type),
                   pid(0),
                   host_device(_host_device),
@@ -115,15 +113,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                   cpu_used_perc(0.0),
                   last_heartbeat(0.0),
                   last_heartbeat_delta(0.0),
-                  restart_count(0) {}
-            std::string get_hash() {
-                std::string hash;
-                hash = host_device + "_" + base_node_name + "_" + node_name;
-                return hash;
+                  restart_count(0) {
+                state.state = robot_framework_ros::nodestate::STATE_STARTING;
             }
             bool initialized;
             uint16_t id;
-            // eros::Node::State state;
+            robot_framework_ros::nodestate state;
             NodeType type;
             uint16_t pid;
             std::string host_device;

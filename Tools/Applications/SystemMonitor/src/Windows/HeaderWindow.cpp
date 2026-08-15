@@ -1,7 +1,7 @@
 #include <Windows/HeaderWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
-    void HeaderWindow::new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) {
-        latest_arm_command = msg;
+    void HeaderWindow::new_ArmCommandMsg(robot_framework_ros::arm_command msg) {
+        latest_arm_command = fast::rf_ros::utils::TranslateUtility::convert(msg);
     }
     std::string HeaderWindow::pretty() {
         std::string str = "---Header Window---\n";

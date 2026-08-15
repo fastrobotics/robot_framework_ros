@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
+    const double COMMTIMEOUT_THRESHOLD = 5.0f;
     /**
      * @brief Key Definitions
      *

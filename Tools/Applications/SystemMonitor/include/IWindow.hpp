@@ -9,7 +9,9 @@
  *
  */
 #pragma once
-#include <ArmCommandMsg.hpp>
+#include <robot_framework_ros/arm_command.h>
+#include <robot_framework_ros/heartbeat.h>
+
 #include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     /**
@@ -64,6 +66,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         virtual bool set_focus(bool cmd_focus) = 0;
 
-        virtual void new_ArmCommandMsg(fast::rf::messages::InfrastructureMsgs::ArmCommandMsg msg) = 0;
+        virtual void new_ArmCommandMsg(robot_framework_ros::arm_command msg) = 0;
+
+        virtual void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) = 0;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

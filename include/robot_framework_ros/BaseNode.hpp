@@ -211,14 +211,6 @@ namespace fast::rf_ros {
          */
         std::string pretty();
 
-        /**
-         * @brief Convert a node state to a string representation
-         *
-         * @param state
-         * @return std::string
-         */
-        std::string convert(robot_framework_ros::nodestate state);
-
         // Namespace Stuff
 
         /**

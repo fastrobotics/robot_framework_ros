@@ -1,16 +1,28 @@
 #include <Windows/NodeInfoWindow.hpp>
+
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     std::string NodeInfoWindow::pretty() {
         std::string str = "---Node Info Window---\n";
         str += BaseWindow::pretty();
         return str;
     }
+    void NodeInfoWindow::new_HeartbeatMsg(robot_framework_ros::heartbeat msg) {
+        auto it = nodes.find(msg.NodeName);
+        if (it != nodes.end()) {
+            it->second.state = msg.NodeState;
+            it->second.last_heartbeat_delta = 0.0;
+            it->second.last_heartbeat = get_current_time_sec();
+
+        } else {
+            insertNode(NodeType::FAST, msg.HostName, msg.BaseNodeName, msg.NodeName);
+        }
+    }
     bool NodeInfoWindow::insertNode(NodeType node_type, std::string device, std::string base_node_name,
                                     std::string node_name) {
         std::lock_guard<std::mutex> guard(node_list_mutex);
         std::size_t before = nodes.size();
         NodeData newNode(nodes.size(), node_type, device, base_node_name, node_name);
-        nodes[newNode.get_hash()] = newNode;
+        nodes[newNode.node_name] = newNode;
         std::size_t after = nodes.size();
         update_record_count((uint16_t)after);
         return after > before;
@@ -45,7 +57,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             return false;
         }
         for (auto& pair : nodes) {
-            pair.second.last_heartbeat_delta += 0.1;
+            pair.second.last_heartbeat_delta = current_time_sec - pair.second.last_heartbeat;
+            if (pair.second.last_heartbeat_delta > COMMTIMEOUT_THRESHOLD) {
+                pair.second.state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
+            }
         }
         status = update_window();
         return status;
@@ -59,38 +74,34 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         const uint16_t TASKSTART_COORD_X = 1;
         uint16_t index = 0;
         for (const auto& pair : nodes) {
-            Color color = Color::RED_COLOR;
-            /*
-            switch (node_it->state) {
-                case eros::Node::State::UNKNOWN:
-                    color = eros_window::Color::RED_COLOR;
+            Color color = Color::UNKNOWN;
+            switch (pair.second.state.state) {
+                case robot_framework_ros::nodestate::STATE_UNKNOWN:
+                    color = Color::RED_COLOR;
                     break;
-                case eros::Node::State::START:
-                    color = eros_window::Color::YELLOW_COLOR;
+                case robot_framework_ros::nodestate::STATE_INITIALIZING:
+                    color = Color::YELLOW_COLOR;
                     break;
-                case eros::Node::State::INITIALIZING:
-                    color = eros_window::Color::YELLOW_COLOR;
+                case robot_framework_ros::nodestate::STATE_STARTING:
+                    color = Color::YELLOW_COLOR;
                     break;
-                case eros::Node::State::INITIALIZED:
-                    color = eros_window::Color::YELLOW_COLOR;
+                case robot_framework_ros::nodestate::STATE_RUNNING:
+                    color = Color::BLUE_COLOR;
                     break;
-                case eros::Node::State::RUNNING:
-                    color = eros_window::Color::BLUE_COLOR;
+                case robot_framework_ros::nodestate::STATE_PAUSED:
+                    color = Color::GREEN_COLOR;
                     break;
-                case eros::Node::State::PAUSED:
-                    color = eros_window::Color::GREEN_COLOR;
+                case robot_framework_ros::nodestate::STATE_RESTART:
+                    color = Color::YELLOW_COLOR;
                     break;
-                case eros::Node::State::RESET:
-                    color = eros_window::Color::YELLOW_COLOR;
-                    break;
-                case eros::Node::State::FINISHED:
-                    color = eros_window::Color::YELLOW_COLOR;
+                case robot_framework_ros::nodestate::STATE_FINISHED:
+                    color = Color::YELLOW_COLOR;
                     break;
                 default:
-                    color = eros_window::Color::RED_COLOR;
+                    color = Color::RED_COLOR;
                     break;
             }
-            */
+
             wattron(get_window(), COLOR_PAIR(color));
             std::string str = get_node_info(pair.second, false);  // get_selected_record());
             mvwprintw(get_window(), TASKSTART_COORD_Y + 2 + (int)index, TASKSTART_COORD_X + 1, str.c_str());
@@ -164,6 +175,16 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             }
             str += tempstr;
         }
+        {
+            width = node_window_fields.find(NodeFieldColumn::STATUS)->second.width;
+            std::string tempstr = fast::rf_ros::utils::CoreUtility::pretty(node.state);
+            std::size_t spaces = width - tempstr.size();
+            if (spaces > 0) {
+                tempstr += std::string(spaces, ' ');
+            }
+            str += tempstr;
+        }
+
         {
             width = node_window_fields.find(NodeFieldColumn::RESTARTS)->second.width;
             std::string tempstr = std::to_string(node.restart_count);

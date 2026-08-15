@@ -114,11 +114,20 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         void thread_loop();
 
+        bool rescan_rosnetwork();
+
         void arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
 
        private:
+        void heartbeat_Callback(const robot_framework_ros::heartbeat::ConstPtr& msg);
+
+        bool update_monitorlist(std::vector<std::string> heartbeat_list,
+                                std::vector<std::string>& new_heartbeat_topics_to_subscribe);
         std::map<std::string, std::shared_ptr<IWindow>> windows;
 
+        std::map<std::string, bool> filter_list;
         ros::Subscriber arm_command_sub;
+        std::vector<std::string> monitored_heartbeat_topics;
+        std::vector<ros::Subscriber> heartbeat_subs;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

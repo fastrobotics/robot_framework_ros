@@ -16,6 +16,8 @@
 #include <Definitions.hpp>
 #include <IWindow.hpp>
 #include <Infrastructure/Logger.hpp>
+#include <robot_framework_ros/utils/CoreUtility.hpp>
+#include <robot_framework_ros/utils/TranslateUtility.hpp>
 
 #include "ros/ros.h"
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
