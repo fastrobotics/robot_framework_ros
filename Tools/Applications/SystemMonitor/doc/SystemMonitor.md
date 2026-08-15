@@ -76,6 +76,7 @@ if (it != node_window_fields.end()) {
 
 ### System/Node Diagnostics
 This window displays Diagnostic details, either for the entire system, or for the specific Node.
+This will be implemented in: AB#1821, AB#1838
 
 ### Command Output
 This small window displays the status of various commands requested from the System Monitor (such as changing the Node Logger Level, requesting a snapshot, etc).
@@ -90,4 +91,4 @@ This is a generic Window that provides details like:
 This window displays to the user what options are available.  Note that this window is dynamic as the operations available can change over time.
 
 ### Device Info
-This window displays device health information.
+This window displays device health information.  This will be implemented during AB#1837.

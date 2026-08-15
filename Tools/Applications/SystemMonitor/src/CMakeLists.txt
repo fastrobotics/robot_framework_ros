@@ -10,6 +10,7 @@ target_link_libraries(
   baseWindow
   ${catkin_LIBRARIES}
   ${CURSES_LIBRARIES}
+  coreUtility
   translateUtility
   commonWindowUtility
   logger
