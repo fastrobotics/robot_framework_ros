@@ -34,7 +34,6 @@ namespace fast::robot_framework_ros {
 
             --Concrete Node Control Functions--
 
-            #void disable_ready_to_arm_publish()
             
             --Timed Loop Functions--
             

@@ -271,11 +271,6 @@ namespace fast::rf_ros {
         boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
         // Concrete Node Controls
-        /**
-         * @brief Disable the Node's ability to publish a ready to arm topic
-         *
-         */
-        void disable_ready_to_arm_publish() { ready_to_arm_publish_enabled = false; }
 
        private:
         bool ready_to_arm_publish_enabled{true};
