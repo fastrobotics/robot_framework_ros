@@ -20,11 +20,10 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
     void ArmedStateManagerNode::ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg) {
         robot_framework_ros::ready_to_arm msg = *t_msg;
         if (process.new_ReadyToArmStatus(fast::rf_ros::utils::TranslateUtility::convert(msg)) == false) {
-            fast::rf::Logger::log_error("Unable to process Ready To Arm Msg");
+            fast::rf::Logger::log_error("Node: " + msg.NodeName + " Unable to process Ready To Arm Msg");
         }
     }
     bool ArmedStateManagerNode::init() {
-        disable_ready_to_arm_publish();  // Don't publish a Ready to Arm Topic
         bool status = BaseNode::base_init();
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
@@ -67,6 +66,7 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
         std::string armstate_change_topic = get_robotnamespace() + "/arm_state_change";
         armstate_change_srv =
             n->advertiseService(armstate_change_topic, &ArmedStateManagerNode::arm_statechange_service, this);
+        set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
 
@@ -80,6 +80,7 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
     bool ArmedStateManagerNode::run_loop3() { return true; }
     bool ArmedStateManagerNode::run_100hz() { return true; }
     bool ArmedStateManagerNode::run_10hz() {
+        set_ready_to_arm(process.get_ready_to_arm());
         arm_command_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(process.get_ArmCommandMsg()));
         return true;
     }
