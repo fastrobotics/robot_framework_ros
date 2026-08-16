@@ -107,15 +107,17 @@ Inheritance diagram for fast::rf_ros::Tools::Applications::SystemMonitor::BaseWi
 <div class="dyncontent">
 <div class="center"><img src="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow__inherit__graph.png" border="0" usemap="#afast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow_inherit__map" alt="Inheritance graph"/></div>
 <map name="afast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow_inherit__map" id="afast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow_inherit__map">
-<area shape="rect" title="Abstract Base Window." alt="" coords="271,84,488,139"/>
-<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html" title="A Header Window." alt="" coords="536,5,753,60"/>
-<area shape="poly" title=" " alt="" coords="484,78,551,58,552,63,486,83"/>
-<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html" title="A Header Window." alt="" coords="536,84,753,139"/>
-<area shape="poly" title=" " alt="" coords="502,109,536,109,536,114,502,114"/>
-<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html" title="Status Window." alt="" coords="536,163,753,217"/>
-<area shape="poly" title=" " alt="" coords="486,140,552,160,551,165,484,145"/>
-<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html" title="A generic Window interface." alt="" coords="5,84,223,139"/>
-<area shape="poly" title=" " alt="" coords="236,109,271,109,271,114,236,114"/>
+<area shape="rect" title="Abstract Base Window." alt="" coords="271,124,488,179"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html" title="Diagnostic Window." alt="" coords="536,5,753,60"/>
+<area shape="poly" title=" " alt="" coords="441,115,535,69,563,58,565,62,537,74,443,120"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html" title="A Header Window." alt="" coords="536,84,753,139"/>
+<area shape="poly" title=" " alt="" coords="501,130,536,125,536,130,502,136"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html" title="A Header Window." alt="" coords="536,163,753,217"/>
+<area shape="poly" title=" " alt="" coords="502,167,536,172,536,177,501,172"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html" title="Status Window." alt="" coords="536,241,753,296"/>
+<area shape="poly" title=" " alt="" coords="444,183,537,228,565,239,563,244,535,232,442,188"/>
+<area shape="rect" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html" title="A generic Window interface." alt="" coords="5,124,223,179"/>
+<area shape="poly" title=" " alt="" coords="236,149,271,149,271,154,236,154"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -159,6 +161,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2ac982f553f11b9ac8933a6796d0d8df inherit pub_methods_classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a37e622effe2234a5def697c977d12f inherit pub_methods_classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow" id="r_a1a37e622effe2234a5def697c977d12f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#a1a37e622effe2234a5def697c977d12f">new_ReadyToArmMsg</a> (robot_framework_ros::ready_to_arm msg)=0</td></tr>
 <tr class="separator:a1a37e622effe2234a5def697c977d12f inherit pub_methods_classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afca3594fd8c2aa4e87604cfb51410e7a inherit pub_methods_classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow" id="r_afca3594fd8c2aa4e87604cfb51410e7a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#afca3594fd8c2aa4e87604cfb51410e7a">new_DiagnosticMsg</a> (robot_framework_ros::diagnostic msg)=0</td></tr>
+<tr class="separator:afca3594fd8c2aa4e87604cfb51410e7a inherit pub_methods_classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -736,7 +740,7 @@ false </dd></dl>
 
 <p>Implements <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#abfa66c530628296f32f2e3caa08fb433">fast::rf_ros::Tools::Applications::SystemMonitor::IWindow</a>.</p>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#a7709209e15766f09ae3a24ab01eda8ba">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#af381621a2f10436863f8789875a83f2f">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a415fbc00de337d93cbcb94cb41bf27c6">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html#a19f89a4fb3dc99420f4257075ce994e4">fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#a7709209e15766f09ae3a24ab01eda8ba">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#af381621a2f10436863f8789875a83f2f">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a415fbc00de337d93cbcb94cb41bf27c6">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
 
 </div>
 </div>
@@ -884,7 +888,7 @@ false </dd></dl>
 
 <p>Implements <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#ab36ba3698200a2ec0faf154ea93037f6">fast::rf_ros::Tools::Applications::SystemMonitor::IWindow</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#ad4702afeac5f737aedfd8786fdb5a48e">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a7c8d9a5ac9e687acfaa0d94eaad0f7ca">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a74caf67706af98fe2b5b8b7db88e67ef">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
+<p>Reimplemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html#a626164d10982426f114545a93c4175f0">fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#ad4702afeac5f737aedfd8786fdb5a48e">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a7c8d9a5ac9e687acfaa0d94eaad0f7ca">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a74caf67706af98fe2b5b8b7db88e67ef">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
 
 </div>
 </div>
@@ -942,7 +946,7 @@ false </dd></dl>
 <dd>
 false </dd></dl>
 
-<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#ae272538d8b8b5d090123cb14ec4e826f">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#ad03527f6af8e3597b458ea76830b67b5">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a467cabaade7c949d6c222d728a7d0527">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html#a06e7d8eb87ce22f806fb5b29b218c704">fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#ae272538d8b8b5d090123cb14ec4e826f">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#ad03527f6af8e3597b458ea76830b67b5">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a467cabaade7c949d6c222d728a7d0527">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
 
 </div>
 </div>
@@ -979,7 +983,7 @@ false </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1Tools.html">Tools</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1Tools_1_1Applications.html">Applications</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html">SystemMonitor</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html">BaseWindow</a></li>
-    <li class="footer">Generated on Sun Aug 16 2026 08:56:46 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Aug 16 2026 14:08:16 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

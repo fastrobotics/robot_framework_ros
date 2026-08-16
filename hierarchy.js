@@ -17,6 +17,7 @@ var hierarchy =
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::Field", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Field.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::IWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html", [
       [ "fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html", [
+        [ "fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html", null ],
         [ "fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html", null ],
         [ "fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html", null ],
         [ "fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html", null ]
@@ -25,6 +26,7 @@ var hierarchy =
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::Key", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Key.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::KeyEventContainer", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::MessageText", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1MessageText.html", null ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow::NodeDiagnosticMonitor", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow_1_1NodeDiagnosticMonitor.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePerc", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePixel", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel.html", null ],
     [ "fast::rf_ros::utils::TranslateUtility", "classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html", null ],

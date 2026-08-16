@@ -1,6 +1,7 @@
 var namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor =
 [
     [ "BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow" ],
+    [ "DiagnosticWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow" ],
     [ "Field", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Field.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Field" ],
     [ "HeaderWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow" ],
     [ "IWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow" ],

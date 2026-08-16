@@ -1,11 +1,13 @@
 <map id="fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow" name="fast::rf_ros::Tools::Applications::SystemMonitor::BaseWindow">
-<area shape="rect" id="Node000001" title="Abstract Base Window." alt="" coords="271,84,488,139"/>
-<area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html" title="A Header Window." alt="" coords="536,5,753,60"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="484,78,551,58,552,63,486,83"/>
-<area shape="rect" id="Node000004" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html" title="A Header Window." alt="" coords="536,84,753,139"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="502,109,536,109,536,114,502,114"/>
-<area shape="rect" id="Node000005" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html" title="Status Window." alt="" coords="536,163,753,217"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="486,140,552,160,551,165,484,145"/>
-<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html" title="A generic Window interface." alt="" coords="5,84,223,139"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,109,271,109,271,114,236,114"/>
+<area shape="rect" id="Node000001" title="Abstract Base Window." alt="" coords="271,124,488,179"/>
+<area shape="rect" id="Node000003" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html" title="Diagnostic Window." alt="" coords="536,5,753,60"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="441,115,535,69,563,58,565,62,537,74,443,120"/>
+<area shape="rect" id="Node000004" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html" title="A Header Window." alt="" coords="536,84,753,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="501,130,536,125,536,130,502,136"/>
+<area shape="rect" id="Node000005" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html" title="A Header Window." alt="" coords="536,163,753,217"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="502,167,536,172,536,177,501,172"/>
+<area shape="rect" id="Node000006" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html" title="Status Window." alt="" coords="536,241,753,296"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="444,183,537,228,565,239,563,244,535,232,442,188"/>
+<area shape="rect" id="Node000002" href="$classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html" title="A generic Window interface." alt="" coords="5,124,223,179"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,149,271,149,271,154,236,154"/>
 </map>

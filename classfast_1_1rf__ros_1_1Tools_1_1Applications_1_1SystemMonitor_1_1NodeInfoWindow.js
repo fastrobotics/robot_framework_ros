@@ -21,6 +21,7 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWi
     [ "NodeInfoWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a58c330ccd04c2e14b2228caf7106d985", null ],
     [ "get_selected_node", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#afc5f7a682fcc64c2aab11360f408b8d6", null ],
     [ "new_ArmCommandMsg", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#ad5727ef8ebe4be3fa3efe70b854fe6a3", null ],
+    [ "new_DiagnosticMsg", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#adb5f4b466b58d01b24e7eeb2170878bc", null ],
     [ "new_HeartbeatMsg", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a9c44d048cce9f64664c9c15823e0603e", null ],
     [ "new_keyevent", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a587ce2cfcec8eff1563d17dbe32d79a8", null ],
     [ "new_ReadyToArmMsg", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a897ae222c4b146202ace1c04719fba0d", null ],
