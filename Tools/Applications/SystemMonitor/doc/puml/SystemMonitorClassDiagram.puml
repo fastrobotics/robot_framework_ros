@@ -26,13 +26,13 @@ namespace fast::rf_ros {
         package SystemMonitor #LightYellow;line:blue {
             namespace Definitions {
                 enum Color #LimeGreen
-                struct ScreenCoordinatePerc #Orange {
+                struct ScreenCoordinatePerc #LimeGreen {
                     +double start_x_perc
                     +double start_y_perc
                     +double width_perc
                     +double height_perc
                 }
-                struct ScreenCoordinatePixel #Orange {
+                struct ScreenCoordinatePixel #LimeGreen {
                     +uint16 start_x_pix
                     +uint16 start_y_pix
                     +uint16 width_pix
@@ -41,7 +41,7 @@ namespace fast::rf_ros {
                 }
                 struct Key
             }
-            interface IWindow #Orange {
+            interface IWindow #LimeGreen {
                 +{abstract} string get_name()
                 +{abstract} bool is_initialized()
                 +{abstract} bool update(double current_time_sec)
@@ -54,7 +54,7 @@ namespace fast::rf_ros {
                 +{abstract} void new_ReadyToArmMsg(ready_to_arm msg)
                 +{abstract} void new_DiagnosticMsg(diagnostic msg)
             }
-            abstract BaseWindow #Orange {
+            abstract BaseWindow #LimeGreen {
                 +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
                 +bool is_initialized()
                 +string get_name()
@@ -108,7 +108,7 @@ namespace fast::rf_ros {
                 FAST = 1,
                 NON_FAST = 2
             }
-            enum NodeFieldColumn #Orange {
+            enum NodeFieldColumn #LimeGreen {
                 MARKER = 0,
                 ID = 1,
                 HOSTNAME = 2,
@@ -122,7 +122,7 @@ namespace fast::rf_ros {
                 RX = 10
 
             }
-            struct NodeData {
+            struct NodeData #LimeGreen {
                 +bool initialized
                 +uint16 id
                 +nodestate state
@@ -138,7 +138,7 @@ namespace fast::rf_ros {
                 +uint64 restart_count
             }
             NodeData --> NodeType: <<use>>
-            class NodeInfoWindow #Orange {
+            class NodeInfoWindow #LimeGreen {
                 +{static} double START_X_PERC
                 +{static} double START_Y_PERC
                 +{static} double WIDTH_PERC
@@ -172,24 +172,33 @@ namespace fast::rf_ros {
                 #bool update_window()
             }
             DeviceInfoWindow -up-|> BaseWindow
-            class NodeDiagnosticMonitor {
+            class NodeDiagnosticMonitor #LimeGreen {
                 +diagnostic node_diagnostic
                 +double last_update_sec
                 +double last_update_delta_sec
             }
-            class DiagnosticWindow #Orange {
+            enum DiagnosticWindowMode #LimeGreen {
+                UNKNOWN=0,
+                NODE=1,
+                DIAGNOSTIC_TYPE=2,
+                SYSTEM = 3
+            }
+            class DiagnosticWindow #LimeGreen {
                 +{static} double START_X_PERC
                 +{static} double START_Y_PERC
                 +{static} double WIDTH_PERC
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double current_time_sec)
+                +void set_node_to_monitor(string node_to_monitor)
                 +void new_ArmCommandMsg(arm_command msg)
                 +void new_HeartbeatMsg(heartbeat msg)
                 +void new_ReadyToArmMsg(heartbeat msg)
                 +void new_DiagnosticMsg(diagnostic msg)
                 #bool update_window()
+                -DiagnosticWindowMode window_mode
                 -NodeDiagnosticMonitor[] node_diagnostic_monitors
+                -string node_to_monitor
             }
             DiagnosticWindow +-- NodeDiagnosticMonitor
             DiagnosticWindow -up-|> BaseWindow

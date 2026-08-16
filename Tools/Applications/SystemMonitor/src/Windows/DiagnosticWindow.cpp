@@ -26,7 +26,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         return status;
     }
     std::string DiagnosticWindow::get_window_header() {
-        if (window_mode == WindowMode::NODE) {
+        if (window_mode == DiagnosticWindowMode::NODE) {
             return "  NODE DIAGNOSTICS";
         }
         return "";
@@ -35,7 +35,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         if (get_window() == nullptr) {
             return false;
         }
-        if (window_mode == WindowMode::NODE) {
+        if (window_mode == DiagnosticWindowMode::NODE) {
             auto node_diagnostic_it = node_diagnostic_monitors.find(node_to_monitor);
             if (node_diagnostic_it == node_diagnostic_monitors.end()) {
                 // Node not present yet.  Don't do anything.

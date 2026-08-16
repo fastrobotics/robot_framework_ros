@@ -24,7 +24,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             double last_update_sec;
             double last_update_delta_sec;
         };
-        enum class WindowMode { UNKNOWN = 0, NODE = 1, DIAGNOSTIC_TYPE = 2, SYSTEM = 3 };
+        enum class DiagnosticWindowMode { UNKNOWN = 0, NODE = 1, DIAGNOSTIC_TYPE = 2, SYSTEM = 3 };
         static constexpr double START_X_PERC =
             66.0; /*!< What percentage of the screen to put top left corner (X) of window. */
         static constexpr double START_Y_PERC =
@@ -84,7 +84,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         bool update_window();
 
        private:
-        WindowMode window_mode{WindowMode::NODE};
+        DiagnosticWindowMode window_mode{DiagnosticWindowMode::NODE};
         std::string get_window_header();
         std::map<std::string, std::map<uint8_t, NodeDiagnosticMonitor>> node_diagnostic_monitors;
         std::string node_to_monitor{""};

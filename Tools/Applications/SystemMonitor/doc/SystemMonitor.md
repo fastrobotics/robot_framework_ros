@@ -81,9 +81,10 @@ if (it != node_window_fields.end()) {
 
 
 
-### System/Node Diagnostics
+### Node/Aggregated Diagnostic Type/System Diagnostics
 This window displays Diagnostic details, either for the entire system, or for the specific Node.
-This will be implemented in: AB#1821, AB#1838
+
+This will be extended in AB#1838.
 
 ### Command Output
 This small window displays the status of various commands requested from the System Monitor (such as changing the Node Logger Level, requesting a snapshot, etc).
