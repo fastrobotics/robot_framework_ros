@@ -6,5 +6,6 @@ target_link_libraries(
   baseNode
   headerWindow
   statusWindow
-  nodeInfoWindow)
+  nodeInfoWindow
+  diagnosticWindow)
 add_dependencies(system_monitor ${robot_framework_ros_EXPORTED_TARGETS})

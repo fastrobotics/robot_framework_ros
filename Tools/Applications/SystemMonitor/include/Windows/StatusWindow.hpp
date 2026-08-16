@@ -43,6 +43,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
 
         void new_ReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
+
+        void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
         /**
          * @brief Human readable string
          *

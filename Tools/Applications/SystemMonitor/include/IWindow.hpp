@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <robot_framework_ros/arm_command.h>
+#include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/heartbeat.h>
 #include <robot_framework_ros/ready_to_arm.h>
 
@@ -74,5 +75,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         virtual void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) = 0;
 
         virtual void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) = 0;
+
+        virtual void new_DiagnosticMsg(robot_framework_ros::diagnostic msg) = 0;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
