@@ -12,3 +12,8 @@ catkin_add_gtest(test_NodeInfoWindow test_NodeInfoWindow.cpp)
 target_link_libraries(test_NodeInfoWindow ${catkin_LIBRARIES}
                       ${Boost_LIBRARIES} nodeInfoWindow)
 add_dependencies(test_NodeInfoWindow ${robot_framework_ros_EXPORTED_TARGETS})
+
+catkin_add_gtest(test_DiagnosticWindow test_DiagnosticWindow.cpp)
+target_link_libraries(test_DiagnosticWindow ${catkin_LIBRARIES}
+                      ${Boost_LIBRARIES} diagnosticWindow)
+add_dependencies(test_DiagnosticWindow ${robot_framework_ros_EXPORTED_TARGETS})

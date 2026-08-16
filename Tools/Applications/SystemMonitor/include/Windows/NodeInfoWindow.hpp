@@ -91,6 +91,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
 
+        void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
+
         std::string get_selected_node() { return selected_node; }
 
         /**

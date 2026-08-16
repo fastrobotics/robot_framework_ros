@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <robot_framework_ros/arm_command.h>
+#include <robot_framework_ros/diagnostic.h>
 #include <robot_framework_ros/ready_to_arm.h>
 
 #include <Definitions.hpp>
@@ -124,18 +125,26 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& msg);
 
+        void diagnostic_Callback(const robot_framework_ros::diagnostic::ConstPtr& msg);
+
         bool update_monitorlist(std::vector<std::string> heartbeat_list,
                                 std::vector<std::string>& new_heartbeat_topics_to_subscribe,
                                 std::vector<std::string> readytoarm_list,
-                                std::vector<std::string>& new_readytoarm_topics_to_subscribe);
+                                std::vector<std::string>& new_readytoarm_topics_to_subscribe,
+                                std::vector<std::string> diagnostic_list,
+                                std::vector<std::string>& new_diagnostic_topics_to_subscribe);
         std::map<std::string, std::shared_ptr<IWindow>> windows;
 
         std::map<std::string, bool> filter_list;
+        std::string selected_node{""};
         ros::Subscriber arm_command_sub;
         std::vector<std::string> monitored_heartbeat_topics;
         std::vector<ros::Subscriber> heartbeat_subs;
 
         std::vector<std::string> monitored_readytoarm_topics;
         std::vector<ros::Subscriber> readytoarm_subs;
+
+        std::vector<std::string> monitored_diagnostic_topics;
+        std::vector<ros::Subscriber> diagnostic_subs;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
