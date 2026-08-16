@@ -1,5 +1,22 @@
 [Applications](../../doc/Applications.md)
 
+- [System Monitor](#system-monitor)
+  - [Overview](#overview)
+  - [Requirements](#requirements)
+  - [Graphic Design](#graphic-design)
+  - [Execution](#execution)
+  - [Software Design](#software-design)
+    - [Class Diagram](#class-diagram)
+  - [Windows](#windows)
+    - [Header](#header)
+    - [Node Info](#node-info)
+      - [Adding a new field](#adding-a-new-field)
+    - [Node/Aggregated Diagnostic Type/System Diagnostics](#nodeaggregated-diagnostic-typesystem-diagnostics)
+    - [Command Output](#command-output)
+    - [Status Window](#status-window)
+    - [Menu Options](#menu-options)
+    - [Device Info](#device-info)
+
 # System Monitor
 
 ## Overview
