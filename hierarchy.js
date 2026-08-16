@@ -23,7 +23,10 @@ var hierarchy =
       ] ]
     ] ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::Key", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Key.html", null ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::KeyEventContainer", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer.html", null ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::MessageText", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1MessageText.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePerc", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePixel", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel.html", null ],
-    [ "fast::rf_ros::utils::TranslateUtility", "classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html", null ]
+    [ "fast::rf_ros::utils::TranslateUtility", "classfast_1_1rf__ros_1_1utils_1_1TranslateUtility.html", null ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::WindowCommand", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1WindowCommand.html", null ]
 ];

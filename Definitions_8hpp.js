@@ -1,5 +1,8 @@
 var Definitions_8hpp =
 [
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::WindowCommand", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1WindowCommand.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1WindowCommand" ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::MessageText", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1MessageText.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1MessageText" ],
+    [ "fast::rf_ros::Tools::Applications::SystemMonitor::KeyEventContainer", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer" ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::Key", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Key.html", null ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePerc", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc" ],
     [ "fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePixel", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel" ],
@@ -14,6 +17,12 @@ var Definitions_8hpp =
       [ "WHITE_COLOR", "Definitions_8hpp.html#a8f28dabaca300f2e44e8447ab90cbc52ac2ca017dc04f9eedcd3378f6e134bd8e", null ],
       [ "PURPLE_COLOR", "Definitions_8hpp.html#a8f28dabaca300f2e44e8447ab90cbc52ae9acca2d6222b6c7b6e23f78473d45cc", null ],
       [ "END_OF_LIST", "Definitions_8hpp.html#a8f28dabaca300f2e44e8447ab90cbc52ac2b0b4a580050a88a759ac7c20ce853c", null ]
+    ] ],
+    [ "WindowCommandType", "Definitions_8hpp.html#acfed1373e65ca65af144615c5e7da42d", [
+      [ "UNKNOWN", "Definitions_8hpp.html#acfed1373e65ca65af144615c5e7da42da696b031073e74bf2cb98e5ef201d4aa3", null ],
+      [ "VIEW_DIAGNOSTICS_NODE", "Definitions_8hpp.html#acfed1373e65ca65af144615c5e7da42da23d5ce1758f288e91e9fe74fbd9883b2", null ],
+      [ "VIEW_DIAGNOSTICS_SYSTEM", "Definitions_8hpp.html#acfed1373e65ca65af144615c5e7da42da7f7ea071804a1d77cc4bf7f3c95c247f", null ],
+      [ "END_OF_LIST", "Definitions_8hpp.html#acfed1373e65ca65af144615c5e7da42dac2b0b4a580050a88a759ac7c20ce853c", null ]
     ] ],
     [ "COMMTIMEOUT_THRESHOLD", "Definitions_8hpp.html#a2a451196a8afc5157b7b78f2a52151e4", null ]
 ];

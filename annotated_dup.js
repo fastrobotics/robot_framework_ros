@@ -38,11 +38,14 @@ var annotated_dup =
               [ "HeaderWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow" ],
               [ "IWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow" ],
               [ "Key", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1Key.html", null ],
+              [ "KeyEventContainer", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer" ],
+              [ "MessageText", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1MessageText.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1MessageText" ],
               [ "NodeInfoWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow" ],
               [ "ScreenCoordinatePerc", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc" ],
               [ "ScreenCoordinatePixel", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel" ],
               [ "StatusWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow" ],
-              [ "SystemMonitorNode", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode" ]
+              [ "SystemMonitorNode", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode" ],
+              [ "WindowCommand", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1WindowCommand.html", "structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1WindowCommand" ]
             ] ]
           ] ]
         ] ],

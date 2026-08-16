@@ -2,15 +2,19 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow
 [
     [ "BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af146759105a3426d92b0732396215210", null ],
     [ "~BaseWindow", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a1336beab77c1556cdec205c93626dd23", null ],
+    [ "decrement_selected_record", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a5fa74ebd7471a135daaaa48086e888d0", null ],
     [ "get_current_time_sec", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a59c646396825ce78738f11dca13580a8", null ],
+    [ "get_focused", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a37702a28dbd99445309f64df8209a740", null ],
     [ "get_mainwindow_height", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a92ccaa402b1c9884dede212879430dc8", null ],
     [ "get_mainwindow_width", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ab987c909a1ee53aedc20882c4c5c3efb", null ],
     [ "get_name", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a296093aae6e389c2ba43f4e80d2a17c1", null ],
     [ "get_screen_coordinates_perc", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a9c7d62fed1861dacb4a5a2b1b6c46570", null ],
     [ "get_screen_coordinates_pixel", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ad10e3ecd6353107657e9b53dca0652ef", null ],
+    [ "get_selected_record", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#aaf4271a7d308649a123282239cfae0c8", null ],
     [ "get_tab_order", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a561bd5975041344828646f65d0d4fbb1", null ],
     [ "get_window", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a763fbe8603cdcea9aedc08b910540ffa", null ],
     [ "has_focus", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ad793282e7761333301d83561afc2e39a", null ],
+    [ "increment_selected_record", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a0a46c49cf916cfa4c8340ca377274f04", null ],
     [ "is_initialized", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#aeb57f11320dd3cc33560310fd6837339", null ],
     [ "pretty", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#adafda64bb8b27a9aadc5735a6e44c3cc", null ],
     [ "set_focus", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a2e54fd0cfbde64f583dd0a51b5f00401", null ],
@@ -18,5 +22,6 @@ var classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow
     [ "set_window", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a0f5eb46f8ff038e0c1a18691f643c7ad", null ],
     [ "update", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a383603c1572bd03eec33e2c3cc7125e5", null ],
     [ "update_record_count", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#a1f14f197a1583239cd46bc94c63973f0", null ],
-    [ "update_window", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af13ce66d8a0aad277396db3d25084458", null ]
+    [ "update_window", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#af13ce66d8a0aad277396db3d25084458", null ],
+    [ "supported_keys", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1BaseWindow.html#ac358588bfc8d6e3116653231dfd919cb", null ]
 ];

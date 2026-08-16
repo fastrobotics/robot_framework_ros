@@ -139,6 +139,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a575536d18f1228de80040dcaa5abaf64" id="r_a575536d18f1228de80040dcaa5abaf64"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#a575536d18f1228de80040dcaa5abaf64">set_focus</a> (bool cmd_focus)=0</td></tr>
 <tr class="memdesc:a575536d18f1228de80040dcaa5abaf64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the focus.  <br /></td></tr>
 <tr class="separator:a575536d18f1228de80040dcaa5abaf64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d6c223c7cededf7fe4601018496cac" id="r_ab7d6c223c7cededf7fe4601018496cac"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer.html">KeyEventContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#ab7d6c223c7cededf7fe4601018496cac">new_keyevent</a> (int key)=0</td></tr>
+<tr class="separator:ab7d6c223c7cededf7fe4601018496cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af494623f0fe4626e1abb3b914f098d4b" id="r_af494623f0fe4626e1abb3b914f098d4b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#af494623f0fe4626e1abb3b914f098d4b">new_ArmCommandMsg</a> (robot_framework_ros::arm_command msg)=0</td></tr>
 <tr class="separator:af494623f0fe4626e1abb3b914f098d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ac982f553f11b9ac8933a6796d0d8df" id="r_a2ac982f553f11b9ac8933a6796d0d8df"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html#a2ac982f553f11b9ac8933a6796d0d8df">new_HeartbeatMsg</a> (robot_framework_ros::heartbeat msg)=0</td></tr>
@@ -325,6 +327,34 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="ab7d6c223c7cededf7fe4601018496cac" name="ab7d6c223c7cededf7fe4601018496cac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d6c223c7cededf7fe4601018496cac">&#9670;&#160;</a></span>new_keyevent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1KeyEventContainer.html">KeyEventContainer</a> fast::rf_ros::Tools::Applications::SystemMonitor::IWindow::new_keyevent </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#aba313b983dd18ded3f5023e26ac21033">fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow</a>, <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a587ce2cfcec8eff1563d17dbe32d79a8">fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#ad9318024bff6e7c88b1279d1ee918b28">fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow</a>.</p>
+
+</div>
+</div>
 <a id="a1a37e622effe2234a5def697c977d12f" name="a1a37e622effe2234a5def697c977d12f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a37e622effe2234a5def697c977d12f">&#9670;&#160;</a></span>new_ReadyToArmMsg()</h2>
 
@@ -470,7 +500,7 @@ false </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1Tools.html">Tools</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1Tools_1_1Applications.html">Applications</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html">SystemMonitor</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1IWindow.html">IWindow</a></li>
-    <li class="footer">Generated on Sat Aug 15 2026 19:58:38 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Aug 16 2026 08:56:46 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
