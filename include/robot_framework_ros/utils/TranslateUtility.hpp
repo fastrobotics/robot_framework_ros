@@ -9,6 +9,9 @@
  *
  */
 #pragma once
+#include <geometry_msgs/Accel.h>
+#include <geometry_msgs/AccelWithCovariance.h>
+#include <geometry_msgs/AccelWithCovarianceStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
 #include <nav_msgs/Odometry.h>
@@ -20,6 +23,8 @@
 #include <sensor_msgs/Joy.h>
 #include <sensor_msgs/MagneticField.h>
 
+#include <AccelMsg.hpp>
+#include <AccelWithCovarianceMsg.hpp>
 #include <ArmCommandMsg.hpp>
 #include <ArmStateChangeSrv.hpp>
 #include <DiagnosticMsg.hpp>
