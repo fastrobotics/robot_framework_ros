@@ -32,4 +32,23 @@ namespace fast::rf_ros::utils {
         std::copy(msg.covariance.begin(), msg.covariance.end(), data.begin());
         return data;
     }
+
+    fast::rf::messages::StandardMsgs::Covariance6DMsg TranslateUtility::convert_covariance6D(
+        boost::array<double, fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                 fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION>
+            msg) {
+        fast::rf::messages::StandardMsgs::Covariance6DMsg data;
+        data.covariance.assign(msg.begin(), msg.end());
+        return data;
+    }
+
+    boost::array<double, fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                             fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION>
+    TranslateUtility::convert_covariance6D(fast::rf::messages::StandardMsgs::Covariance6DMsg msg) {
+        boost::array<double, fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                 fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION>
+            data;
+        std::copy(msg.covariance.begin(), msg.covariance.end(), data.begin());
+        return data;
+    }
 }  // namespace fast::rf_ros::utils

@@ -13,11 +13,16 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
         sensor_msgs::Imu msg = *t_msg;
 
         process->new_machine_inertial_data(fast::rf_ros::utils::TranslateUtility::convert(msg));
-        fast::rf::messages::GeometryMsgs::OdomMsg data;
-        if (process->get_local_pose(data) == true) {
-            auto local_pose = fast::rf_ros::utils::TranslateUtility::convert(data);
+        fast::rf::messages::GeometryMsgs::OdomMsg local_pose_data;
+        fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg local_pose_angular_accel_data;
+        if (process->get_local_pose(local_pose_data, local_pose_angular_accel_data) == true) {
+            auto local_pose = fast::rf_ros::utils::TranslateUtility::convert(local_pose_data);
             local_pose.header.frame_id = msg.header.frame_id;
             local_pose_pub.publish(local_pose);
+            auto local_pose_angular_accel =
+                fast::rf_ros::utils::TranslateUtility::convert(local_pose_angular_accel_data);
+            local_pose_angular_accel.header.frame_id = msg.header.frame_id;
+            local_pose_angular_accel_pub.publish(local_pose_angular_accel);
         }
     }
     bool LocalPoseFuserNode::init() {
@@ -47,6 +52,15 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
             return false;
         }
         local_pose_pub = n->advertise<nav_msgs::Odometry>(get_robotnamespace() + topic_local_pose_output, 1);
+
+        std::string topic_local_pose_angular_accel_output;
+        if (n->getParam(get_nodename() + "/topic_local_pose_angular_accel_output",
+                        topic_local_pose_angular_accel_output) == false) {
+            fast::rf::Logger::log_error("Parameter topic_local_pose_angular_accel_output Not Defined!  Exiting.");
+            return false;
+        }
+        local_pose_angular_accel_pub = n->advertise<geometry_msgs::AccelWithCovarianceStamped>(
+            get_robotnamespace() + topic_local_pose_angular_accel_output, 1);
 
         set_ready_to_arm(process->get_ready_to_arm());
         return true;

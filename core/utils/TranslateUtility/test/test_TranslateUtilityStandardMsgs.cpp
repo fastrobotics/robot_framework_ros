@@ -27,7 +27,7 @@ TEST(TestConversion, StandardMessageConvertVector) {
         ASSERT_FLOAT_EQ(data.z, msg.z);
     }
 }
-TEST(TestConversion, StandardMessageConvertCovariance) {
+TEST(TestConversion, StandardMessageConvertCovariance3D) {
     {  // Convert to ROS Message
         fast::rf::messages::StandardMsgs::Covariance3DMsg data;
         ASSERT_EQ(data.covariance.size(), fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
@@ -54,6 +54,38 @@ TEST(TestConversion, StandardMessageConvertCovariance) {
         auto msg = TranslateUtility::convert_covariance3D(data);
         ASSERT_EQ(msg.covariance.size(), fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
                                              fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION);
+        for (std::size_t i = 0; i < msg.covariance.size(); ++i) {
+            ASSERT_EQ(data[i], msg.covariance[i]);
+        }
+    }
+}
+TEST(TestConversion, StandardMessageConvertCovariance6D) {
+    {  // Convert to ROS Message
+        fast::rf::messages::StandardMsgs::Covariance6DMsg data;
+        ASSERT_EQ(data.covariance.size(), fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                              fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION);
+        for (std::size_t i = 0; i < data.covariance.size(); ++i) {
+            data.covariance[i] = (double)i + 1;
+        }
+        auto msg = TranslateUtility::convert_covariance6D(data);
+        ASSERT_EQ(msg.size(), fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                  fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION);
+        for (std::size_t i = 0; i < msg.size(); ++i) {
+            ASSERT_EQ(data.covariance[i], msg[i]);
+        }
+    }
+    {  // Convert from ROS Message
+        boost::array<double, fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                 fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION>
+            data;
+        ASSERT_EQ(data.size(), fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                   fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION);
+        for (std::size_t i = 0; i < data.size(); ++i) {
+            data[i] = (double)i + 1;
+        }
+        auto msg = TranslateUtility::convert_covariance6D(data);
+        ASSERT_EQ(msg.covariance.size(), fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                             fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION);
         for (std::size_t i = 0; i < msg.covariance.size(); ++i) {
             ASSERT_EQ(data[i], msg.covariance[i]);
         }

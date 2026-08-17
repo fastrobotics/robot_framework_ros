@@ -10,6 +10,7 @@
             <arg name="topic_machine_inertial_input" value="imu"/>
             <!-- Output Topics -->
             <arg name="topic_local_pose_output" value="local_pose"/>
+            <arg name="topic_local_pose_angular_accel_output" value="local_pose_angular_accel"/>
         </include>
         <test test-name="test_nodeLocalPoseFuser" pkg="robot_framework_ros" type="test_nodeLocalPoseFuser"/>
     </group>
