@@ -184,7 +184,9 @@ namespace fast::rf_ros::utils {
          * @return fast::rf::messages::StandardMsgs::Covariance3DMsg
          */
         static fast::rf::messages::StandardMsgs::Covariance3DMsg convert_covariance3D(
-            boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> msg);
+            boost::array<double, fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
+                                     fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION>
+                msg);
 
         /**
          * @brief Convert from a Core Message to a ROS Message of type Covariance3D
@@ -192,8 +194,9 @@ namespace fast::rf_ros::utils {
          * @param msg
          * @return boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION>
          */
-        static boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> convert_covariance3D(
-            fast::rf::messages::StandardMsgs::Covariance3DMsg msg);
+        static boost::array<double, fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
+                                        fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION>
+        convert_covariance3D(fast::rf::messages::StandardMsgs::Covariance3DMsg msg);
 
         /**
          * @brief Translate from a ROS mesage to a Core message of type Odometry

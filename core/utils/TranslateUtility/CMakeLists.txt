@@ -1,4 +1,7 @@
-add_library(translateUtility TranslateUtility.cpp)
+add_library(
+  translateUtility
+  TranslateUtilityInfrastructureMsgs.cpp TranslateUtilityStandardMsgs.cpp
+  TranslateUtilityGeometryMsgs.cpp TranslateUtilitySensorMsgs.cpp)
 target_link_libraries(translateUtility ${catkin_LIBRARIES} infrastructure_msgs
                       geometry_msgs sensor_msgs)
 add_dependencies(translateUtility ${robot_framework_ros_EXPORTED_TARGETS})
