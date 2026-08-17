@@ -184,7 +184,9 @@ namespace fast::rf_ros::utils {
          * @return fast::rf::messages::StandardMsgs::Covariance3DMsg
          */
         static fast::rf::messages::StandardMsgs::Covariance3DMsg convert_covariance3D(
-            boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> msg);
+            boost::array<double, fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
+                                     fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION>
+                msg);
 
         /**
          * @brief Convert from a Core Message to a ROS Message of type Covariance3D
