@@ -3,7 +3,55 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 
 using namespace fast::rf_ros::utils;
-
+TEST(TestConversion, GeometryMessageConvertAccel) {
+    {  // Convert from ROS Message
+        geometry_msgs::Accel data;
+        data.linear.x = 1.0;
+        data.linear.y = 2.0;
+        data.linear.z = 3.0;
+        data.angular.x = 4.0;
+        data.angular.y = 5.0;
+        data.angular.z = 6.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.linear.x, 1.0);
+        ASSERT_FLOAT_EQ(msg.linear.y, 2.0);
+        ASSERT_FLOAT_EQ(msg.linear.z, 3.0);
+        ASSERT_FLOAT_EQ(msg.angular.x, 4.0);
+        ASSERT_FLOAT_EQ(msg.angular.y, 5.0);
+        ASSERT_FLOAT_EQ(msg.angular.z, 6.0);
+    }
+    {  // Convert to ROS Message
+        fast::rf::messages::GeometryMsgs::AccelMsg data;
+        data.linear.x = 1.0;
+        data.linear.y = 2.0;
+        data.linear.z = 3.0;
+        data.angular.x = 4.0;
+        data.angular.y = 5.0;
+        data.angular.z = 6.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.linear.x, 1.0);
+        ASSERT_FLOAT_EQ(msg.linear.y, 2.0);
+        ASSERT_FLOAT_EQ(msg.linear.z, 3.0);
+        ASSERT_FLOAT_EQ(msg.angular.x, 4.0);
+        ASSERT_FLOAT_EQ(msg.angular.y, 5.0);
+        ASSERT_FLOAT_EQ(msg.angular.z, 6.0);
+    }
+}
+TEST(TestConversion, GeometryMessageConvertAccelWithCovariance) {
+    {  // Convert from ROS Message
+        geometry_msgs::AccelWithCovarianceStamped data;
+        data.accel.accel.linear.x = 1.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.accel.linear.x, data.accel.accel.linear.x);
+    }
+    {  // Convert to ROS Message
+        fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg data;
+        data.time_stamp = 1.0;
+        data.accel.linear.x = 2.0;
+        auto msg = TranslateUtility::convert(data);
+        ASSERT_FLOAT_EQ(msg.accel.accel.linear.x, data.accel.linear.x);
+    }
+}
 TEST(TestConversion, GeometryMessageConvertQuaternion) {
     {// Convert from ROS Message
      {geometry_msgs::Quaternion data;

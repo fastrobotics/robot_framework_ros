@@ -6,7 +6,34 @@
 
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 namespace fast::rf_ros::utils {
-
+    fast::rf::messages::GeometryMsgs::AccelMsg TranslateUtility::convert(const geometry_msgs::Accel& msg) {
+        fast::rf::messages::GeometryMsgs::AccelMsg data;
+        data.linear = convert(msg.linear);
+        data.angular = convert(msg.angular);
+        return data;
+    }
+    geometry_msgs::Accel TranslateUtility::convert(fast::rf::messages::GeometryMsgs::AccelMsg msg) {
+        geometry_msgs::Accel data;
+        data.linear = convert(msg.linear);
+        data.angular = convert(msg.angular);
+        return data;
+    }
+    fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg TranslateUtility::convert(
+        geometry_msgs::AccelWithCovarianceStamped msg) {
+        fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg data;
+        data.time_stamp = msg.header.stamp.toSec();
+        data.accel = convert(msg.accel.accel);
+        data.covariance = convert_covariance6D(msg.accel.covariance);
+        return data;
+    }
+    geometry_msgs::AccelWithCovarianceStamped TranslateUtility::convert(
+        fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg msg) {
+        geometry_msgs::AccelWithCovarianceStamped data;
+        data.header.stamp = ros::Time(msg.time_stamp);
+        data.accel.accel = convert(msg.accel);
+        data.accel.covariance = convert_covariance6D(msg.covariance);
+        return data;
+    }
     fast::rf::messages::GeometryMsgs::TwistMsg TranslateUtility::convert(geometry_msgs::Twist msg) {
         fast::rf::messages::GeometryMsgs::TwistMsg data;
         data.linear = convert(msg.linear);

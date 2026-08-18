@@ -21,6 +21,7 @@ namespace fast::rf_ros {
                 -ILocalPoseFuserProcess process
                 -Subscriber machine_inertial_sub
                 -Publisher local_pose_pub
+                -Publisher local_pose_angular_accel_pub
             }
             LocalPoseFuserNode --> ILocalPoseFuserProcess: <<use>>
             LocalPoseFuserNode *--> BasicLocalPoseFuserProcess
