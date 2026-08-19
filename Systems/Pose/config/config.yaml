@@ -1,0 +1,7 @@
+system_pose:
+  system_name: "pose"
+  subsystem_inertial_sensor:
+    subsystem_name: "inertial_sensor"
+  subsystem_local_pose:
+    subsystem_name: "local_pose"
+

@@ -243,6 +243,8 @@ namespace fast::rf_ros {
          */
         std::string get_nodename() { return node_name; }
 
+        std::string get_base_nodename();
+
         /**
          * @brief Validate Robot Namespace
          *

@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+    <include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch"/>
     <arg name="robot_namespace" value="/robot" />
     <arg name="verbosity_level" default="INFO"/>
     <arg name="topic_joystick_command" value ="joy"/>
@@ -45,7 +46,6 @@
         <include file="$(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/launch/IMU_node.launch">
                     <arg name="robot_namespace" value="$(arg robot_namespace)"/>
                     <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
-                    <arg name="imu_type" value="RAZOR9DOF"/>
                     <!-- Input Topics -->
 
                     <!-- Output Topics -->

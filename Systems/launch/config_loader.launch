@@ -1,0 +1,17 @@
+<launch>
+    <group if="true">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/BaseMachine/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Navigation/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Pose/config/config.yaml" />
+    </group>
+    <group if="false">
+         <rosparam command="load" file="$(find robot_framework_ros)/Systems/Safety/config/config.yaml" />
+    </group>
+    <!-- These should be loaded in the user application instead -->
+    <rosparam command="load" file="$(find robot_framework_ros)/Systems/config/servo_hat_overrides.yaml" />
+
+</launch>

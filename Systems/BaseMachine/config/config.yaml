@@ -1,0 +1,12 @@
+system_base_machine:
+  subsystems:
+    base_machine:
+      nodes:
+        nodeServoHat:
+          max_servo_value: 2000
+          min_servo_value: 1000
+          neutral_servo_value: 1500
+    mode_manager:
+      nodes:
+        armed_state_manager:
+          arming_hold_timeout: 10

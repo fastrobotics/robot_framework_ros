@@ -1,0 +1,6 @@
+system_base_machine:
+  subsystems:
+    base_machine:
+      nodes:
+        servo_hat:
+          max_servo_value: 17

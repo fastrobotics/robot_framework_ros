@@ -53,7 +53,12 @@ namespace fast::rf_ros {
         _robot_namespace = validate_robotnamespace(_robot_namespace);
         return _robot_namespace;
     }
-
+    std::string BaseNode::get_base_nodename() {
+        node_namespace = ros::this_node::getNamespace();
+        node_name = ros::this_node::getName();
+        std::string base_node_name = node_name.substr(node_namespace.size() == 1 ? 0 : node_namespace.size() + 1);
+        return base_node_name;
+    }
     bool BaseNode::base_init() {
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_INITIALIZING, false);
 
@@ -63,11 +68,14 @@ namespace fast::rf_ros {
         node_namespace = ros::this_node::getNamespace();
         node_name = ros::this_node::getName();
         std::string logger_verbosity;
-        std::string param_logger_verbosity = node_name + "/verbosity_level";
+        std::string param_logger_verbosity =
+            "/system_base_machine/subsystems/base_machine/nodes/" + get_base_nodename() + "/verbosity_level";
         fast::rf::Level level;
         if (n->getParam(param_logger_verbosity, logger_verbosity) == false) {
             level = fast::rf::Level::NOTICE;
+            ROS_WARN("Couldn't find it: x%sx", param_logger_verbosity.c_str());
         } else {
+            ROS_WARN("%s", logger_verbosity.c_str());
             if (logger_verbosity == "DEBUG") {
                 level = fast::rf::Level::DEBUG;
             } else if (logger_verbosity == "INFO") {

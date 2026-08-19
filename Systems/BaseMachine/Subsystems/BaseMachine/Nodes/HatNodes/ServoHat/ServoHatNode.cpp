@@ -1,5 +1,7 @@
 #include "ServoHatNode.hpp"
 
+#include <xmlrpcpp/XmlRpcValue.h>
+
 #include <Infrastructure/Logger.hpp>
 #include <boost/bind/bind.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
@@ -27,16 +29,20 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
+        std::string base_path = "/system_base_machine/subsystems/base_machine/nodes/servo_hat/";
+        int max_servo_value;
+        int min_servo_value;
+        int neutral_servo_value;
+
+        n->param<int>(base_path + "max_servo_value", max_servo_value, 2000);
+        n->param<int>(base_path + "min_servo_value", min_servo_value, 1000);
+        n->param<int>(base_path + "neutral_servo_value", neutral_servo_value, 1500);
         status = process.init();
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
 
-        /**
-         * @todo Make this config during AB#1767
-         *
-         */
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &ServoHatNode::robot_armcommand_state_Callback, this);
 

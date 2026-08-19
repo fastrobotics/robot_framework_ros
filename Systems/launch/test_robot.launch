@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch"/>
+    <arg name="robot_namespace" value="/robot" />
+    
+    <group ns="$(arg robot_namespace)">
+        <include file="$(find robot_framework_ros)/Systems/BaseMachine/Subsystems/BaseMachine/Nodes/HatNodes/ServoHat/launch/ServoHat_node.launch"/>                
+    </group>
+    
+        
+   
+</launch>
