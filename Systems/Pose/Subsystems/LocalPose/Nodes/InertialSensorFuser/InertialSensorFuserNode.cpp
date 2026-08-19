@@ -5,7 +5,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
+namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
 
     InertialSensorFuserNode::InertialSensorFuserNode() {}
     InertialSensorFuserNode::~InertialSensorFuserNode() {}
@@ -25,7 +25,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        process = new fast::rf::PoseSystem::LocalPoseSubsystem::BasicInertialSensorFuserProcess();
+        process = new fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::BasicInertialSensorFuserProcess();
         status = process->init(1);  // Basic Inertial Sensor Fuser requires 1 and only 1 IMU
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
@@ -83,7 +83,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem
+}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing InertialSensorFuserNode with Signal: " + std::to_string(sig));
@@ -91,7 +91,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem;
+using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeInertialSensorFuser");
     InertialSensorFuserNode* node = new InertialSensorFuserNode();

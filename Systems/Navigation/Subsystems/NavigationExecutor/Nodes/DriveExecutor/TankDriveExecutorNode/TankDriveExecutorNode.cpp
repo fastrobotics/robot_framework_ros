@@ -6,7 +6,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor {
 
     TankDriveExecutorNode::TankDriveExecutorNode() {}
     TankDriveExecutorNode::~TankDriveExecutorNode() {}
@@ -49,10 +49,10 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         twist_sub = n->subscribe<geometry_msgs::Twist>(get_robotnamespace() + topic_throttle_command, 10,
                                                        &TankDriveExecutorNode::twist_Callback, this);
 
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig left_channel_config(
-            1000.0, 1500.0, 2000.0);
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveChannelConfig right_channel_config(
-            1000.0, 1500.0, 2000.0);
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveChannelConfig
+            left_channel_config(1000.0, 1500.0, 2000.0);
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveChannelConfig
+            right_channel_config(1000.0, 1500.0, 2000.0);
         if (process.set_config(left_channel_config, right_channel_config) == false) {
             return false;
         }
@@ -68,10 +68,11 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     }
     bool TankDriveExecutorNode::run_loop2() {
         if (process.get_ready_to_arm().ready_to_arm == true) {
-            fast::rf::NavigationSystem::NavigationExecutorSubsystem::IDriveExecutorOutput* general_output =
-                process.get_output();
-            fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput* output =
-                dynamic_cast<fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorOutput*>(
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::IDriveExecutorOutput*
+                general_output = process.get_output();
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorOutput* output =
+                dynamic_cast<
+                    fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorOutput*>(
                     general_output);
             std_msgs::Float64 left_drive;
             left_drive.data = output->left_drive;
@@ -106,7 +107,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing TankDriveExecutorNode with Signal: " + std::to_string(sig));
@@ -114,7 +115,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem;
+using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeTankDriveExecutor");
     TankDriveExecutorNode* node = new TankDriveExecutorNode();

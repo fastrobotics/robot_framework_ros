@@ -8,16 +8,21 @@ namespace ros {
 namespace fast::rf {
     namespace {{cookiecutter.System}}System {
         namespace {{cookiecutter.Subsystem}}Subsystem {
+            namespace {{cookiecutter.Node}} {
+                
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace {{cookiecutter.System}}System {
-        package {{cookiecutter.Subsystem}}Subsystem #LightYellow;line:blue {
-            class {{cookiecutter.Node}}Node #Yellow {
-                -{{cookiecutter.Node}}Process process
+        namespace {{cookiecutter.Subsystem}}Subsystem 
+            package {{cookiecutter.Node}} { #LightYellow;line:blue {
+                class {{cookiecutter.Node}}Node #Yellow {
+                    -{{cookiecutter.Node}}Process process
+                }
+                {{cookiecutter.Node}}Node --> {{cookiecutter.Node}}Process: <<use>>
             }
-            {{cookiecutter.Node}}Node --> {{cookiecutter.Node}}Process: <<use>>
         }
     }
 }

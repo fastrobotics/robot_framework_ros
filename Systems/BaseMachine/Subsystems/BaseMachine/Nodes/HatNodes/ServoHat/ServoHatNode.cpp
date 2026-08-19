@@ -5,7 +5,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
+namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
 
     ServoHatNode::ServoHatNode() {}
     ServoHatNode::~ServoHatNode() {}
@@ -92,7 +92,7 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem
+}  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing ServoHatNode with Signal: " + std::to_string(sig));
@@ -100,7 +100,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem;
+using namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeServoHat");
     ServoHatNode* node = new ServoHatNode();

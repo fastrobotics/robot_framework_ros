@@ -13,7 +13,7 @@
 
 #include <TankDriveExecutorProcess/TankDriveExecutorProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor {
     /**
      * @brief Tank Drive Executor Node
      *
@@ -117,10 +117,10 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         void twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
 
        private:
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorProcess
             process;  //!< Execution Process
         ros::Subscriber twist_sub;
         ros::Publisher left_drive_pub;
         ros::Publisher right_drive_pub;
     };
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor

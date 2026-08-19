@@ -14,24 +14,28 @@ namespace nav_msgs {
 namespace fast::rf {
     namespace NavigationSystem {
         namespace NavigationExecutorSubsystem {
-            interface ITrajectoryControllerProcess
-            class BasicTrajectoryControllerProcess
-            BasicTrajectoryControllerProcess -up-|> ITrajectoryControllerProcess
+            namespace TrajectoryController {
+                interface ITrajectoryControllerProcess
+                class BasicTrajectoryControllerProcess
+                BasicTrajectoryControllerProcess -up-|> ITrajectoryControllerProcess
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace NavigationSystem {
-        package NavigationExecutorSubsystem #LightYellow;line:blue {
-            class TrajectoryControllerNode #Yellow {
-                -BasicTrajectoryControllerProcess process
-                -void desired_command_Callback(const Twist t_msg)
-                -void pose_Callback(const Odometry t_msg)
-                -Subscriber pose_sub
-                -Subscriber desired_command_sub
-                -Publisher command_pub
+        namespace NavigationExecutorSubsystem {
+            package TrajectoryController #LightYellow;line:blue {
+                class TrajectoryControllerNode #LimeGreen {
+                    -BasicTrajectoryControllerProcess process
+                    -void desired_command_Callback(const Twist t_msg)
+                    -void pose_Callback(const Odometry t_msg)
+                    -Subscriber pose_sub
+                    -Subscriber desired_command_sub
+                    -Publisher command_pub
+                }
+                TrajectoryControllerNode --> BasicTrajectoryControllerProcess: <<use>>
             }
-            TrajectoryControllerNode --> BasicTrajectoryControllerProcess: <<use>>
         }
     }
 }

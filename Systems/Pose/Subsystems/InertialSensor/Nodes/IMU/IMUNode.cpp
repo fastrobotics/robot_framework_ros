@@ -10,7 +10,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
+namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
 
     IMUNode::IMUNode() {}
     IMUNode::~IMUNode() {}
@@ -91,8 +91,8 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
                 fast::rf::Logger::log_warn("Unable to load magnetic_covariance_matrix.  Using Default.");
             }
         }
-        fast::rf::PoseSystem::InertialSensorSubsystem::IIMUProcess::IMUConfig imu_config;
-        imu_config.imu_type = fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type);
+        fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUProcess::IMUConfig imu_config;
+        imu_config.imu_type = fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUDriver::convert_name(imu_type);
         imu_config.imu_device_name = imu_device_name;
         imu_config.linear_accelerometer_covariance = linear_acc_covariance_matrix;
         imu_config.gyro_covariance = gyro_covariance_matrix;
@@ -187,7 +187,7 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem
+}  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing IMUNode with Signal: " + std::to_string(sig));
@@ -195,7 +195,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem;
+using namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeIMU");
     IMUNode* node = new IMUNode();

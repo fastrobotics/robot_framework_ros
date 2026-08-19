@@ -82,31 +82,34 @@ TEST(ArmedStateManagerNode, TestBasics) {
     robot_framework_ros::ready_to_arm process1_data;
     process1_data.SystemID = fast::rf::BaseMachineSystem::SYSTEM_ID;
     process1_data.SubsystemID = fast::rf::BaseMachineSystem::BaseMachineSubsystem::SUBSYSTEM_ID;
-    process1_data.ProcessID = fast::rf::BaseMachineSystem::BaseMachineSubsystem::PROCESS_HATDRIVER_ID;
+    process1_data.ProcessID = fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::PROCESS_HATDRIVER_ID;
     process1_data.ready_to_arm = true;
 
     robot_framework_ros::ready_to_arm process2_data;
     process2_data.SystemID = fast::rf::NavigationSystem::SYSTEM_ID;
     process2_data.SubsystemID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::SUBSYSTEM_ID;
-    process2_data.ProcessID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::PROCESS_DRIVE_EXECUTOR_ID;
+    process2_data.ProcessID =
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::PROCESS_DRIVE_EXECUTOR_ID;
     process2_data.ready_to_arm = true;
 
     robot_framework_ros::ready_to_arm process3_data;
     process3_data.SystemID = fast::rf::UserInterfaceSystem::SYSTEM_ID;
     process3_data.SubsystemID = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::SUBSYSTEM_ID;
-    process3_data.ProcessID = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::PROCESS_TELEOPCONTROL_ID;
+    process3_data.ProcessID =
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::PROCESS_TELEOPCONTROL_ID;
     process3_data.ready_to_arm = true;
 
     robot_framework_ros::ready_to_arm process4_data;
     process4_data.SystemID = fast::rf::NavigationSystem::SYSTEM_ID;
     process4_data.SubsystemID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::SUBSYSTEM_ID;
-    process4_data.ProcessID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::PROCESS_TRAJECTORY_CONTROLLER_ID;
+    process4_data.ProcessID =
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::PROCESS_TRAJECTORY_CONTROLLER_ID;
     process4_data.ready_to_arm = true;
 
     robot_framework_ros::ready_to_arm process5_data;
     process5_data.SystemID = fast::rf::PoseSystem::SYSTEM_ID;
     process5_data.SubsystemID = fast::rf::PoseSystem::LocalPoseSubsystem::SUBSYSTEM_ID;
-    process5_data.ProcessID = fast::rf::PoseSystem::LocalPoseSubsystem::PROCESS_LOCALPOSEFUSER_ID;
+    process5_data.ProcessID = fast::rf::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::PROCESS_LOCALPOSEFUSER_ID;
     process5_data.ready_to_arm = true;
 
     // Feed it Ready To Arm Topics

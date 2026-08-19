@@ -4,7 +4,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController {
 
     TrajectoryControllerNode::TrajectoryControllerNode() {}
     TrajectoryControllerNode::~TrajectoryControllerNode() {}
@@ -96,7 +96,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing TrajectoryControllerNode with Signal: " + std::to_string(sig));
@@ -104,7 +104,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem;
+using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeTrajectoryController");
     TrajectoryControllerNode* node = new TrajectoryControllerNode();

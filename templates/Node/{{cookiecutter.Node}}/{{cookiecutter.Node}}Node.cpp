@@ -5,7 +5,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem {
+namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}} {
 
     {{cookiecutter.Node}}Node::{{cookiecutter.Node}}Node() {}
     {{cookiecutter.Node}}Node::~{{cookiecutter.Node}}Node() {}
@@ -64,7 +64,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem;
+using namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}};
 int main(int argc, char** argv) {
     ros::init(argc, argv, "node{{cookiecutter.Node}}");
     {{cookiecutter.Node}}Node* node = new {{cookiecutter.Node}}Node();
