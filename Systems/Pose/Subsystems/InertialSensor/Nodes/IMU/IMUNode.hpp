@@ -109,7 +109,14 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
          */
         void thread_loop();
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};                                //!< If the node is running
         fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IMUProcess process;  //!< Execution Process
         std::string imu_sensor_frame{""};
         ros::Publisher imu_pub;

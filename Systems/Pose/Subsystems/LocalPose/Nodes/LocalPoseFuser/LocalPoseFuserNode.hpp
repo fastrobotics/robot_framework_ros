@@ -112,7 +112,14 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
          */
         void thread_loop();
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         void machine_inertial_Callback(const sensor_msgs::Imu::ConstPtr& t_msg);
         fast::rf::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::ILocalPoseFuserProcess* process{
             nullptr};  //!< Execution Process

@@ -125,7 +125,14 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
          */
         void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::BasicTeleopControlProcess
             process;  //!< Execution Process
         ros::ServiceClient armstate_change_client;

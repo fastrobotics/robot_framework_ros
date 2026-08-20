@@ -2,7 +2,6 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 
 using namespace fast::rf_ros;
 namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
@@ -105,7 +104,10 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
         return true;
     }
 
-    bool BasicTeleopControlNode::start() { return BaseNode::base_start(); }
+    bool BasicTeleopControlNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool BasicTeleopControlNode::run_loop1() {
         process.update(ros::Time::now().toSec());
 
@@ -148,43 +150,36 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
     bool BasicTeleopControlNode::run_001hz() { return true; }
 
     void BasicTeleopControlNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
+    void BasicTeleopControlNode::stop() { is_node_running = false; }
 }  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl
-
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing BasicTeleopControlNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
 
 using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeBasicTeleopControl");
-    BasicTeleopControlNode* node = new BasicTeleopControlNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<BasicTeleopControlNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&BasicTeleopControlNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&BasicTeleopControlNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

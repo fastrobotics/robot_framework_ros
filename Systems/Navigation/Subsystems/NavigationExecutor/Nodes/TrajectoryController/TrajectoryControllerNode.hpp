@@ -111,6 +111,12 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
          */
         void thread_loop();
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
         /**
          *
@@ -126,6 +132,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
          * @param t_msg
          */
         void pose_Callback(const nav_msgs::Odometry::ConstPtr& t_msg);
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         ros::Subscriber pose_sub;
         ros::Subscriber desired_command_sub;
         ros::Publisher command_pub;

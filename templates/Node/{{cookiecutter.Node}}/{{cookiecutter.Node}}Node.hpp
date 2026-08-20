@@ -108,8 +108,15 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
          */
         void thread_loop();
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
 
        private:
+       std::atomic<bool> is_node_running{false};                                //!< If the node is running
         fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}}::{{cookiecutter.Node}}Process
             process;  //!< Execution Process
     };
