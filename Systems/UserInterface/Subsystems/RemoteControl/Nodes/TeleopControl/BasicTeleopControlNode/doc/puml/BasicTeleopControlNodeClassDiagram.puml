@@ -16,22 +16,26 @@ namespace robot_framework_ros {
 namespace fast::rf {
     namespace UserInterfaceSystem {
         namespace RemoteControlSystem {
-            interface ITeleopControlProcess
-            class BasicTeleopControlProcess
-            BasicTeleopControlProcess -up-|> ITeleopControlProcess
+            namespace TeleopControl {
+                interface ITeleopControlProcess
+                class BasicTeleopControlProcess
+                BasicTeleopControlProcess -up-|> ITeleopControlProcess
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace UserInterfaceSystem {
-        package RemoteControlSystem #LightYellow;line:blue {
-            class BasicTeleopControlNode #LimeGreen {
-                -BasicTeleopControlProcess process
+        namespace RemoteControlSystem {
+            package TeleopControl #LightYellow;line:blue {
+                class BasicTeleopControlNode #LimeGreen {
+                    -BasicTeleopControlProcess process
+                }
+                BasicTeleopControlNode -up-|> BaseNode
+                BasicTeleopControlNode --> BasicTeleopControlProcess: <<use>>
+                BasicTeleopControlNode --> Twist: <<depend>>
+                BasicTeleopControlNode --> Joy: <<depend>>
             }
-            BasicTeleopControlNode -up-|> BaseNode
-            BasicTeleopControlNode --> BasicTeleopControlProcess: <<use>>
-            BasicTeleopControlNode --> Twist: <<depend>>
-            BasicTeleopControlNode --> Joy: <<depend>>
         }
     }
 }

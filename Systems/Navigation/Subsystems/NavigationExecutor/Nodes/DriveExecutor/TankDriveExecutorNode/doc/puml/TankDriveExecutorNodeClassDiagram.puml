@@ -9,26 +9,30 @@ namespace ros {
 namespace fast::rf {
     namespace NavigationSystem {
         namespace NavigationExecutorSubsystem {
-            interface IDriveExecutorProcess #LimeGreen {}
-            interface IDriveExecutorOutput #LimeGreen {}
-            class TankDriveExecutorProcess #LimeGreen {}
-            class TankDriveExecutorOutput #LimeGreen {}
-            TankDriveExecutorProcess -up-|> IDriveExecutorProcess
-            
-            TankDriveExecutorOutput -up-|> IDriveExecutorOutput
-            TankDriveExecutorProcess --> TankDriveExecutorOutput: <<use>>
+            namespace DriveExecutor {
+                interface IDriveExecutorProcess #LimeGreen {}
+                interface IDriveExecutorOutput #LimeGreen {}
+                class TankDriveExecutorProcess #LimeGreen {}
+                class TankDriveExecutorOutput #LimeGreen {}
+                TankDriveExecutorProcess -up-|> IDriveExecutorProcess
+                
+                TankDriveExecutorOutput -up-|> IDriveExecutorOutput
+                TankDriveExecutorProcess --> TankDriveExecutorOutput: <<use>>
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace NavigationSystem {
-        package NavigationExecutorSubsystem #LightYellow;line:blue {
-            class TankDriveExecutorNode #LimeGreen {
-                -TankDriveExecutorProcess process
+        namespace NavigationExecutorSubsystem {
+            package DriveExecutor #LightYellow;line:blue {
+                class TankDriveExecutorNode #LimeGreen {
+                    -TankDriveExecutorProcess process
+                }
+                TankDriveExecutorNode --> TankDriveExecutorProcess: <<use>>
+                TankDriveExecutorNode --> TankDriveExecutorOutput: <<use>>
+                TankDriveExecutorNode --> Twist: <<depend>>
             }
-            TankDriveExecutorNode --> TankDriveExecutorProcess: <<use>>
-            TankDriveExecutorNode --> TankDriveExecutorOutput: <<use>>
-            TankDriveExecutorNode --> Twist: <<depend>>
         }
     }
 }

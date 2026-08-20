@@ -15,7 +15,7 @@
 #include <fstream>
 #include <iostream>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
     /**
      * @brief JoystickCalibration Node
      *
@@ -121,4 +121,4 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
        private:
         ros::Subscriber joy_sub;
     };
-}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl

@@ -2,7 +2,9 @@
 title System-BaseMachine Package Diagram
 package fast::rf_ros::BaseMachineSystem #LightYellow;line:blue {
     namespace BaseMachineSubsystem #LimeGreen {
-        class ServoHatNode #LimeGreen
+        namespace HatDriver {
+            class ServoHatNode #LimeGreen
+        }
     }
 }
 @enduml

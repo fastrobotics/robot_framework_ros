@@ -4,6 +4,16 @@ title LocalPose Subsystem Class Diagram
 namespace fast::rf_ros {
     namespace PoseSystem {
         package LocalPoseSubsystem #LightYellow;line:blue {
+            namespace InertialSensorFuser #Orange {
+                class InertialSensorFuserNode <<ROS>> #Orange {
+
+                }
+            }
+            namespace LocalPoseFuser #Orange {
+                class LocalPoseFuserNode <<ROS>> #Orange {
+
+                }
+            }
         }
     }
 }

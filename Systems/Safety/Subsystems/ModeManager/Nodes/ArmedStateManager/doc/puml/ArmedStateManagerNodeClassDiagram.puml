@@ -4,17 +4,21 @@ title ArmedStateManager Node Class Diagram
 namespace fast::rf {
     namespace SafetySystem {
         namespace ModeManagerSubsystem {
-            class ArmedStateManagerProcess 
+            namespace ArmedStateManager {
+                class ArmedStateManagerProcess
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace SafetySystem {
-        package ModeManagerSubsystem #LightYellow;line:blue {
-            class ArmedStateManagerNode #LimeGreen {
-                -ArmedStateManagerProcess process
+        namespace ModeManagerSubsystem {
+            package ArmedStateManager #LightYellow;line:blue {
+                class ArmedStateManagerNode <<ROS>> #LimeGreen {
+                    -ArmedStateManagerProcess process
+                }
+                ArmedStateManagerNode --> ArmedStateManagerProcess: <<use>>
             }
-            ArmedStateManagerNode --> ArmedStateManagerProcess: <<use>>
         }
     }
 }

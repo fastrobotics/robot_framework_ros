@@ -3,9 +3,23 @@ title Pose System Class Diagram
 
 namespace fast::rf_ros {
     package PoseSystem #LightYellow;line:blue {
-        namespace InertialSensorSubsystem #Orange {
-            class IMUNode <<ROS>> #Orange {
+        namespace InertialSensorSubsystem #LimeGreen {
+            namespace IMU {
+                class IMUNode <<ROS>> #LimeGreen {
 
+                }
+            }
+        }
+        namespace LocalPoseSubsystem #Orange {
+            namespace InertialSensorFuser #Orange {
+                class InertialSensorFuserNode <<ROS>> #Orange {
+
+                }
+            }
+            namespace LocalPoseFuser #Orange {
+                class LocalPoseFuserNode <<ROS>> #Orange {
+
+                }
             }
         }
     }

@@ -2,7 +2,9 @@
 title System-UserInterface Package Diagram
 package fast::rf_ros::UserInterfaceSystem #LightYellow;line:blue {
     namespace RemoteControlSubsystem #LimeGreen  {
-        class BasicTeleopControlNode #LimeGreen {}
+        namespace TeleopControl {
+            class BasicTeleopControlNode #LimeGreen {}
+        }
     }
 }
 @enduml

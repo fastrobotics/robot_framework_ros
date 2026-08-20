@@ -8,9 +8,8 @@
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
+namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
 
     IMUNode::IMUNode() {}
     IMUNode::~IMUNode() {}
@@ -91,8 +90,8 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
                 fast::rf::Logger::log_warn("Unable to load magnetic_covariance_matrix.  Using Default.");
             }
         }
-        fast::rf::PoseSystem::InertialSensorSubsystem::IIMUProcess::IMUConfig imu_config;
-        imu_config.imu_type = fast::rf::PoseSystem::InertialSensorSubsystem::IIMUDriver::convert_name(imu_type);
+        fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUProcess::IMUConfig imu_config;
+        imu_config.imu_type = fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUDriver::convert_name(imu_type);
         imu_config.imu_device_name = imu_device_name;
         imu_config.linear_accelerometer_covariance = linear_acc_covariance_matrix;
         imu_config.gyro_covariance = gyro_covariance_matrix;
@@ -183,11 +182,15 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
     bool IMUNode::run_001hz() { return true; }
 
     void IMUNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_running_) {
+            // Your IMU reading/processing code goes here...
         }
     }
-}  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem
+    void IMUNode::stop() {
+        // Flip the flag so the background thread knows main() wants it to close
+        is_running_ = false;
+    }
+}  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU
 /*
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing IMUNode with Signal: " + std::to_string(sig));
@@ -196,7 +199,7 @@ void signalinterrupt_handler(int sig) {
 }
 */
 
-using namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem;
+using namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU;
 int main(int argc, char** argv) {
     // 1. Initialize ROS. This automatically hooks up SIGINT (Ctrl+C) handling to ros::ok()
     ros::init(argc, argv, "nodeIMU");
@@ -225,7 +228,7 @@ int main(int argc, char** argv) {
 
     // 4. Hook your loop directly into ros::ok() so rosnode kill / Ctrl+C breaks the loop instantly
     bool status = true;
-    while (ros::ok() && status && !kill_node) {
+    while (ros::ok() && status) {
         status = node->update();
 
         // Give the ROS master queue a chance to process background tasks

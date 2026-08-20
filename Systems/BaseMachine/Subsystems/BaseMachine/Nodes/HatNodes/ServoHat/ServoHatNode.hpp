@@ -14,7 +14,7 @@
 
 #include <ServoHatDriverProcess/ServoHatDriverProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
+namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
     /**
      * @brief ServoHat Node
      *
@@ -126,9 +126,10 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem {
         void drive_Callback(const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel);
 
        private:
-        fast::rf::BaseMachineSystem::BaseMachineSubsystem::ServoHatDriverProcess process;  //!< Execution Process
+        fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::ServoHatDriverProcess
+            process;  //!< Execution Process
         ros::Subscriber robot_arm_command_state_sub;
         ros::Subscriber left_drive_sub;
         ros::Subscriber right_drive_sub;
     };
-}  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem
+}  // namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver
