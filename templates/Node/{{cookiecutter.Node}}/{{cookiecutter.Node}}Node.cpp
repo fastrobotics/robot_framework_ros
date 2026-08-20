@@ -19,10 +19,30 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool ServoHatNode::load_config() {
+        std::string system_id_str = fast::rf::{{cookiecutter.System}}System::toString(fast::rf::{{cookiecutter.System}}System::Id{});
+        std::string subsystem_id_str = fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::toString(
+            fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::Id{});
+        std::string process_id_str = fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::HatDriver::toString(
+            fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}}::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        status = process.set_config();
+        if(status == false) {
+            fast::rf::Logger::log_error("Unable to set config!");
+            return false;
+        }
+        return true;
+    }
     bool {{cookiecutter.Node}}Node::start() { 
         is_node_running = true;
         return BaseNode::base_start(); }
