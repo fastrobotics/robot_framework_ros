@@ -188,14 +188,64 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
         }
     }
 }  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem
-
+/*
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing IMUNode with Signal: " + std::to_string(sig));
     kill_node = true;
     exit(0);
 }
+*/
 
 using namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem;
+int main(int argc, char** argv) {
+    // 1. Initialize ROS. This automatically hooks up SIGINT (Ctrl+C) handling to ros::ok()
+    ros::init(argc, argv, "nodeIMU");
+
+    // Optional: Keep your custom handler if needed, but ros::init handles standard kills out-of-the-box
+    // signal(SIGINT, signalinterrupt_handler);
+    // signal(SIGTERM, signalinterrupt_handler);
+
+    // 2. C++14 Smart Pointer: Guarantees memory cleanup even on early exit returns
+    auto node = std::make_unique<IMUNode>();
+
+    if (!node->init()) {
+        // LCOV_EXCL_START
+        return EXIT_FAILURE;
+        // LCOV_EXCL_STOP
+    }
+
+    if (!node->start()) {
+        // LCOV_EXCL_START
+        return EXIT_FAILURE;
+        // LCOV_EXCL_STOP
+    }
+
+    // 3. Spawn the background thread
+    std::thread thread(&IMUNode::thread_loop, node.get());
+
+    // 4. Hook your loop directly into ros::ok() so rosnode kill / Ctrl+C breaks the loop instantly
+    bool status = true;
+    while (ros::ok() && status && !kill_node) {
+        status = node->update();
+
+        // Give the ROS master queue a chance to process background tasks
+        ros::spinOnce();
+    }
+
+    // 5. SAFE SHUTDOWN SEQUENCE:
+    // Tell the node it needs to stop so the background thread_loop exits its own internal loop
+    node->stop();  // <-- Make sure IMUNode has a way to break its thread_loop!
+
+    // 6. Join instead of Detach
+    // This pauses main() for a millisecond to let the thread finish cleanly, preventing zombie processes.
+    if (thread.joinable()) {
+        thread.join();
+    }
+
+    // Node memory is automatically deleted here by std::unique_ptr
+    return 0;
+}
+/*
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeIMU");
     IMUNode* node = new IMUNode();
@@ -223,3 +273,4 @@ int main(int argc, char** argv) {
     delete node;
     return 0;
 }
+*/
