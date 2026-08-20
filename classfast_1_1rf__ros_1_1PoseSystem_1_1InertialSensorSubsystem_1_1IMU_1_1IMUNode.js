@@ -3,6 +3,7 @@ var classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUN
     [ "IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#ada69814b4945a4f93d5b07bd6c2397da", null ],
     [ "~IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#a6f35025ecba8b6e3c948ba9b1dcef916", null ],
     [ "init", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#a76ddff5662b5164974f50cc832244c47", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#af83cee47bd289d9e458e45f5e0f841bd", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#aaca9d5c682f669003964f6fdc9c40ebf", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#a3c348581e54bd4ac20f306edfbd3106c", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#ac4bdeb49a97a4c2c8ead2cc3715f2319", null ],

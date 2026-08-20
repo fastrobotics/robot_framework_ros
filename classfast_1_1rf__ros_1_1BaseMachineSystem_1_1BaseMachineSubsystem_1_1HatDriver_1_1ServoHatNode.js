@@ -4,6 +4,7 @@ var classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriv
     [ "~ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a1163bd9439d9a2945a100760c33039da", null ],
     [ "drive_Callback", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#aa93b1b0b2b20d06e281dde734479481e", null ],
     [ "init", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#af5bd9780542b10ed03ebc698a7543d00", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#aaeb95043d70e2f1f146cc8803b4e6d7f", null ],
     [ "robot_armcommand_state_Callback", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#ac2a8f8fe4b5c1bfd22aa1f7df987c976", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a3f6ac5f125ef12fd75b86c57af79d506", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a1582e4df242f28daae7278f9b234ad91", null ],

@@ -3,6 +3,7 @@ var classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1D
     [ "TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#a168e1fd10cd4c2a68e83804355bb44bd", null ],
     [ "~TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#af90df1c6ab1c73d3d876d20a572741a9", null ],
     [ "init", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#af459be89c0849e4c083b566186674273", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#ad021ff7f9cf40124e0694bd672ca23c3", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#a7867a11ca504c00701ae1712355345ce", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#a92616b2b569d5edaea425e2a88b0ea56", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#a38f1bd39920c58ad3789b9274c8b4c61", null ],

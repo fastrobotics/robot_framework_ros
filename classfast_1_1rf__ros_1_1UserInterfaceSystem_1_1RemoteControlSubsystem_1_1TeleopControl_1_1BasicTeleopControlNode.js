@@ -4,6 +4,7 @@ var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1Tel
     [ "~BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#af78464cdbc8f1cf523d737b38ac49cdf", null ],
     [ "init", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a144429310804caa8182b924ab52e8339", null ],
     [ "joy_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#af5aacffb88f4f2f9b3a682eb05febef7", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a43d72e083a1a23753cee0f5be456c720", null ],
     [ "robot_armcommand_state_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#ae97e83b780f38286c1b2b52aa26ae398", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#ab99baa9612065ca3f281879c02829bad", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a5df04fc303f34d0ffa7e17d06311744e", null ],

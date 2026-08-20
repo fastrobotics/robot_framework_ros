@@ -4,6 +4,7 @@ var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1Tel
     [ "~JoystickCalibrationNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a4645813ae64cb3145a56c4ab058f29fc", null ],
     [ "init", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#afbc920974c0da529a319fb987724cd95", null ],
     [ "joy_Callback", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a36c61e99ea5fd66af0b96a3d58f1fff7", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a140af6dbd9ce19365ba877627d242f46", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#ab9b253befaf86f4fb4b21a830cc6b45b", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#abba170d0d3799628b4753310a0d69fc6", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a5b97c2b81fe577fb9ae955e2c4b52db0", null ],

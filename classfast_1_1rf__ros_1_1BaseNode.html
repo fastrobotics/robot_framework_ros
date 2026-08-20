@@ -145,6 +145,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac0fd8abb9aa9d77ed10281ed12429a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebb66a558c055aa1026dd6d62ecc3349" id="r_aebb66a558c055aa1026dd6d62ecc3349"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#aebb66a558c055aa1026dd6d62ecc3349">init</a> ()=0</td></tr>
 <tr class="separator:aebb66a558c055aa1026dd6d62ecc3349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9105fa5bdbc33e0d21edc58630d0f34b" id="r_a9105fa5bdbc33e0d21edc58630d0f34b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a9105fa5bdbc33e0d21edc58630d0f34b">load_config</a> ()=0</td></tr>
+<tr class="memdesc:a9105fa5bdbc33e0d21edc58630d0f34b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load Configuration.  <br /></td></tr>
+<tr class="separator:a9105fa5bdbc33e0d21edc58630d0f34b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7627d88807cbdcf7e808208f73bd253a" id="r_a7627d88807cbdcf7e808208f73bd253a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a7627d88807cbdcf7e808208f73bd253a">base_start</a> ()</td></tr>
 <tr class="memdesc:a7627d88807cbdcf7e808208f73bd253a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start Base Node. Should be called AFTER User runs <code>init</code>.  <br /></td></tr>
 <tr class="separator:a7627d88807cbdcf7e808208f73bd253a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,6 +208,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a095144eb9f05e63d28114b904c8e900e" id="r_a095144eb9f05e63d28114b904c8e900e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a095144eb9f05e63d28114b904c8e900e">read_robotnamespace</a> ()</td></tr>
 <tr class="memdesc:a095144eb9f05e63d28114b904c8e900e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Robot Namespace.  <br /></td></tr>
 <tr class="separator:a095144eb9f05e63d28114b904c8e900e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2263af27adec8da948ed10e18ca1bbd8" id="r_a2263af27adec8da948ed10e18ca1bbd8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a2263af27adec8da948ed10e18ca1bbd8">read_base_nodename</a> ()</td></tr>
+<tr class="separator:a2263af27adec8da948ed10e18ca1bbd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c3e7a6d77e6f0d60ae325265ebf4f63" id="r_a5c3e7a6d77e6f0d60ae325265ebf4f63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a5c3e7a6d77e6f0d60ae325265ebf4f63">set_robotnamespace</a> (std::string _robot_namespace)</td></tr>
 <tr class="memdesc:a5c3e7a6d77e6f0d60ae325265ebf4f63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the robotnamespace object.  <br /></td></tr>
 <tr class="separator:a5c3e7a6d77e6f0d60ae325265ebf4f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +219,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d4ae829d92454375f07c17b278e8910" id="r_a4d4ae829d92454375f07c17b278e8910"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a4d4ae829d92454375f07c17b278e8910">get_nodename</a> ()</td></tr>
 <tr class="memdesc:a4d4ae829d92454375f07c17b278e8910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the nodename object.  <br /></td></tr>
 <tr class="separator:a4d4ae829d92454375f07c17b278e8910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf9dcbc0fcb756073205201ca934a70" id="r_a4cf9dcbc0fcb756073205201ca934a70"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a4cf9dcbc0fcb756073205201ca934a70">get_config_path</a> (std::string system_id_str, std::string subsystem_id_str, std::string process_id_str)</td></tr>
+<tr class="separator:a4cf9dcbc0fcb756073205201ca934a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -466,6 +473,40 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="a4cf9dcbc0fcb756073205201ca934a70" name="a4cf9dcbc0fcb756073205201ca934a70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf9dcbc0fcb756073205201ca934a70">&#9670;&#160;</a></span>get_config_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string fast::rf_ros::BaseNode::get_config_path </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>system_id_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>subsystem_id_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>process_id_str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a17b03e834ba88acb15bd5878b94ebb42" name="a17b03e834ba88acb15bd5878b94ebb42"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a17b03e834ba88acb15bd5878b94ebb42">&#9670;&#160;</a></span>get_node_state()</h2>
 
@@ -580,6 +621,38 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="a9105fa5bdbc33e0d21edc58630d0f34b" name="a9105fa5bdbc33e0d21edc58630d0f34b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9105fa5bdbc33e0d21edc58630d0f34b">&#9670;&#160;</a></span>load_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool fast::rf_ros::BaseNode::load_config </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load Configuration. </p>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+<p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a747089550fd84dcda2c8bcdf162c8898">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#aaeb95043d70e2f1f146cc8803b4e6d7f">fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver::ServoHatNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#ad021ff7f9cf40124e0694bd672ca23c3">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a47049c6f1f90cc1277554d36c52c55bb">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::TrajectoryControllerNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#af83cee47bd289d9e458e45f5e0f841bd">fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU::IMUNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a19913ad8bb94e03d378bd39339108a6f">fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::InertialSensorFuserNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a048a6e68e8353065ba44d2d27e9cb3ec">fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::LocalPoseFuserNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a119e93b97aa5af57577d0e3a7177bac1">fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a43d72e083a1a23753cee0f5be456c720">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::BasicTeleopControlNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a140af6dbd9ce19365ba877627d242f46">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#a7c12e3461d5f975cbaced84f93199847">fast::rf_ros::Tools::Applications::SystemMonitor::SystemMonitorNode</a>.</p>
+
+</div>
+</div>
 <a id="a44767794a76dbeac511f4994b80e6f6f" name="a44767794a76dbeac511f4994b80e6f6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a44767794a76dbeac511f4994b80e6f6f">&#9670;&#160;</a></span>pretty()</h2>
 
@@ -597,6 +670,23 @@ false </dd></dl>
 
 <p>Get a string representation of the node. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::string </dd></dl>
+
+</div>
+</div>
+<a id="a2263af27adec8da948ed10e18ca1bbd8" name="a2263af27adec8da948ed10e18ca1bbd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2263af27adec8da948ed10e18ca1bbd8">&#9670;&#160;</a></span>read_base_nodename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string fast::rf_ros::BaseNode::read_base_nodename </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1103,7 +1193,7 @@ false </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html">BaseNode</a></li>
-    <li class="footer">Generated on Thu Aug 20 2026 03:16:22 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Thu Aug 20 2026 22:27:21 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

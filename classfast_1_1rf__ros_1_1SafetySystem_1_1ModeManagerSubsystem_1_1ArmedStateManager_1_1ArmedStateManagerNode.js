@@ -4,6 +4,7 @@ var classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateMa
     [ "~ArmedStateManagerNode", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a8cd0150dd62bda6e6b825f3e31e397b2", null ],
     [ "arm_statechange_service", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#afe07c945acbc8c4a5b86d932486126af", null ],
     [ "init", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a0a4367e4d121ad9d078d82c97311b539", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a119e93b97aa5af57577d0e3a7177bac1", null ],
     [ "ready_to_arm_Callback", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a6ee00e6484c0cd2aa01a6bbdccf5494f", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#ad3ddafc7cb12023c7130164e30cc0616", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a93e033b072bd37360c1679ceb4eefa72", null ],

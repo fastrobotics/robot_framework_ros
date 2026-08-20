@@ -3,6 +3,7 @@ var classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1
     [ "LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#af16a627e46e7eb730a0ad62b58413f11", null ],
     [ "~LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a3b00ae30446e9e007f147f4eb988a860", null ],
     [ "init", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a863e43fb8a5eeaf474dca686f16c98c0", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a048a6e68e8353065ba44d2d27e9cb3ec", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#af23c0a626de78117b4bbf685cfeffc4a", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#ad15d3ec1ac21f91373eec836acd653ee", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a8137fb80a69dcce73feb592df39018d1", null ],

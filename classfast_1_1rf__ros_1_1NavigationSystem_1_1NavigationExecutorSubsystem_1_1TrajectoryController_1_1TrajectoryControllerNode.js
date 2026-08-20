@@ -3,6 +3,7 @@ var classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1T
     [ "TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#ae79ba4df5a7e542261c5a5c1dfb2970a", null ],
     [ "~TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a1269ee608130c3682b545dab17d4c710", null ],
     [ "init", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a596c089d749d56ed7fe43bc6dda975a6", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a47049c6f1f90cc1277554d36c52c55bb", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a84529f072ad8206632bdd6db7af4295b", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a0bb0b1eab76cadeb4f081914a46f5e6c", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#aa8f0e0015e819508edfb084c77c03bf5", null ],

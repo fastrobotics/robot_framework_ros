@@ -3,6 +3,7 @@ var classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFu
     [ "InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a50cdc6b6a4856f9b6de0fca4e440243a", null ],
     [ "~InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a5e6ba604a910d1b9a39d8c2a9c948bbf", null ],
     [ "init", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a3c910802572a473d56c8bdb782edd0cd", null ],
+    [ "load_config", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a19913ad8bb94e03d378bd39339108a6f", null ],
     [ "run_001hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#afab77a400d8914e80483b5284079950a", null ],
     [ "run_01hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a3011f1668b4c53f03ff448e4cf9c82fd", null ],
     [ "run_100hz", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a5421646747d864bff9778215d9c2a140", null ],
