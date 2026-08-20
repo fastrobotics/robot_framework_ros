@@ -43,7 +43,31 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
 
+        std::string topic_joy_command = "/robot/joy";
+        if (n->getParam(get_nodename() + "/topic_joy_command", topic_joy_command) == false) {
+            fast::rf::Logger::log_warn("topic_joy_command Not specified.  Using default: " + topic_joy_command);
+        }
+        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
+                                                 &JoystickCalibrationNode::joy_Callback, this);
+        return true;
+    }
+    bool JoystickCalibrationNode::load_config() {
+        std::string system_id_str = fast::rf::UserInterfaceSystem::toString(fast::rf::UserInterfaceSystem::Id{});
+        std::string subsystem_id_str = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::toString(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::Id{});
+        std::string process_id_str = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::toString(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
+
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        // Provide user space config during AB#1854
         std::string output_file_path;
         if (n->getParam(get_nodename() + "/output_file_path", output_file_path) == false) {
             fast::rf::Logger::log_error("output_file_path Not specified!  Exiting.");
@@ -70,15 +94,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             fast::rf::Logger::log_error("Unable to create file at path: " + output_file_path + "! Exiting.");
             return false;
         }
-        std::string topic_joy_command = "/robot/joy";
-        if (n->getParam(get_nodename() + "/topic_joy_command", topic_joy_command) == false) {
-            fast::rf::Logger::log_warn("topic_joy_command Not specified.  Using default: " + topic_joy_command);
-        }
-        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
-                                                 &JoystickCalibrationNode::joy_Callback, this);
         return true;
     }
-
     bool JoystickCalibrationNode::start() { return BaseNode::base_start(); }
     bool JoystickCalibrationNode::run_loop1() { return true; }
     bool JoystickCalibrationNode::run_loop2() { return true; }

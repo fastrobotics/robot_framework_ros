@@ -53,7 +53,18 @@ namespace fast::rf_ros {
         _robot_namespace = validate_robotnamespace(_robot_namespace);
         return _robot_namespace;
     }
-
+    std::string BaseNode::read_base_nodename() {
+        std::string full_name = ros::this_node::getName();
+        std::string ns = ros::this_node::getNamespace();
+        std::string base_name = full_name.substr(ns.size() == 1 ? 0 : ns.size() + 1);
+        return base_name;
+    }
+    std::string BaseNode::get_config_path(std::string system_id_str, std::string subsystem_id_str,
+                                          std::string process_id_str) {
+        std::string config_path = get_robotnamespace() + "config/" + system_id_str + "/" + subsystem_id_str + "/" +
+                                  process_id_str + read_base_nodename();
+        return config_path;
+    }
     bool BaseNode::base_init() {
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_INITIALIZING, false);
 

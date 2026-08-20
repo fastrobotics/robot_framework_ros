@@ -23,36 +23,13 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationData
-            joy_calibration_data;
-        XmlRpc::XmlRpcValue calibration_config;
-        if (n->getParam(get_nodename() + "/calibration", calibration_config)) {
-            if (calibration_config.getType() == XmlRpc::XmlRpcValue::TypeStruct) {
-                joy_calibration_data.x_max = calibration_config["x_max"];
-                joy_calibration_data.x_deadband = calibration_config["x_deadband"];
-                joy_calibration_data.x_min = calibration_config["x_min"];
-                joy_calibration_data.y_max = calibration_config["y_max"];
-                joy_calibration_data.y_deadband = calibration_config["y_deadband"];
-                joy_calibration_data.y_min = calibration_config["y_min"];
-                joy_calibration_data.throttle_max = calibration_config["throttle_max"];
-                joy_calibration_data.throttle_deadband = calibration_config["throttle_deadband"];
-                joy_calibration_data.throttle_min = calibration_config["throttle_min"];
 
-            } else {
-                fast::rf::Logger::log_error("Error parsing Joystick Calibration.  Exiting.");
-                return false;
-            }
-        } else {
-            fast::rf::Logger::log_warn("No Joystick Calibration Found.  Using default!");
-            joy_calibration_data.optional_init();
-        }
-        status = process.init(
-            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::ControlDevice::THRUSTMASTER_JOYSTICK,
-            joy_calibration_data);
+        status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::log_error("Unable to load config!");
             return false;
         }
+
         std::string operation_mode;
         std::string param_op_mode = get_nodename() + "/operation_mode";
         if (n->getParam(param_op_mode, operation_mode) == false) {
@@ -71,10 +48,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             return false;
         }
 
-        /**
-         * @todo Make this config during AB#1767
-         *
-         */
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &BasicTeleopControlNode::robot_armcommand_state_Callback, this);
 
@@ -103,7 +76,52 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool BasicTeleopControlNode::load_config() {
+        std::string system_id_str = fast::rf::UserInterfaceSystem::toString(fast::rf::UserInterfaceSystem::Id{});
+        std::string subsystem_id_str = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::toString(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::Id{});
+        std::string process_id_str = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::toString(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        /**
+         * @todo Make this config during AB#1853
+         *
+         */
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationData
+            joy_calibration_data;
+        XmlRpc::XmlRpcValue calibration_config;
+        if (n->getParam(get_nodename() + "/calibration", calibration_config)) {
+            if (calibration_config.getType() == XmlRpc::XmlRpcValue::TypeStruct) {
+                joy_calibration_data.x_max = calibration_config["x_max"];
+                joy_calibration_data.x_deadband = calibration_config["x_deadband"];
+                joy_calibration_data.x_min = calibration_config["x_min"];
+                joy_calibration_data.y_max = calibration_config["y_max"];
+                joy_calibration_data.y_deadband = calibration_config["y_deadband"];
+                joy_calibration_data.y_min = calibration_config["y_min"];
+                joy_calibration_data.throttle_max = calibration_config["throttle_max"];
+                joy_calibration_data.throttle_deadband = calibration_config["throttle_deadband"];
+                joy_calibration_data.throttle_min = calibration_config["throttle_min"];
+
+            } else {
+                fast::rf::Logger::log_error("Error parsing Joystick Calibration.  Exiting.");
+                return false;
+            }
+        } else {
+            fast::rf::Logger::log_warn("No Joystick Calibration Found.  Using default!");
+            joy_calibration_data.optional_init();
+        }
+        bool status = process.init(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::ControlDevice::THRUSTMASTER_JOYSTICK,
+            joy_calibration_data);
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to initialize Process!");
+            return false;
+        }
+        return status;
+    }
     bool BasicTeleopControlNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

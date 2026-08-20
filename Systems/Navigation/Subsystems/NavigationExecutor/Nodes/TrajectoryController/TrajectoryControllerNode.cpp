@@ -27,7 +27,12 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
-        process.set_parameters(10.0, -10.0, 1.0, 1.0, 0.0, 0.0);  // Tune this dynamically during AB#1815
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+
         std::string topic_pose;
         std::string param_pose = get_nodename() + "/topic_pose_input";
         if (n->getParam(param_pose, topic_pose) == false) {
@@ -59,7 +64,21 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool TrajectoryControllerNode::load_config() {
+        std::string system_id_str = fast::rf::NavigationSystem::toString(fast::rf::NavigationSystem::Id{});
 
+        std::string subsystem_id_str = fast::rf::NavigationSystem::NavigationExecutorSubsystem::toString(
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::Id{});
+        std::string process_id_str =
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::toString(
+                fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
+
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        process.set_parameters(10.0, -10.0, 1.0, 1.0, 0.0, 0.0);  // Tune this dynamically during AB#1815
+        return true;
+    }
     bool TrajectoryControllerNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

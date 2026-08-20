@@ -24,6 +24,11 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
         std::string topic_left_drive;
         std::string param_left_drive = get_nodename() + "/topic_left_drive";
         if (n->getParam(param_left_drive, topic_left_drive) == false) {
@@ -58,7 +63,10 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
-
+    bool TankDriveExecutorNode::load_config() {
+        // No user space configuration
+        return true;
+    }
     bool TankDriveExecutorNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

@@ -24,12 +24,19 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
+
         process = new fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::BasicInertialSensorFuserProcess();
         status = process->init(1);  // Basic Inertial Sensor Fuser requires 1 and only 1 IMU
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+
         std::string topic_imu1_input;  // Make this support multiple IMU's during AB#1814
         std::string param_imu1_input = get_nodename() + "/topic_imu1_input";
         if (n->getParam(param_imu1_input, topic_imu1_input) == false) {
@@ -50,7 +57,19 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
+    bool InertialSensorFuserNode::load_config() {
+        std::string system_id_str = fast::rf::PoseSystem::toString(fast::rf::PoseSystem::Id{});
+        std::string subsystem_id_str =
+            fast::rf::PoseSystem::LocalPoseSubsystem::toString(fast::rf::PoseSystem::LocalPoseSubsystem::Id{});
+        std::string process_id_str = fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::toString(
+            fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        // Get user space config during AB#1852
+        return true;
+    }
     bool InertialSensorFuserNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

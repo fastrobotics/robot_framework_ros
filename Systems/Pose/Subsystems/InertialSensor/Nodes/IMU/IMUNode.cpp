@@ -19,6 +19,50 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+        if (n->getParam("imu_sensor_frame", imu_sensor_frame) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: frame");
+            return false;
+        }
+        std::string imu_topic;
+        if (n->getParam("topic_imu", imu_topic) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: topic_imu");
+            return false;
+        }
+        imu_pub = n->advertise<sensor_msgs::Imu>(get_robotnamespace() + imu_topic, 1);
+
+        std::string magnetometer_topic;
+        if (n->getParam("topic_magnetometer", magnetometer_topic) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: topic_magnetometer");
+            return false;
+        }
+        magnetometer_pub = n->advertise<sensor_msgs::MagneticField>(get_robotnamespace() + magnetometer_topic, 1);
+
+        std::string imu_acc_topic;
+        if (n->getParam("topic_imu_acc", imu_acc_topic) == false) {
+            fast::rf::Logger::log_error("Can't find parameter: topic_imu_acc");
+            return false;
+        }
+        imu_accel_pub = n->advertise<geometry_msgs::AccelStamped>(get_robotnamespace() + imu_acc_topic, 1);
+        process.update(ros::Time::now().toSec());  // Kick off the Process
+        set_ready_to_arm(process.get_ready_to_arm());
+        return true;
+    }
+    bool IMUNode::load_config() {
+        std::string system_id_str = fast::rf::PoseSystem::toString(fast::rf::PoseSystem::Id{});
+        std::string subsystem_id_str = fast::rf::PoseSystem::InertialSensorSubsystem::toString(
+            fast::rf::PoseSystem::InertialSensorSubsystem::Id{});
+        std::string process_id_str = fast::rf::PoseSystem::InertialSensorSubsystem::IMU::toString(
+            fast::rf::PoseSystem::InertialSensorSubsystem::IMU::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
+
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        // Re-factor this during AB#1851
         std::string imu_type;
         if (n->getParam("info/type", imu_type) == false) {
             fast::rf::Logger::log_error("Can't find parameter: info/imu_type");
@@ -97,40 +141,14 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         imu_config.gyro_covariance = gyro_covariance_matrix;
         imu_config.magnetometer_covariance = magnetometer_covariance_matrix;
         imu_config.orientation_covariance = orientation_covariance_matrix;
-        status = process.init(imu_config);
+        bool status = process.init(imu_config);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
-        if (n->getParam("imu_sensor_frame", imu_sensor_frame) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: frame");
-            return false;
-        }
-        std::string imu_topic;
-        if (n->getParam("topic_imu", imu_topic) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: topic_imu");
-            return false;
-        }
-        imu_pub = n->advertise<sensor_msgs::Imu>(get_robotnamespace() + imu_topic, 1);
 
-        std::string magnetometer_topic;
-        if (n->getParam("topic_magnetometer", magnetometer_topic) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: topic_magnetometer");
-            return false;
-        }
-        magnetometer_pub = n->advertise<sensor_msgs::MagneticField>(get_robotnamespace() + magnetometer_topic, 1);
-
-        std::string imu_acc_topic;
-        if (n->getParam("topic_imu_acc", imu_acc_topic) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: topic_imu_acc");
-            return false;
-        }
-        imu_accel_pub = n->advertise<geometry_msgs::AccelStamped>(get_robotnamespace() + imu_acc_topic, 1);
-        process.update(ros::Time::now().toSec());  // Kick off the Process
-        set_ready_to_arm(process.get_ready_to_arm());
-        return true;
+        return status;
     }
-
     bool IMUNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

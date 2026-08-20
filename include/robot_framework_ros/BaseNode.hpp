@@ -59,6 +59,14 @@ namespace fast::rf_ros {
         virtual bool init() = 0;
 
         /**
+         * @brief Load Configuration
+         *
+         * @return true
+         * @return false
+         */
+        virtual bool load_config() = 0;
+
+        /**
          * @brief Start Base Node.  Should be called AFTER User runs `init`.
          *
          * @return true
@@ -220,6 +228,8 @@ namespace fast::rf_ros {
          */
         std::string read_robotnamespace();
 
+        std::string read_base_nodename();
+
         /**
          * @brief Set the robotnamespace object
          *
@@ -243,6 +253,8 @@ namespace fast::rf_ros {
          */
         std::string get_nodename() { return node_name; }
 
+        std::string get_config_path(std::string system_id_str, std::string subsystem_id_str,
+                                    std::string process_id_str);
         /**
          * @brief Validate Robot Namespace
          *

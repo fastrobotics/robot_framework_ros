@@ -8,6 +8,7 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
 
     ServoHatNode::ServoHatNode() {}
     ServoHatNode::~ServoHatNode() {}
+
     void ServoHatNode::robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
         robot_framework_ros::arm_command msg = *t_msg;
         process.update_RobotArmCommand(fast::rf_ros::utils::TranslateUtility::convert(msg));
@@ -31,11 +32,12 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
 
-        /**
-         * @todo Make this config during AB#1767
-         *
-         */
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &ServoHatNode::robot_armcommand_state_Callback, this);
 
@@ -58,7 +60,27 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool ServoHatNode::load_config() {
+        std::string system_id_str = fast::rf::BaseMachineSystem::toString(fast::rf::BaseMachineSystem::Id{});
+        std::string subsystem_id_str = fast::rf::BaseMachineSystem::BaseMachineSubsystem::toString(
+            fast::rf::BaseMachineSystem::BaseMachineSubsystem::Id{});
+        std::string process_id_str = fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::toString(
+            fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        // Add support for config during AB#1850
+        /*
+        status = process.set_config();
+        if(status == false) {
+            fast::rf::Logger::log_error("Unable to set config!");
+            return false;
+        }
+            */
+
+        return true;
+    }
     bool ServoHatNode::start() {
         is_node_running = true;
         return BaseNode::base_start();
