@@ -3,7 +3,6 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}} {
 
@@ -59,13 +58,6 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
     }
     void {{cookiecutter.Node}}Node::stop() { is_node_running = false; }
 }  // namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem
-
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing {{cookiecutter.Node}}Node with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
 using namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}};
 int main(int argc, char** argv) {
     ros::init(argc, argv, "node{{cookiecutter.Node}}");
@@ -87,7 +79,7 @@ int main(int argc, char** argv) {
         status = node->update();
         ros::spinOnce();
     }
-    node->stop();  // <-- Make sure IMUNode has a way to break its thread_loop!
+    node->stop();
     if (thread.joinable()) {
         thread.join();
     }

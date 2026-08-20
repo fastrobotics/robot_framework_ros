@@ -125,7 +125,14 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
          */
         void drive_Callback(const std_msgs::Float64::ConstPtr& t_msg, uint16_t channel);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::ServoHatDriverProcess
             process;  //!< Execution Process
         ros::Subscriber robot_arm_command_state_sub;

@@ -116,7 +116,14 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
          */
         void twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorProcess
             process;  //!< Execution Process
         ros::Subscriber twist_sub;
