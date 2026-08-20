@@ -14,5 +14,6 @@ var classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriv
     [ "run_loop2", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a1f03da3cd1c8258e48b27870943b0266", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a153c1c9f7414788e8d12dcc4c5a82525", null ],
     [ "start", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a0deaecbcb1d1d8af8508a035b92e72db", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a2ce89e413ebed98830f884f2010950e2", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#a64be833eb9262769177c28f4befaebed", null ]
 ];

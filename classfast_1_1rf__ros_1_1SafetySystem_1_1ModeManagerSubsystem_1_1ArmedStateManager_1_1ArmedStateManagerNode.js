@@ -14,5 +14,6 @@ var classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateMa
     [ "run_loop2", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a81c6c42a3f1f154916b483c250068722", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#abbadb25acef09af2570ef0d1ee72c623", null ],
     [ "start", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#ad4121aa1d2f3d1825c1003d6d6884c90", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#ac7089762018a25c699fe946c521b5cd9", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a8e8da566eb2cf9cd411863a1432d4387", null ]
 ];

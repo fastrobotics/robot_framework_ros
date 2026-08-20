@@ -12,5 +12,6 @@ var classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1
     [ "run_loop2", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a3e557ff360f6ed1f9064fdf34f5bf325", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#ae48bff36f44d8a6faae9585653a81491", null ],
     [ "start", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a8fff67c079a10c061ee278a134a0505b", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#ad2dd2f9d22bd645e83d506923bee1678", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#ab7855be0c5f0cf3e42f7ab1a98f95cad", null ]
 ];

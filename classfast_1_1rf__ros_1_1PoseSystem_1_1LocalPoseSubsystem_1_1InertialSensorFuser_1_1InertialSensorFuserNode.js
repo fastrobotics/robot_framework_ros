@@ -12,5 +12,6 @@ var classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFu
     [ "run_loop2", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a9ac8666a2a3ef471773e4a819b2bf167", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a6e546ee24e356902ac31391eba352b49", null ],
     [ "start", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a9a019363087c3864aacc6a52c81538f4", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a735fe7503c065151f5c2ea0b6eee9984", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#acdae82e11017d1d933f025e310c8cfaa", null ]
 ];

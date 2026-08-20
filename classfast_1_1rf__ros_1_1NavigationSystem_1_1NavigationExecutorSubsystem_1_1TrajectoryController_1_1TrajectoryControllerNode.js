@@ -12,5 +12,6 @@ var classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1T
     [ "run_loop2", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#ad7f58acac2585240bf9219ed33e84d2e", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#ac5a00026a325eed133921936dd570b17", null ],
     [ "start", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a2fb81b5e883d1d692bb71bb417c10871", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a98d59567a9960f9c1b13dabdb5bdf2bb", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a9f6c79c26dba249522a019bc6ad21fde", null ]
 ];

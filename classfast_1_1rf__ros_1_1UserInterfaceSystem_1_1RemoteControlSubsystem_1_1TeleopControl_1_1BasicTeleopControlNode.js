@@ -14,5 +14,6 @@ var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1Tel
     [ "run_loop2", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a7d59791006b260122cc7a05943b4472e", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a74c18a56cbdc83921d3660b2aa57d7c9", null ],
     [ "start", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#abcb12183a0e000a77fcaebf9aa299a8b", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a368a2f924a6f74b1f4e8cea937fa77c3", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#af7b51d8db801efd172c02cd2cc0195ba", null ]
 ];

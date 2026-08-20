@@ -13,5 +13,6 @@ var classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1Tel
     [ "run_loop2", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#ac30c5c9078990939b3ec51e1cc989313", null ],
     [ "run_loop3", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a2b522e241c0143a17d5ba7683305c3f9", null ],
     [ "start", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a7489d99c86affb476ba6cfa67f99299c", null ],
+    [ "stop", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#a628a8e8d9bb88403c6a407d8c0ee1e20", null ],
     [ "thread_loop", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#abe87afe049c130fad91aef4a1bb95486", null ]
 ];
