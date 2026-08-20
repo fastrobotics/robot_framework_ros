@@ -7,8 +7,8 @@
 bool kill_node = false;
 using namespace fast::rf_ros;
 std::ofstream output_config_fd;
-fast::rf::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationData calibration_data;
-namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
+fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationData calibration_data;
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
 
     JoystickCalibrationNode::JoystickCalibrationNode() {}
     JoystickCalibrationNode::~JoystickCalibrationNode() {}
@@ -103,7 +103,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Writing Joystick configuration.");
@@ -137,7 +137,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem;
+using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeJoystickCalibration");
     JoystickCalibrationNode* node = new JoystickCalibrationNode();

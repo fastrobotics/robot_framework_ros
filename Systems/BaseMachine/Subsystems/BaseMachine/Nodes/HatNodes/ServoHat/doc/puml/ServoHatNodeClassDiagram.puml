@@ -7,18 +7,22 @@ namespace robot_framework_ros {
 namespace fast::rf {
     namespace BaseMachineSystem {
         namespace BaseMachineSubsystem {
-            class ServoHatProcess
+            namespace HatDriver {
+                class ServoHatProcess
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace BaseMachineSystem {
-        package BaseMachineSubsystem #LightYellow;line:blue {
-            class ServoHatNode #LimeGreen {
-                -ServoHatProcess process
+        namespace BaseMachineSubsystem {
+            package HatDriver #LightYellow;line:blue {
+                class ServoHatNode #LimeGreen {
+                    -ServoHatProcess process
+                }
+                ServoHatNode --> ServoHatProcess: <<use>>
+                ServoHatNode -up-|> BaseNode
             }
-            ServoHatNode --> ServoHatProcess: <<use>>
-            ServoHatNode -up-|> BaseNode
         }
     }
 }

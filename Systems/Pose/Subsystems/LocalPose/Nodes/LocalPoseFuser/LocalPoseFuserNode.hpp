@@ -16,7 +16,7 @@
 
 #include <ILocalPoseFuserProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
+namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
     /**
      * @brief LocalPoseFuser Node
      *
@@ -114,9 +114,10 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
 
        private:
         void machine_inertial_Callback(const sensor_msgs::Imu::ConstPtr& t_msg);
-        fast::rf::PoseSystem::LocalPoseSubsystem::ILocalPoseFuserProcess* process{nullptr};  //!< Execution Process
+        fast::rf::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::ILocalPoseFuserProcess* process{
+            nullptr};  //!< Execution Process
         ros::Subscriber machine_inertial_sub;
         ros::Publisher local_pose_pub;
         ros::Publisher local_pose_angular_accel_pub;
     };
-}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem
+}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser

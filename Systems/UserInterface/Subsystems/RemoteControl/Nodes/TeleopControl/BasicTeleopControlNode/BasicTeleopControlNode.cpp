@@ -5,7 +5,7 @@
 bool kill_node = false;
 
 using namespace fast::rf_ros;
-namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
     void BasicTeleopControlNode::robot_armcommand_state_Callback(
         const robot_framework_ros::arm_command::ConstPtr& t_msg) {
         robot_framework_ros::arm_command msg = *t_msg;
@@ -24,7 +24,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationData joy_calibration_data;
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationData
+            joy_calibration_data;
         XmlRpc::XmlRpcValue calibration_config;
         if (n->getParam(get_nodename() + "/calibration", calibration_config)) {
             if (calibration_config.getType() == XmlRpc::XmlRpcValue::TypeStruct) {
@@ -46,9 +47,9 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             fast::rf::Logger::log_warn("No Joystick Calibration Found.  Using default!");
             joy_calibration_data.optional_init();
         }
-        status =
-            process.init(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::ControlDevice::THRUSTMASTER_JOYSTICK,
-                         joy_calibration_data);
+        status = process.init(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::ControlDevice::THRUSTMASTER_JOYSTICK,
+            joy_calibration_data);
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
@@ -56,15 +57,15 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         std::string operation_mode;
         std::string param_op_mode = get_nodename() + "/operation_mode";
         if (n->getParam(param_op_mode, operation_mode) == false) {
-            status =
-                process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::RUN);
+            status = process.set_operation_mode(
+                fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::OperationMode::RUN);
         }
         if (operation_mode == "RUN") {
-            status =
-                process.set_operation_mode(fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::RUN);
+            status = process.set_operation_mode(
+                fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::OperationMode::RUN);
         } else if (operation_mode == "TEST") {
             status = process.set_operation_mode(
-                fast::rf::UserInterfaceSystem::RemoteControlSubsystem::OperationMode::JOY_TEST);
+                fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::OperationMode::JOY_TEST);
         }
         if (status == false) {
             fast::rf::Logger::log_error("Unable to set Operation Mode");
@@ -151,7 +152,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             ros::Duration(1.0).sleep();
         }
     }
-}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl
 
 void signalinterrupt_handler(int sig) {
     fast::rf::Logger::log_warn("Killing BasicTeleopControlNode with Signal: " + std::to_string(sig));
@@ -159,7 +160,7 @@ void signalinterrupt_handler(int sig) {
     exit(0);
 }
 
-using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem;
+using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeBasicTeleopControl");
     BasicTeleopControlNode* node = new BasicTeleopControlNode();

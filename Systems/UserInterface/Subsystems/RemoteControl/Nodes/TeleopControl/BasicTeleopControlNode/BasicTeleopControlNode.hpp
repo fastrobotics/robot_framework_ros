@@ -15,7 +15,7 @@
 
 #include <BasicTeleopControlProcess/BasicTeleopControlProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
     /**
      * @brief Basic Teleop Control Node
      *
@@ -126,11 +126,11 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
         void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
        private:
-        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlProcess
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::BasicTeleopControlProcess
             process;  //!< Execution Process
         ros::ServiceClient armstate_change_client;
         ros::Subscriber robot_arm_command_state_sub;
         ros::Subscriber joy_sub;
         ros::Publisher twist_pub;
     };
-}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl

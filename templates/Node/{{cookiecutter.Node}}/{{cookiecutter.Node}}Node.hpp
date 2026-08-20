@@ -12,7 +12,7 @@
 
 #include <robot_framework_ros/BaseNode.hpp>
 #include <{{cookiecutter.Node}}Process/{{cookiecutter.Node}}Process.hpp>
-namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem {
+namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}} {
     /**
      * @brief {{cookiecutter.Node}} Node
      *
@@ -110,7 +110,7 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
 
 
        private:
-        fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}}Process
+        fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}}::{{cookiecutter.Node}}Process
             process;  //!< Execution Process
     };
 }  // namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem

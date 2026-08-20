@@ -15,7 +15,7 @@
 
 #include <BasicTrajectoryControllerProcess/BasicTrajectoryControllerProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController {
     /**
      * @brief TrajectoryController Node
      *
@@ -129,7 +129,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         ros::Subscriber pose_sub;
         ros::Subscriber desired_command_sub;
         ros::Publisher command_pub;
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::BasicTrajectoryControllerProcess
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::BasicTrajectoryControllerProcess
             process;  //!< Execution Process
     };
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController

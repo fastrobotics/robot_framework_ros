@@ -16,23 +16,31 @@ namespace fast::rf {
     }
     namespace PoseSystem {
         namespace LocalPoseSubsystem {
-            interface IInertialSensorFuserProcess
-            class BasicInertialSensorFuserProcess
-            BasicInertialSensorFuserProcess -up-|> IInertialSensorFusersProcess
+            namespace InertialSensorFuser {
+                interface IInertialSensorFuserProcess
+                class BasicInertialSensorFuserProcess
+                BasicInertialSensorFuserProcess -up-|> IInertialSensorFusersProcess
+            }
+            namespace LocalPoseFuser {
+
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace PoseSystem {
-        package LocalPoseSubsystem #LightYellow;line:blue {
-            class InertialSensorFuserNode #LimeGreen {
-                -IInertialSensorFuserProcess process
-                -void IMU_Callback()
-                -Subscriber imu_sub
-                -Publisher machine_inertial_pub
+        namespace LocalPoseSubsystem {
+            package  InertialSensorFuser #LightYellow;line:blue {
+                class InertialSensorFuserNode <<ROS>> #LimeGreen {
+                    -IInertialSensorFuserProcess process
+                    -void IMU_Callback()
+                    -Subscriber imu_sub
+                    -Publisher machine_inertial_pub
+                }
+                InertialSensorFuserNode --> IInertialSensorFuserProcess: <<use>>
+                InertialSensorFuserNode *-> BasicInertialSensorFuserProcess
             }
-            InertialSensorFuserNode --> IInertialSensorFuserProcess: <<use>>
-            InertialSensorFuserNode *-> BasicInertialSensorFuserProcess
+
         }
     }
 }
