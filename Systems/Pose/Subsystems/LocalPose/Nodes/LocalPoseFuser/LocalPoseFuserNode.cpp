@@ -37,6 +37,13 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+
         std::string topic_machine_inertial_input;
         if (n->getParam(get_nodename() + "/topic_machine_inertial_input", topic_machine_inertial_input) == false) {
             fast::rf::Logger::log_error("Parameter topic_machine_inertial_input Not Defined!  Exiting.");
@@ -64,7 +71,10 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
-
+    bool LocalPoseFuserNode::load_config() {
+        // Nothing to configure
+        return true;
+    }
     bool LocalPoseFuserNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

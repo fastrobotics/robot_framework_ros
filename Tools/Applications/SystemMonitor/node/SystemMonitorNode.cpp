@@ -51,11 +51,20 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             fast::rf::Logger::log_error("Unable to initialize Screen!");
             return false;
         }
+
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
         arm_command_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &SystemMonitorNode::arm_command_Callback, this);
         return true;
     }
-
+    bool SystemMonitorNode::load_config() {
+        // No configuration
+        return true;
+    }
     bool SystemMonitorNode::init_screen() {
         setlocale(LC_ALL, "");
         mousemask(ALL_MOUSE_EVENTS, NULL);

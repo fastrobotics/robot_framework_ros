@@ -34,6 +34,14 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
         bool init();
 
         /**
+         * @brief Load configuration from config and sets data
+         *
+         * @return true
+         * @return false
+         */
+        bool load_config() override;
+
+        /**
          * @brief Start the Node
          *
          * @return true

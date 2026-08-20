@@ -33,12 +33,12 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
 
-        /**
-         * @todo Configure this during AB#1767
-
-         *
-         */
         std::string arm_command_topic = get_robotnamespace() + "/arm_command";
         arm_command_pub = n->advertise<robot_framework_ros::arm_command>(arm_command_topic, 1);
 
@@ -68,7 +68,23 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool ArmedStateManagerNode::load_config() {
+        std::string system_id_str = fast::rf::SafetySystem::toString(fast::rf::SafetySystem::Id{});
+        std::string subsystem_id_str =
+            fast::rf::SafetySystem::ModeManagerSubsystem::toString(fast::rf::SafetySystem::ModeManagerSubsystem::Id{});
+        std::string process_id_str = fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::toString(
+            fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        /**
+         * @todo Configure this during AB#1767
+
+         *
+         */
+        return true;
+    }
     bool ArmedStateManagerNode::start() {
         is_node_running = true;
         return BaseNode::base_start();

@@ -1,3 +1,5 @@
 add_subdirectory(BaseMachine)
-# add_subdirectory(Navigation) add_subdirectory(Pose) add_subdirectory(Safety)
-# add_subdirectory(UserInterface)
+add_subdirectory(Navigation)
+add_subdirectory(Pose)
+add_subdirectory(Safety)
+add_subdirectory(UserInterface)
