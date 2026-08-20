@@ -8,5 +8,5 @@ var searchData=
   ['diagnosticwindow_2ehpp_5',['DiagnosticWindow.hpp',['../DiagnosticWindow_8hpp.html',1,'']]],
   ['diagnosticwindowmode_6',['DiagnosticWindowMode',['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html#ae0e0b9fff7ac3ae71698cf2797860265',1,'fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow']]],
   ['doxygenhome_2emd_7',['DoxygenHome.md',['../DoxygenHome_8md.html',1,'']]],
-  ['drive_5fcallback_8',['drive_Callback',['../classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html#abb340eeead8fe5c31d35153c20cecaef',1,'fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::ServoHatNode']]]
+  ['drive_5fcallback_8',['drive_Callback',['../classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#aa93b1b0b2b20d06e281dde734479481e',1,'fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver::ServoHatNode']]]
 ];

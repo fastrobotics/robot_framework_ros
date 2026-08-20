@@ -61,7 +61,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ArmedStateManagerNode_8cpp.html",
-"classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html#a0b9b3da4659359329e2dedd28a4655c5",
+"classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a0bb0b1eab76cadeb4f081914a46f5e6c",
 "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#ad4702afeac5f737aedfd8786fdb5a48e",
 "dir_4270bfced15e0e73154b13468c7c9ad9.html"
 ];

@@ -1,16 +1,16 @@
 var hierarchy =
 [
     [ "fast::rf_ros::BaseNode", "classfast_1_1rf__ros_1_1BaseNode.html", [
-      [ "fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html", null ],
-      [ "fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html", null ],
-      [ "fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html", null ],
-      [ "fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode.html", null ],
-      [ "fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html", null ],
-      [ "fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuserNode.html", null ],
-      [ "fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManagerNode", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode.html", null ],
+      [ "fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver::ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html", null ],
+      [ "fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html", null ],
+      [ "fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html", null ],
+      [ "fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU::IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html", null ],
+      [ "fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html", null ],
+      [ "fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html", null ],
+      [ "fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerNode", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html", null ],
       [ "fast::rf_ros::Tools::Applications::SystemMonitor::SystemMonitorNode", "classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html", null ],
-      [ "fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html", null ],
-      [ "fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html", null ],
+      [ "fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html", null ],
+      [ "fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html", null ],
       [ "fast::rf_ros::example_package::ExampleNode", "classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html", null ]
     ] ],
     [ "fast::rf_ros::utils::CoreUtility", "classfast_1_1rf__ros_1_1utils_1_1CoreUtility.html", null ],

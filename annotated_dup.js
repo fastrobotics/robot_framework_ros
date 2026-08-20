@@ -4,7 +4,9 @@ var annotated_dup =
       [ "rf_ros", "namespacefast_1_1rf__ros.html", [
         [ "BaseMachineSystem", "namespacefast_1_1rf__ros_1_1BaseMachineSystem.html", [
           [ "BaseMachineSubsystem", "namespacefast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem.html", [
-            [ "ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode.html", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1ServoHatNode" ]
+            [ "HatDriver", "namespacefast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver.html", [
+              [ "ServoHatNode", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html", "classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode" ]
+            ] ]
           ] ]
         ] ],
         [ "example_package", "namespacefast_1_1rf__ros_1_1example__package.html", [
@@ -12,22 +14,34 @@ var annotated_dup =
         ] ],
         [ "NavigationSystem", "namespacefast_1_1rf__ros_1_1NavigationSystem.html", [
           [ "NavigationExecutorSubsystem", "namespacefast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem.html", [
-            [ "TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode.html", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TankDriveExecutorNode" ],
-            [ "TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode.html", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryControllerNode" ]
+            [ "DriveExecutor", "namespacefast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor.html", [
+              [ "TankDriveExecutorNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode" ]
+            ] ],
+            [ "TrajectoryController", "namespacefast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController.html", [
+              [ "TrajectoryControllerNode", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html", "classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode" ]
+            ] ]
           ] ]
         ] ],
         [ "PoseSystem", "namespacefast_1_1rf__ros_1_1PoseSystem.html", [
           [ "InertialSensorSubsystem", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem.html", [
-            [ "IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMUNode" ]
+            [ "IMU", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU.html", [
+              [ "IMUNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode" ]
+            ] ]
           ] ],
           [ "LocalPoseSubsystem", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem.html", [
-            [ "InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuserNode" ],
-            [ "LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuserNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuserNode" ]
+            [ "InertialSensorFuser", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser.html", [
+              [ "InertialSensorFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode" ]
+            ] ],
+            [ "LocalPoseFuser", "namespacefast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser.html", [
+              [ "LocalPoseFuserNode", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html", "classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode" ]
+            ] ]
           ] ]
         ] ],
         [ "SafetySystem", "namespacefast_1_1rf__ros_1_1SafetySystem.html", [
           [ "ModeManagerSubsystem", "namespacefast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem.html", [
-            [ "ArmedStateManagerNode", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode.html", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManagerNode" ]
+            [ "ArmedStateManager", "namespacefast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager.html", [
+              [ "ArmedStateManagerNode", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html", "classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode" ]
+            ] ]
           ] ]
         ] ],
         [ "Tools", "namespacefast_1_1rf__ros_1_1Tools.html", [
@@ -52,8 +66,10 @@ var annotated_dup =
         ] ],
         [ "UserInterfaceSystem", "namespacefast_1_1rf__ros_1_1UserInterfaceSystem.html", [
           [ "RemoteControlSubsystem", "namespacefast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem.html", [
-            [ "BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode.html", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1BasicTeleopControlNode" ],
-            [ "JoystickCalibrationNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode.html", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1JoystickCalibrationNode" ]
+            [ "TeleopControl", "namespacefast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl.html", [
+              [ "BasicTeleopControlNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode" ],
+              [ "JoystickCalibrationNode", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html", "classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode" ]
+            ] ]
           ] ]
         ] ],
         [ "utils", "namespacefast_1_1rf__ros_1_1utils.html", [
