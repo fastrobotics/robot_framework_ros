@@ -7,6 +7,7 @@
 #include <Windows/StatusWindow.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 using namespace fast::rf_ros;
+bool kill_node = false;
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
     SystemMonitorNode::SystemMonitorNode() { filter_list.insert(std::make_pair("rostopic", true)); }
@@ -127,7 +128,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     bool SystemMonitorNode::run_10hz() {
         int key_pressed = getch();
         if ((key_pressed == Key::KEY_q) || (key_pressed == Key::KEY_Q)) {
-            is_node_running = false;
+            kill_node = true;
         }
         // Update all Windows
         for (const auto& window : windows) {
@@ -324,7 +325,7 @@ int main(int argc, char** argv) {
     }
     std::thread thread(&SystemMonitorNode::thread_loop, node.get());
     bool status = true;
-    while (ros::ok() && status) {
+    while (ros::ok() && status && (kill_node == false)) {
         status = node->update();
         ros::spinOnce();
     }
