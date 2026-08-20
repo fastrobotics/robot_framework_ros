@@ -131,7 +131,10 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         return true;
     }
 
-    bool IMUNode::start() { return BaseNode::base_start(); }
+    bool IMUNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool IMUNode::run_loop1() {
         process.update(ros::Time::now().toSec());
 
@@ -182,35 +185,16 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
     bool IMUNode::run_001hz() { return true; }
 
     void IMUNode::thread_loop() {
-        while (ros::ok() && is_running_) {
-            // Your IMU reading/processing code goes here...
+        while (ros::ok() && is_node_running) {
         }
     }
-    void IMUNode::stop() {
-        // Flip the flag so the background thread knows main() wants it to close
-        is_running_ = false;
-    }
+    void IMUNode::stop() { is_node_running = false; }
 }  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU
-/*
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing IMUNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-*/
 
 using namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU;
 int main(int argc, char** argv) {
-    // 1. Initialize ROS. This automatically hooks up SIGINT (Ctrl+C) handling to ros::ok()
     ros::init(argc, argv, "nodeIMU");
-
-    // Optional: Keep your custom handler if needed, but ros::init handles standard kills out-of-the-box
-    // signal(SIGINT, signalinterrupt_handler);
-    // signal(SIGTERM, signalinterrupt_handler);
-
-    // 2. C++14 Smart Pointer: Guarantees memory cleanup even on early exit returns
     auto node = std::make_unique<IMUNode>();
-
     if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
@@ -222,58 +206,15 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-
-    // 3. Spawn the background thread
     std::thread thread(&IMUNode::thread_loop, node.get());
-
-    // 4. Hook your loop directly into ros::ok() so rosnode kill / Ctrl+C breaks the loop instantly
     bool status = true;
     while (ros::ok() && status) {
         status = node->update();
-
-        // Give the ROS master queue a chance to process background tasks
         ros::spinOnce();
     }
-
-    // 5. SAFE SHUTDOWN SEQUENCE:
-    // Tell the node it needs to stop so the background thread_loop exits its own internal loop
     node->stop();  // <-- Make sure IMUNode has a way to break its thread_loop!
-
-    // 6. Join instead of Detach
-    // This pauses main() for a millisecond to let the thread finish cleanly, preventing zombie processes.
     if (thread.joinable()) {
         thread.join();
     }
-
-    // Node memory is automatically deleted here by std::unique_ptr
     return 0;
 }
-/*
-int main(int argc, char** argv) {
-    ros::init(argc, argv, "nodeIMU");
-    IMUNode* node = new IMUNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
-        // LCOV_EXCL_START
-        return EXIT_FAILURE;
-        // LCOV_EXCL_STOP
-    }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
-        // LCOV_EXCL_START
-        return EXIT_FAILURE;
-        // LCOV_EXCL_STOP
-    }
-    std::thread thread(&IMUNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
-        status = node->update();
-    }
-    thread.detach();
-    delete node;
-    return 0;
-}
-*/

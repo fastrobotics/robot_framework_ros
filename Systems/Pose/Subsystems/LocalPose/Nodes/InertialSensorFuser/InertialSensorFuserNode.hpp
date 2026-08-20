@@ -111,7 +111,10 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
          */
         void thread_loop();
 
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};
         void IMU_Callback(const sensor_msgs::Imu::ConstPtr& t_msg);
         fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::IInertialSensorFuserProcess* process{
             nullptr};  //!< Execution Process

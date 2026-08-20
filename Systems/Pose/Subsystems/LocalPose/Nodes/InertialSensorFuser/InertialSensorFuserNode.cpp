@@ -3,7 +3,6 @@
 #include <BasicInertialSensorFuserProcess/BasicInertialSensorFuserProcess.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
 
@@ -52,7 +51,10 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
         return true;
     }
 
-    bool InertialSensorFuserNode::start() { return BaseNode::base_start(); }
+    bool InertialSensorFuserNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool InertialSensorFuserNode::run_loop1() {
         process->update(ros::Time::now().toSec());
 
@@ -79,19 +81,63 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
     bool InertialSensorFuserNode::run_001hz() { return true; }
 
     void InertialSensorFuserNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
+            // Your IMU reading/processing code goes here...
         }
     }
+    void InertialSensorFuserNode::stop() { is_node_running = false; }
 }  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing InertialSensorFuserNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
 using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser;
+int main(int argc, char** argv) {
+    // 1. Initialize ROS. This automatically hooks up SIGINT (Ctrl+C) handling to ros::ok()
+    ros::init(argc, argv, "nodeInertialSensorFuser");
+
+    // Optional: Keep your custom handler if needed, but ros::init handles standard kills out-of-the-box
+    // signal(SIGINT, signalinterrupt_handler);
+    // signal(SIGTERM, signalinterrupt_handler);
+
+    // 2. C++14 Smart Pointer: Guarantees memory cleanup even on early exit returns
+    auto node = std::make_unique<InertialSensorFuserNode>();
+
+    if (!node->init()) {
+        // LCOV_EXCL_START
+        return EXIT_FAILURE;
+        // LCOV_EXCL_STOP
+    }
+
+    if (!node->start()) {
+        // LCOV_EXCL_START
+        return EXIT_FAILURE;
+        // LCOV_EXCL_STOP
+    }
+
+    // 3. Spawn the background thread
+    std::thread thread(&InertialSensorFuserNode::thread_loop, node.get());
+
+    // 4. Hook your loop directly into ros::ok() so rosnode kill / Ctrl+C breaks the loop instantly
+    bool status = true;
+    while (ros::ok() && status) {
+        status = node->update();
+
+        // Give the ROS master queue a chance to process background tasks
+        ros::spinOnce();
+    }
+
+    // 5. SAFE SHUTDOWN SEQUENCE:
+    // Tell the node it needs to stop so the background thread_loop exits its own internal loop
+    node->stop();  // <-- Make sure IMUNode has a way to break its thread_loop!
+
+    // 6. Join instead of Detach
+    // This pauses main() for a millisecond to let the thread finish cleanly, preventing zombie processes.
+    if (thread.joinable()) {
+        thread.join();
+    }
+
+    // Node memory is automatically deleted here by std::unique_ptr
+    return 0;
+}
+/*
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeInertialSensorFuser");
     InertialSensorFuserNode* node = new InertialSensorFuserNode();
@@ -119,3 +165,4 @@ int main(int argc, char** argv) {
     delete node;
     return 0;
 }
+    */
