@@ -127,7 +127,14 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
          */
         void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerProcess
             process;                                     //!< Execution Process
         std::vector<ros::Subscriber> ready_to_arm_subs;  //!< Container for multiple Ready to Arm Subscribers

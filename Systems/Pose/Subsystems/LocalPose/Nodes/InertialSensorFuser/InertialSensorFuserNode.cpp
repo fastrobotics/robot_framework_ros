@@ -90,79 +90,27 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
 
 using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser;
 int main(int argc, char** argv) {
-    // 1. Initialize ROS. This automatically hooks up SIGINT (Ctrl+C) handling to ros::ok()
     ros::init(argc, argv, "nodeInertialSensorFuser");
-
-    // Optional: Keep your custom handler if needed, but ros::init handles standard kills out-of-the-box
-    // signal(SIGINT, signalinterrupt_handler);
-    // signal(SIGTERM, signalinterrupt_handler);
-
-    // 2. C++14 Smart Pointer: Guarantees memory cleanup even on early exit returns
     auto node = std::make_unique<InertialSensorFuserNode>();
-
     if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-
     if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-
-    // 3. Spawn the background thread
     std::thread thread(&InertialSensorFuserNode::thread_loop, node.get());
-
-    // 4. Hook your loop directly into ros::ok() so rosnode kill / Ctrl+C breaks the loop instantly
     bool status = true;
     while (ros::ok() && status) {
         status = node->update();
-
-        // Give the ROS master queue a chance to process background tasks
         ros::spinOnce();
     }
-
-    // 5. SAFE SHUTDOWN SEQUENCE:
-    // Tell the node it needs to stop so the background thread_loop exits its own internal loop
-    node->stop();  // <-- Make sure IMUNode has a way to break its thread_loop!
-
-    // 6. Join instead of Detach
-    // This pauses main() for a millisecond to let the thread finish cleanly, preventing zombie processes.
+    node->stop();
     if (thread.joinable()) {
         thread.join();
     }
-
-    // Node memory is automatically deleted here by std::unique_ptr
     return 0;
 }
-/*
-int main(int argc, char** argv) {
-    ros::init(argc, argv, "nodeInertialSensorFuser");
-    InertialSensorFuserNode* node = new InertialSensorFuserNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
-        // LCOV_EXCL_START
-        return EXIT_FAILURE;
-        // LCOV_EXCL_STOP
-    }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
-        // LCOV_EXCL_START
-        return EXIT_FAILURE;
-        // LCOV_EXCL_STOP
-    }
-    std::thread thread(&InertialSensorFuserNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
-        status = node->update();
-    }
-    thread.detach();
-    delete node;
-    return 0;
-}
-    */

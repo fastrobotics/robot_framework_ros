@@ -1,13 +1,10 @@
 #include "JoystickCalibrationNode.hpp"
 
-#include <ITeleopControlProcess.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <chrono>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-std::ofstream output_config_fd;
-fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationData calibration_data;
+
 namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
 
     JoystickCalibrationNode::JoystickCalibrationNode() {}
@@ -99,69 +96,64 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
     bool JoystickCalibrationNode::run_001hz() { return true; }
 
     void JoystickCalibrationNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
+    }
+    void JoystickCalibrationNode::stop() {
+        is_node_running = false;
+        fast::rf::Logger::log_warn("Writing Joystick configuration.");
+        output_config_fd << "config_file_type: Joystick Calibration Configuration" << std::endl;
+        // 1. Get current time point from system clock
+        auto now = std::chrono::system_clock::now();
+
+        // 2. Convert to time_t (seconds since epoch)
+        std::time_t time_now = std::chrono::system_clock::to_time_t(now);
+
+        // 3. Convert to local time structure
+        std::tm tm_now = *std::localtime(&time_now);
+
+        // 4. Use stringstream and put_time to format
+        output_config_fd << "date_generated: " << std::put_time(&tm_now, "%Y-%m-%d %H:%M:%S") << std::endl;
+
+        output_config_fd << "calibration:" << std::endl;
+        output_config_fd << "  x_deadband: " << std::to_string(calibration_data.x_deadband) << std::endl;
+        output_config_fd << "  x_min: " << std::to_string(calibration_data.x_min) << std::endl;
+        output_config_fd << "  x_max: " << std::to_string(calibration_data.x_max) << std::endl;
+        output_config_fd << "  y_deadband: " << std::to_string(calibration_data.y_deadband) << std::endl;
+        output_config_fd << "  y_min: " << std::to_string(calibration_data.y_min) << std::endl;
+        output_config_fd << "  y_max: " << std::to_string(calibration_data.y_max) << std::endl;
+        output_config_fd << "  throttle_deadband: " << std::to_string(calibration_data.throttle_deadband) << std::endl;
+        output_config_fd << "  throttle_min: " << std::to_string(calibration_data.throttle_min) << std::endl;
+        output_config_fd << "  throttle_max: " << std::to_string(calibration_data.throttle_max) << std::endl;
+        output_config_fd.close();
     }
 }  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Writing Joystick configuration.");
-    output_config_fd << "config_file_type: Joystick Calibration Configuration" << std::endl;
-    // 1. Get current time point from system clock
-    auto now = std::chrono::system_clock::now();
-
-    // 2. Convert to time_t (seconds since epoch)
-    std::time_t time_now = std::chrono::system_clock::to_time_t(now);
-
-    // 3. Convert to local time structure
-    std::tm tm_now = *std::localtime(&time_now);
-
-    // 4. Use stringstream and put_time to format
-    output_config_fd << "date_generated: " << std::put_time(&tm_now, "%Y-%m-%d %H:%M:%S") << std::endl;
-
-    output_config_fd << "calibration:" << std::endl;
-    output_config_fd << "  x_deadband: " << std::to_string(calibration_data.x_deadband) << std::endl;
-    output_config_fd << "  x_min: " << std::to_string(calibration_data.x_min) << std::endl;
-    output_config_fd << "  x_max: " << std::to_string(calibration_data.x_max) << std::endl;
-    output_config_fd << "  y_deadband: " << std::to_string(calibration_data.y_deadband) << std::endl;
-    output_config_fd << "  y_min: " << std::to_string(calibration_data.y_min) << std::endl;
-    output_config_fd << "  y_max: " << std::to_string(calibration_data.y_max) << std::endl;
-    output_config_fd << "  throttle_deadband: " << std::to_string(calibration_data.throttle_deadband) << std::endl;
-    output_config_fd << "  throttle_min: " << std::to_string(calibration_data.throttle_min) << std::endl;
-    output_config_fd << "  throttle_max: " << std::to_string(calibration_data.throttle_max) << std::endl;
-    output_config_fd.close();
-
-    fast::rf::Logger::log_warn("Killing JoystickCalibrationNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
 using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl;
+
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeJoystickCalibration");
-    JoystickCalibrationNode* node = new JoystickCalibrationNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<JoystickCalibrationNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&JoystickCalibrationNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&JoystickCalibrationNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

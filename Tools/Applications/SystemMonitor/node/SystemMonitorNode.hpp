@@ -116,7 +116,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         void thread_loop();
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         bool rescan_rosnetwork();
 
         void arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);

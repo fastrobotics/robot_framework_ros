@@ -2,7 +2,6 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController {
 
@@ -61,7 +60,10 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         return true;
     }
 
-    bool TrajectoryControllerNode::start() { return BaseNode::base_start(); }
+    bool TrajectoryControllerNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool TrajectoryControllerNode::run_loop1() {
         process.update(ros::Time::now().toSec());
         fast::rf::messages::GeometryMsgs::TwistMsg new_command;
@@ -92,43 +94,36 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
     bool TrajectoryControllerNode::run_001hz() { return true; }
 
     void TrajectoryControllerNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
+    void TrajectoryControllerNode::stop() { is_node_running = false; }
 }  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController
-
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing TrajectoryControllerNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
 
 using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeTrajectoryController");
-    TrajectoryControllerNode* node = new TrajectoryControllerNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<TrajectoryControllerNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&TrajectoryControllerNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&TrajectoryControllerNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

@@ -105,8 +105,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
     bool TankDriveExecutorNode::run_001hz() { return true; }
     void TankDriveExecutorNode::stop() { is_node_running = false; }
     void TankDriveExecutorNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
 }  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor

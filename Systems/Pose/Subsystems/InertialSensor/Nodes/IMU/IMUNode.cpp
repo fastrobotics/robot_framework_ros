@@ -212,7 +212,7 @@ int main(int argc, char** argv) {
         status = node->update();
         ros::spinOnce();
     }
-    node->stop();  // <-- Make sure IMUNode has a way to break its thread_loop!
+    node->stop();
     if (thread.joinable()) {
         thread.join();
     }

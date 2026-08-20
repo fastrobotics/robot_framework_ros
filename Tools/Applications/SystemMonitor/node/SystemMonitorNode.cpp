@@ -6,7 +6,6 @@
 #include <Windows/NodeInfoWindow.hpp>
 #include <Windows/StatusWindow.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
@@ -128,7 +127,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     bool SystemMonitorNode::run_10hz() {
         int key_pressed = getch();
         if ((key_pressed == Key::KEY_q) || (key_pressed == Key::KEY_Q)) {
-            kill_node = true;
+            is_node_running = false;
         }
         // Update all Windows
         for (const auto& window : windows) {
@@ -165,10 +164,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     bool SystemMonitorNode::run_001hz() { return true; }
 
     void SystemMonitorNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
+    void SystemMonitorNode::stop() { is_node_running = false; }
     bool SystemMonitorNode::update_monitorlist(std::vector<std::string> heartbeat_list,
                                                std::vector<std::string>& new_heartbeat_topics_to_subscribe,
                                                std::vector<std::string> readytoarm_list,
@@ -307,38 +306,31 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing SystemMonitorNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
 using namespace fast::rf_ros::Tools::Applications::SystemMonitor;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "system_monitor");
-    SystemMonitorNode* node = new SystemMonitorNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<SystemMonitorNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         endwin();
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&SystemMonitorNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&SystemMonitorNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }
