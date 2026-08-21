@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-<arg name="robot_namespace" default="/robot"/> 
-<include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch" ns="$(arg robot_namespace)/config/"/>
+<arg name="robot_namespace" default="/"/> 
 <arg name="verbosity_level" default="DEBUG"/>
 <arg name="topic_pose_input" default="pose_input" />
 <arg name="topic_command_throttle_input" default="throttle_input"/>

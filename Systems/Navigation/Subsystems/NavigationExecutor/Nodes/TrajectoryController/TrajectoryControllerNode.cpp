@@ -107,9 +107,16 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
             return false;
         }
 
-        fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
-        config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale);
+        fast::rf::NavigationSystem::Controller::PIDControllerConfig pid_config;
+        pid_config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale);
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::BasicTrajectoryControllerConfig
+            config;
+        if (config.set_pid_controller_config(pid_config) == false) {
+            fast::rf::Logger::log_error("Unable to set PID Controller Config!");
+            return false;
+        }
         if (process.set_config(config) == false) {
+            fast::rf::Logger::log_error("Unable to set Trajectory Controller Config!");
             return false;
         }
         return true;
