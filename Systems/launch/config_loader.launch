@@ -17,7 +17,7 @@
     <group if="false">
         <rosparam command="load" file="$(find robot_framework_ros)/Systems/ImplementControl/config/config.yaml" /> 
     </group>
-    <group if="false">
+    <group if="true">
         <rosparam command="load" file="$(find robot_framework_ros)/Systems/Navigation/config/config.yaml" /> 
     </group>
     <group if="false">

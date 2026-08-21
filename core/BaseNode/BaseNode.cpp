@@ -62,7 +62,7 @@ namespace fast::rf_ros {
     std::string BaseNode::get_config_path(std::string system_id_str, std::string subsystem_id_str,
                                           std::string process_id_str) {
         std::string config_path = get_robotnamespace() + "config/" + system_id_str + "/" + subsystem_id_str + "/" +
-                                  process_id_str + read_base_nodename();
+                                  process_id_str + "/" + read_base_nodename();
         return config_path;
     }
     bool BaseNode::base_init() {

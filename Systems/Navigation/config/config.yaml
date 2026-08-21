@@ -1,0 +1,10 @@
+navigation:
+  navigation_executor:
+    trajectory_controller:
+      nodeTrajectoryController:
+        max_output: 10.0
+        min_output: -10.0
+        K_P: 1.0
+        K_I: 0.0
+        K_D: 0.0
+        sensor_scale: 1.0
