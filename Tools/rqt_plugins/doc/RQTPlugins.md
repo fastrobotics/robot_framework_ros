@@ -28,6 +28,7 @@ designer
 | Code Structure                  |
 | Save PID Config                 |
 | Load PID Config                 |
+| GUI is freezing                 |
 
 ### Overview
 The PID Tuning Plugin is a QT based GUI plugin that can be used to tune a PID Controller.

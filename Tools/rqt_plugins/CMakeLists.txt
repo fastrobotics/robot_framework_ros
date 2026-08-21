@@ -10,5 +10,11 @@ add_library(
   robot_framework_ros_gui include/robot_framework_ros/pid_tuner_plugin.h
                           src/pid_tuner_plugin.cpp)
 
-target_link_libraries(robot_framework_ros_gui ${catkin_LIBRARIES} Qt5::Widgets
-                      Qt5::Core Qt5::Charts Qt5::UiTools pid_Controller_shared)
+target_link_libraries(
+  robot_framework_ros_gui
+  ${catkin_LIBRARIES}
+  Qt5::Widgets
+  Qt5::Core
+  Qt5::Charts
+  Qt5::UiTools
+  pid_Controller_shared)

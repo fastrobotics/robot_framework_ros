@@ -13,19 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QSlider" name="horizontalSlider">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>130</y>
-     <width>160</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="QwtTextLabel" name="TextLabel">
    <property name="geometry">
     <rect>
@@ -43,9 +30,9 @@
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>370</y>
-     <width>481</width>
-     <height>371</height>
+     <y>160</y>
+     <width>511</width>
+     <height>691</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -75,19 +62,6 @@ background-color: rgb(138, 226, 52);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QwtTextLabel" name="text_dialSensorScale_Max">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>630</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="plainText">
-    <string>0</string>
-   </property>
-  </widget>
   <widget class="QDial" name="dial_SensorScaleTuner">
    <property name="geometry">
     <rect>
@@ -108,19 +82,6 @@ background-color: rgb(138, 226, 52);</string>
    </property>
    <property name="notchesVisible">
     <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QwtTextLabel" name="text_dialSensorScale_Min">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>630</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="plainText">
-    <string>0</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -161,7 +122,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QDial" name="dial_Setpoint">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>100</x>
      <y>90</y>
      <width>311</width>
      <height>311</height>
@@ -178,19 +139,6 @@ background-color: rgb(138, 226, 52);</string>
    </property>
    <property name="notchesVisible">
     <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QwtTextLabel" name="text_dialPGain_Max">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>810</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="plainText">
-    <string>0</string>
    </property>
   </widget>
   <widget class="QLabel" name="text_PGainValue">
@@ -250,23 +198,10 @@ background-color: rgb(138, 226, 52);</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QwtTextLabel" name="text_dialPGain_Min">
+  <widget class="QLabel" name="text_SetPointValue">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>810</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="plainText">
-    <string>0</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="text_SetPoint">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
+     <x>220</x>
      <y>240</y>
      <width>67</width>
      <height>17</height>
@@ -282,50 +217,129 @@ background-color: rgb(138, 226, 52);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QwtTextLabel" name="text_dialSetpoint_Min">
+  <widget class="QSlider" name="slider_MinOutput">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>390</y>
-     <width>100</width>
-     <height>20</height>
+     <x>10</x>
+     <y>90</y>
+     <width>21</width>
+     <height>311</height>
     </rect>
    </property>
-   <property name="plainText">
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="slider_MaxOutput">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>90</y>
+     <width>21</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="text_dialPGain_Min">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>810</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
     <string>0</string>
    </property>
   </widget>
-  <widget class="QwtTextLabel" name="text_dialSetpoint_Max">
+  <widget class="QLabel" name="text_dialPGain_Max">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>390</y>
-     <width>100</width>
-     <height>20</height>
+     <x>130</x>
+     <y>810</y>
+     <width>67</width>
+     <height>17</height>
     </rect>
    </property>
-   <property name="plainText">
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="text_dialSetpoint_Min">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>390</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="text_dialSetpoint_Max">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>390</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="text_dialSensorScale_Min">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>630</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="text_dialSensorScale_Max">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>630</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
     <string>0</string>
    </property>
   </widget>
   <zorder>dial_Setpoint</zorder>
-  <zorder>horizontalSlider</zorder>
   <zorder>TextLabel</zorder>
   <zorder>chartContainer</zorder>
-  <zorder>text_dialSensorScale_Max</zorder>
   <zorder>dial_SensorScaleTuner</zorder>
-  <zorder>text_dialSensorScale_Min</zorder>
   <zorder>text_SensorScaleValue</zorder>
   <zorder>label_2</zorder>
   <zorder>test_SensorData_rx</zorder>
-  <zorder>text_dialPGain_Max</zorder>
   <zorder>label</zorder>
   <zorder>dial_PGainTuner</zorder>
-  <zorder>text_dialPGain_Min</zorder>
   <zorder>text_PGainValue</zorder>
-  <zorder>text_SetPoint</zorder>
+  <zorder>text_SetPointValue</zorder>
+  <zorder>slider_MinOutput</zorder>
+  <zorder>slider_MaxOutput</zorder>
+  <zorder>text_dialPGain_Min</zorder>
+  <zorder>text_dialPGain_Max</zorder>
   <zorder>text_dialSetpoint_Min</zorder>
   <zorder>text_dialSetpoint_Max</zorder>
+  <zorder>text_dialSensorScale_Min</zorder>
+  <zorder>text_dialSensorScale_Max</zorder>
  </widget>
  <customwidgets>
   <customwidget>
