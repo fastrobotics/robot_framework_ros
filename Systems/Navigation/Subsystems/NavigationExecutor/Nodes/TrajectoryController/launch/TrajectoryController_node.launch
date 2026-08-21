@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <launch>
-<arg name="robot_namespace" default="/"/> 
-<arg name="verbosity_level" default="NOTICE"/>
-<arg name="topic_pose_input" default="/" />
-<arg name="topic_command_throttle_input" default="/"/>
-<arg name="topic_command_robot_output" default="/" />
+<arg name="robot_namespace" default="/robot"/> 
+<include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch" ns="$(arg robot_namespace)/config/"/>
+<arg name="verbosity_level" default="DEBUG"/>
+<arg name="topic_pose_input" default="pose_input" />
+<arg name="topic_command_throttle_input" default="throttle_input"/>
+<arg name="topic_command_robot_output" default="robot_output" />
 <node name="nodeTrajectoryController" pkg="robot_framework_ros" type="nodeTrajectoryController"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>

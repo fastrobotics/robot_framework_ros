@@ -76,7 +76,42 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
 
         fast::rf::Logger::log_info("Loading Config from:" + config_path);
 
-        process.set_parameters(10.0, -10.0, 1.0, 1.0, 0.0, 0.0);  // Tune this dynamically during AB#1815
+        double max_output;
+        if (n->getParam(config_path + "/max_output", max_output) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/max_output Not Defined!  Exiting.");
+            return false;
+        }
+        double min_output;
+        if (n->getParam(config_path + "/min_output", min_output) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/min_output Not Defined!  Exiting.");
+            return false;
+        }
+        double K_P;
+        if (n->getParam(config_path + "/K_P", K_P) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_P Not Defined!  Exiting.");
+            return false;
+        }
+        double K_I;
+        if (n->getParam(config_path + "/K_I", K_I) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_I Not Defined!  Exiting.");
+            return false;
+        }
+        double K_D;
+        if (n->getParam(config_path + "/K_D", K_D) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_D Not Defined!  Exiting.");
+            return false;
+        }
+        double sensor_scale;
+        if (n->getParam(config_path + "/sensor_scale", sensor_scale) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/sensor_scale Not Defined!  Exiting.");
+            return false;
+        }
+
+        fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
+        config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale);
+        if (process.set_config(config) == false) {
+            return false;
+        }
         return true;
     }
     bool TrajectoryControllerNode::start() {
