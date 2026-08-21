@@ -4,9 +4,8 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
+namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
 
     ArmedStateManagerNode::ArmedStateManagerNode() {}
     ArmedStateManagerNode::~ArmedStateManagerNode() {}
@@ -20,11 +19,10 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
     void ArmedStateManagerNode::ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg) {
         robot_framework_ros::ready_to_arm msg = *t_msg;
         if (process.new_ReadyToArmStatus(fast::rf_ros::utils::TranslateUtility::convert(msg)) == false) {
-            fast::rf::Logger::log_error("Unable to process Ready To Arm Msg");
+            fast::rf::Logger::log_error("Node: " + msg.NodeName + " Unable to process Ready To Arm Msg");
         }
     }
     bool ArmedStateManagerNode::init() {
-        disable_ready_to_arm_publish();  // Don't publish a Ready to Arm Topic
         bool status = BaseNode::base_init();
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
@@ -35,12 +33,12 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
 
-        /**
-         * @todo Configure this during AB#1767
-
-         *
-         */
         std::string arm_command_topic = get_robotnamespace() + "/arm_command";
         arm_command_pub = n->advertise<robot_framework_ros::arm_command>(arm_command_topic, 1);
 
@@ -67,10 +65,30 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
         std::string armstate_change_topic = get_robotnamespace() + "/arm_state_change";
         armstate_change_srv =
             n->advertiseService(armstate_change_topic, &ArmedStateManagerNode::arm_statechange_service, this);
+        set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool ArmedStateManagerNode::load_config() {
+        std::string system_id_str = fast::rf::SafetySystem::toString(fast::rf::SafetySystem::Id{});
+        std::string subsystem_id_str =
+            fast::rf::SafetySystem::ModeManagerSubsystem::toString(fast::rf::SafetySystem::ModeManagerSubsystem::Id{});
+        std::string process_id_str = fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::toString(
+            fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-    bool ArmedStateManagerNode::start() { return BaseNode::base_start(); }
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        /**
+         * @todo Configure this during AB#1767
+
+         *
+         */
+        return true;
+    }
+    bool ArmedStateManagerNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool ArmedStateManagerNode::run_loop1() {
         process.update(ros::Time::now().toSec());
 
@@ -80,6 +98,7 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
     bool ArmedStateManagerNode::run_loop3() { return true; }
     bool ArmedStateManagerNode::run_100hz() { return true; }
     bool ArmedStateManagerNode::run_10hz() {
+        set_ready_to_arm(process.get_ready_to_arm());
         arm_command_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(process.get_ArmCommandMsg()));
         return true;
     }
@@ -97,43 +116,36 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
     bool ArmedStateManagerNode::run_001hz() { return true; }
 
     void ArmedStateManagerNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
-}  // namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem
+    void ArmedStateManagerNode::stop() { is_node_running = false; }
+}  // namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing ArmedStateManagerNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
-using namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem;
+using namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeArmedStateManager");
-    ArmedStateManagerNode* node = new ArmedStateManagerNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<ArmedStateManagerNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&ArmedStateManagerNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&ArmedStateManagerNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

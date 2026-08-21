@@ -2,7 +2,9 @@
 <launch>
     <arg name="robot_namespace" value="/test" />
     <arg name="verbosity_level" value="DEBUG"/>
-    <group ns="test">
+
+    <include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch" ns="$(arg robot_namespace)/config/"/>
+    <group ns="$(arg robot_namespace)">
         <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/TrajectoryController/launch/TrajectoryController_node.launch">
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
             <arg name="verbosity_level" value="$(arg verbosity_level)"/>

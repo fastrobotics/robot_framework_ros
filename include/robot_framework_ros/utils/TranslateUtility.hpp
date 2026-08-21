@@ -8,6 +8,10 @@
  * @copyright Copyright (c) 2026
  *
  */
+#pragma once
+#include <geometry_msgs/Accel.h>
+#include <geometry_msgs/AccelWithCovariance.h>
+#include <geometry_msgs/AccelWithCovarianceStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Vector3.h>
 #include <nav_msgs/Odometry.h>
@@ -19,8 +23,12 @@
 #include <sensor_msgs/Joy.h>
 #include <sensor_msgs/MagneticField.h>
 
+#include <AccelMsg.hpp>
+#include <AccelWithCovarianceMsg.hpp>
 #include <ArmCommandMsg.hpp>
 #include <ArmStateChangeSrv.hpp>
+#include <Covariance3DMsg.hpp>
+#include <Covariance6DMsg.hpp>
 #include <DiagnosticMsg.hpp>
 #include <ImuMsg.hpp>
 #include <JoyMsg.hpp>
@@ -38,6 +46,53 @@ namespace fast::rf_ros::utils {
      */
     class TranslateUtility {
        public:
+        // Standard Messages
+        /**
+         * @brief Convert from a ROS message to a Core message of type Vector3
+         *
+         * @param msg
+         * @return fast::rf::messages::StandardMsgs::Vector3DMsg
+         */
+        static fast::rf::messages::StandardMsgs::Vector3DMsg convert(geometry_msgs::Vector3 msg);
+
+        /**
+         * @brief Convert from a Core message to a ROS message of type Vector3
+         *
+         * @param msg
+         * @return geometry_msgs::Vector3
+         */
+        static geometry_msgs::Vector3 convert(fast::rf::messages::StandardMsgs::Vector3DMsg msg);
+
+        /**
+         * @brief Convert from a ROS Message to a Core Message of type Covariance3D
+         *
+         * @param msg
+         * @return fast::rf::messages::StandardMsgs::Covariance3DMsg
+         */
+        static fast::rf::messages::StandardMsgs::Covariance3DMsg convert_covariance3D(
+            boost::array<double, fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
+                                     fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION>
+                msg);
+
+        /**
+         * @brief Convert from a Core Message to a ROS Message of type Covariance3D
+         *
+         * @param msg
+         * @return boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION>
+         */
+        static boost::array<double, fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION *
+                                        fast::rf::messages::StandardMsgs::Covariance3DMsg::DIMENSION>
+        convert_covariance3D(fast::rf::messages::StandardMsgs::Covariance3DMsg msg);
+
+        static fast::rf::messages::StandardMsgs::Covariance6DMsg convert_covariance6D(
+            boost::array<double, fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                     fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION>
+                msg);
+
+        static boost::array<double, fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION *
+                                        fast::rf::messages::StandardMsgs::Covariance6DMsg::DIMENSION>
+        convert_covariance6D(fast::rf::messages::StandardMsgs::Covariance6DMsg msg);
+
         // Infrastructure Messages
 
         /**
@@ -128,6 +183,13 @@ namespace fast::rf_ros::utils {
 
         // Geometry Messages
 
+        static fast::rf::messages::GeometryMsgs::AccelMsg convert(const geometry_msgs::Accel& msg);
+        static geometry_msgs::Accel convert(fast::rf::messages::GeometryMsgs::AccelMsg msg);
+        static fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg convert(
+            geometry_msgs::AccelWithCovarianceStamped msg);
+        static geometry_msgs::AccelWithCovarianceStamped convert(
+            fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg msg);
+
         /**
          * @brief Convert from a ROS message to a Core message of type Quaternion->Orientation
          *
@@ -159,40 +221,6 @@ namespace fast::rf_ros::utils {
          * @return geometry_msgs::Twist
          */
         static geometry_msgs::Twist convert(fast::rf::messages::GeometryMsgs::TwistMsg msg);
-
-        /**
-         * @brief Convert from a ROS message to a Core message of type Vector3
-         *
-         * @param msg
-         * @return fast::rf::messages::StandardMsgs::Vector3DMsg
-         */
-        static fast::rf::messages::StandardMsgs::Vector3DMsg convert(geometry_msgs::Vector3 msg);
-
-        /**
-         * @brief Convert from a Core message to a ROS message of type Vector3
-         *
-         * @param msg
-         * @return geometry_msgs::Vector3
-         */
-        static geometry_msgs::Vector3 convert(fast::rf::messages::StandardMsgs::Vector3DMsg msg);
-
-        /**
-         * @brief Convert from a ROS Message to a Core Message of type Covariance3D
-         *
-         * @param msg
-         * @return fast::rf::messages::StandardMsgs::Covariance3DMsg
-         */
-        static fast::rf::messages::StandardMsgs::Covariance3DMsg convert_covariance3D(
-            boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> msg);
-
-        /**
-         * @brief Convert from a Core Message to a ROS Message of type Covariance3D
-         *
-         * @param msg
-         * @return boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION>
-         */
-        static boost::array<double, Covariance3DMsg::DIMENSION * Covariance3DMsg::DIMENSION> convert_covariance3D(
-            fast::rf::messages::StandardMsgs::Covariance3DMsg msg);
 
         /**
          * @brief Translate from a ROS mesage to a Core message of type Odometry

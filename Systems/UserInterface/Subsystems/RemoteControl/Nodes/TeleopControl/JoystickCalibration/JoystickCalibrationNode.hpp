@@ -12,10 +12,11 @@
 
 #include <sensor_msgs/Joy.h>
 
+#include <ITeleopControlProcess.hpp>
 #include <fstream>
 #include <iostream>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
     /**
      * @brief JoystickCalibration Node
      *
@@ -33,6 +34,13 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
          */
         bool init();
 
+        /**
+         * @brief Load configuration from config and sets data
+         *
+         * @return true
+         * @return false
+         */
+        bool load_config() override;
         /**
          * @brief Start the Node
          *
@@ -118,7 +126,16 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
          */
         void joy_Callback(const sensor_msgs::Joy::ConstPtr& t_msg);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
+        std::ofstream output_config_fd;
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationData calibration_data;
         ros::Subscriber joy_sub;
     };
-}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl

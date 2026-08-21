@@ -13,7 +13,7 @@
 
 #include <TankDriveExecutorProcess/TankDriveExecutorProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor {
     /**
      * @brief Tank Drive Executor Node
      *
@@ -31,6 +31,13 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
          */
         bool init();
 
+        /**
+         * @brief Load configuration from config and sets data
+         *
+         * @return true
+         * @return false
+         */
+        bool load_config() override;
         /**
          * @brief Start the Node
          *
@@ -116,11 +123,18 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
          */
         void twist_Callback(const geometry_msgs::Twist::ConstPtr& t_msg);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
-        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TankDriveExecutorProcess
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorProcess
             process;  //!< Execution Process
         ros::Subscriber twist_sub;
         ros::Publisher left_drive_pub;
         ros::Publisher right_drive_pub;
     };
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor

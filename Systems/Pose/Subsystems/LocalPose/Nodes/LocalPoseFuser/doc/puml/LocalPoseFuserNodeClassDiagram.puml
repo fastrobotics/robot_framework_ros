@@ -8,22 +8,27 @@ namespace ros {
 namespace fast::rf {
     namespace PoseSystem {
         namespace LocalPoseSubsystem {
-            interface ILocalPoseFuserProcess
-            class BasicLocalPoseFuserProcess
-            BasicLocalPoseFuserProcess -up-|> ILocalPoseFuserProcess
+            namespace LocalPoseFuser {
+                interface ILocalPoseFuserProcess
+                class BasicLocalPoseFuserProcess
+                BasicLocalPoseFuserProcess -up-|> ILocalPoseFuserProcess
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace PoseSystem {
-        package LocalPoseSubsystem #LightYellow;line:blue {
-            class LocalPoseFuserNode #LimeGreen {
-                -ILocalPoseFuserProcess process
-                -Subscriber machine_inertial_sub
-                -Publisher local_pose_pub
+        namespace LocalPoseSubsystem {
+            package LocalPoseFuser #LightYellow;line:blue {
+                class LocalPoseFuserNode <<ROS>> #LimeGreen {
+                    -ILocalPoseFuserProcess process
+                    -Subscriber machine_inertial_sub
+                    -Publisher local_pose_pub
+                    -Publisher local_pose_angular_accel_pub
+                }
+                LocalPoseFuserNode --> ILocalPoseFuserProcess: <<use>>
+                LocalPoseFuserNode *--> BasicLocalPoseFuserProcess
             }
-            LocalPoseFuserNode --> ILocalPoseFuserProcess: <<use>>
-            LocalPoseFuserNode *--> BasicLocalPoseFuserProcess
         }
     }
 }

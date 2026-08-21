@@ -1,0 +1,38 @@
+<launch>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Awareness/config/config.yaml" /> 
+    </group>
+    <group if="false"> <!-- Enable during AB#1850 -->
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/BaseMachine/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Comms/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/DataStorage/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/GoalPlanning/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/ImplementControl/config/config.yaml" /> 
+    </group>
+    <group if="true">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Navigation/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Perception/config/config.yaml" /> 
+    </group>
+    <group if="false"> <!-- Enable during AB#1851 or AB#1852 -->
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Pose/config/config.yaml" /> 
+    </group>
+    <group if="false"> <!-- Enable during AB#1767 -->
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Safety/config/config.yaml" /> 
+    </group>
+    <group if="false">
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/Terrain/config/config.yaml" /> 
+    </group>
+    <group if="false"> <!-- Enable during AB#1853 or AB#1854 -->
+        <rosparam command="load" file="$(find robot_framework_ros)/Systems/UserInterface/config/config.yaml" /> 
+    </group>
+</launch>

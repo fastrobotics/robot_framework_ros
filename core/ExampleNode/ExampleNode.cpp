@@ -8,8 +8,28 @@ namespace fast::rf_ros::example_package {
 
     ExampleNode::ExampleNode() {}
     ExampleNode::~ExampleNode() {}
-    bool ExampleNode::init() { return BaseNode::base_init(); }
+    bool ExampleNode::init() {
+        bool status = BaseNode::base_init();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            return false;
+        }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load Config!");
+            return false;
+        }
+        return true;
+    }
+    bool ExampleNode::load_config() {
+        std::string system_id_str = "example_system";
+        std::string subsystem_id_str = "example_subsystem";
+        std::string process_id_str = "example_process";
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        return true;
+    }
     bool ExampleNode::start() { return BaseNode::base_start(); }
     bool ExampleNode::run_loop1() {
         fast::rf::Logger::log_debug("Loop1");

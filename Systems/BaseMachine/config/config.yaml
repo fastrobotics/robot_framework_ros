@@ -1,0 +1,5 @@
+base_machine: #System
+  base_machine: #Subsystem
+    hat_driver: #Generic Process
+      nodeServoHat: #Node
+        # Support during AB#1850

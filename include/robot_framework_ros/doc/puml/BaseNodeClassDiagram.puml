@@ -19,6 +19,7 @@ namespace fast::robot_framework_ros {
             --Node Life Cycle Functions--
             +bool base_init()
             +{abstract} bool init()
+            +{abstract} bool load_config()
 
             +bool base_start()
             +{abstract} start()
@@ -34,7 +35,6 @@ namespace fast::robot_framework_ros {
 
             --Concrete Node Control Functions--
 
-            #void disable_ready_to_arm_publish()
             
             --Timed Loop Functions--
             

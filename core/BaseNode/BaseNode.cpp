@@ -4,7 +4,7 @@
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 namespace fast::rf_ros {
     std::string BaseNode::pretty() {
-        std::string str = "Node State: " + convert(node_state);
+        std::string str = "Node State: " + fast::rf_ros::utils::CoreUtility::pretty(node_state);
         return str;
     }
     std::string BaseNode::validate_robotnamespace(std::string str) {
@@ -53,26 +53,17 @@ namespace fast::rf_ros {
         _robot_namespace = validate_robotnamespace(_robot_namespace);
         return _robot_namespace;
     }
-    std::string BaseNode::convert(robot_framework_ros::nodestate state) {
-        std::string str;
-        switch (state.state) {
-            case robot_framework_ros::nodestate::STATE_UNKNOWN:
-                str = "STATE_UNKNOWN";
-                break;
-            case robot_framework_ros::nodestate::STATE_INITIALIZING:
-                str = "STATE_INITIALIZING";
-                break;
-            case robot_framework_ros::nodestate::STATE_STARTING:
-                str = "STATE_STARTING";
-                break;
-            case robot_framework_ros::nodestate::STATE_RUNNING:
-                str = "STATE_RUNNING";
-                break;
-            default:
-                str = "STATE_UNKNOWN";
-                break;
-        }
-        return str;
+    std::string BaseNode::read_base_nodename() {
+        std::string full_name = ros::this_node::getName();
+        std::string ns = ros::this_node::getNamespace();
+        std::string base_name = full_name.substr(ns.size() == 1 ? 0 : ns.size() + 1);
+        return base_name;
+    }
+    std::string BaseNode::get_config_path(std::string system_id_str, std::string subsystem_id_str,
+                                          std::string process_id_str) {
+        std::string config_path = get_robotnamespace() + "config/" + system_id_str + "/" + subsystem_id_str + "/" +
+                                  process_id_str + "/" + read_base_nodename();
+        return config_path;
     }
     bool BaseNode::base_init() {
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_INITIALIZING, false);
@@ -257,12 +248,17 @@ namespace fast::rf_ros {
                 fast::rf::Logger::log_diagnostic(diagnostic);
                 robot_framework_ros::diagnostic diagnostic_msg =
                     fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
+
                 diagnostic_msg.stamp = ros::Time::now();
+                diagnostic_msg.NodeName = node_name;
                 diagnostic_pub.publish(diagnostic_msg);
             }
         }
         if (ready_to_arm_publish_enabled) {
-            ready_to_arm_pub.publish(fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_));
+            auto data = fast::rf_ros::utils::TranslateUtility::convert(ready_to_arm_);
+            data.stamp = ros::Time::now();
+            data.NodeName = node_name;
+            ready_to_arm_pub.publish(data);
         }
         return run_1hz();
     }

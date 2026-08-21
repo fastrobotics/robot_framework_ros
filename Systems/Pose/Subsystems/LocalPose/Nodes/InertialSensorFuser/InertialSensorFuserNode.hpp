@@ -15,7 +15,7 @@
 #include <IInertialSensorFuserProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
 
-namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
+namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
     /**
      * @brief InertialSensorFuser Node
      *
@@ -33,6 +33,13 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
          */
         bool init();
 
+        /**
+         * @brief Load configuration from config and sets data
+         *
+         * @return true
+         * @return false
+         */
+        bool load_config() override;
         /**
          * @brief Start the Node
          *
@@ -110,11 +117,18 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
          *
          */
         void thread_loop();
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
 
        private:
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
         void IMU_Callback(const sensor_msgs::Imu::ConstPtr& t_msg);
-        fast::rf::PoseSystem::LocalPoseSubsystem::IInertialSensorFuserProcess* process{nullptr};  //!< Execution Process
+        fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::IInertialSensorFuserProcess* process{
+            nullptr};  //!< Execution Process
         ros::Subscriber imu_sub;
         ros::Publisher machine_inertial_pub;
     };
-}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem
+}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser

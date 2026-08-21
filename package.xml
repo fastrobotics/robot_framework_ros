@@ -32,6 +32,6 @@
   
   
   <export>
-  <rqt_gui plugin="${prefix}/tools/rqt_plugins/plugin.xml"/>
+  <rqt_gui plugin="${prefix}/Tools/rqt_plugins/plugin.xml"/>
 </export>
 </package>

@@ -6,16 +6,19 @@ namespace ros {
 namespace fast::rf {
     namespace UserInterfaceSystem {
         namespace RemoteControlSubsystem {
+            namespace TeleopControl {
+
+            }
         }
     }
 }
 namespace fast::rf_ros {
    namespace UserInterfaceSystem {
-        package RemoteControlSubsystem #LightYellow;line:blue {
-            class JoystickCalibrationNode #Yellow {
-                -JoystickCalibrationProcess process
+        namespace RemoteControlSubsystem {
+            package TeleopControl #LightYellow;line:blue {
+                class JoystickCalibrationNode #LimeGreen {
+                }
             }
-            JoystickCalibrationNode --> JoystickCalibrationProcess: <<use>>
         }
     }
 }

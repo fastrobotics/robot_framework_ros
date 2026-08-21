@@ -1,14 +1,11 @@
 #include "JoystickCalibrationNode.hpp"
 
-#include <ITeleopControlProcess.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <chrono>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-std::ofstream output_config_fd;
-fast::rf::UserInterfaceSystem::RemoteControlSubsystem::JoystickCalibrationData calibration_data;
-namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
+
+namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl {
 
     JoystickCalibrationNode::JoystickCalibrationNode() {}
     JoystickCalibrationNode::~JoystickCalibrationNode() {}
@@ -46,7 +43,31 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
 
+        std::string topic_joy_command = "/robot/joy";
+        if (n->getParam(get_nodename() + "/topic_joy_command", topic_joy_command) == false) {
+            fast::rf::Logger::log_warn("topic_joy_command Not specified.  Using default: " + topic_joy_command);
+        }
+        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
+                                                 &JoystickCalibrationNode::joy_Callback, this);
+        return true;
+    }
+    bool JoystickCalibrationNode::load_config() {
+        std::string system_id_str = fast::rf::UserInterfaceSystem::toString(fast::rf::UserInterfaceSystem::Id{});
+        std::string subsystem_id_str = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::toString(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::Id{});
+        std::string process_id_str = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::toString(
+            fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
+
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        // Provide user space config during AB#1854
         std::string output_file_path;
         if (n->getParam(get_nodename() + "/output_file_path", output_file_path) == false) {
             fast::rf::Logger::log_error("output_file_path Not specified!  Exiting.");
@@ -73,15 +94,8 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
             fast::rf::Logger::log_error("Unable to create file at path: " + output_file_path + "! Exiting.");
             return false;
         }
-        std::string topic_joy_command = "/robot/joy";
-        if (n->getParam(get_nodename() + "/topic_joy_command", topic_joy_command) == false) {
-            fast::rf::Logger::log_warn("topic_joy_command Not specified.  Using default: " + topic_joy_command);
-        }
-        joy_sub = n->subscribe<sensor_msgs::Joy>(get_robotnamespace() + topic_joy_command, 10,
-                                                 &JoystickCalibrationNode::joy_Callback, this);
         return true;
     }
-
     bool JoystickCalibrationNode::start() { return BaseNode::base_start(); }
     bool JoystickCalibrationNode::run_loop1() { return true; }
     bool JoystickCalibrationNode::run_loop2() { return true; }
@@ -99,69 +113,64 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem {
     bool JoystickCalibrationNode::run_001hz() { return true; }
 
     void JoystickCalibrationNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
-}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem
+    void JoystickCalibrationNode::stop() {
+        is_node_running = false;
+        fast::rf::Logger::log_warn("Writing Joystick configuration.");
+        output_config_fd << "config_file_type: Joystick Calibration Configuration" << std::endl;
+        // 1. Get current time point from system clock
+        auto now = std::chrono::system_clock::now();
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Writing Joystick configuration.");
-    output_config_fd << "config_file_type: Joystick Calibration Configuration" << std::endl;
-    // 1. Get current time point from system clock
-    auto now = std::chrono::system_clock::now();
+        // 2. Convert to time_t (seconds since epoch)
+        std::time_t time_now = std::chrono::system_clock::to_time_t(now);
 
-    // 2. Convert to time_t (seconds since epoch)
-    std::time_t time_now = std::chrono::system_clock::to_time_t(now);
+        // 3. Convert to local time structure
+        std::tm tm_now = *std::localtime(&time_now);
 
-    // 3. Convert to local time structure
-    std::tm tm_now = *std::localtime(&time_now);
+        // 4. Use stringstream and put_time to format
+        output_config_fd << "date_generated: " << std::put_time(&tm_now, "%Y-%m-%d %H:%M:%S") << std::endl;
 
-    // 4. Use stringstream and put_time to format
-    output_config_fd << "date_generated: " << std::put_time(&tm_now, "%Y-%m-%d %H:%M:%S") << std::endl;
+        output_config_fd << "calibration:" << std::endl;
+        output_config_fd << "  x_deadband: " << std::to_string(calibration_data.x_deadband) << std::endl;
+        output_config_fd << "  x_min: " << std::to_string(calibration_data.x_min) << std::endl;
+        output_config_fd << "  x_max: " << std::to_string(calibration_data.x_max) << std::endl;
+        output_config_fd << "  y_deadband: " << std::to_string(calibration_data.y_deadband) << std::endl;
+        output_config_fd << "  y_min: " << std::to_string(calibration_data.y_min) << std::endl;
+        output_config_fd << "  y_max: " << std::to_string(calibration_data.y_max) << std::endl;
+        output_config_fd << "  throttle_deadband: " << std::to_string(calibration_data.throttle_deadband) << std::endl;
+        output_config_fd << "  throttle_min: " << std::to_string(calibration_data.throttle_min) << std::endl;
+        output_config_fd << "  throttle_max: " << std::to_string(calibration_data.throttle_max) << std::endl;
+        output_config_fd.close();
+    }
+}  // namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl
 
-    output_config_fd << "calibration:" << std::endl;
-    output_config_fd << "  x_deadband: " << std::to_string(calibration_data.x_deadband) << std::endl;
-    output_config_fd << "  x_min: " << std::to_string(calibration_data.x_min) << std::endl;
-    output_config_fd << "  x_max: " << std::to_string(calibration_data.x_max) << std::endl;
-    output_config_fd << "  y_deadband: " << std::to_string(calibration_data.y_deadband) << std::endl;
-    output_config_fd << "  y_min: " << std::to_string(calibration_data.y_min) << std::endl;
-    output_config_fd << "  y_max: " << std::to_string(calibration_data.y_max) << std::endl;
-    output_config_fd << "  throttle_deadband: " << std::to_string(calibration_data.throttle_deadband) << std::endl;
-    output_config_fd << "  throttle_min: " << std::to_string(calibration_data.throttle_min) << std::endl;
-    output_config_fd << "  throttle_max: " << std::to_string(calibration_data.throttle_max) << std::endl;
-    output_config_fd.close();
+using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl;
 
-    fast::rf::Logger::log_warn("Killing JoystickCalibrationNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
-using namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeJoystickCalibration");
-    JoystickCalibrationNode* node = new JoystickCalibrationNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<JoystickCalibrationNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&JoystickCalibrationNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&JoystickCalibrationNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

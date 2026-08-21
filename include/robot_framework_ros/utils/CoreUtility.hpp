@@ -10,6 +10,8 @@
  */
 #pragma once
 
+#include <robot_framework_ros/nodestate.h>
+
 #include <algorithm>
 #include <boost/array.hpp>
 #include <vector>
@@ -24,6 +26,7 @@ namespace fast::rf_ros {
          */
         class CoreUtility {
            public:
+            static std::string pretty(robot_framework_ros::nodestate state);
             /**
              * @brief Measure the time difference between two ros::Time objects
              *

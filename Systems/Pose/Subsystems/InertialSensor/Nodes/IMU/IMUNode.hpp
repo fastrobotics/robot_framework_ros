@@ -13,7 +13,7 @@
 #include <IMUProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
 
-namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
+namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
     /**
      * @brief IMU Node
      *
@@ -31,6 +31,13 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
          */
         bool init();
 
+        /**
+         * @brief Load configuration from config and sets data
+         *
+         * @return true
+         * @return false
+         */
+        bool load_config() override;
         /**
          * @brief Start the Node
          *
@@ -109,11 +116,18 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem {
          */
         void thread_loop();
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
-        fast::rf::PoseSystem::InertialSensorSubsystem::IMUProcess process;  //!< Execution Process
+        std::atomic<bool> is_node_running{false};                                //!< If the node is running
+        fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IMUProcess process;  //!< Execution Process
         std::string imu_sensor_frame{""};
         ros::Publisher imu_pub;
         ros::Publisher magnetometer_pub;
         ros::Publisher imu_accel_pub;
     };
-}  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem
+}  // namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU

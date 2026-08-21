@@ -4,7 +4,9 @@ title RemoteControl Subsystem Class Diagram
 namespace fast::rf_ros {
     namespace UserInterfaceSystem {
         package RemoteControlSubsystem #LightYellow;line:blue  {
-            class BasicTeleopControlNode #LimeGreen {}
+            namespace TeleopControl {
+                class BasicTeleopControlNode #LimeGreen {}
+            }
         }
     }
 }

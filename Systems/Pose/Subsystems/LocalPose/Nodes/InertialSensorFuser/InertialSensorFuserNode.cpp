@@ -3,9 +3,8 @@
 #include <BasicInertialSensorFuserProcess/BasicInertialSensorFuserProcess.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
+namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
 
     InertialSensorFuserNode::InertialSensorFuserNode() {}
     InertialSensorFuserNode::~InertialSensorFuserNode() {}
@@ -25,12 +24,19 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Base Node!");
             return false;
         }
-        process = new fast::rf::PoseSystem::LocalPoseSubsystem::BasicInertialSensorFuserProcess();
+
+        process = new fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::BasicInertialSensorFuserProcess();
         status = process->init(1);  // Basic Inertial Sensor Fuser requires 1 and only 1 IMU
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+
         std::string topic_imu1_input;  // Make this support multiple IMU's during AB#1814
         std::string param_imu1_input = get_nodename() + "/topic_imu1_input";
         if (n->getParam(param_imu1_input, topic_imu1_input) == false) {
@@ -51,8 +57,23 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
+    bool InertialSensorFuserNode::load_config() {
+        std::string system_id_str = fast::rf::PoseSystem::toString(fast::rf::PoseSystem::Id{});
+        std::string subsystem_id_str =
+            fast::rf::PoseSystem::LocalPoseSubsystem::toString(fast::rf::PoseSystem::LocalPoseSubsystem::Id{});
+        std::string process_id_str = fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::toString(
+            fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-    bool InertialSensorFuserNode::start() { return BaseNode::base_start(); }
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        // Get user space config during AB#1852
+        return true;
+    }
+    bool InertialSensorFuserNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool InertialSensorFuserNode::run_loop1() {
         process->update(ros::Time::now().toSec());
 
@@ -79,43 +100,36 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
     bool InertialSensorFuserNode::run_001hz() { return true; }
 
     void InertialSensorFuserNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
+            // Your IMU reading/processing code goes here...
         }
     }
-}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem
+    void InertialSensorFuserNode::stop() { is_node_running = false; }
+}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing InertialSensorFuserNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
-using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem;
+using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeInertialSensorFuser");
-    InertialSensorFuserNode* node = new InertialSensorFuserNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<InertialSensorFuserNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&InertialSensorFuserNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&InertialSensorFuserNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

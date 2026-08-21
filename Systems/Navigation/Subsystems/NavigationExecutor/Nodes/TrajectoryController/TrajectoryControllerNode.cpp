@@ -2,9 +2,8 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
+namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController {
 
     TrajectoryControllerNode::TrajectoryControllerNode() {}
     TrajectoryControllerNode::~TrajectoryControllerNode() {}
@@ -28,7 +27,12 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
-        process.set_parameters(10.0, -10.0, 1.0, 1.0, 0.0, 0.0);  // Tune this dynamically during AB#1815
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+
         std::string topic_pose;
         std::string param_pose = get_nodename() + "/topic_pose_input";
         if (n->getParam(param_pose, topic_pose) == false) {
@@ -60,8 +64,67 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
+    bool TrajectoryControllerNode::load_config() {
+        std::string system_id_str = fast::rf::NavigationSystem::toString(fast::rf::NavigationSystem::Id{});
 
-    bool TrajectoryControllerNode::start() { return BaseNode::base_start(); }
+        std::string subsystem_id_str = fast::rf::NavigationSystem::NavigationExecutorSubsystem::toString(
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::Id{});
+        std::string process_id_str =
+            fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::toString(
+                fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::Id{});
+        std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
+
+        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+
+        double max_output;
+        if (n->getParam(config_path + "/max_output", max_output) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/max_output Not Defined!  Exiting.");
+            return false;
+        }
+        double min_output;
+        if (n->getParam(config_path + "/min_output", min_output) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/min_output Not Defined!  Exiting.");
+            return false;
+        }
+        double K_P;
+        if (n->getParam(config_path + "/K_P", K_P) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_P Not Defined!  Exiting.");
+            return false;
+        }
+        double K_I;
+        if (n->getParam(config_path + "/K_I", K_I) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_I Not Defined!  Exiting.");
+            return false;
+        }
+        double K_D;
+        if (n->getParam(config_path + "/K_D", K_D) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_D Not Defined!  Exiting.");
+            return false;
+        }
+        double sensor_scale;
+        if (n->getParam(config_path + "/sensor_scale", sensor_scale) == false) {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/sensor_scale Not Defined!  Exiting.");
+            return false;
+        }
+
+        fast::rf::NavigationSystem::Controller::PIDControllerConfig pid_config;
+        pid_config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale);
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::BasicTrajectoryControllerConfig
+            config;
+        if (config.set_pid_controller_config(pid_config) == false) {
+            fast::rf::Logger::log_error("Unable to set PID Controller Config!");
+            return false;
+        }
+        if (process.set_config(config) == false) {
+            fast::rf::Logger::log_error("Unable to set Trajectory Controller Config!");
+            return false;
+        }
+        return true;
+    }
+    bool TrajectoryControllerNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool TrajectoryControllerNode::run_loop1() {
         process.update(ros::Time::now().toSec());
         fast::rf::messages::GeometryMsgs::TwistMsg new_command;
@@ -92,43 +155,36 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem {
     bool TrajectoryControllerNode::run_001hz() { return true; }
 
     void TrajectoryControllerNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
-}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem
+    void TrajectoryControllerNode::stop() { is_node_running = false; }
+}  // namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing TrajectoryControllerNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
-using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem;
+using namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeTrajectoryController");
-    TrajectoryControllerNode* node = new TrajectoryControllerNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<TrajectoryControllerNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&TrajectoryControllerNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&TrajectoryControllerNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

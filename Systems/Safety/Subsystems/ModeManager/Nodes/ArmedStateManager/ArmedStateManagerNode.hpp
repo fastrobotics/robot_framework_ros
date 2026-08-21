@@ -13,7 +13,7 @@
 
 #include <ArmedStateManagerProcess.hpp>
 #include <robot_framework_ros/BaseNode.hpp>
-namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
+namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
     /**
      * @brief ArmedStateManager Node
      *
@@ -30,6 +30,14 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
          * @return false
          */
         bool init();
+
+        /**
+         * @brief Load configuration from config and sets data
+         *
+         * @return true
+         * @return false
+         */
+        bool load_config() override;
 
         /**
          * @brief Start the Node
@@ -127,10 +135,18 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem {
          */
         void ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg);
 
+        /**
+         * @brief Stop the Node
+         *
+         */
+        void stop();
+
        private:
-        fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManagerProcess process;  //!< Execution Process
+        std::atomic<bool> is_node_running{false};  //!< If the node is running
+        fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerProcess
+            process;                                     //!< Execution Process
         std::vector<ros::Subscriber> ready_to_arm_subs;  //!< Container for multiple Ready to Arm Subscribers
         ros::Publisher arm_command_pub;                  //!< Publish the robot's Arm State Command
         ros::ServiceServer armstate_change_srv;          //!< Provide a Service to change the Arm State
     };
-}  // namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem
+}  // namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager

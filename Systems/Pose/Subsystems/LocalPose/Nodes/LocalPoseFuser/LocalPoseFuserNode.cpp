@@ -3,9 +3,8 @@
 #include <BasicLocalPoseFuserProcess/BasicLocalPoseFuserProcess.hpp>
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
-bool kill_node = false;
 using namespace fast::rf_ros;
-namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
+namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
 
     LocalPoseFuserNode::LocalPoseFuserNode() {}
     LocalPoseFuserNode::~LocalPoseFuserNode() {}
@@ -13,11 +12,16 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
         sensor_msgs::Imu msg = *t_msg;
 
         process->new_machine_inertial_data(fast::rf_ros::utils::TranslateUtility::convert(msg));
-        fast::rf::messages::GeometryMsgs::OdomMsg data;
-        if (process->get_local_pose(data) == true) {
-            auto local_pose = fast::rf_ros::utils::TranslateUtility::convert(data);
+        fast::rf::messages::GeometryMsgs::OdomMsg local_pose_data;
+        fast::rf::messages::GeometryMsgs::AccelWithCovarianceMsg local_pose_angular_accel_data;
+        if (process->get_local_pose(local_pose_data, local_pose_angular_accel_data) == true) {
+            auto local_pose = fast::rf_ros::utils::TranslateUtility::convert(local_pose_data);
             local_pose.header.frame_id = msg.header.frame_id;
             local_pose_pub.publish(local_pose);
+            auto local_pose_angular_accel =
+                fast::rf_ros::utils::TranslateUtility::convert(local_pose_angular_accel_data);
+            local_pose_angular_accel.header.frame_id = msg.header.frame_id;
+            local_pose_angular_accel_pub.publish(local_pose_angular_accel);
         }
     }
     bool LocalPoseFuserNode::init() {
@@ -27,12 +31,19 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
             return false;
         }
 
-        process = new fast::rf::PoseSystem::LocalPoseSubsystem::BasicLocalPoseFuserProcess();
+        process = new fast::rf::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::BasicLocalPoseFuserProcess();
         status = process->init();
         if (status == false) {
             fast::rf::Logger::log_error("Unable to initialize Process!");
             return false;
         }
+
+        status = load_config();
+        if (status == false) {
+            fast::rf::Logger::log_error("Unable to load config!");
+            return false;
+        }
+
         std::string topic_machine_inertial_input;
         if (n->getParam(get_nodename() + "/topic_machine_inertial_input", topic_machine_inertial_input) == false) {
             fast::rf::Logger::log_error("Parameter topic_machine_inertial_input Not Defined!  Exiting.");
@@ -48,11 +59,26 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
         }
         local_pose_pub = n->advertise<nav_msgs::Odometry>(get_robotnamespace() + topic_local_pose_output, 1);
 
+        std::string topic_local_pose_angular_accel_output;
+        if (n->getParam(get_nodename() + "/topic_local_pose_angular_accel_output",
+                        topic_local_pose_angular_accel_output) == false) {
+            fast::rf::Logger::log_error("Parameter topic_local_pose_angular_accel_output Not Defined!  Exiting.");
+            return false;
+        }
+        local_pose_angular_accel_pub = n->advertise<geometry_msgs::AccelWithCovarianceStamped>(
+            get_robotnamespace() + topic_local_pose_angular_accel_output, 1);
+
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
-
-    bool LocalPoseFuserNode::start() { return BaseNode::base_start(); }
+    bool LocalPoseFuserNode::load_config() {
+        // Nothing to configure
+        return true;
+    }
+    bool LocalPoseFuserNode::start() {
+        is_node_running = true;
+        return BaseNode::base_start();
+    }
     bool LocalPoseFuserNode::run_loop1() {
         process->update(ros::Time::now().toSec());
 
@@ -80,43 +106,36 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem {
     bool LocalPoseFuserNode::run_001hz() { return true; }
 
     void LocalPoseFuserNode::thread_loop() {
-        while (kill_node == false) {
-            ros::Duration(1.0).sleep();
+        while (ros::ok() && is_node_running) {
         }
     }
-}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem
+    void LocalPoseFuserNode::stop() { is_node_running = false; }
+}  // namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser
 
-void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing LocalPoseFuserNode with Signal: " + std::to_string(sig));
-    kill_node = true;
-    exit(0);
-}
-
-using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem;
+using namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser;
 int main(int argc, char** argv) {
     ros::init(argc, argv, "nodeLocalPoseFuser");
-    LocalPoseFuserNode* node = new LocalPoseFuserNode();
-    signal(SIGINT, signalinterrupt_handler);
-    signal(SIGTERM, signalinterrupt_handler);
-    bool status = node->init();
-    if (status == false) {
-        // No practical way to unit test
+    auto node = std::make_unique<LocalPoseFuserNode>();
+    if (!node->init()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    status = node->start();
-    if (status == false) {
-        // No practical way to unit test
+
+    if (!node->start()) {
         // LCOV_EXCL_START
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&LocalPoseFuserNode::thread_loop, node);
-    while ((status == true) and (kill_node == false)) {
+    std::thread thread(&LocalPoseFuserNode::thread_loop, node.get());
+    bool status = true;
+    while (ros::ok() && status) {
         status = node->update();
+        ros::spinOnce();
     }
-    thread.detach();
-    delete node;
+    node->stop();
+    if (thread.joinable()) {
+        thread.join();
+    }
     return 0;
 }

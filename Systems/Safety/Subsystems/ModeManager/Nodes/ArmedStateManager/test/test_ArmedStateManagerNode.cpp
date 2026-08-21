@@ -26,6 +26,8 @@ std::string arm_command_topic = "/test/arm_command";
 std::string ready_to_arm_process1_topic = "/test/nodeBasicTeleopControl/ready_to_arm";
 std::string ready_to_arm_process2_topic = "/test/nodeServoHat/ready_to_arm";
 std::string ready_to_arm_process3_topic = "/test/nodeTankDriveExecutor/ready_to_arm";
+std::string ready_to_arm_process4_topic = "/test/nodeTrajectoryController/ready_to_arm";
+std::string ready_to_arm_process5_topic = "/test/nodeLocalPoseFuser/ready_to_arm";
 std::string armstate_change_service_topic = "/test/arm_state_change";
 void heartbeat_Callback([[maybe_unused]] const robot_framework_ros::heartbeat& msg) { heartbeat_rx_count++; }
 void diagnostic_Callback([[maybe_unused]] const robot_framework_ros::diagnostic& msg) { diagnostic_rx_count++; }
@@ -50,6 +52,12 @@ TEST(ArmedStateManagerNode, TestBasics) {
     ros::Publisher ready_to_arm_process3_pub =
         nh.advertise<robot_framework_ros::ready_to_arm>(ready_to_arm_process3_topic, 1);
 
+    ros::Publisher ready_to_arm_process4_pub =
+        nh.advertise<robot_framework_ros::ready_to_arm>(ready_to_arm_process4_topic, 1);
+
+    ros::Publisher ready_to_arm_process5_pub =
+        nh.advertise<robot_framework_ros::ready_to_arm>(ready_to_arm_process5_topic, 1);
+
     ros::Subscriber arm_command_sub = nh.subscribe(arm_command_topic, 100, &arm_command_Callback);
 
     sleep(5.0);
@@ -63,6 +71,8 @@ TEST(ArmedStateManagerNode, TestBasics) {
     EXPECT_EQ(1, ready_to_arm_process1_pub.getNumSubscribers());
     EXPECT_EQ(1, ready_to_arm_process2_pub.getNumSubscribers());
     EXPECT_EQ(1, ready_to_arm_process3_pub.getNumSubscribers());
+    EXPECT_EQ(1, ready_to_arm_process4_pub.getNumSubscribers());
+    EXPECT_EQ(1, ready_to_arm_process5_pub.getNumSubscribers());
 
     sleep(1.0);  // Wait for ArmedStateManagerNode to Start.
     EXPECT_TRUE(heartbeat_rx_count > 0);
@@ -72,20 +82,35 @@ TEST(ArmedStateManagerNode, TestBasics) {
     robot_framework_ros::ready_to_arm process1_data;
     process1_data.SystemID = fast::rf::BaseMachineSystem::SYSTEM_ID;
     process1_data.SubsystemID = fast::rf::BaseMachineSystem::BaseMachineSubsystem::SUBSYSTEM_ID;
-    process1_data.ProcessID = fast::rf::BaseMachineSystem::BaseMachineSubsystem::PROCESS_HATDRIVER_ID;
+    process1_data.ProcessID = fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::PROCESS_HATDRIVER_ID;
     process1_data.ready_to_arm = true;
 
     robot_framework_ros::ready_to_arm process2_data;
     process2_data.SystemID = fast::rf::NavigationSystem::SYSTEM_ID;
     process2_data.SubsystemID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::SUBSYSTEM_ID;
-    process2_data.ProcessID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::PROCESS_DRIVE_EXECUTOR_ID;
+    process2_data.ProcessID =
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::PROCESS_DRIVE_EXECUTOR_ID;
     process2_data.ready_to_arm = true;
 
     robot_framework_ros::ready_to_arm process3_data;
     process3_data.SystemID = fast::rf::UserInterfaceSystem::SYSTEM_ID;
     process3_data.SubsystemID = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::SUBSYSTEM_ID;
-    process3_data.ProcessID = fast::rf::UserInterfaceSystem::RemoteControlSubsystem::PROCESS_TELEOPCONTROL_ID;
+    process3_data.ProcessID =
+        fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::PROCESS_TELEOPCONTROL_ID;
     process3_data.ready_to_arm = true;
+
+    robot_framework_ros::ready_to_arm process4_data;
+    process4_data.SystemID = fast::rf::NavigationSystem::SYSTEM_ID;
+    process4_data.SubsystemID = fast::rf::NavigationSystem::NavigationExecutorSubsystem::SUBSYSTEM_ID;
+    process4_data.ProcessID =
+        fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::PROCESS_TRAJECTORY_CONTROLLER_ID;
+    process4_data.ready_to_arm = true;
+
+    robot_framework_ros::ready_to_arm process5_data;
+    process5_data.SystemID = fast::rf::PoseSystem::SYSTEM_ID;
+    process5_data.SubsystemID = fast::rf::PoseSystem::LocalPoseSubsystem::SUBSYSTEM_ID;
+    process5_data.ProcessID = fast::rf::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::PROCESS_LOCALPOSEFUSER_ID;
+    process5_data.ready_to_arm = true;
 
     // Feed it Ready To Arm Topics
     double current_time = 0.0;
@@ -94,6 +119,8 @@ TEST(ArmedStateManagerNode, TestBasics) {
         ready_to_arm_process1_pub.publish(process1_data);
         ready_to_arm_process2_pub.publish(process2_data);
         ready_to_arm_process3_pub.publish(process3_data);
+        ready_to_arm_process4_pub.publish(process4_data);
+        ready_to_arm_process5_pub.publish(process5_data);
         current_time += delta_t;
         usleep(delta_t * 1000000.0);
         if (arm_command.armed_state.state == (uint8_t)fast::rf::ArmedState::DISARMED) {
@@ -115,6 +142,8 @@ TEST(ArmedStateManagerNode, TestBasics) {
         ready_to_arm_process1_pub.publish(process1_data);
         ready_to_arm_process2_pub.publish(process2_data);
         ready_to_arm_process3_pub.publish(process3_data);
+        ready_to_arm_process4_pub.publish(process4_data);
+        ready_to_arm_process5_pub.publish(process5_data);
         current_time += delta_t;
         usleep(delta_t * 1000000.0);
         if (arm_command.armed_state.state == (uint8_t)fast::rf::ArmedState::ARMED) {
@@ -131,6 +160,8 @@ TEST(ArmedStateManagerNode, TestBasics) {
         ready_to_arm_process1_pub.publish(process1_data);
         ready_to_arm_process2_pub.publish(process2_data);
         ready_to_arm_process3_pub.publish(process3_data);
+        ready_to_arm_process4_pub.publish(process4_data);
+        ready_to_arm_process5_pub.publish(process5_data);
         current_time += delta_t;
         usleep(delta_t * 1000000.0);
         if (arm_command.armed_state.state == (uint8_t)fast::rf::ArmedState::DISARMED) {

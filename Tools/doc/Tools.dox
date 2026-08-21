@@ -1,0 +1,4 @@
+ /**
+ * @namespace fast::rf_ros::Tools
+ * @brief The Tools Package for the ROS Robot Framework
+ */

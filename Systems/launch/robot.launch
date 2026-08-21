@@ -7,6 +7,7 @@
     <arg name="topic_left_drive" value ="left_drive"/>
     <arg name="topic_right_drive" value="right_drive"/>
     
+    <include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch" ns="$(arg robot_namespace)/config/"/>
     <group ns="$(arg robot_namespace)">
         <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot1" args="/robot/cmd_throttle/linear/x /robot/cmd_throttle/angular/z" />
         <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot2" args="/robot/left_drive /robot/right_drive" />
@@ -52,6 +53,10 @@
                     
             </include>
         <include file="$(find robot_framework_ros)/Systems/Safety/Subsystems/ModeManager/Nodes/ArmedStateManager/launch/ArmedStateManager_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+        </include>
+        <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/TrajectoryController/launch/TrajectoryController_node.launch">
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
             <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
         </include>
