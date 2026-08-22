@@ -51,10 +51,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &BasicTeleopControlNode::robot_armcommand_state_Callback, this);
 
-        /**
-         * @todo Make this config during AB#1767
-         *
-         */
         armstate_change_client =
             n->serviceClient<robot_framework_ros::arm_state_change>(get_robotnamespace() + "/arm_state_change");
 

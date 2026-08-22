@@ -26,7 +26,7 @@
     <group if="false"> <!-- Enable during AB#1851 or AB#1852 -->
         <rosparam command="load" file="$(find robot_framework_ros)/Systems/Pose/config/config.yaml" /> 
     </group>
-    <group if="false"> <!-- Enable during AB#1767 -->
+    <group if="true">
         <rosparam command="load" file="$(find robot_framework_ros)/Systems/Safety/config/config.yaml" /> 
     </group>
     <group if="false">
