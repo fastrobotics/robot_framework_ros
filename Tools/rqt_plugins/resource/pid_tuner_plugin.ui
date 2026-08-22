@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1085</width>
+    <width>1204</width>
     <height>885</height>
    </rect>
   </property>
@@ -16,7 +16,7 @@
   <widget class="QwtTextLabel" name="TextLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>10</y>
      <width>231</width>
      <height>20</height>
@@ -29,7 +29,7 @@
   <widget class="QWidget" name="chartContainer" native="true">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>560</x>
      <y>160</y>
      <width>511</width>
      <height>691</height>
@@ -46,7 +46,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_SensorScaleValue">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>260</x>
      <y>560</y>
      <width>81</width>
      <height>20</height>
@@ -56,7 +56,7 @@ background-color: rgb(138, 226, 52);</string>
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>Sensor-Scale</string>
+    <string>Scale</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -65,7 +65,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QDial" name="dial_SensorScaleTuner">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>230</x>
      <y>480</y>
      <width>141</width>
      <height>161</height>
@@ -87,7 +87,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>170</x>
      <y>470</y>
      <width>251</width>
      <height>21</height>
@@ -103,7 +103,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="test_SensorData_rx">
    <property name="geometry">
     <rect>
-     <x>460</x>
+     <x>470</x>
      <y>90</y>
      <width>151</width>
      <height>17</height>
@@ -122,7 +122,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QDial" name="dial_Setpoint">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>110</x>
      <y>90</y>
      <width>311</width>
      <height>311</height>
@@ -144,7 +144,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_PGainValue">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>70</x>
      <y>740</y>
      <width>67</width>
      <height>17</height>
@@ -154,7 +154,7 @@ background-color: rgb(138, 226, 52);</string>
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>P-Value</string>
+    <string>KP</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -163,7 +163,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>-30</x>
+     <x>-20</x>
      <y>640</y>
      <width>251</width>
      <height>21</height>
@@ -179,7 +179,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QDial" name="dial_PGainTuner">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>30</x>
      <y>670</y>
      <width>141</width>
      <height>161</height>
@@ -201,7 +201,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_SetPointValue">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>230</x>
      <y>240</y>
      <width>67</width>
      <height>17</height>
@@ -220,7 +220,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QSlider" name="slider_MinOutput">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>90</y>
      <width>21</width>
      <height>311</height>
@@ -233,7 +233,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QSlider" name="slider_MaxOutput">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>70</x>
      <y>90</y>
      <width>21</width>
      <height>311</height>
@@ -246,7 +246,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_dialPGain_Min">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>50</x>
      <y>810</y>
      <width>67</width>
      <height>17</height>
@@ -259,7 +259,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_dialPGain_Max">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>140</x>
      <y>810</y>
      <width>67</width>
      <height>17</height>
@@ -272,7 +272,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_dialSetpoint_Min">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>170</x>
      <y>390</y>
      <width>67</width>
      <height>17</height>
@@ -285,7 +285,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_dialSetpoint_Max">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>340</x>
      <y>390</y>
      <width>67</width>
      <height>17</height>
@@ -298,7 +298,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_dialSensorScale_Min">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>240</x>
      <y>630</y>
      <width>67</width>
      <height>17</height>
@@ -311,7 +311,7 @@ background-color: rgb(138, 226, 52);</string>
   <widget class="QLabel" name="text_dialSensorScale_Max">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>330</x>
      <y>630</y>
      <width>67</width>
      <height>17</height>

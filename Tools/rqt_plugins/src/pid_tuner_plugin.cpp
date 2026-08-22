@@ -120,8 +120,8 @@ namespace robot_framework_ros {
         dial_set_point.indicator_ = loaded_layout->findChild<QLabel*>("text_SetPointValue");
         dial_set_point.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialSetpoint_Max");
         dial_set_point.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialSetpoint_Min");
-        dial_set_point.max_value = 10.0;
-        dial_set_point.min_value = -10.0;
+        dial_set_point.max_value = 100.0;
+        dial_set_point.min_value = -100.0;
         dial_set_point.set_value(latest_setpoint_);
 
         // Initialize Sensor Scale Dial
@@ -133,8 +133,8 @@ namespace robot_framework_ros {
         dial_sensor_scale.indicator_ = loaded_layout->findChild<QLabel*>("text_SensorScaleValue");
         dial_sensor_scale.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialSensorScale_Max");
         dial_sensor_scale.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialSensorScale_Min");
-        dial_sensor_scale.max_value = 10.0;
-        dial_sensor_scale.min_value = -10.0;
+        dial_sensor_scale.max_value = 100.0;
+        dial_sensor_scale.min_value = -100.0;
         dial_sensor_scale.set_value(sensor_scale_factor);
 
         if (dial_sensor_scale.is_initialized() == false) {
@@ -150,8 +150,8 @@ namespace robot_framework_ros {
         dial_P.indicator_ = loaded_layout->findChild<QLabel*>("text_PGainValue");
         dial_P.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialPGain_Max");
         dial_P.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialPGain_Min");
-        dial_P.max_value = 10.0;
-        dial_P.min_value = -10.0;
+        dial_P.max_value = 1.5;
+        dial_P.min_value = -1.5;
         dial_P.set_value(K_P);
 
         if (dial_P.is_initialized() == false) {

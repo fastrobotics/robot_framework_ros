@@ -119,7 +119,7 @@ namespace robot_framework_ros {
         // PID Tuning Values
         double max_output{100.0};
         double min_output{-100.0};
-        double sensor_scale_factor{2.0};
+        double sensor_scale_factor{31.4159};  // 5 full rotations per second is 100% --> 31.4
         double K_P{2.0};
         double K_I{0.0};
         double K_D{0.0};
