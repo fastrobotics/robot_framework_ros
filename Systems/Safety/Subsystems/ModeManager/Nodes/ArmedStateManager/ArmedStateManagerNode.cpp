@@ -71,8 +71,7 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
 
         fast::rf::Logger::log_info("Loading Config from:" + config_path);
 
-        if (n->getParam(config_path + "/nodes_to_monitor", nodes_to_monitor)) {
-        } else {
+        if (n->getParam(config_path + "/nodes_to_monitor", nodes_to_monitor) == false) {
             fast::rf::Logger::log_error("Parameter: " + config_path + "/nodes_to_monitor Not Defined!  Exiting.");
             return false;
         }
