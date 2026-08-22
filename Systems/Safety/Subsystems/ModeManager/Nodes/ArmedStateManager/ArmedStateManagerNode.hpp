@@ -144,7 +144,8 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
        private:
         std::atomic<bool> is_node_running{false};  //!< If the node is running
         fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerProcess
-            process;                                     //!< Execution Process
+            process;  //!< Execution Process
+        std::vector<std::string> nodes_to_monitor;
         std::vector<ros::Subscriber> ready_to_arm_subs;  //!< Container for multiple Ready to Arm Subscribers
         ros::Publisher arm_command_pub;                  //!< Publish the robot's Arm State Command
         ros::ServiceServer armstate_change_srv;          //!< Provide a Service to change the Arm State
