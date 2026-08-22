@@ -4,6 +4,7 @@
 
 #include <Infrastructure/Logger.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
+
 using namespace fast::rf_ros;
 namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
 
@@ -42,21 +43,13 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
         std::string arm_command_topic = get_robotnamespace() + "/arm_command";
         arm_command_pub = n->advertise<robot_framework_ros::arm_command>(arm_command_topic, 1);
 
-        // Read Ready To Arm Topic Parameters and Subscribe
-        uint8_t counter = 0;
-        bool found = true;
-        while (found) {
-            char param_topic[512];
-            sprintf(param_topic, "%s/%03d_ReadyToArm_Topic", get_nodename().c_str(), counter);
-            std::string new_ready_to_arm_topic;
-            if (n->getParam(param_topic, new_ready_to_arm_topic) == true) {
-                ros::Subscriber sub = n->subscribe<robot_framework_ros::ready_to_arm>(
-                    new_ready_to_arm_topic, 10, &ArmedStateManagerNode::ready_to_arm_Callback, this);
-                ready_to_arm_subs.push_back(sub);
-            } else {
-                found = false;
-            }
-            counter++;
+        // Read Ready To Arm Topics and Subscribe
+        for (auto node_name : nodes_to_monitor) {
+            std::string ready_to_arm_topic = get_robotnamespace() + node_name + "/ready_to_arm";
+            fast::rf::Logger::log_info("Subscribing to: " + ready_to_arm_topic);
+            ros::Subscriber sub = n->subscribe<robot_framework_ros::ready_to_arm>(
+                ready_to_arm_topic, 10, &ArmedStateManagerNode::ready_to_arm_Callback, this);
+            ready_to_arm_subs.push_back(sub);
         }
         if (ready_to_arm_subs.size() == 0) {
             fast::rf::Logger::log_error("Need at least 1 Ready To Arm Topic.  Exiting.");
@@ -78,11 +71,17 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
 
         fast::rf::Logger::log_info("Loading Config from:" + config_path);
 
-        /**
-         * @todo Configure this during AB#1767
-
-         *
-         */
+        if (n->getParam(config_path + "/nodes_to_monitor", nodes_to_monitor)) {
+        } else {
+            fast::rf::Logger::log_error("Parameter: " + config_path + "/nodes_to_monitor Not Defined!  Exiting.");
+            return false;
+        }
+        fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerProcessConfig config;
+        config.expected_arm_signals = (uint8_t)nodes_to_monitor.size();
+        if (process.set_config(config) == false) {
+            fast::rf::Logger::log_error("Config not Valid! " + config.pretty());
+            return false;
+        }
         return true;
     }
     bool ArmedStateManagerNode::start() {
