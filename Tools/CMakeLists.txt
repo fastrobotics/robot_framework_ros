@@ -1,2 +1,6 @@
 add_subdirectory(Applications)
-add_subdirectory(rqt_plugins)
+if(BUILD_DEVTOOLS)
+    find_package(catkin REQUIRED COMPONENTS rqt_gui
+                                        rqt_gui_cpp)
+    add_subdirectory(rqt_plugins)
+endif()
