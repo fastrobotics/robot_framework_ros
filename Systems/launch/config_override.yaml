@@ -1,0 +1,7 @@
+safety: # System
+  mode_manager: #Subsystem
+    armed_state_manager: #Generic Process
+      nodeArmedStateManager: # Node Configuration
+        nodes_to_monitor: # Nodes to Monitor for Ready to Arm State
+          - "nodeBasicTeleopControl"
+          - "nodeServoHat"
