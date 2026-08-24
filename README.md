@@ -100,7 +100,7 @@ roslaunch robot_framework_ros robot.launch
 ```
 
 # Tools
-Various tools exist for the Robot Framework.  More information can be found under [Tools](tools/doc/Tools.md).
+Various tools exist for the Robot Framework.  More information can be found under [Tools](Tools/doc/Tools.md).
 
 # Documentation
 ## Interface Documentation

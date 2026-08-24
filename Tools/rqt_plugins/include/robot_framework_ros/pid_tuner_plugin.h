@@ -1,5 +1,6 @@
 #pragma once
 
+#include <robot_framework_ros/arm_command.h>
 #include <ros/ros.h>
 #include <rqt_gui_cpp/plugin.h>
 #include <std_msgs/Float32.h>
@@ -69,6 +70,7 @@ namespace robot_framework_ros {
         virtual void initPlugin(qt_gui_cpp::PluginContext& context) override;
         virtual void shutdownPlugin() override;
         void sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg);
+        void armed_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
        private slots:
         void knobSetpointChanged(int value);
         void onSliderMoved(int value);
@@ -99,12 +101,14 @@ namespace robot_framework_ros {
 
         // Status Controls
         QLabel* text_sensordata_rx_{nullptr};
+        QLabel* text_armedstate_{nullptr};
 
         // ROS
         ros::NodeHandle nh_;
         ros::Publisher setpoint_pub_;
         ros::Publisher command_pub_;
         ros::Subscriber sensor_sub_;
+        ros::Subscriber armedstate_sub_;
 
         // Data Members
         QTimer* update_timer_{nullptr};
@@ -115,12 +119,13 @@ namespace robot_framework_ros {
         double latest_sensor_{0.0};
         double latest_output_{0.0};
         uint64_t sensor_data_rx_counter{0};
+        robot_framework_ros::arm_command latest_arm_command;
 
         // PID Tuning Values
         double max_output{100.0};
         double min_output{-100.0};
         double sensor_scale_factor{31.4159};  // 5 full rotations per second is 100% --> 31.4
-        double K_P{2.0};
+        double K_P{0.5};
         double K_I{0.0};
         double K_D{0.0};
 

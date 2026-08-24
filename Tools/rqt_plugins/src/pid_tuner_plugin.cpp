@@ -1,5 +1,6 @@
 #include "robot_framework_ros/pid_tuner_plugin.h"
 
+#include <robot_framework_ros/armedstate.h>
 #include <ros/package.h>
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
@@ -11,11 +12,13 @@
 
 namespace robot_framework_ros {
     PIDTunerPlugin::PIDTunerPlugin() : rqt_gui_cpp::Plugin() { setObjectName("PIDTunerPlugin"); }
-    // void PIDTunerPlugin::setpoint_Callback(const std_msgs::Float32::ConstPtr& t_msg) { latest_setpoint_ =
-    // t_msg->data; }
+    void PIDTunerPlugin::armed_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
+        robot_framework_ros::arm_command msg = *t_msg;
+        latest_arm_command = msg;
+    }
     void PIDTunerPlugin::sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg) {
         sensor_data_rx_counter++;
-        text_sensordata_rx_->setText(QString::number(sensor_data_rx_counter));
+        text_sensordata_rx_->setText("Sensor Data Rx: " + QString::number(sensor_data_rx_counter));
         latest_sensor_ = t_msg->data;
         pid_controller.new_sensor_input(latest_sensor_, ros::Time::now().toSec());
     }
@@ -110,6 +113,7 @@ namespace robot_framework_ros {
         // =========================================================================
 
         text_sensordata_rx_ = loaded_layout->findChild<QLabel*>("test_SensorData_rx");
+        text_armedstate_ = loaded_layout->findChild<QLabel*>("text_ArmedState");
         // Initialize Set Point Dial
 
         dial_set_point.name = "Set Point Dial";
@@ -167,6 +171,9 @@ namespace robot_framework_ros {
         std::string output_topic_name = "pidtuner_command";
         command_pub_ = nh_.advertise<std_msgs::Float32>(output_topic_name, 1);
 
+        std::string arm_command_topic_name = "arm_command";
+        armedstate_sub_ = nh_.subscribe(arm_command_topic_name, 100, &PIDTunerPlugin::armed_command_Callback, this);
+
         update_timer_ = new QTimer(this);
         connect(update_timer_, &QTimer::timeout, this, &PIDTunerPlugin::updateLoop);
         update_timer_->start(33);
@@ -179,6 +186,31 @@ namespace robot_framework_ros {
         start_time_ = ros::Time::now();
     }
     void PIDTunerPlugin::updateLoop() {
+        std::string str = "";
+
+        switch (latest_arm_command.armed_state.state) {
+            case robot_framework_ros::armedstate::DISARMED:
+                str = "DISARMED";
+                text_armedstate_->setStyleSheet("background-color: green; color: black;");
+                break;
+            case robot_framework_ros::armedstate::DISARMED_CANNOTARM:
+                str = "DISARMED-CANNOTARM";
+                text_armedstate_->setStyleSheet("background-color: red; color: black;");
+                break;
+            case robot_framework_ros::armedstate::ARMING:
+                str = "ARMING";
+                text_armedstate_->setStyleSheet("background-color: green; color: black;");
+                break;
+            case robot_framework_ros::armedstate::ARMED:
+                str = "ARMED";
+                text_armedstate_->setStyleSheet("background-color: blue; color: black;");
+                break;
+            default:
+                str = "UNKNOWN";
+                break;
+        }
+        text_armedstate_->setText(QString::fromStdString(str));
+
         fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
         config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale_factor);
         pid_controller.set_config(config);
@@ -222,6 +254,7 @@ namespace robot_framework_ros {
         setpoint_pub_.shutdown();
         sensor_sub_.shutdown();
         update_timer_->stop();
+        nh_.shutdown();
     }
     double PIDTunerPlugin::scale_knob_value(int input, double max_, double min_) {
         // m = (y2-y1)/(x2-x1)
