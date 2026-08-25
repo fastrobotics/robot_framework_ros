@@ -8,6 +8,9 @@
 #include <QFile>
 #include <QVBoxLayout>
 #include <QtUiTools/QUiLoader>
+#include <chrono>
+#include <fstream>
+#include <iostream>
 #include <pluginlib/class_list_macros.hpp>
 
 namespace robot_framework_ros {
@@ -18,27 +21,89 @@ namespace robot_framework_ros {
     }
     void PIDTunerPlugin::sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg) {
         sensor_data_rx_counter++;
-        text_sensordata_rx_->setText("Sensor Data Rx: " + QString::number(sensor_data_rx_counter));
+
         latest_sensor_ = t_msg->data;
         pid_controller.new_sensor_input(latest_sensor_, ros::Time::now().toSec());
     }
+    void PIDTunerPlugin::saveConfigButtonPressed() {
+        std::string out_file = std::string(std::getenv("HOME")) + "/var/log/output/pid_config.yaml";
+        std::ofstream outFile(out_file);
+        if (!outFile.is_open()) {
+            std::cerr << "Error opening file: " << out_file << std::endl;
+        }
+        auto now = std::chrono::system_clock::now();
+
+        // 2. Convert the time point to a C-style time_t
+        std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+
+        // 3. Convert time_t to local time structure (struct tm)
+        std::tm local_tm = *std::localtime(&now_c);
+
+        // 4. Use a stringstream and std::put_time to format the string
+        std::ostringstream oss;
+        oss << std::put_time(&local_tm, "%Y-%m-%d %H:%M:%S");
+        outFile << "# Auto-Generated on: " << oss.str() << std::endl;
+        outFile << "max_output: " << std::to_string(max_output) << std::endl;
+        outFile << "min_output: " << std::to_string(min_output) << std::endl;
+        outFile << "K_P: " << std::to_string(K_P) << std::endl;
+        outFile << "K_I: " << std::to_string(K_I) << std::endl;
+        outFile << "K_D: " << std::to_string(K_D) << std::endl;
+        outFile << "sensor_scale: " << std::to_string(sensor_scale_factor) << std::endl;
+        outFile.close();
+    }
+    void PIDTunerPlugin::PGainScaleDiv2Pressed() {
+        double max_offset = dial_P.max_value - K_P;
+        dial_P.max_value = K_P + (max_offset / 2.0);
+        double min_offset = (K_P - dial_P.min_value);
+        dial_P.min_value = K_P - (min_offset / 2.0);
+        dial_P.update();
+        dial_P.set_dial((int)scale_value(K_P, dial_P.min_value, dial_P.max_value,
+                                         (double)SmartDialContainer::min_tick_mark,
+                                         (double)SmartDialContainer::max_tick_mark));
+    }
+    void PIDTunerPlugin::PGainScaleX2Pressed() {
+        double max_offset = dial_P.max_value - K_P;
+        dial_P.max_value = K_P + (max_offset * 2.0);
+        double min_offset = (K_P - dial_P.min_value);
+        dial_P.min_value = K_P - (min_offset * 2.0);
+        // dial_P.max_value = (dial_P.max_value - K_P) * 2.0;
+        // dial_P.min_value = (K_P - dial_P.min_value) * 2.0;
+        dial_P.update();
+        dial_P.set_dial((int)scale_value(K_P, dial_P.min_value, dial_P.max_value,
+                                         (double)SmartDialContainer::min_tick_mark,
+                                         (double)SmartDialContainer::max_tick_mark));
+    }
     void PIDTunerPlugin::knobSetpointChanged(int value) {
-        latest_setpoint_ = scale_knob_value(value, dial_set_point.max_value, dial_set_point.min_value);
+        latest_setpoint_ =
+            scale_value((double)value, (double)SmartDialContainer::min_tick_mark,
+                        (double)SmartDialContainer::max_tick_mark, dial_set_point.min_value, dial_set_point.max_value);
         dial_set_point.set_value(latest_setpoint_);
     }
     void PIDTunerPlugin::knobPGainChanged(int value) {
-        K_P = scale_knob_value(value, dial_P.max_value, dial_P.min_value);
+        K_P = scale_value((double)value, (double)SmartDialContainer::min_tick_mark,
+                          (double)SmartDialContainer::max_tick_mark, dial_P.min_value, dial_P.max_value);
         dial_P.set_value(K_P);
     }
+    void PIDTunerPlugin::knobIGainChanged(int value) {
+        K_I = scale_value((double)value, (double)SmartDialContainer::min_tick_mark,
+                          (double)SmartDialContainer::max_tick_mark, dial_I.min_value, dial_I.max_value);
+        dial_I.set_value(K_I);
+    }
+    void PIDTunerPlugin::knobDGainChanged(int value) {
+        K_D = scale_value((double)value, (double)SmartDialContainer::min_tick_mark,
+                          (double)SmartDialContainer::max_tick_mark, dial_D.min_value, dial_D.max_value);
+        dial_D.set_value(K_D);
+    }
     void PIDTunerPlugin::knobSensorScaleChanged(int value) {
-        sensor_scale_factor = scale_knob_value(value, dial_sensor_scale.max_value, dial_sensor_scale.min_value);
+        sensor_scale_factor = scale_value((double)value, (double)SmartDialContainer::min_tick_mark,
+                                          (double)SmartDialContainer::max_tick_mark, dial_sensor_scale.min_value,
+                                          dial_sensor_scale.max_value);
         dial_sensor_scale.set_value(sensor_scale_factor);
     }
     void PIDTunerPlugin::initPlugin(qt_gui_cpp::PluginContext& context) {
         widget_ = new QWidget();
         std::string package_path = ros::package::getPath("robot_framework_ros");
         std::string ui_file_path = package_path + "/Tools/rqt_plugins/resource/pid_tuner_plugin.ui";
-        ROS_WARN("Starting!");
         pid_controller.init();
         QUiLoader loader;
         QFile file(QString::fromStdString(ui_file_path));
@@ -114,32 +179,47 @@ namespace robot_framework_ros {
 
         text_sensordata_rx_ = loaded_layout->findChild<QLabel*>("test_SensorData_rx");
         text_armedstate_ = loaded_layout->findChild<QLabel*>("text_ArmedState");
+        button_saveConfig_ = loaded_layout->findChild<QPushButton*>("b_SaveConfig");
+        if (button_saveConfig_) {
+            connect(button_saveConfig_, &QPushButton::clicked, this, &PIDTunerPlugin::saveConfigButtonPressed);
+        }
         // Initialize Set Point Dial
 
         dial_set_point.name = "Set Point Dial";
         dial_set_point.dial_ = loaded_layout->findChild<QDial*>("dial_Setpoint");
-        if (dial_set_point.dial_) {
-            connect(dial_set_point.dial_, &QDial::valueChanged, this, &PIDTunerPlugin::knobSetpointChanged);
-        }
+
         dial_set_point.indicator_ = loaded_layout->findChild<QLabel*>("text_SetPointValue");
         dial_set_point.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialSetpoint_Max");
         dial_set_point.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialSetpoint_Min");
+        latest_setpoint_ = 50.0;
         dial_set_point.max_value = 100.0;
         dial_set_point.min_value = -100.0;
         dial_set_point.set_value(latest_setpoint_);
+        dial_set_point.set_dial((int)scale_value(latest_setpoint_, dial_set_point.min_value, dial_set_point.max_value,
+                                                 (double)SmartDialContainer::min_tick_mark,
+                                                 (double)SmartDialContainer::max_tick_mark));
+        dial_set_point.update();
+
+        if (dial_set_point.dial_) {
+            connect(dial_set_point.dial_, &QDial::valueChanged, this, &PIDTunerPlugin::knobSetpointChanged);
+        }
 
         // Initialize Sensor Scale Dial
         dial_sensor_scale.name = "Sensor Scale Dial";
         dial_sensor_scale.dial_ = loaded_layout->findChild<QDial*>("dial_SensorScaleTuner");
-        if (dial_sensor_scale.dial_) {
-            connect(dial_sensor_scale.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobSensorScaleChanged);
-        }
+
         dial_sensor_scale.indicator_ = loaded_layout->findChild<QLabel*>("text_SensorScaleValue");
         dial_sensor_scale.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialSensorScale_Max");
         dial_sensor_scale.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialSensorScale_Min");
         dial_sensor_scale.max_value = 100.0;
         dial_sensor_scale.min_value = -100.0;
         dial_sensor_scale.set_value(sensor_scale_factor);
+        dial_sensor_scale.set_dial(
+            (int)scale_value(sensor_scale_factor, dial_sensor_scale.min_value, dial_sensor_scale.max_value,
+                             (double)SmartDialContainer::min_tick_mark, (double)SmartDialContainer::max_tick_mark));
+        if (dial_sensor_scale.dial_) {
+            connect(dial_sensor_scale.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobSensorScaleChanged);
+        }
 
         if (dial_sensor_scale.is_initialized() == false) {
             throw std::runtime_error("Sensor Scaling Tuner not fully initialized!  Exiting.");
@@ -148,18 +228,74 @@ namespace robot_framework_ros {
         // Initialize P Gain Dial
         dial_P.name = "P Gain Dial";
         dial_P.dial_ = loaded_layout->findChild<QDial*>("dial_PGainTuner");
-        if (dial_P.dial_) {
-            connect(dial_P.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobPGainChanged);
-        }
+        button_PGain_X2_ = loaded_layout->findChild<QPushButton*>("button_PGain_ScaleX2");
+        button_PGain_Div2_ = loaded_layout->findChild<QPushButton*>("button_PGain_ScaleDiv2");
         dial_P.indicator_ = loaded_layout->findChild<QLabel*>("text_PGainValue");
         dial_P.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialPGain_Max");
         dial_P.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialPGain_Min");
         dial_P.max_value = 1.5;
         dial_P.min_value = -1.5;
         dial_P.set_value(K_P);
+        dial_P.set_dial((int)scale_value(K_P, dial_P.min_value, dial_P.max_value,
+                                         (double)SmartDialContainer::min_tick_mark,
+                                         (double)SmartDialContainer::max_tick_mark));
+        if (dial_P.dial_) {
+            connect(dial_P.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobPGainChanged);
+        }
+
+        if (button_PGain_X2_) {
+            connect(button_PGain_X2_, &QPushButton::clicked, this, &PIDTunerPlugin::PGainScaleX2Pressed);
+        }
+        if (button_PGain_Div2_) {
+            connect(button_PGain_Div2_, &QPushButton::clicked, this, &PIDTunerPlugin::PGainScaleDiv2Pressed);
+        }
 
         if (dial_P.is_initialized() == false) {
             throw std::runtime_error("P Tuner not fully initialized!  Exiting.");
+        }
+
+        // Initialize I Gain Dial
+        dial_I.name = "I Gain Dial";
+        dial_I.dial_ = loaded_layout->findChild<QDial*>("dial_IGainTuner");
+        if (dial_I.dial_) {
+            connect(dial_I.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobIGainChanged);
+        }
+        dial_I.indicator_ = loaded_layout->findChild<QLabel*>("text_IGainValue");
+        dial_I.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialIGain_Max");
+        dial_I.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialIGain_Min");
+        dial_I.max_value = 0.1;
+        dial_I.min_value = -0.1;
+        dial_I.set_value(K_I);
+        dial_I.set_dial((int)scale_value(K_I, dial_I.min_value, dial_I.max_value,
+                                         (double)SmartDialContainer::min_tick_mark,
+                                         (double)SmartDialContainer::max_tick_mark));
+        if (dial_I.dial_) {
+            connect(dial_I.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobIGainChanged);
+        }
+        if (dial_I.is_initialized() == false) {
+            throw std::runtime_error("I Tuner not fully initialized!  Exiting.");
+        }
+
+        // Initialize D Gain Dial
+        dial_D.name = "D Gain Dial";
+        dial_D.dial_ = loaded_layout->findChild<QDial*>("dial_DGainTuner");
+        if (dial_D.dial_) {
+            connect(dial_D.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobDGainChanged);
+        }
+        dial_D.indicator_ = loaded_layout->findChild<QLabel*>("text_DGainValue");
+        dial_D.label_max_value_ = loaded_layout->findChild<QLabel*>("text_dialDGain_Max");
+        dial_D.label_min_value_ = loaded_layout->findChild<QLabel*>("text_dialDGain_Min");
+        dial_D.max_value = 0.01;
+        dial_D.min_value = -0.01;
+        dial_D.set_value(K_D);
+        dial_D.set_dial((int)scale_value(K_D, dial_D.min_value, dial_D.max_value,
+                                         (double)SmartDialContainer::min_tick_mark,
+                                         (double)SmartDialContainer::max_tick_mark));
+        if (dial_D.dial_) {
+            connect(dial_D.dial_, &QSlider::valueChanged, this, &PIDTunerPlugin::knobDGainChanged);
+        }
+        if (dial_D.is_initialized() == false) {
+            throw std::runtime_error("D Tuner not fully initialized!  Exiting.");
         }
 
         std::string setpoint_topic_name = "pidtuner_setpoint";
@@ -227,6 +363,9 @@ namespace robot_framework_ros {
         dial_set_point.update();
         dial_sensor_scale.update();
         dial_P.update();
+        dial_I.update();
+        dial_D.update();
+        text_sensordata_rx_->setText("Sensor Data Rx: " + QString::number(sensor_data_rx_counter));
         std_msgs::Float32 setpoint;
         setpoint.data = latest_setpoint_;
         setpoint_pub_.publish(setpoint);
@@ -240,7 +379,16 @@ namespace robot_framework_ros {
         setpoint_series_->append(elapsed_time, latest_setpoint_);
         sensor_series_->append(elapsed_time, latest_sensor_ * sensor_scale_factor);
         output_series_->append(elapsed_time, latest_output_);
-
+        int maxPoints = 500;
+        if (setpoint_series_->count() > maxPoints) {
+            setpoint_series_->remove(0);
+        }
+        if (sensor_series_->count() > maxPoints) {
+            sensor_series_->remove(0);
+        }
+        if (output_series_->count() > maxPoints) {
+            output_series_->remove(0);
+        }
         // Scroll the X axis window (shows last 10 seconds)
         if (elapsed_time > 10.0) {
             axis_x_->setRange(elapsed_time - 10.0, elapsed_time);
@@ -256,11 +404,12 @@ namespace robot_framework_ros {
         update_timer_->stop();
         nh_.shutdown();
     }
-    double PIDTunerPlugin::scale_knob_value(int input, double max_, double min_) {
+    double PIDTunerPlugin::scale_value(double input, double min_input, double max_input, double min_output,
+                                       double max_output) {
         // m = (y2-y1)/(x2-x1)
-        double m = (max_ - min_) / 200.0;
+        double m = (max_output - min_output) / (max_input - min_input);
         // y -y1 = m(x-x1) --> y = m(x-x1) + y1
-        double output = m * ((double)input - 100.0) + max_;
+        double output = m * (input - min_input) + min_output;
         return output;
     }
 }  // namespace robot_framework_ros

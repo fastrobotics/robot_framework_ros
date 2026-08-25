@@ -10,6 +10,7 @@
 #include <Controller/PIDController/PIDController.hpp>
 #include <QDial>
 #include <QLabel>
+#include <QPushButton>
 #include <QSlider>
 #include <QTimer>
 #include <QWidget>
@@ -27,6 +28,8 @@ namespace robot_framework_ros {
         // Q_OBJECT
        public:
         struct SmartDialContainer {
+            static constexpr int max_tick_mark = 1024;
+            static constexpr int min_tick_mark = -1024;
             std::string name{""};
             double max_value{0.0};
             double min_value{0.0};
@@ -54,15 +57,18 @@ namespace robot_framework_ros {
                 }
                 return true;
             }
-            void set_value(double value) { indicator_->setText(QString::number(value)); }
+            void set_dial(int value) { dial_->setValue(value); }
+            void set_value(double value) { latest_value = value; }
             void update() {
                 label_max_value_->setText(QString::number(max_value));
                 label_min_value_->setText(QString::number(min_value));
+                indicator_->setText(QString::number(latest_value));
             }
             QDial* dial_;
             QLabel* indicator_;
             QLabel* label_max_value_;
             QLabel* label_min_value_;
+            double latest_value;
             SmartDialContainer()
                 : dial_{nullptr}, indicator_{nullptr}, label_max_value_{nullptr}, label_min_value_{nullptr} {}
         };
@@ -76,13 +82,18 @@ namespace robot_framework_ros {
         void onSliderMoved(int value);
         void knobSensorScaleChanged(int value);
         void knobPGainChanged(int value);
+        void knobIGainChanged(int value);
+        void knobDGainChanged(int value);
+        void saveConfigButtonPressed();
+        void PGainScaleX2Pressed();
+        void PGainScaleDiv2Pressed();
 
         void updateGraphLoop();
         void updateLoop();
         void slowLoop();
 
        private:
-        double scale_knob_value(int input, double max_, double min_);
+        double scale_value(double input, double min_input, double max_input, double min_output, double max_output);
         QWidget* widget_{nullptr};
 
         // Tuning Graph
@@ -99,9 +110,17 @@ namespace robot_framework_ros {
         SmartDialContainer dial_sensor_scale;
         SmartDialContainer dial_P;
 
+        QPushButton* button_PGain_X2_{nullptr};
+        QPushButton* button_PGain_Div2_{nullptr};
+        SmartDialContainer dial_I;
+        SmartDialContainer dial_D;
+
         // Status Controls
         QLabel* text_sensordata_rx_{nullptr};
         QLabel* text_armedstate_{nullptr};
+
+        // Other Controls
+        QPushButton* button_saveConfig_{nullptr};
 
         // ROS
         ros::NodeHandle nh_;
@@ -125,7 +144,7 @@ namespace robot_framework_ros {
         double max_output{100.0};
         double min_output{-100.0};
         double sensor_scale_factor{31.4159};  // 5 full rotations per second is 100% --> 31.4
-        double K_P{0.5};
+        double K_P{0.75};
         double K_I{0.0};
         double K_D{0.0};
 
