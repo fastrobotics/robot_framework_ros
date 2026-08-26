@@ -19,81 +19,82 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 
+#include "SmartDial.h"
+
 namespace Ui {
     class PIDTunerWidget;  // This must match the ObjectName of your main form in Qt Designer
 }
 namespace robot_framework_ros {
-
     class PIDTunerPlugin : public rqt_gui_cpp::Plugin {
         // Q_OBJECT
        public:
-        struct SmartDialContainer {
-            static constexpr int max_tick_mark = 1024;
-            static constexpr int min_tick_mark = -1024;
-            std::string name{""};
-            double max_value{0.0};
-            double min_value{0.0};
-            double current_value{0.0};
-            bool is_initialized() {
-                if (name == "") {
-                    fast::rf::Logger::log_error("Dial name is empty!");
-                    return false;
-                }
-                if (dial_ == nullptr) {
-                    fast::rf::Logger::log_error("Dial: " + name + " dial object is null!");
-                    return false;
-                }
-                if (indicator_ == nullptr) {
-                    fast::rf::Logger::log_error("Dial: " + name + " indicator object is null!");
-                    return false;
-                }
-                if (label_max_value_ == nullptr) {
-                    fast::rf::Logger::log_error("Dial: " + name + " max value object is null!");
-                    return false;
-                }
-                if (label_min_value_ == nullptr) {
-                    fast::rf::Logger::log_error("Dial: " + name + " min value object is null!");
-                    return false;
-                }
-                return true;
-            }
-            void set_dial(int value) { dial_->setValue(value); }
-            void set_value(double value) { latest_value = value; }
-            void update() {
-                label_max_value_->setText(QString::number(max_value));
-                label_min_value_->setText(QString::number(min_value));
-                indicator_->setText(QString::number(latest_value));
-            }
-            QDial* dial_;
-            QLabel* indicator_;
-            QLabel* label_max_value_;
-            QLabel* label_min_value_;
-            double latest_value;
-            SmartDialContainer()
-                : dial_{nullptr}, indicator_{nullptr}, label_max_value_{nullptr}, label_min_value_{nullptr} {}
-        };
+        /*
+         struct SmartDialContainer {
+             static constexpr int max_tick_mark = 1024;
+             static constexpr int min_tick_mark = -1024;
+             std::string name{""};
+             double max_value{0.0};
+             double min_value{0.0};
+             double current_value{0.0};
+             bool is_initialized() {
+                 if (name == "") {
+                     fast::rf::Logger::log_error("Dial name is empty!");
+                     return false;
+                 }
+                 if (dial_ == nullptr) {
+                     fast::rf::Logger::log_error("Dial: " + name + " dial object is null!");
+                     return false;
+                 }
+                 if (indicator_ == nullptr) {
+                     fast::rf::Logger::log_error("Dial: " + name + " indicator object is null!");
+                     return false;
+                 }
+                 if (label_max_value_ == nullptr) {
+                     fast::rf::Logger::log_error("Dial: " + name + " max value object is null!");
+                     return false;
+                 }
+                 if (label_min_value_ == nullptr) {
+                     fast::rf::Logger::log_error("Dial: " + name + " min value object is null!");
+                     return false;
+                 }
+                 return true;
+             }
+             void set_dial(int value) { dial_->setValue(value); }
+             void set_value(double value) { latest_value = value; }
+             void update() {
+                 label_max_value_->setText(QString::number(max_value));
+                 label_min_value_->setText(QString::number(min_value));
+                 indicator_->setText(QString::number(latest_value));
+             }
+             QDial* dial_;
+             QLabel* indicator_;
+             QLabel* label_max_value_;
+             QLabel* label_min_value_;
+             double latest_value;
+             SmartDialContainer()
+                 : dial_{nullptr}, indicator_{nullptr}, label_max_value_{nullptr}, label_min_value_{nullptr} {}
+         };
+         */
         PIDTunerPlugin();
         virtual void initPlugin(qt_gui_cpp::PluginContext& context) override;
         virtual void shutdownPlugin() override;
         void sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg);
         void armed_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
        private slots:
-        void knobSetpointChanged(int value);
-        void onSliderMoved(int value);
-        void knobSensorScaleChanged(int value);
-        void knobPGainChanged(int value);
-        void knobIGainChanged(int value);
-        void knobDGainChanged(int value);
+        // void knobSetpointChanged(int value);
+        // void knobSensorScaleChanged(int value);
+        //  void knobPGainChanged(int value);
+        // void knobIGainChanged(int value);
+        // void knobDGainChanged(int value);
         void saveConfigButtonPressed();
-        void PGainScaleX2Pressed();
-        void PGainScaleDiv2Pressed();
+        // void PGainScaleX2Pressed();
+        // void PGainScaleDiv2Pressed();
 
         void updateGraphLoop();
         void updateLoop();
         void slowLoop();
 
        private:
-        double scale_value(double input, double min_input, double max_input, double min_output, double max_output);
         QWidget* widget_{nullptr};
 
         // Tuning Graph
@@ -106,14 +107,13 @@ namespace robot_framework_ros {
         QtCharts::QValueAxis* axis_y_{nullptr};
 
         // Smart Dial Controls
-        SmartDialContainer dial_set_point;
-        SmartDialContainer dial_sensor_scale;
-        SmartDialContainer dial_P;
+        // SmartDialContainer dial_set_point;
+        // SmartDialContainer dial_sensor_scale;
+        SmartDial* dial_PGain_{nullptr};
+        // SmartDialContainer dial_P;
 
-        QPushButton* button_PGain_X2_{nullptr};
-        QPushButton* button_PGain_Div2_{nullptr};
-        SmartDialContainer dial_I;
-        SmartDialContainer dial_D;
+        // SmartDialContainer dial_I;
+        // SmartDialContainer dial_D;
 
         // Status Controls
         QLabel* text_sensordata_rx_{nullptr};

@@ -366,7 +366,7 @@ background-color: rgb(138, 226, 52);</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="text_dialPGain_Max">
+      <widget class="QLabel" name="dialP_label_max_value">
        <property name="geometry">
         <rect>
          <x>130</x>
@@ -379,7 +379,7 @@ background-color: rgb(138, 226, 52);</string>
         <string>0</string>
        </property>
       </widget>
-      <widget class="QLabel" name="text_dialPGain_Min">
+      <widget class="QLabel" name="dialP_label_min_value">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -392,7 +392,7 @@ background-color: rgb(138, 226, 52);</string>
         <string>0</string>
        </property>
       </widget>
-      <widget class="QDial" name="dial_PGainTuner">
+      <widget class="QDial" name="dialP_dial">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -436,7 +436,7 @@ background-color: rgb(138, 226, 52);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="text_PGainValue">
+      <widget class="QLabel" name="dialP_label_indicator">
        <property name="geometry">
         <rect>
          <x>70</x>
@@ -455,7 +455,7 @@ background-color: rgb(138, 226, 52);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_PGain_ScaleX2">
+      <widget class="QPushButton" name="dialP_button_ScaleX2">
        <property name="geometry">
         <rect>
          <x>110</x>
@@ -468,7 +468,7 @@ background-color: rgb(138, 226, 52);</string>
         <string>*2</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_PGain_ScaleDiv2">
+      <widget class="QPushButton" name="dialP_button_DivX2">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -481,13 +481,13 @@ background-color: rgb(138, 226, 52);</string>
         <string>/2</string>
        </property>
       </widget>
-      <zorder>dial_PGainTuner</zorder>
-      <zorder>text_dialPGain_Max</zorder>
-      <zorder>text_dialPGain_Min</zorder>
+      <zorder>dialP_dial</zorder>
+      <zorder>dialP_label_max_value</zorder>
+      <zorder>dialP_label_min_value</zorder>
       <zorder>label</zorder>
-      <zorder>text_PGainValue</zorder>
-      <zorder>button_PGain_ScaleX2</zorder>
-      <zorder>button_PGain_ScaleDiv2</zorder>
+      <zorder>dialP_label_indicator</zorder>
+      <zorder>dialP_button_ScaleX2</zorder>
+      <zorder>dialP_button_DivX2</zorder>
      </widget>
     </item>
     <item>
