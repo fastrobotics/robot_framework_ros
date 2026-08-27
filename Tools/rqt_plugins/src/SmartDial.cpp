@@ -74,25 +74,63 @@ bool SmartDial::is_initialized() {
 }
 void SmartDial::button_scale_X2_clicked() {
     double current_value_ = get_value();
+    double current_span = max_value_ - min_value_;
+    double new_span = current_span * 2.0;
+
+    // 3. Center the new, wider limits perfectly around the current value
+    min_value_ = current_value_ - (new_span / 2.0);
+    max_value_ = current_value_ + (new_span / 2.0);
+
+    // 4. Edge Protection: Shift the window if it tries to spill past system boundaries
+    // Replace ABSOLUTE_MIN and ABSOLUTE_MAX with your hard limits (e.g., 0.0 and 100.0)
+    if (min_value_ < ABSOLUTE_MIN) {
+        min_value_ = ABSOLUTE_MIN;
+        max_value_ = std::min(ABSOLUTE_MIN + new_span, ABSOLUTE_MAX);
+    }
+    if (max_value_ > ABSOLUTE_MAX) {
+        max_value_ = ABSOLUTE_MAX;
+        min_value_ = std::max(ABSOLUTE_MAX - new_span, ABSOLUTE_MIN);
+    }
+    /*
+
     double max_offset = max_value_ - current_value_;
-    printf("x2 old: %f %f %f\n", min_value_, max_value_, current_value_);
     max_value_ = current_value_ + (max_offset * 2.0);
     double min_offset = (current_value_ - min_value_);
     min_value_ = current_value_ - (min_offset * 2.0);
-    printf("x2 new: %f %f\n", min_value_, max_value_);
+    */
     update();
 }
 void SmartDial::button_div_X2_clicked() {
-    double current_value_ = get_value();
-    printf("D2 old: %f %f\n", min_value_, max_value_);
+       double current_value_ = get_value();
+    double current_span = max_value_ - min_value_;
+    double new_span = current_span / 2.0;
+
+    // 3. Center the new, wider limits perfectly around the current value
+    min_value_ = current_value_ - (new_span / 2.0);
+    max_value_ = current_value_ + (new_span / 2.0);
+
+    // 4. Edge Protection: Shift the window if it tries to spill past system boundaries
+    // Replace ABSOLUTE_MIN and ABSOLUTE_MAX with your hard limits (e.g., 0.0 and 100.0)
+    if (min_value_ < ABSOLUTE_MIN) {
+        min_value_ = ABSOLUTE_MIN;
+        max_value_ = std::min(ABSOLUTE_MIN + new_span, ABSOLUTE_MAX);
+    }
+    if (max_value_ > ABSOLUTE_MAX) {
+        max_value_ = ABSOLUTE_MAX;
+        min_value_ = std::max(ABSOLUTE_MAX - new_span, ABSOLUTE_MIN);
+    }
+    /*
     double max_offset = max_value_ - current_value_;
     max_value_ = current_value_ + (max_offset / 2.0);
     double min_offset = (current_value_ - min_value_);
     min_value_ = current_value_ - (min_offset / 2.0);
-    printf("D2 new: %f %f\n", min_value_, max_value_);
+    */
     update();
 }
-
+void SmartDial::set_value(double v) {
+    int value = (int)scale_value(v, min_value_, max_value_, (double)MIN_TICK_MARK, (double)MAX_TICK_MARK);
+    dial_->setValue(value);
+}
 void SmartDial::dial_changed(int value) { current_dial_value_ = value; }
 double SmartDial::get_value() {
     double v =

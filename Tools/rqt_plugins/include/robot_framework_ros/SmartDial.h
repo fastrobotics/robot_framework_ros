@@ -13,6 +13,8 @@ class SmartDial : public QObject {
    public:
     static constexpr int MAX_TICK_MARK = 1024;
     static constexpr int MIN_TICK_MARK = -1024;
+    const double ABSOLUTE_MIN = -200.0;
+    const double ABSOLUTE_MAX = 200.0;
     // Constructor
     explicit SmartDial(QObject* parent = nullptr);
 
@@ -23,6 +25,9 @@ class SmartDial : public QObject {
     bool setupUi(QWidget* parentWidget, const QString& smartdial_name, double min_value, double max_value);
 
     double get_value();
+    double get_min_value() { return min_value_; }
+    double get_max_value() { return max_value_; }
+    void set_value(double v);
     void update();
 
    public slots:

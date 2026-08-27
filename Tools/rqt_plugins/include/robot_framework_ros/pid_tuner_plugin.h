@@ -7,7 +7,9 @@
 #include <std_msgs/Int32.h>
 #include <std_msgs/String.h>
 
+#include <Controller/IController.hpp>
 #include <Controller/PIDController/PIDController.hpp>
+#include <Controller/RelayAutoTuneController/MockRelayAutoTuneController.hpp>
 #include <QDial>
 #include <QLabel>
 #include <QPushButton>
@@ -28,67 +30,14 @@ namespace robot_framework_ros {
     class PIDTunerPlugin : public rqt_gui_cpp::Plugin {
         // Q_OBJECT
        public:
-        /*
-         struct SmartDialContainer {
-             static constexpr int max_tick_mark = 1024;
-             static constexpr int min_tick_mark = -1024;
-             std::string name{""};
-             double max_value{0.0};
-             double min_value{0.0};
-             double current_value{0.0};
-             bool is_initialized() {
-                 if (name == "") {
-                     fast::rf::Logger::log_error("Dial name is empty!");
-                     return false;
-                 }
-                 if (dial_ == nullptr) {
-                     fast::rf::Logger::log_error("Dial: " + name + " dial object is null!");
-                     return false;
-                 }
-                 if (indicator_ == nullptr) {
-                     fast::rf::Logger::log_error("Dial: " + name + " indicator object is null!");
-                     return false;
-                 }
-                 if (label_max_value_ == nullptr) {
-                     fast::rf::Logger::log_error("Dial: " + name + " max value object is null!");
-                     return false;
-                 }
-                 if (label_min_value_ == nullptr) {
-                     fast::rf::Logger::log_error("Dial: " + name + " min value object is null!");
-                     return false;
-                 }
-                 return true;
-             }
-             void set_dial(int value) { dial_->setValue(value); }
-             void set_value(double value) { latest_value = value; }
-             void update() {
-                 label_max_value_->setText(QString::number(max_value));
-                 label_min_value_->setText(QString::number(min_value));
-                 indicator_->setText(QString::number(latest_value));
-             }
-             QDial* dial_;
-             QLabel* indicator_;
-             QLabel* label_max_value_;
-             QLabel* label_min_value_;
-             double latest_value;
-             SmartDialContainer()
-                 : dial_{nullptr}, indicator_{nullptr}, label_max_value_{nullptr}, label_min_value_{nullptr} {}
-         };
-         */
         PIDTunerPlugin();
         virtual void initPlugin(qt_gui_cpp::PluginContext& context) override;
         virtual void shutdownPlugin() override;
         void sensor_Callback(const std_msgs::Float32::ConstPtr& t_msg);
         void armed_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
        private slots:
-        // void knobSetpointChanged(int value);
-        // void knobSensorScaleChanged(int value);
-        //  void knobPGainChanged(int value);
-        // void knobIGainChanged(int value);
-        // void knobDGainChanged(int value);
+        void autoTuneButtonPressed();
         void saveConfigButtonPressed();
-        // void PGainScaleX2Pressed();
-        // void PGainScaleDiv2Pressed();
 
         void updateGraphLoop();
         void updateLoop();
@@ -107,19 +56,18 @@ namespace robot_framework_ros {
         QtCharts::QValueAxis* axis_y_{nullptr};
 
         // Smart Dial Controls
-        // SmartDialContainer dial_set_point;
-        // SmartDialContainer dial_sensor_scale;
+        SmartDial* dial_set_point_{nullptr};
+        SmartDial* dial_sensor_scale_{nullptr};
         SmartDial* dial_PGain_{nullptr};
-        // SmartDialContainer dial_P;
-
-        // SmartDialContainer dial_I;
-        // SmartDialContainer dial_D;
+        SmartDial* dial_IGain_{nullptr};
+        SmartDial* dial_DGain_{nullptr};
 
         // Status Controls
         QLabel* text_sensordata_rx_{nullptr};
         QLabel* text_armedstate_{nullptr};
 
         // Other Controls
+        QPushButton* button_autoTune_{nullptr};
         QPushButton* button_saveConfig_{nullptr};
 
         // ROS
@@ -143,12 +91,14 @@ namespace robot_framework_ros {
         // PID Tuning Values
         double max_output{100.0};
         double min_output{-100.0};
-        double sensor_scale_factor{31.4159};  // 5 full rotations per second is 100% --> 31.4
-        double K_P{0.75};
+        double sensor_scale_factor{21.46};
+        double K_P{1.396};
         double K_I{0.0};
-        double K_D{0.0};
+        double K_D{0.005};
+        bool use_mock{false};
+        bool autotune_running_{false};
 
-        fast::rf::NavigationSystem::Controller::PIDController pid_controller;
+        std::unique_ptr<fast::rf::NavigationSystem::Controller::IController> controller_;
     };
 
 }  // namespace robot_framework_ros
