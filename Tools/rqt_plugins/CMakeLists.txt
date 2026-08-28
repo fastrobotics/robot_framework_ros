@@ -9,8 +9,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
 add_library(
   robot_framework_ros_gui
   include/robot_framework_ros/pid_tuner_plugin.h
-  include/robot_framework_ros/SmartDial.h 
-  src/SmartDial.cpp
+  include/robot_framework_ros/SmartDial.h src/SmartDial.cpp
   src/pid_tuner_plugin.cpp)
 
 target_link_libraries(
@@ -21,4 +20,4 @@ target_link_libraries(
   Qt5::Charts
   Qt5::UiTools
   pid_Controller_shared
-  relay_auto_tune_Controller_shared)
+  pid_auto_tuner_Controller_shared)

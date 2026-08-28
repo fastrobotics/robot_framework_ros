@@ -9,7 +9,7 @@
 
 #include <Controller/IController.hpp>
 #include <Controller/PIDController/PIDController.hpp>
-#include <Controller/RelayAutoTuneController/MockRelayAutoTuneController.hpp>
+#include <ControllerTuner/PIDAutoTuner/PIDAutoTuner.hpp>
 #include <QDial>
 #include <QLabel>
 #include <QPushButton>
@@ -44,6 +44,7 @@ namespace robot_framework_ros {
         void slowLoop();
 
        private:
+        void switchToPidController();
         QWidget* widget_{nullptr};
 
         // Tuning Graph

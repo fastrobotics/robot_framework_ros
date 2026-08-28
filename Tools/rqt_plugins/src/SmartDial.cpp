@@ -101,7 +101,7 @@ void SmartDial::button_scale_X2_clicked() {
     update();
 }
 void SmartDial::button_div_X2_clicked() {
-       double current_value_ = get_value();
+    double current_value_ = get_value();
     double current_span = max_value_ - min_value_;
     double new_span = current_span / 2.0;
 

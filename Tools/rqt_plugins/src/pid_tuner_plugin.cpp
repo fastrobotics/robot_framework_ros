@@ -27,15 +27,64 @@ namespace robot_framework_ros {
         controller_->new_sensor_input(latest_sensor_, current_time_sec);
     }
     void PIDTunerPlugin::autoTuneButtonPressed() {
-        auto* mock =
-            dynamic_cast<fast::rf::NavigationSystem::Controller::MockRelayAutoTuneController*>(controller_.get());
-        if (mock == nullptr) {
-            throw std::runtime_error("Help Me");
-        }
-        if (mock->start_tuning() == false) {
-            throw std::runtime_error("Not able to start tuning!");
+        controller_->clear();
+        if (use_mock == true) {
+            throw std::runtime_error("No Mock supported!");
+        } else {
+            auto auto_tuner = std::make_unique<fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner>();
+            fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTunerConfig config;
+
+            config.set_parameters(50.0,                  // maximum output
+                                  -50.0,                 // minimum output
+                                  K_P,                   // initial K_P
+                                  K_I,                   // initial K_I
+                                  K_D,                   // initial K_D
+                                  sensor_scale_factor);  // sensor scale factor
+
+            config.set_tuning_parameters(2.0,   // output step applied to the system
+                                         1.0,   // generated setpoint step
+                                         1.0,   // settle time in seconds
+                                         3.0,   // response timeout in seconds
+                                         0.5,   // minimum measured response
+                                         0.05,  // acceptable maximum tracking error
+                                         1.0,   // evaluation duration in seconds
+                                         3);    // maximum candidate-gain iterations
+
+            config.set_algorithm(fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner::
+                                     PIDAutoTuningAlgorithm::IMC_LAMBDA);
+
+            if (!tuner.set_config(config)) {
+                throw std::runtime_error("Unable to set Tuning Config!  Aborting.");
+            }
+            if (!tuner.init()) {
+                throw std::runtime_error("Unable to initialize Tuner!  Aborting.");
+            }
+            if (!tuner.start_tuning()) {
+                throw std::runtime_error("Unable to start Tuning!  Aborting.");
+            }
+            controller_ = std::move(auto_tuner);
         }
         autotune_running_ = true;
+    }
+    void PIDTunerPlugin::switchToPidController() {
+        if (use_mock) {
+        } else {
+            if (dynamic_cast<fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner*>(
+                    controller_.get()) == nullptr) {
+                fast::rf::Logger::log_warn("Not an Auto-Tuner!");
+                return;
+            }
+        }
+
+        auto pid = std::make_unique<fast::rf::NavigationSystem::Controller::PIDController>();
+        fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
+        config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale_factor);
+
+        if (!pid->set_config(config)) {
+            throw std::runtime_error("Unable to configure PID controller");
+        }
+        pid->init();
+        controller_ = std::move(pid);
     }
     void PIDTunerPlugin::saveConfigButtonPressed() {
         std::string out_file = std::string(std::getenv("HOME")) + "/var/log/output/pid_config.yaml";
@@ -153,74 +202,58 @@ namespace robot_framework_ros {
         // Initialize Set Point Dial
         dial_set_point_ = new SmartDial(this);
         if (!dial_set_point_->setupUi(widget_, "dialSetPoint", -100.0, 100.0)) {
-            fast::rf::Logger::log_error("Help! UI components could not be found.");
-            throw std::runtime_error("Set Point Dial not fully initialized!  Exiting.");
+            std::string str = "Set Point Dial not fully initialized!  Exiting.";
+            fast::rf::Logger::log_error(str);
+            throw std::runtime_error(str);
         }
         dial_set_point_->set_value(latest_setpoint_);
         dial_set_point_->update();
         // Initialize Sensor Scale Dial
         dial_sensor_scale_ = new SmartDial(this);
         if (!dial_sensor_scale_->setupUi(widget_, "dialSensorScale", -100.0, 100.0)) {
-            fast::rf::Logger::log_error("Help! UI components could not be found.");
-            throw std::runtime_error("Sensor Scale Dial not fully initialized!  Exiting.");
+            std::string str = "Sensor Scale Dial not fully initialized!  Exiting.";
+            fast::rf::Logger::log_error(str);
+            throw std::runtime_error(str);
         }
         dial_sensor_scale_->set_value(sensor_scale_factor);
         dial_sensor_scale_->update();
         // Initialize P Gain Dial
         dial_PGain_ = new SmartDial(this);
         if (!dial_PGain_->setupUi(widget_, "dialP", -1.5, 1.5)) {
-            fast::rf::Logger::log_error("Help! UI components could not be found.");
-            throw std::runtime_error("P Tuner not fully initialized!  Exiting.");
+            std::string str = "P Tuner not fully initialized!  Exiting.";
+            fast::rf::Logger::log_error(str);
+            throw std::runtime_error(str);
         }
         dial_PGain_->set_value(K_P);
         dial_PGain_->update();
         // Initialize I Gain Dial
         dial_IGain_ = new SmartDial(this);
         if (!dial_IGain_->setupUi(widget_, "dialI", -0.0, 0.4)) {
-            fast::rf::Logger::log_error("Help! UI components could not be found.");
-            throw std::runtime_error("I Tuner not fully initialized!  Exiting.");
+            std::string str = "I Tuner not fully initialized!  Exiting.";
+            fast::rf::Logger::log_error(str);
+            throw std::runtime_error(str);
         }
         dial_IGain_->set_value(K_I);
         dial_IGain_->update();
         // Initialize D Gain Dial
         dial_DGain_ = new SmartDial(this);
         if (!dial_DGain_->setupUi(widget_, "dialD", -0.01, 0.01)) {
-            fast::rf::Logger::log_error("Help! UI components could not be found.");
-            throw std::runtime_error("D Tuner not fully initialized!  Exiting.");
+            std::string str = "D Tuner not fully initialized!  Exiting.";
+            fast::rf::Logger::log_error(str);
+            throw std::runtime_error(str);
         }
         dial_DGain_->set_value(K_D);
         dial_DGain_->update();
 
-        if (use_mock) {
-            controller_ = std::make_unique<fast::rf::NavigationSystem::Controller::MockRelayAutoTuneController>();
-            fast::rf::NavigationSystem::Controller::RelayAutoTuneControllerConfig config;
-            config.set_parameters(5.0, -5.0, 1.0, 0.0, 1.0, 4);
-
-            auto* mock =
-                dynamic_cast<fast::rf::NavigationSystem::Controller::MockRelayAutoTuneController*>(controller_.get());
-            if (mock == nullptr || !mock->set_config(config)) {
-                throw std::runtime_error("Help Me");
-            }
-            mock->init();
-            mock->set_mock_gains(K_P, K_I, K_D);
-            mock->set_mock_gain_step(0.01, 0.001, 0.001);
-            mock->set_mock_set_point(0.0, 1.0);
-            mock->set_mock_limits(-100.0, 100.0, dial_PGain_->get_min_value(), dial_PGain_->get_max_value(),
-                                  dial_IGain_->get_min_value(), dial_IGain_->get_max_value(),
-                                  dial_DGain_->get_min_value(), dial_DGain_->get_max_value());
-
-        } else {
-            controller_ = std::make_unique<fast::rf::NavigationSystem::Controller::PIDController>();
-            fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
-            config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale_factor);
-            auto* pid_controller =
-                dynamic_cast<fast::rf::NavigationSystem::Controller::PIDController*>(controller_.get());
-            if (pid_controller == nullptr || !pid_controller->set_config(config)) {
-                throw std::runtime_error("Help Me");
-            }
-
-            controller_->init();
+        controller_ = std::make_unique<fast::rf::NavigationSystem::Controller::PIDController>();
+        fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
+        config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale_factor);
+        auto* pid_controller = dynamic_cast<fast::rf::NavigationSystem::Controller::PIDController*>(controller_.get());
+        if (pid_controller == nullptr || !pid_controller->set_config(config)) {
+            throw std::runtime_error("Not able to set config for PID Controller.");
         }
+
+        controller_->init();
 
         std::string setpoint_topic_name = "pidtuner_setpoint";
         setpoint_pub_ = nh_.advertise<std_msgs::Float32>(setpoint_topic_name, 1);
@@ -240,7 +273,7 @@ namespace robot_framework_ros {
 
         slow_loop_timer_ = new QTimer(this);
         connect(slow_loop_timer_, &QTimer::timeout, this, &PIDTunerPlugin::slowLoop);
-        slow_loop_timer_->start(100);
+        slow_loop_timer_->start(1000);
 
         // initialize start time for graphing
         start_time_ = ros::Time::now();
@@ -255,56 +288,56 @@ namespace robot_framework_ros {
             command.data = latest_output_;
             command_pub_.publish(command);
         }
-        if (use_mock == false) {
+        if (autotune_running_ == false) {
             controller_->new_set_point(latest_setpoint_, time_stamp_sec);
             fast::rf::NavigationSystem::Controller::PIDControllerConfig config;
             config.set_parameters(max_output, min_output, K_P, K_I, K_D, sensor_scale_factor);
             auto* pid_controller =
                 dynamic_cast<fast::rf::NavigationSystem::Controller::PIDController*>(controller_.get());
             if (pid_controller == nullptr || !pid_controller->set_config(config)) {
-                throw std::runtime_error("Help Me");
+                throw std::runtime_error("Not able to set config for PID Controller!");
             }
         }
         if (autotune_running_ == true) {
-            auto* relay_output =
-                dynamic_cast<fast::rf::NavigationSystem::Controller::RelayAutoTuneControllerOutput*>(output);
-            if (relay_output != nullptr) {
-                latest_setpoint_ = relay_output->set_point;
-                K_P = relay_output->K_P;
-                K_I = relay_output->K_I;
-                K_D = relay_output->K_D;
+            auto* tuner_output =
+                dynamic_cast<fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner*>(output);
+            if (tuner_output != nullptr) {
+                latest_setpoint_ = tuner_output->set_point;
+                K_P = tuner_output->K_P;
+                K_I = tuner_output->K_I;
+                K_D = tuner_output->K_D;
                 dial_set_point_->set_value(latest_setpoint_);
                 dial_PGain_->set_value(K_P);
                 dial_IGain_->set_value(K_I);
                 dial_DGain_->set_value(K_D);
-                switch (relay_output->state) {
-                    case fast::rf::NavigationSystem::Controller::RelayAutoTuneState::IDLE:
+                switch (tuner_output->state) {
+                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::IDLE:
                         button_autoTune_->setStyleSheet("background-color: gray; color: black;");
-                        // latest_setpoint_ = 0.0;
-                        // dial_set_point_->set_value(latest_setpoint_);
-                        //   controller_->clear();
-                        // autotune_running_ = false;
                         break;
 
-                    case fast::rf::NavigationSystem::Controller::RelayAutoTuneState::TUNING:
+                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::TUNING:
                         button_autoTune_->setStyleSheet("background-color: yellow; color: black;");
                         break;
 
-                    case fast::rf::NavigationSystem::Controller::RelayAutoTuneState::COMPLETE:
+                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::COMPLETE:
+                        fast::rf::Logger::log_notice("Auto-Tuner tuned System!");
                         button_autoTune_->setStyleSheet("background-color: green; color: black;");
                         latest_setpoint_ = 0.0;
                         latest_output_ = 0.0;
                         dial_set_point_->set_value(latest_setpoint_);
                         controller_->clear();
                         autotune_running_ = false;
+                        switchToPidController();
                         break;
-                    case fast::rf::NavigationSystem::Controller::RelayAutoTuneState::FAILED:
+                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::FAILED:
+                        fast::rf::Logger::log_error("Auto-Tuner unable to tune System!");
                         button_autoTune_->setStyleSheet("background-color: red; color: black;");
                         latest_setpoint_ = 0.0;
                         latest_output_ = 0.0;
                         dial_set_point_->set_value(latest_setpoint_);
                         controller_->clear();
                         autotune_running_ = false;
+                        switchToPidController();
                         break;
                     default:
                         break;
@@ -349,7 +382,7 @@ namespace robot_framework_ros {
                 str = "UNKNOWN";
                 break;
         }
-        if ((controller_clear == true) && (use_mock == false)) {
+        if ((controller_clear == true) && (autotune_running_ == false)) {
             controller_->clear();
         }
         text_armedstate_->setText(QString::fromStdString(str));
