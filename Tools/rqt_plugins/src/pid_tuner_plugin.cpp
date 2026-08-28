@@ -31,8 +31,8 @@ namespace robot_framework_ros {
         if (use_mock == true) {
             throw std::runtime_error("No Mock supported!");
         } else {
-            auto auto_tuner = std::make_unique<fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner>();
-            fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTunerConfig config;
+            auto auto_tuner = std::make_unique<fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuner>();
+            fast::rf::NavigationSystem::ControllerTuner::PIDAutoTunerConfig config;
 
             config.set_parameters(50.0,                  // maximum output
                                   -50.0,                 // minimum output
@@ -50,16 +50,15 @@ namespace robot_framework_ros {
                                          1.0,   // evaluation duration in seconds
                                          3);    // maximum candidate-gain iterations
 
-            config.set_algorithm(fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner::
-                                     PIDAutoTuningAlgorithm::IMC_LAMBDA);
+            config.set_algorithm(fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuningAlgorithm::IMC_LAMBDA);
 
-            if (!tuner.set_config(config)) {
+            if (!auto_tuner.set_config(config)) {
                 throw std::runtime_error("Unable to set Tuning Config!  Aborting.");
             }
-            if (!tuner.init()) {
+            if (!auto_tuner.init()) {
                 throw std::runtime_error("Unable to initialize Tuner!  Aborting.");
             }
-            if (!tuner.start_tuning()) {
+            if (!auto_tuner.start_tuning()) {
                 throw std::runtime_error("Unable to start Tuning!  Aborting.");
             }
             controller_ = std::move(auto_tuner);
@@ -69,8 +68,8 @@ namespace robot_framework_ros {
     void PIDTunerPlugin::switchToPidController() {
         if (use_mock) {
         } else {
-            if (dynamic_cast<fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner*>(
-                    controller_.get()) == nullptr) {
+            if (dynamic_cast<fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuner*>(controller_.get()) ==
+                nullptr) {
                 fast::rf::Logger::log_warn("Not an Auto-Tuner!");
                 return;
             }
@@ -299,8 +298,7 @@ namespace robot_framework_ros {
             }
         }
         if (autotune_running_ == true) {
-            auto* tuner_output =
-                dynamic_cast<fast::rf::NavigationSystem::Controller::ControllerTuner::PIDAutoTuner*>(output);
+            auto* tuner_output = dynamic_cast<fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuner*>(output);
             if (tuner_output != nullptr) {
                 latest_setpoint_ = tuner_output->set_point;
                 K_P = tuner_output->K_P;
@@ -311,15 +309,15 @@ namespace robot_framework_ros {
                 dial_IGain_->set_value(K_I);
                 dial_DGain_->set_value(K_D);
                 switch (tuner_output->state) {
-                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::IDLE:
+                    case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::IDLE:
                         button_autoTune_->setStyleSheet("background-color: gray; color: black;");
                         break;
 
-                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::TUNING:
+                    case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::TUNING:
                         button_autoTune_->setStyleSheet("background-color: yellow; color: black;");
                         break;
 
-                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::COMPLETE:
+                    case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::COMPLETE:
                         fast::rf::Logger::log_notice("Auto-Tuner tuned System!");
                         button_autoTune_->setStyleSheet("background-color: green; color: black;");
                         latest_setpoint_ = 0.0;
@@ -329,7 +327,7 @@ namespace robot_framework_ros {
                         autotune_running_ = false;
                         switchToPidController();
                         break;
-                    case fast::rf::NavigationSystem::Controller::ControllerTuner::AutoTunerState::FAILED:
+                    case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::FAILED:
                         fast::rf::Logger::log_error("Auto-Tuner unable to tune System!");
                         button_autoTune_->setStyleSheet("background-color: red; color: black;");
                         latest_setpoint_ = 0.0;
