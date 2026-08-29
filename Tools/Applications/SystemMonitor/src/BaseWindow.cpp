@@ -1,13 +1,13 @@
 #include <BaseWindow.hpp>
 #include <Infrastructure/Logger.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
-    bool BaseWindow::is_initialized() {
+    bool BaseWindow::isInitialized() {
         if (name == "") {
-            fast::rf::Logger::log_error("Window Name is Not Set!");
+            fast::rf::Logger::logError("Window Name is Not Set!");
             return false;
         }
         if (win_ == nullptr) {
-            fast::rf::Logger::log_error("Window: " + name + " Pointer is Null!");
+            fast::rf::Logger::logError("Window: " + name + " Pointer is Null!");
             return false;
         }
         return true;
@@ -29,12 +29,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         record_selected = _current_record;
     }
     void BaseWindow::update_record_count(uint16_t count) { record_count = count; }
-    bool BaseWindow::update(double current_time_sec) {
+    bool BaseWindow::update(double currentTimeSec) {
         current_time_sec_ = current_time_sec;
         return true;
     }
     std::string BaseWindow::pretty() {
-        if (is_initialized() == false) {
+        if (isInitialized() == false) {
             return name + " Is Uninitialized.";
         } else {
             char tempstr[128];

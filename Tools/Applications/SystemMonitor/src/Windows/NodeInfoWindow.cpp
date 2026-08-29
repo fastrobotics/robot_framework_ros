@@ -6,7 +6,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         str += BaseWindow::pretty();
         return str;
     }
-    void NodeInfoWindow::new_HeartbeatMsg(robot_framework_ros::heartbeat msg) {
+    void NodeInfoWindow::newHeartbeatMsg(robot_framework_ros::heartbeat msg) {
         auto it = nodes.find(msg.NodeName);
         if (it != nodes.end()) {
             it->second.host_device = msg.HostName;
@@ -19,7 +19,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             insertNode(NodeType::FAST, msg.HostName, msg.BaseNodeName, msg.NodeName);
         }
     }
-    void NodeInfoWindow::new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) {
+    void NodeInfoWindow::newReadyToArmMsg(robot_framework_ros::ready_to_arm msg) {
         auto it = nodes.find(msg.NodeName);
         if (it != nodes.end()) {
             if ((msg.SystemID == 0) || (msg.SubsystemID == 0) || (msg.ProcessID == 0)) {
@@ -65,12 +65,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
 
         if (str.size() > get_mainwindow_width()) {
-            fast::rf::Logger::log_warn("Node Header too long for Window!.");
+            fast::rf::Logger::logWarn("Node Header too long for Window!.");
             return "";
         }
         return str;
     }
-    bool NodeInfoWindow::update(double current_time_sec) {
+    bool NodeInfoWindow::update(double currentTimeSec) {
         bool status = BaseWindow::update(current_time_sec);
         if (status == false) {
             return false;
@@ -145,7 +145,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         wrefresh(get_window());
         return true;
     }
-    KeyEventContainer NodeInfoWindow::new_keyevent(int key) {
+    KeyEventContainer NodeInfoWindow::newKeyEvent(int key) {
         KeyEventContainer output;
         MessageText message;
         if (std::find(supported_keys.begin(), supported_keys.end(), key) != supported_keys.end()) {

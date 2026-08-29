@@ -17,21 +17,21 @@ class TestBaseWindow : public BaseWindow {
         set_window(win);
         wrefresh(win);
     }
-    KeyEventContainer new_keyevent([[maybe_unused]] int key) override {
+    KeyEventContainer newKeyEvent([[maybe_unused]] int key) override {
         KeyEventContainer container;
         return container;
     }
-    void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
-    void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
+    void newArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
+    void newHeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
 
-    void new_ReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
-    void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
+    void newReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
+    void newDiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
     std::string pretty() {
         std::string str = "---Test Base Window---\n";
         str += BaseWindow::pretty();
         return str;
     }
-    bool update(double current_time_sec) {
+    bool update(double currentTimeSec) {
         bool status = BaseWindow::update(current_time_sec);
         if (status == false) {
             return false;
@@ -42,9 +42,9 @@ class TestBaseWindow : public BaseWindow {
 };
 TEST(TestBaseWindow, BasicTests) {
     TestBaseWindow SUT(-1, 0, 0);
-    ASSERT_NE(SUT.get_name(), "");
-    ASSERT_FALSE(SUT.is_initialized());
-    fast::rf::Logger::log_debug(SUT.pretty());
+    ASSERT_NE(SUT.getName(), "");
+    ASSERT_FALSE(SUT.isInitialized());
+    fast::rf::Logger::logDebug(SUT.pretty());
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

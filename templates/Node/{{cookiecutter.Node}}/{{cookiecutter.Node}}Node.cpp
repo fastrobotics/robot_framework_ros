@@ -11,17 +11,17 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
     bool {{cookiecutter.Node}}Node::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = process.init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
         set_ready_to_arm(process.get_ready_to_arm());
@@ -35,10 +35,10 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
             fast::rf::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}}Subsystem::{{cookiecutter.Node}}::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
         status = process.set_config();
         if(status == false) {
-            fast::rf::Logger::log_error("Unable to set config!");
+            fast::rf::Logger::logError("Unable to set config!");
             return false;
         }
         return true;
@@ -60,14 +60,14 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
         set_ready_to_arm(process.get_ready_to_arm());
     return true; }
     bool {{cookiecutter.Node}}Node::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_001hz() { return true; }

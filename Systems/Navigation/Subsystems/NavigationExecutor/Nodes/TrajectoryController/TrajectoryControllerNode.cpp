@@ -19,24 +19,24 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
     bool TrajectoryControllerNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = process.init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
 
         std::string topic_pose;
         std::string param_pose = get_nodename() + "/topic_pose_input";
         if (n->getParam(param_pose, topic_pose) == false) {
-            fast::rf::Logger::log_error("Parameter topic_pose_input Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_pose_input Not Defined!  Exiting.");
             return false;
         }
 
@@ -46,7 +46,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         std::string topic_desired_command;
         std::string param_command_throttle = get_nodename() + "/topic_command_throttle_input";
         if (n->getParam(param_command_throttle, topic_desired_command) == false) {
-            fast::rf::Logger::log_error("Parameter topic_command_throttle_input Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_command_throttle_input Not Defined!  Exiting.");
             return false;
         }
 
@@ -57,7 +57,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         std::string topic_command;
         std::string param_command = get_nodename() + "/topic_command_robot_output";
         if (n->getParam(param_command, topic_command) == false) {
-            fast::rf::Logger::log_error("Parameter topic_command_robot_output Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_command_robot_output Not Defined!  Exiting.");
             return false;
         }
         command_pub = n->advertise<geometry_msgs::Twist>(get_robotnamespace() + topic_command, 1);
@@ -74,36 +74,36 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
                 fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
 
         double max_output;
         if (n->getParam(config_path + "/max_output", max_output) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/max_output Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/max_output Not Defined!  Exiting.");
             return false;
         }
         double min_output;
         if (n->getParam(config_path + "/min_output", min_output) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/min_output Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/min_output Not Defined!  Exiting.");
             return false;
         }
         double K_P;
         if (n->getParam(config_path + "/K_P", K_P) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_P Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/K_P Not Defined!  Exiting.");
             return false;
         }
         double K_I;
         if (n->getParam(config_path + "/K_I", K_I) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_I Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/K_I Not Defined!  Exiting.");
             return false;
         }
         double K_D;
         if (n->getParam(config_path + "/K_D", K_D) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/K_D Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/K_D Not Defined!  Exiting.");
             return false;
         }
         double sensor_scale;
         if (n->getParam(config_path + "/sensor_scale", sensor_scale) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/sensor_scale Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/sensor_scale Not Defined!  Exiting.");
             return false;
         }
 
@@ -112,11 +112,11 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         fast::rf::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::BasicTrajectoryControllerConfig
             config;
         if (config.set_pid_controller_config(pid_config) == false) {
-            fast::rf::Logger::log_error("Unable to set PID Controller Config!");
+            fast::rf::Logger::logError("Unable to set PID Controller Config!");
             return false;
         }
         if (process.set_config(config) == false) {
-            fast::rf::Logger::log_error("Unable to set Trajectory Controller Config!");
+            fast::rf::Logger::logError("Unable to set Trajectory Controller Config!");
             return false;
         }
         return true;
@@ -142,14 +142,14 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         return true;
     }
     bool TrajectoryControllerNode::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool TrajectoryControllerNode::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool TrajectoryControllerNode::run_001hz() { return true; }

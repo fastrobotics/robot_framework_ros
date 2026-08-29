@@ -84,14 +84,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             mvwprintw(win, 2, 1, dashed.c_str());
             wrefresh(win);
         }
-        KeyEventContainer new_keyevent(int key) override;
-        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
+        KeyEventContainer newKeyEvent(int key) override;
+        void newArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
-        void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) override;
+        void newHeartbeatMsg(robot_framework_ros::heartbeat msg) override;
 
-        void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
+        void newReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
 
-        void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
+        void newDiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
 
         std::string get_selected_node() { return selected_node; }
 
@@ -105,11 +105,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Update at a periodic rate
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec) override;
+        bool update(double currentTimeSec) override;
 
        protected:
         bool update_window();

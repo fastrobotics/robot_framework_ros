@@ -18,43 +18,43 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     void SystemMonitorNode::arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
         robot_framework_ros::arm_command msg = *t_msg;
         for (const auto& window : windows) {
-            window.second->new_ArmCommandMsg(msg);
+            window.second->newArmCommandMsg(msg);
         }
     }
     void SystemMonitorNode::heartbeat_Callback(const robot_framework_ros::heartbeat::ConstPtr& t_msg) {
         robot_framework_ros::heartbeat msg = *t_msg;
         for (const auto& window : windows) {
-            window.second->new_HeartbeatMsg(msg);
+            window.second->newHeartbeatMsg(msg);
         }
     }
     void SystemMonitorNode::ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg) {
         robot_framework_ros::ready_to_arm msg = *t_msg;
         for (const auto& window : windows) {
-            window.second->new_ReadyToArmMsg(msg);
+            window.second->newReadyToArmMsg(msg);
         }
     }
     void SystemMonitorNode::diagnostic_Callback(const robot_framework_ros::diagnostic::ConstPtr& t_msg) {
         robot_framework_ros::diagnostic msg = *t_msg;
         for (const auto& window : windows) {
-            window.second->new_DiagnosticMsg(msg);
+            window.second->newDiagnosticMsg(msg);
         }
     }
     bool SystemMonitorNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
 
         status = init_screen();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Screen!");
+            fast::rf::Logger::logError("Unable to initialize Screen!");
             return false;
         }
 
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
         arm_command_sub = n->subscribe<robot_framework_ros::arm_command>(
@@ -75,7 +75,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         if (has_colors() == FALSE) {
             endwin();
             // logger->enable_consoleprint();
-            fast::rf::Logger::log_error("Terminal does not support colors. Exiting.");
+            fast::rf::Logger::logError("Terminal does not support colors. Exiting.");
             return false;
         }
         curs_set(0);
@@ -96,7 +96,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         bool status = init_windows();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Windows!");
+            fast::rf::Logger::logError("Unable to initialize Windows!");
             return false;
         }
         return true;
@@ -106,24 +106,24 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         getmaxyx(stdscr, mainwindow_height, mainwindow_width);
         {
             auto window = std::make_shared<HeaderWindow>(-1, mainwindow_height, mainwindow_width);
-            windows[window->get_name()] = window;
+            windows[window->getName()] = window;
             // highest_tab_index++;
         }
         {
             auto window = std::make_shared<NodeInfoWindow>(-1, mainwindow_height, mainwindow_width);
-            window->set_focus(true);
-            windows[window->get_name()] = window;
+            window->setFocus(true);
+            windows[window->getName()] = window;
 
             // highest_tab_index++;
         }
         {
             auto window = std::make_shared<StatusWindow>(-1, mainwindow_height, mainwindow_width);
-            windows[window->get_name()] = window;
+            windows[window->getName()] = window;
             // highest_tab_index++;
         }
         {
             auto window = std::make_shared<DiagnosticWindow>(-1, mainwindow_height, mainwindow_width);
-            windows[window->get_name()] = window;
+            windows[window->getName()] = window;
             // highest_tab_index++;
         }
 
@@ -141,18 +141,18 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
         // Update all Windows
         for (const auto& window : windows) {
-            if (window.second->has_focus()) {
-                auto output = window.second->new_keyevent(key_pressed);
+            if (window.second->hasFocus()) {
+                auto output = window.second->newKeyEvent(key_pressed);
                 if (output.message.level > fast::rf::Level::NOTICE) {
-                    fast::rf::Logger::log_warn(output.message.text);
+                    fast::rf::Logger::logWarn(output.message.text);
                 }
             }
             window.second->update(ros::Time::now().toSec());
-            if (window.second->get_name() == "node_info_window") {
+            if (window.second->getName() == "node_info_window") {
                 auto node_info_window = std::dynamic_pointer_cast<NodeInfoWindow>(window.second);
                 selected_node = node_info_window->get_selected_node();
             }
-            if (window.second->get_name() == "diagnostic_window") {
+            if (window.second->getName() == "diagnostic_window") {
                 auto diagnostic_window = std::dynamic_pointer_cast<DiagnosticWindow>(window.second);
                 diagnostic_window->set_node_to_monitor(selected_node);
             }
@@ -163,12 +163,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     bool SystemMonitorNode::run_1hz() {
         bool status = rescan_rosnetwork();
         if (status == false) {
-            fast::rf::Logger::log_warn("Problem during ROS Scan!");
+            fast::rf::Logger::logWarn("Problem during ROS Scan!");
         }
         return status;
     }
     bool SystemMonitorNode::run_01hz() {
-        fast::rf::Logger::log_info(pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool SystemMonitorNode::run_001hz() { return true; }
@@ -293,7 +293,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             update_monitorlist(heartbeat_list, new_heartbeat_topics_to_subscribe, readytoarm_list,
                                new_readytoarm_topics_to_subscribe, diagnostic_list, new_diagnostic_topics_to_subscribe);
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to update Monitor List!");
+            fast::rf::Logger::logError("Unable to update Monitor List!");
             return false;
         }
         for (std::size_t i = 0; i < new_heartbeat_topics_to_subscribe.size(); ++i) {

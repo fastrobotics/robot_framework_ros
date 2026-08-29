@@ -48,17 +48,17 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             wrefresh(win);
             wrefresh(win);
         }
-        KeyEventContainer new_keyevent([[maybe_unused]] int key) override {
+        KeyEventContainer newKeyEvent([[maybe_unused]] int key) override {
             KeyEventContainer container;
             return container;
         }
-        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
+        void newArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
-        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
+        void newHeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
 
-        void new_ReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
+        void newReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
 
-        void new_DiagnosticMsg(robot_framework_ros::diagnostic msg) override;
+        void newDiagnosticMsg(robot_framework_ros::diagnostic msg) override;
         /**
          * @brief Human readable string
          *
@@ -69,11 +69,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Update window at a regular rate
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec) override;
+        bool update(double currentTimeSec) override;
 
         std::map<std::string, std::map<uint8_t, NodeDiagnosticMonitor>> get_node_diagnostic_monitors() {
             return node_diagnostic_monitors;

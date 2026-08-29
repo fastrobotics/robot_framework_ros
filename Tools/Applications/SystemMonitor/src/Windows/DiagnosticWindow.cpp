@@ -5,11 +5,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         str += BaseWindow::pretty();
         return str;
     }
-    void DiagnosticWindow::new_DiagnosticMsg(robot_framework_ros::diagnostic msg) {
+    void DiagnosticWindow::newDiagnosticMsg(robot_framework_ros::diagnostic msg) {
         node_diagnostic_monitors[msg.NodeName][msg.DiagnosticType].node_diagnostic = msg;
         node_diagnostic_monitors[msg.NodeName][msg.DiagnosticType].last_update_sec = get_current_time_sec();
     }
-    bool DiagnosticWindow::update(double current_time_sec) {
+    bool DiagnosticWindow::update(double currentTimeSec) {
         bool status = BaseWindow::update(current_time_sec);
         if (status == false) {
             return false;

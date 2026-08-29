@@ -14,6 +14,7 @@
 #include <robot_framework_ros/heartbeat.h>
 #include <robot_framework_ros/ready_to_arm.h>
 
+#include <Definitions.hpp>
 #include <string>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     /**
@@ -28,22 +29,22 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          *
          * @return std::string
          */
-        virtual std::string get_name() = 0;
+        virtual std::string getName() = 0;
         /**
          * @brief Check if initialized
          *
          * @return true
          * @return false
          */
-        virtual bool is_initialized() = 0;
+        virtual bool isInitialized() = 0;
         /**
          * @brief Update the object
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        virtual bool update(double current_time_sec) = 0;
+        virtual bool update(double currentTimeSec) = 0;
         /**
          * @brief Pretty print human readable data
          *
@@ -57,25 +58,25 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return true
          * @return false
          */
-        virtual bool has_focus() = 0;
+        virtual bool hasFocus() = 0;
 
         /**
          * @brief Set the focus
          *
-         * @param cmd_focus
+         * @param cmdFocus
          * @return true
          * @return false
          */
-        virtual bool set_focus(bool cmd_focus) = 0;
+        virtual bool setFocus(bool cmdFocus) = 0;
 
-        virtual KeyEventContainer new_keyevent(int key) = 0;
+        virtual KeyEventContainer newKeyEvent(int key) = 0;
 
-        virtual void new_ArmCommandMsg(robot_framework_ros::arm_command msg) = 0;
+        virtual void newArmCommandMsg(robot_framework_ros::arm_command msg) = 0;
 
-        virtual void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) = 0;
+        virtual void newHeartbeatMsg(robot_framework_ros::heartbeat msg) = 0;
 
-        virtual void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) = 0;
+        virtual void newReadyToArmMsg(robot_framework_ros::ready_to_arm msg) = 0;
 
-        virtual void new_DiagnosticMsg(robot_framework_ros::diagnostic msg) = 0;
+        virtual void newDiagnosticMsg(robot_framework_ros::diagnostic msg) = 0;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

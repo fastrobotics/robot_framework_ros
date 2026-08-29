@@ -43,17 +43,17 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             set_window(win);
             wrefresh(win);
         }
-        KeyEventContainer new_keyevent([[maybe_unused]] int key) override {
+        KeyEventContainer newKeyEvent([[maybe_unused]] int key) override {
             KeyEventContainer container;
             return container;
         }
-        void new_ArmCommandMsg(robot_framework_ros::arm_command msg) override;
+        void newArmCommandMsg(robot_framework_ros::arm_command msg) override;
 
-        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
+        void newHeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
 
-        void new_ReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
+        void newReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
 
-        void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
+        void newDiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
 
         /**
          * @brief Human readable string
@@ -65,11 +65,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Update at a periodic rate
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec) override;
+        bool update(double currentTimeSec) override;
 
        protected:
         bool update_window();

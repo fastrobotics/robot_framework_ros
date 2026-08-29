@@ -54,13 +54,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return true
          * @return false
          */
-        bool is_initialized() override;
+        bool isInitialized() override;
         /**
          * @brief Get the window name
          *
          * @return std::string
          */
-        std::string get_name() override { return name; }
+        std::string getName() override { return name; }
 
         /**
          * @brief Check if the window has focus
@@ -68,17 +68,17 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return true
          * @return false
          */
-        bool has_focus() override { return focused; }
+        bool hasFocus() override { return focused; }
 
         /**
          * @brief Set the Window's focus
          *
-         * @param cmd_focus
+         * @param cmdFocus
          * @return true
          * @return false
          */
-        bool set_focus(bool cmd_focus) override {
-            focused = cmd_focus;
+        bool setFocus(bool cmdFocus) override {
+            focused = cmdFocus;
             return true;
         }
 
@@ -86,11 +86,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Abstract Periodic Update
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec);
+        bool update(double currentTimeSec);
 
         double get_current_time_sec() { return current_time_sec_; }
         /**

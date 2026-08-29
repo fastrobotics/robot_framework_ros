@@ -113,36 +113,36 @@ namespace fast::rf_ros {
 
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
-            fast::rf::Logger::log_warn("Missing parameter: loop1_rate.  Not running loop1 code.");
+            fast::rf::Logger::logWarn("Missing parameter: loop1_rate.  Not running loop1 code.");
             loop1_enabled = false;
         } else {
             loop1_enabled = true;
             if (loop1_rate > max_rate) {
-                fast::rf::Logger::log_warn("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
+                fast::rf::Logger::logWarn("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
                 loop1_rate = max_rate;
             }
         }
 
         std::string param_loop2_rate = node_name + "/loop2_rate";
         if (n->getParam(param_loop2_rate, loop2_rate) == false) {
-            fast::rf::Logger::log_warn("Missing parameter: loop2_rate.  Not running loop2 code.");
+            fast::rf::Logger::logWarn("Missing parameter: loop2_rate.  Not running loop2 code.");
             loop2_enabled = false;
         } else {
             loop2_enabled = true;
             if (loop2_rate > max_rate) {
-                fast::rf::Logger::log_warn("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
+                fast::rf::Logger::logWarn("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
                 loop2_rate = max_rate;
             }
         }
 
         std::string param_loop3_rate = node_name + "/loop3_rate";
         if (n->getParam(param_loop3_rate, loop3_rate) == false) {
-            fast::rf::Logger::log_warn("Missing parameter: loop3_rate.  Not running loop3 code.");
+            fast::rf::Logger::logWarn("Missing parameter: loop3_rate.  Not running loop3 code.");
             loop3_enabled = false;
         } else {
             loop3_enabled = true;
             if (loop3_rate > max_rate) {
-                fast::rf::Logger::log_warn("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
+                fast::rf::Logger::logWarn("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
                 loop3_rate = max_rate;
             }
         }
@@ -245,7 +245,7 @@ namespace fast::rf_ros {
     bool BaseNode::base_run_1hz() {
         if (diagnostics_.size() > 0) {
             for (auto diagnostic : diagnostics_) {
-                fast::rf::Logger::log_diagnostic(diagnostic);
+                fast::rf::Logger::logDiagnostic(diagnostic);
                 robot_framework_ros::diagnostic diagnostic_msg =
                     fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
 
@@ -294,8 +294,8 @@ namespace fast::rf_ros {
             node_state.state = new_state;
             return true;
         } else {
-            fast::rf::Logger::log_error("Node State Change Not Allowed: " + std::to_string(current_state) + " -> " +
-                                        std::to_string(new_state));
+            fast::rf::Logger::logError("Node State Change Not Allowed: " + std::to_string(current_state) + " -> " +
+                                       std::to_string(new_state));
             return false;
         }
     }
