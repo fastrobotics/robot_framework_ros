@@ -51,14 +51,16 @@ namespace robot_framework_ros {
                                          3);    // maximum candidate-gain iterations
 
             config.set_algorithm(fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuningAlgorithm::IMC_LAMBDA);
+            config.set_imc_parameters(0.2,   // process dead time in seconds
+                                      2.0);  // desired closed-loop time constant, Lambda, in seconds
 
-            if (!auto_tuner.set_config(config)) {
+            if (!auto_tuner->set_config(config)) {
                 throw std::runtime_error("Unable to set Tuning Config!  Aborting.");
             }
-            if (!auto_tuner.init()) {
+            if (!auto_tuner->init()) {
                 throw std::runtime_error("Unable to initialize Tuner!  Aborting.");
             }
-            if (!auto_tuner.start_tuning()) {
+            if (!auto_tuner->start_tuning()) {
                 throw std::runtime_error("Unable to start Tuning!  Aborting.");
             }
             controller_ = std::move(auto_tuner);
@@ -298,7 +300,7 @@ namespace robot_framework_ros {
             }
         }
         if (autotune_running_ == true) {
-            auto* tuner_output = dynamic_cast<fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuner*>(output);
+            auto* tuner_output = dynamic_cast<fast::rf::NavigationSystem::ControllerTuner::PIDAutoTunerOutput*>(output);
             if (tuner_output != nullptr) {
                 latest_setpoint_ = tuner_output->set_point;
                 K_P = tuner_output->K_P;
@@ -329,6 +331,8 @@ namespace robot_framework_ros {
                         break;
                     case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::FAILED:
                         fast::rf::Logger::log_error("Auto-Tuner unable to tune System!");
+                        fast::rf::Logger::log_error(tuner_output->failure_reason_string);
+                        fast::rf::Logger::log_error(tuner_output->failure_remediation);
                         button_autoTune_->setStyleSheet("background-color: red; color: black;");
                         latest_setpoint_ = 0.0;
                         latest_output_ = 0.0;
