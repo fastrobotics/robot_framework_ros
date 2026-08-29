@@ -32,7 +32,7 @@ class TestBaseWindow : public BaseWindow {
         return str;
     }
     bool update(double currentTimeSec) {
-        bool status = BaseWindow::update(current_time_sec);
+        bool status = BaseWindow::update(currentTimeSec);
         if (status == false) {
             return false;
         }

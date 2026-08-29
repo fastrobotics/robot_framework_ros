@@ -30,7 +30,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     }
     void BaseWindow::update_record_count(uint16_t count) { record_count = count; }
     bool BaseWindow::update(double currentTimeSec) {
-        current_time_sec_ = current_time_sec;
+        current_time_sec_ = currentTimeSec;
         return true;
     }
     std::string BaseWindow::pretty() {

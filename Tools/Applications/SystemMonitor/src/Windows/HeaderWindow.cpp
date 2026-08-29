@@ -9,7 +9,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         return str;
     }
     bool HeaderWindow::update(double currentTimeSec) {
-        bool status = BaseWindow::update(current_time_sec);
+        bool status = BaseWindow::update(currentTimeSec);
         if (status == false) {
             return false;
         }

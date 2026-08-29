@@ -71,12 +71,12 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         return str;
     }
     bool NodeInfoWindow::update(double currentTimeSec) {
-        bool status = BaseWindow::update(current_time_sec);
+        bool status = BaseWindow::update(currentTimeSec);
         if (status == false) {
             return false;
         }
         for (auto& pair : nodes) {
-            pair.second.last_heartbeat_delta = current_time_sec - pair.second.last_heartbeat;
+            pair.second.last_heartbeat_delta = currentTimeSec - pair.second.last_heartbeat;
             if (pair.second.last_heartbeat_delta > COMMTIMEOUT_THRESHOLD) {
                 pair.second.state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
                 pair.second.ready_to_arm = "UNKNOWN";
