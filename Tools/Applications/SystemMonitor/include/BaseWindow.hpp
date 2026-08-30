@@ -31,22 +31,22 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @brief Construct a new Base Window object
          *
          * @param name
-         * @param tab_order
-         * @param start_x_perc
-         * @param start_y_perc
-         * @param width_perc
-         * @param height_perc
-         * @param mainwindow_height
-         * @param mainwindow_width
+         * @param tabOrder
+         * @param startXPerc
+         * @param startYPerc
+         * @param widthPerc
+         * @param heightPerc
+         * @param mainwindowHeight
+         * @param mainwindowWidth
          */
-        BaseWindow(const std::string name, int16_t tab_order, double start_x_perc, double start_y_perc,
-                   double width_perc, double height_perc, uint16_t mainwindow_height, uint16_t mainwindow_width)
-            : name(name),
-              tab_order(tab_order),
-              screen_coord_perc(start_x_perc, start_y_perc, width_perc, height_perc),
-              screen_coord_pixel(0, 0, 0, 0),
-              mainwindow_height(mainwindow_height),
-              mainwindow_width(mainwindow_width) {}
+        BaseWindow(const std::string name, int16_t tabOrder, double startXPerc, double startYPerc, double widthPerc,
+                   double heightPerc, uint16_t mainwindowHeight, uint16_t mainwindowWidth)
+            : m_name(name),
+              m_tabOrder(tabOrder),
+              m_screenCoordPerc(startXPerc, startYPerc, widthPerc, heightPerc),
+              m_screenCoordPixel(0, 0, 0, 0),
+              m_mainwindowHeight(mainwindowHeight),
+              m_mainwindowWidth(mainwindowWidth) {}
         virtual ~BaseWindow() {}
         /**
          * @brief Check if initialized
@@ -54,13 +54,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return true
          * @return false
          */
-        bool is_initialized() override;
+        bool isInitialized() override;
         /**
          * @brief Get the window name
          *
          * @return std::string
          */
-        std::string get_name() override { return name; }
+        std::string getName() override { return m_name; }
 
         /**
          * @brief Check if the window has focus
@@ -68,17 +68,17 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          * @return true
          * @return false
          */
-        bool has_focus() override { return focused; }
+        bool hasFocus() override { return m_focused; }
 
         /**
          * @brief Set the Window's focus
          *
-         * @param cmd_focus
+         * @param cmdFocus
          * @return true
          * @return false
          */
-        bool set_focus(bool cmd_focus) override {
-            focused = cmd_focus;
+        bool setFocus(bool cmdFocus) override {
+            m_focused = cmdFocus;
             return true;
         }
 
@@ -86,20 +86,20 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Abstract Periodic Update
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec);
+        bool update(double currentTimeSec);
 
-        double get_current_time_sec() { return current_time_sec_; }
+        double getCurrentTimeSec() { return m_currentTimeSec; }
         /**
          * @brief Update the window details
          *
          * @return true
          * @return false
          */
-        virtual bool update_window() = 0;
+        virtual bool updateWindow() = 0;
         /**
          * @brief Get base object pretty data
          *
@@ -111,61 +111,61 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          *
          * @param win
          */
-        void set_window(WINDOW* win) { win_ = win; }
+        void setWindow(WINDOW* win) { m_win = win; }
         /**
          * @brief Get the window object
          *
          * @return WINDOW*
          */
-        WINDOW* get_window() { return win_; }
+        WINDOW* getWindow() { return m_win; }
         /**
          * @brief Set the screen coordinates pix object
          *
          * @param coord
          */
-        void set_screen_coordinates_pix(ScreenCoordinatePixel coord) { screen_coord_pixel = coord; }
+        void setScreenCoordinatesPix(ScreenCoordinatePixel coord) { m_screenCoordPixel = coord; }
         /**
          * @brief Get the screen coordinates perc object
          *
          * @return ScreenCoordinatePerc
          */
-        ScreenCoordinatePerc get_screen_coordinates_perc() { return screen_coord_perc; }
+        ScreenCoordinatePerc getScreenCoordinatesPerc() { return m_screenCoordPerc; }
         /**
          * @brief Get the screen coordinates pixel object
          *
          * @return ScreenCoordinatePixel
          */
-        ScreenCoordinatePixel get_screen_coordinates_pixel() { return screen_coord_pixel; }
+        ScreenCoordinatePixel getScreenCoordinatesPixel() { return m_screenCoordPixel; }
         /**
          * @brief Get the tab order
          *
          * @return int16_t
          */
-        int16_t get_tab_order() { return tab_order; }
+        int16_t getTabOrder() { return m_tabOrder; }
 
-        int16_t get_selected_record() { return record_selected; }
+        int16_t getSelectedRecord() { return m_recordSelected; }
 
-        void update_record_count(uint16_t count);
-        uint16_t get_mainwindow_height() { return mainwindow_height; }
-        uint16_t get_mainwindow_width() { return mainwindow_width; }
-        void decrement_selected_record();
-        void increment_selected_record();
-        bool get_focused() { return focused; }
-        std::vector<int> supported_keys;
+        void updateRecordCount(uint16_t count);
+        uint16_t getMainWindowHeight() { return m_mainwindowHeight; }
+        uint16_t getMainWindowWidth() { return m_mainwindowWidth; }
+        void decrementSelectedRecord();
+        void incrementSelectedRecord();
+        bool getFocused() { return m_focused; }
+        std::vector<int> supportedKeys;
 
        private:
-        WINDOW* win_{nullptr};
-        std::string name{""};
-        int16_t tab_order;
-        ScreenCoordinatePerc screen_coord_perc;
-        ScreenCoordinatePixel screen_coord_pixel;
-        uint16_t mainwindow_height;
-        uint16_t mainwindow_width;
-        bool focused{false};
+        WINDOW* m_win{nullptr};
+        std::string m_name{""};
+        int16_t m_tabOrder;
+        ScreenCoordinatePerc m_screenCoordPerc;
+        ScreenCoordinatePixel m_screenCoordPixel;
+        uint16_t m_mainwindowHeight;
+        uint16_t m_mainwindowWidth;
+        bool m_focused{false};
 
-        double current_time_sec_;
-        int16_t record_selected{0};
-        uint16_t record_count{0};
+        double m_currentTimeSec;
+        int16_t m_recordSelected{0};
+        uint16_t m_recordCount{0};
     };
 
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

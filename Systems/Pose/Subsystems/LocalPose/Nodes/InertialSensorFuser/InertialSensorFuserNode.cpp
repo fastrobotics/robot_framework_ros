@@ -21,26 +21,26 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
     bool InertialSensorFuserNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
 
         process = new fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::BasicInertialSensorFuserProcess();
         status = process->init(1);  // Basic Inertial Sensor Fuser requires 1 and only 1 IMU
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
 
         std::string topic_imu1_input;  // Make this support multiple IMU's during AB#1814
         std::string param_imu1_input = get_nodename() + "/topic_imu1_input";
         if (n->getParam(param_imu1_input, topic_imu1_input) == false) {
-            fast::rf::Logger::log_error("Parameter topic_imu1_input Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_imu1_input Not Defined!  Exiting.");
             return false;
         }
 
@@ -49,7 +49,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
 
         std::string topic_machine_inertial_output;
         if (n->getParam(get_nodename() + "/topic_machine_inertial_output", topic_machine_inertial_output) == false) {
-            fast::rf::Logger::log_error("Parameter topic_machine_inertial_output Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_machine_inertial_output Not Defined!  Exiting.");
             return false;
         }
         machine_inertial_pub = n->advertise<sensor_msgs::Imu>(get_robotnamespace() + topic_machine_inertial_output, 1);
@@ -65,7 +65,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
             fast::rf::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
 
         // Get user space config during AB#1852
         return true;
@@ -87,14 +87,14 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
         return true;
     }
     bool InertialSensorFuserNode::run_1hz() {
-        auto diagnostics = process->get_diagnostics();
+        auto diagnostics = process->getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool InertialSensorFuserNode::run_01hz() {
-        fast::rf::Logger::log_info(process->pretty());
-        fast::rf::Logger::log_info(pretty());
+        fast::rf::Logger::logInfo(process->pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool InertialSensorFuserNode::run_001hz() { return true; }

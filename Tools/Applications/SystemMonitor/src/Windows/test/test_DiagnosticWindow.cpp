@@ -6,45 +6,45 @@
 
 using namespace fast::rf_ros::Tools::Applications::SystemMonitor;
 TEST(DiagnosticWindow, BasicTests) {
-    DiagnosticWindow SUT(-1, 100, 100);
-    ASSERT_NE(SUT.get_name(), "");
-    ASSERT_FALSE(SUT.is_initialized());
-    ASSERT_FALSE(SUT.update(0.0));
-    fast::rf::Logger::log_debug(SUT.pretty());
+    DiagnosticWindow sut(-1, 100, 100);
+    ASSERT_NE(sut.getName(), "");
+    ASSERT_FALSE(sut.isInitialized());
+    ASSERT_FALSE(sut.update(0.0));
+    fast::rf::Logger::logDebug(sut.pretty());
 }
 TEST(DiagnosticWindow, NodeDiagnosticTests) {
-    DiagnosticWindow SUT(-1, 100, 100);
-    ASSERT_NE(SUT.get_name(), "");
-    ASSERT_FALSE(SUT.is_initialized());
-    ASSERT_FALSE(SUT.update(0.0));
-    fast::rf::Logger::log_debug(SUT.pretty());
+    DiagnosticWindow sut(-1, 100, 100);
+    ASSERT_NE(sut.getName(), "");
+    ASSERT_FALSE(sut.isInitialized());
+    ASSERT_FALSE(sut.update(0.0));
+    fast::rf::Logger::logDebug(sut.pretty());
     {
-        robot_framework_ros::diagnostic node_diagnostic;
-        node_diagnostic.NodeName = "node1";
-        node_diagnostic.DiagnosticType = 1;
-        node_diagnostic.Level = 2;
-        SUT.new_DiagnosticMsg(node_diagnostic);
+        robot_framework_ros::diagnostic nodeDiagnostic;
+        nodeDiagnostic.NodeName = "node1";
+        nodeDiagnostic.DiagnosticType = 1;
+        nodeDiagnostic.Level = 2;
+        sut.newDiagnosticMsg(nodeDiagnostic);
     }
     {
-        robot_framework_ros::diagnostic node_diagnostic;
-        node_diagnostic.NodeName = "node1";
-        node_diagnostic.DiagnosticType = 2;
-        node_diagnostic.Level = 2;
-        SUT.new_DiagnosticMsg(node_diagnostic);
+        robot_framework_ros::diagnostic nodeDiagnostic;
+        nodeDiagnostic.NodeName = "node1";
+        nodeDiagnostic.DiagnosticType = 2;
+        nodeDiagnostic.Level = 2;
+        sut.newDiagnosticMsg(nodeDiagnostic);
     }
     {
-        robot_framework_ros::diagnostic node_diagnostic;
-        node_diagnostic.NodeName = "node2";
-        node_diagnostic.DiagnosticType = 2;
-        node_diagnostic.Level = 2;
-        SUT.new_DiagnosticMsg(node_diagnostic);
+        robot_framework_ros::diagnostic nodeDiagnostic;
+        nodeDiagnostic.NodeName = "node2";
+        nodeDiagnostic.DiagnosticType = 2;
+        nodeDiagnostic.Level = 2;
+        sut.newDiagnosticMsg(nodeDiagnostic);
     }
 
-    ASSERT_EQ(SUT.get_node_diagnostic_monitors().size(), 2);
-    ASSERT_EQ(SUT.get_node_diagnostic_monitors()["node1"].size(), 2);
-    ASSERT_EQ(SUT.get_node_diagnostic_monitors()["node2"].size(), 1);
+    ASSERT_EQ(sut.getNodeDiagnosticMonitors().size(), 2);
+    ASSERT_EQ(sut.getNodeDiagnosticMonitors()["node1"].size(), 2);
+    ASSERT_EQ(sut.getNodeDiagnosticMonitors()["node2"].size(), 1);
 
-    ASSERT_FALSE(SUT.update(1.0));
+    ASSERT_FALSE(sut.update(1.0));
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

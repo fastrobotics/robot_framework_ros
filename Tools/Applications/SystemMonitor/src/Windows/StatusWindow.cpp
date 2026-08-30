@@ -5,21 +5,21 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         str += BaseWindow::pretty();
         return str;
     }
-    bool StatusWindow::update(double current_time_sec) {
-        bool status = BaseWindow::update(current_time_sec);
+    bool StatusWindow::update(double currentTimeSec) {
+        bool status = BaseWindow::update(currentTimeSec);
         if (status == false) {
             return false;
         }
-        status = update_window();
+        status = updateWindow();
         return status;
     }
-    bool StatusWindow::update_window() {
-        if (get_window() == nullptr) {
+    bool StatusWindow::updateWindow() {
+        if (getWindow() == nullptr) {
             return false;
         }
         // GCOVR_EXCL_START
-        box(get_window(), 0, 0);
-        wrefresh(get_window());
+        box(getWindow(), 0, 0);
+        wrefresh(getWindow());
         return true;
         // GCOVR_EXCL_STOP
     }

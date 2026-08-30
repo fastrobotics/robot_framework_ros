@@ -16,35 +16,35 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
     bool IMUNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
         if (n->getParam("imu_sensor_frame", imu_sensor_frame) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: frame");
+            fast::rf::Logger::logError("Can't find parameter: frame");
             return false;
         }
         std::string imu_topic;
         if (n->getParam("topic_imu", imu_topic) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: topic_imu");
+            fast::rf::Logger::logError("Can't find parameter: topic_imu");
             return false;
         }
         imu_pub = n->advertise<sensor_msgs::Imu>(get_robotnamespace() + imu_topic, 1);
 
         std::string magnetometer_topic;
         if (n->getParam("topic_magnetometer", magnetometer_topic) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: topic_magnetometer");
+            fast::rf::Logger::logError("Can't find parameter: topic_magnetometer");
             return false;
         }
         magnetometer_pub = n->advertise<sensor_msgs::MagneticField>(get_robotnamespace() + magnetometer_topic, 1);
 
         std::string imu_acc_topic;
         if (n->getParam("topic_imu_acc", imu_acc_topic) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: topic_imu_acc");
+            fast::rf::Logger::logError("Can't find parameter: topic_imu_acc");
             return false;
         }
         imu_accel_pub = n->advertise<geometry_msgs::AccelStamped>(get_robotnamespace() + imu_acc_topic, 1);
@@ -60,17 +60,17 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
             fast::rf::PoseSystem::InertialSensorSubsystem::IMU::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
 
         // Re-factor this during AB#1851
         std::string imu_type;
         if (n->getParam("info/type", imu_type) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: info/imu_type");
+            fast::rf::Logger::logError("Can't find parameter: info/imu_type");
             return false;
         }
         std::string imu_device_name;
         if (n->getParam("info/device_name", imu_device_name) == false) {
-            fast::rf::Logger::log_error("Can't find parameter: info/device_name");
+            fast::rf::Logger::logError("Can't find parameter: info/device_name");
             return false;
         }
         // Load Covariance Matrix's
@@ -85,11 +85,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
                     auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
                     orientation_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
                 } else {
-                    fast::rf::Logger::log_error("Orientation Covariance Matrix not defined properly!");
+                    fast::rf::Logger::logError("Orientation Covariance Matrix not defined properly!");
                     return false;
                 }
             } else {
-                fast::rf::Logger::log_warn("Unable to load orientation_covariance_matrix.  Using Default.");
+                fast::rf::Logger::logWarn("Unable to load orientation_covariance_matrix.  Using Default.");
             }
         }
         {  // Gyro Covariance Matrix
@@ -99,11 +99,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
                     auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
                     gyro_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
                 } else {
-                    fast::rf::Logger::log_error("Gyro Covariance Matrix not defined properly!");
+                    fast::rf::Logger::logError("Gyro Covariance Matrix not defined properly!");
                     return false;
                 }
             } else {
-                fast::rf::Logger::log_warn("Unable to load gyro_covariance_matrix.  Using Default.");
+                fast::rf::Logger::logWarn("Unable to load gyro_covariance_matrix.  Using Default.");
             }
         }
         {  // Linear Acc Covariance Matrix
@@ -113,11 +113,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
                     auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
                     linear_acc_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
                 } else {
-                    fast::rf::Logger::log_error("Linear Acc Covariance Matrix not defined properly!");
+                    fast::rf::Logger::logError("Linear Acc Covariance Matrix not defined properly!");
                     return false;
                 }
             } else {
-                fast::rf::Logger::log_warn("Unable to load linear_accel_covariance_matrix.  Using Default.");
+                fast::rf::Logger::logWarn("Unable to load linear_accel_covariance_matrix.  Using Default.");
             }
         }
         {  // Magnetometer Covariance Matrix
@@ -127,11 +127,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
                     auto array = fast::rf_ros::utils::CoreUtility::convert_boostarray_9(values);
                     magnetometer_covariance_matrix = fast::rf_ros::utils::TranslateUtility::convert_covariance3D(array);
                 } else {
-                    fast::rf::Logger::log_error("Magnetometer Covariance Matrix not defined properly!");
+                    fast::rf::Logger::logError("Magnetometer Covariance Matrix not defined properly!");
                     return false;
                 }
             } else {
-                fast::rf::Logger::log_warn("Unable to load magnetic_covariance_matrix.  Using Default.");
+                fast::rf::Logger::logWarn("Unable to load magnetic_covariance_matrix.  Using Default.");
             }
         }
         fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUProcess::IMUConfig imu_config;
@@ -143,7 +143,7 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         imu_config.orientation_covariance = orientation_covariance_matrix;
         bool status = process.init(imu_config);
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process with IMU: " + imu_type);
+            fast::rf::Logger::logError("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
 
@@ -190,14 +190,14 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         return true;
     }
     bool IMUNode::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool IMUNode::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool IMUNode::run_001hz() { return true; }

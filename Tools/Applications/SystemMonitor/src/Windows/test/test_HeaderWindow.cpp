@@ -6,11 +6,11 @@
 
 using namespace fast::rf_ros::Tools::Applications::SystemMonitor;
 TEST(HeaderWindow, BasicTests) {
-    HeaderWindow SUT(-1, 100, 100);
-    ASSERT_NE(SUT.get_name(), "");
-    ASSERT_FALSE(SUT.is_initialized());
-    ASSERT_FALSE(SUT.update(0.0));
-    fast::rf::Logger::log_debug(SUT.pretty());
+    HeaderWindow sut(-1, 100, 100);
+    ASSERT_NE(sut.getName(), "");
+    ASSERT_FALSE(sut.isInitialized());
+    ASSERT_FALSE(sut.update(0.0));
+    fast::rf::Logger::logDebug(sut.pretty());
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
