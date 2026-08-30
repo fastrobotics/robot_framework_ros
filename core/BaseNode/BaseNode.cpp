@@ -150,6 +150,7 @@ namespace fast::rf_ros {
         return true;
     }
     bool BaseNode::base_start() {
+        startTime = ros::Time::now();
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_STARTING, false);
         last_100hz_timer = ros::Time::now();
         last_10hz_timer = ros::Time::now();
@@ -183,30 +184,35 @@ namespace fast::rf_ros {
         double mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_100hz_timer);
         if (mtime >= 0.01) {  // 0.01 Seconds
             base_run_100hz();
+            m_loop100HzCycles++;
             last_100hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_10hz_timer);
         if (mtime >= 0.1) {  // 0.1 Seconds
             base_run_10hz();
+            m_loop10HzCyles++;
             last_10hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_1hz_timer);
         if (mtime >= 1.0) {  // 1.0 Seconds
             base_run_1hz();
+            m_loop1Cycles++;
             last_1hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_01hz_timer);
         if (mtime >= 10.0) {  // 10.0 Seconds
             base_run_01hz();
+            m_loop01HzCycles++;
             last_01hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_001hz_timer);
         if (mtime >= 100.0) {  // 100.0 Seconds
             base_run_001hz();
+            m_loop001HzCycles++;
             last_001hz_timer = ros::Time::now();
         }
 
@@ -214,6 +220,7 @@ namespace fast::rf_ros {
             mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop1_timer);
             if (mtime >= (1.0 / loop1_rate)) {
                 run_loop1();
+                m_loop1Cycles++;
                 last_loop1_timer = ros::Time::now();
             }
         }
@@ -221,6 +228,7 @@ namespace fast::rf_ros {
             mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop2_timer);
             if (mtime >= (1.0 / loop2_rate)) {
                 run_loop2();
+                m_loop2Cycles++;
                 last_loop2_timer = ros::Time::now();
             }
         }
@@ -228,6 +236,7 @@ namespace fast::rf_ros {
             mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop3_timer);
             if (mtime >= (1.0 / loop3_rate)) {
                 run_loop3();
+                m_loop3Cycles++;
                 last_loop3_timer = ros::Time::now();
             }
         }
@@ -263,7 +272,29 @@ namespace fast::rf_ros {
         return run_1hz();
     }
 
-    bool BaseNode::base_run_01hz() { return run_01hz(); }
+    bool BaseNode::base_run_01hz() {
+        bool status = run_01hz();
+
+        // Check Loop Rate for timing issues
+        double runTimeSec = utils::CoreUtility::measure_time_diff(ros::Time::now(), startTime);
+        uint16_t minLoopCountToWait = 5;
+        if (loop2_enabled == true) {
+            if (m_loop2Cycles > minLoopCountToWait) {
+                double actualLoop2Rate = (double)(m_loop2Cycles) / runTimeSec;
+                double factorOff = loop2_rate / actualLoop2Rate;
+                if (factorOff > ERROR_LOOPRATE_SLOWDOWN_FACTOR) {
+                    fast::rf::Logger::logError("Expected Rate: " + std::to_string(loop2_rate) +
+                                               " Actual: " + std::to_string(actualLoop2Rate) +
+                                               " Factor: " + std::to_string(factorOff));
+                } else if (factorOff > WARN_LOOPRATE_SLOWDOWN_FACTOR) {
+                    fast::rf::Logger::logWarn("Expected Rate: " + std::to_string(loop2_rate) +
+                                              " Actual: " + std::to_string(actualLoop2Rate) +
+                                              " Factor: " + std::to_string(factorOff));
+                }
+            }
+        }
+        return status;
+    }
     bool BaseNode::base_run_001hz() { return run_001hz(); }
     bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
         uint8_t current_state = node_state.state;

@@ -6,6 +6,7 @@
 
 #include <Covariance3DMsg.hpp>
 #include <Infrastructure/Logger.hpp>
+#include <chrono>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
 using namespace fast::rf_ros;
@@ -159,6 +160,7 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         return true;
     }
     bool IMUNode::run_loop2() {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         {
             fast::rf::messages::SensorMsgs::ImuMsg data;
             if (process.get_imu_data(data)) {

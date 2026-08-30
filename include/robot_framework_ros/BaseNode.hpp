@@ -34,6 +34,10 @@ namespace fast::rf_ros {
      */
     class BaseNode {
        public:
+        static constexpr double WARN_LOOPRATE_SLOWDOWN_FACTOR =
+            1.5;  //!< Loops running at a rate slower than this will trigger a WARN diagnostic.
+        static constexpr double ERROR_LOOPRATE_SLOWDOWN_FACTOR =
+            3.0;  //!< Loops running at a rate slower than this will trigger an ERROR diagnostic.
         BaseNode() : n(new ros::NodeHandle("~")) {
             node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
             max_rate = ros_rate / 10.0;  // Max rate is 400 Hz
@@ -285,6 +289,7 @@ namespace fast::rf_ros {
         // Concrete Node Controls
 
        private:
+        ros::Time startTime;
         bool ready_to_arm_publish_enabled{true};
         robot_framework_ros::nodestate node_state;
         std::string node_namespace{""};
@@ -308,15 +313,24 @@ namespace fast::rf_ros {
         double max_rate;
 
         ros::Time last_100hz_timer;
+        uint64_t m_loop100HzCycles{0};
         ros::Time last_10hz_timer;
+        uint64_t m_loop10HzCyles{0};
         ros::Time last_1hz_timer;
+        uint64_t m_loop1HzCycles{0};
         ros::Time last_01hz_timer;
+        uint64_t m_loop01HzCycles{0};
         ros::Time last_001hz_timer;
-
+        uint64_t m_loop001HzCycles{0};
         ros::Time last_loop1_timer;
+        uint64_t m_loop1Cycles{0};
         ros::Time last_loop2_timer;
+        uint64_t m_loop2Cycles{0};
         ros::Time last_loop3_timer;
+        uint64_t m_loop3Cycles{0};
 
+        std::vector<std::string> warningLoopTimingMessages;
+        std::vector<std::string> errorLoopTimingMessages;
         std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics_;
         fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm_;
     };
