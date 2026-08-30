@@ -7,14 +7,13 @@
 using namespace fast::rf_ros::Tools::Applications::SystemMonitor;
 class TestBaseWindow : public BaseWindow {
    public:
-    TestBaseWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
-        : BaseWindow("test_window", tab_order, 0.0, 0.0, 100.0, 100.0, mainwindow_height, mainwindow_width) {
+    TestBaseWindow(int16_t tabOrder, int16_t mainwindowHeight, uint16_t mainwindowWidth)
+        : BaseWindow("test_window", tabOrder, 0.0, 0.0, 100.0, 100.0, mainwindowHeight, mainwindowWidth) {
         ScreenCoordinatePixel coord_pix =
-            convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
-        WINDOW* win =
-            create_newwin(coord_pix.height_pix, coord_pix.width_pix, coord_pix.start_y_pix, coord_pix.start_x_pix);
-        set_screen_coordinates_pix(coord_pix);
-        set_window(win);
+            convertCoordinate(getScreenCoordinatesPerc(), mainwindowWidth, mainwindowHeight);
+        WINDOW* win = createNewWin(coord_pix.heightPix, coord_pix.widthPix, coord_pix.startYPix, coord_pix.startXPix);
+        setScreenCoordinatesPix(coord_pix);
+        setWindow(win);
         wrefresh(win);
     }
     KeyEventContainer newKeyEvent([[maybe_unused]] int key) override {
@@ -36,15 +35,15 @@ class TestBaseWindow : public BaseWindow {
         if (status == false) {
             return false;
         }
-        return update_window();
+        return updateWindow();
     }
-    bool update_window() { return true; }
+    bool updateWindow() { return true; }
 };
 TEST(TestBaseWindow, BasicTests) {
-    TestBaseWindow SUT(-1, 0, 0);
-    ASSERT_NE(SUT.getName(), "");
-    ASSERT_FALSE(SUT.isInitialized());
-    fast::rf::Logger::logDebug(SUT.pretty());
+    TestBaseWindow sut(-1, 0, 0);
+    ASSERT_NE(sut.getName(), "");
+    ASSERT_FALSE(sut.isInitialized());
+    fast::rf::Logger::logDebug(sut.pretty());
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

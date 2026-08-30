@@ -13,7 +13,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             it->second.base_node_name = msg.BaseNodeName;
             it->second.state = msg.NodeState;
             it->second.last_heartbeat_delta = 0.0;
-            it->second.last_heartbeat = get_current_time_sec();
+            it->second.last_heartbeat = getCurrentTimeSec();
 
         } else {
             insertNode(NodeType::FAST, msg.HostName, msg.BaseNodeName, msg.NodeName);
@@ -30,7 +30,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                 it->second.ready_to_arm = "FALSE";
             }
             it->second.last_heartbeat_delta = 0.0;
-            it->second.last_heartbeat = get_current_time_sec();
+            it->second.last_heartbeat = getCurrentTimeSec();
 
         } else {
             insertNode(NodeType::FAST, "", "", msg.NodeName);
@@ -43,10 +43,10 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         NodeData newNode(nodes.size(), node_type, device, base_node_name, node_name);
         nodes[newNode.node_name] = newNode;
         std::size_t after = nodes.size();
-        update_record_count((uint16_t)after);
+        updateRecordCount((uint16_t)after);
         return after > before;
     }
-    std::string NodeInfoWindow::get_window_header() {
+    std::string NodeInfoWindow::getWindowHeader() {
         std::string str = "";
         std::map<NodeFieldColumn, Field>::iterator it = node_window_fields.begin();
         while (it != node_window_fields.end()) {
@@ -64,7 +64,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             ++it;
         }
 
-        if (str.size() > get_mainwindow_width()) {
+        if (str.size() > getMainWindowWidth()) {
             fast::rf::Logger::logWarn("Node Header too long for Window!.");
             return "";
         }
@@ -82,11 +82,11 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                 pair.second.ready_to_arm = "UNKNOWN";
             }
         }
-        status = update_window();
+        status = updateWindow();
         return status;
     }
-    bool NodeInfoWindow::update_window() {
-        if (get_window() == nullptr) {
+    bool NodeInfoWindow::updateWindow() {
+        if (getWindow() == nullptr) {
             return false;
         }
         // GCOVR_EXCL_START
@@ -125,40 +125,40 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                     color = Color::RED_COLOR;
                     break;
             }
-            if (index == get_selected_record()) {
-                selected_node = pair.second.node_name;
+            if (index == getSelectedRecord()) {
+                m_selectedNode = pair.second.node_name;
             }
 
-            wattron(get_window(), COLOR_PAIR(color));
-            std::string str = get_node_info(pair.second, index == get_selected_record());
-            mvwprintw(get_window(), TASKSTART_COORD_Y + 2 + (int)index, TASKSTART_COORD_X + 1, str.c_str());
-            wclrtoeol(get_window());
-            wattroff(get_window(), COLOR_PAIR(color));
+            wattron(getWindow(), COLOR_PAIR(color));
+            std::string str = get_node_info(pair.second, index == getSelectedRecord());
+            mvwprintw(getWindow(), TASKSTART_COORD_Y + 2 + (int)index, TASKSTART_COORD_X + 1, str.c_str());
+            wclrtoeol(getWindow());
+            wattroff(getWindow(), COLOR_PAIR(color));
             index++;
         }
-        if (get_focused()) {
-            box(get_window(), '.', '.');
+        if (getFocused()) {
+            box(getWindow(), '.', '.');
         } else {
-            box(get_window(), 0, 0);
+            box(getWindow(), 0, 0);
         }
 
-        wrefresh(get_window());
+        wrefresh(getWindow());
         return true;
     }
     KeyEventContainer NodeInfoWindow::newKeyEvent(int key) {
         KeyEventContainer output;
         MessageText message;
-        if (std::find(supported_keys.begin(), supported_keys.end(), key) != supported_keys.end()) {
+        if (std::find(supportedKeys.begin(), supportedKeys.end(), key) != supportedKeys.end()) {
             output.message.level = fast::rf::Level::ERROR;  // Set default Level to error, so if any supported keys
                                                             // are not processed, will actively fail.
         } else {
             return output;
         }
-        if (get_focused() == true) {
+        if (getFocused() == true) {
             if (key == KEY_UP) {
-                decrement_selected_record();
+                decrementSelectedRecord();
             } else if (key == KEY_DOWN) {
-                increment_selected_record();
+                incrementSelectedRecord();
             }
         }
         previous_key = key;

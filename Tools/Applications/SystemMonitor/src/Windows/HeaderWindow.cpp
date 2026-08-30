@@ -1,7 +1,7 @@
 #include <Windows/HeaderWindow.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     void HeaderWindow::newArmCommandMsg(robot_framework_ros::arm_command msg) {
-        latest_arm_command = fast::rf_ros::utils::TranslateUtility::convert(msg);
+        m_latestArmCommand = fast::rf_ros::utils::TranslateUtility::convert(msg);
     }
     std::string HeaderWindow::pretty() {
         std::string str = "---Header Window---\n";
@@ -13,32 +13,32 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         if (status == false) {
             return false;
         }
-        status = update_window();
+        status = updateWindow();
         return status;
     }
-    bool HeaderWindow::update_window() {
-        if (get_window() == nullptr) {
+    bool HeaderWindow::updateWindow() {
+        if (getWindow() == nullptr) {
             return false;
         }
         //  GCOVR_EXCL_START
         {  // Time
-            std::string str = "Time: " + std::to_string(get_current_time_sec());
+            std::string str = "Time: " + std::to_string(getCurrentTimeSec());
             str.insert(str.end(), 40 - str.size(), ' ');
             Color color;
             color = Color::WHITE_COLOR;
 
-            wattron(get_window(), COLOR_PAIR(color));
-            mvwprintw(get_window(), 1, 1, str.c_str());
-            wclrtoeol(get_window());
-            wattroff(get_window(), COLOR_PAIR(color));
+            wattron(getWindow(), COLOR_PAIR(color));
+            mvwprintw(getWindow(), 1, 1, str.c_str());
+            wclrtoeol(getWindow());
+            wattroff(getWindow(), COLOR_PAIR(color));
         }
         {  // Armed State
 
             Color color;
-            std::string str = "Armed State: " + fast::rf::pretty(latest_arm_command.armed_state);
+            std::string str = "Armed State: " + fast::rf::pretty(m_latestArmCommand.armed_state);
             str.insert(str.end(), 40 - str.size(), ' ');
 
-            switch (latest_arm_command.armed_state) {
+            switch (m_latestArmCommand.armed_state) {
                 case fast::rf::ArmedState::ARMED:
                     color = Color::BLUE_COLOR;
                     break;  // Should be BLUE for RC Mode, GREEN for Manual, PURPLE for Auto
@@ -56,14 +56,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
                     break;
             }
 
-            wattron(get_window(), COLOR_PAIR(color));
-            mvwprintw(get_window(), 2, 1, str.c_str());
-            wclrtoeol(get_window());
-            wattroff(get_window(), COLOR_PAIR(color));
+            wattron(getWindow(), COLOR_PAIR(color));
+            mvwprintw(getWindow(), 2, 1, str.c_str());
+            wclrtoeol(getWindow());
+            wattroff(getWindow(), COLOR_PAIR(color));
         }
 
-        box(get_window(), 0, 0);
-        wrefresh(get_window());
+        box(getWindow(), 0, 0);
+        wrefresh(getWindow());
         return true;
     }
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

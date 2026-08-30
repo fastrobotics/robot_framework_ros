@@ -27,16 +27,16 @@ namespace fast::rf_ros {
             namespace Definitions {
                 enum Color #LimeGreen
                 struct ScreenCoordinatePerc #LimeGreen {
-                    +double start_x_perc
-                    +double start_y_perc
-                    +double width_perc
-                    +double height_perc
+                    +double startXPerc
+                    +double startYPerc
+                    +double widthPerc
+                    +double heightPerc
                 }
                 struct ScreenCoordinatePixel #LimeGreen {
-                    +uint16 start_x_pix
-                    +uint16 start_y_pix
-                    +uint16 width_pix
-                    +uint16 height_pix
+                    +uint16 startXPix
+                    +uint16 startYPix
+                    +uint16 widthPix
+                    +uint16 heightPix
 
                 }
                 struct Key
@@ -55,33 +55,33 @@ namespace fast::rf_ros {
                 +{abstract} void newDiagnosticMsg(diagnostic msg)
             }
             abstract BaseWindow #LimeGreen {
-                +BaseWindow(string name, \n int16 tab_order, \n double start_x_perc, \n double start_y_perc)
+                +BaseWindow(string name, \n int16 tabOrder, \n double startXPerc, \n double startYPerc)
                 +bool isInitialized()
                 +string getName()
                 +bool hasFocus()
                 +bool setFocus(bool cmdFocus)
                 #bool update(double currentTimeSec)
-                #{abstract} bool update_window()
+                #{abstract} bool updateWindow()
                 #string pretty()
-                #void set_window(WINDOW win)
-                #WINDOW get_window()
+                #void setWindow(WINDOW win)
+                #WINDOW getWindow()
                 #void set_screen_coordinates(ScreenCoordinatePixel coord)
-                #ScreenCoordinatePerc get_screen_coordinates_perc()
-                #ScreenCoordinatePixel get_screen_coordinates_pixel()
-                #int16 get_tab_order()
-                #void update_record_count(uint16 count)
-                #double get_current_time_sec()
+                #ScreenCoordinatePerc getScreenCoordinatesPerc()
+                #ScreenCoordinatePixel getScreenCoordinatesPixel()
+                #int16 getTabOrder()
+                #void updateRecordCount(uint16 count)
+                #double getCurrentTimeSec()
                 
                 -WINDOW win
                 -string name
-                -int16 tab_order
-                -ScreenCoordinatePerc screen_coord_perc
-                -ScreenCoordinatePixel get_screen_coordinates_pixel
-                -uint16 mainwindow_height
-                -uint16_t mainwindow_width
+                -int16 tabOrder
+                -ScreenCoordinatePerc m_screenCoordPerc
+                -ScreenCoordinatePixel getScreenCoordinatesPixel
+                -uint16 mainwindowHeight
+                -uint16_t mainwindowWidth
                 -bool focused
-                -int[] supported_keys
-                -double current_time_sec_
+                -int[] supportedKeys
+                -double m_currentTimeSec
                 -uint16 record_count
             }
             BaseWindow .up.|> IWindow
@@ -99,7 +99,7 @@ namespace fast::rf_ros {
                 +void newHeartbeatMsg(heartbeat msg)
                 +void newReadyToArmMsg(heartbeat msg)
                 +void newDiagnosticMsg(diagnostic msg)
-                #bool update_window()
+                #bool updateWindow()
                 -ArmCommandMsg latest_arm_command
             }
             HeaderWindow -up-|> BaseWindow
@@ -149,9 +149,9 @@ namespace fast::rf_ros {
                 +void newHeartbeatMsg(heartbeat msg)
                 +void newReadyToArmMsg(heartbeat msg)
                 +void newDiagnosticMsg(diagnostic msg)
-                #bool update_window()
+                #bool updateWindow()
                 -bool insertNode(NodeType node_type,string device, string base_node_name, string node_name)
-                -string get_window_header()
+                -string getWindowHeader()
 
             }
             NodeInfoWindow +-- NodeType
@@ -169,11 +169,11 @@ namespace fast::rf_ros {
                 +void newHeartbeatMsg(heartbeat msg)
                 +void newReadyToArmMsg(heartbeat msg)
                 +void newDiagnosticMsg(diagnostic msg)
-                #bool update_window()
+                #bool updateWindow()
             }
             DeviceInfoWindow -up-|> BaseWindow
             class NodeDiagnosticMonitor #LimeGreen {
-                +diagnostic node_diagnostic
+                +diagnostic nodeDiagnostic
                 +double last_update_sec
                 +double last_update_delta_sec
             }
@@ -190,14 +190,14 @@ namespace fast::rf_ros {
                 +{static} double HEIGHT_PERC
                 +string pretty()
                 +bool update(double currentTimeSec)
-                +void set_node_to_monitor(string node_to_monitor)
+                +void setNodeToMonitor(string node_to_monitor)
                 +void newArmCommandMsg(arm_command msg)
                 +void newHeartbeatMsg(heartbeat msg)
                 +void newReadyToArmMsg(heartbeat msg)
                 +void newDiagnosticMsg(diagnostic msg)
-                #bool update_window()
+                #bool updateWindow()
                 -DiagnosticWindowMode window_mode
-                -NodeDiagnosticMonitor[] node_diagnostic_monitors
+                -NodeDiagnosticMonitor[] nodeDiagnostic_monitors
                 -string node_to_monitor
             }
             DiagnosticWindow +-- NodeDiagnosticMonitor
@@ -213,7 +213,7 @@ namespace fast::rf_ros {
                 +void newArmCommandMsg(arm_command msg)
                 +void newHeartbeatMsg(heartbeat msg)
                 +void newDiagnosticMsg(diagnostic msg)
-                #bool update_window()
+                #bool updateWindow()
             }
             StatusWindow -up-|> BaseWindow
 
@@ -227,25 +227,25 @@ namespace fast::rf_ros {
                 +void newArmCommandMsg(arm_command msg)
                 +void newHeartbeatMsg(heartbeat msg)
                 +void newDiagnosticMsg(diagnostic msg)
-                #bool update_window()
+                #bool updateWindow()
             }
             MenuWindow -up-|> BaseWindow
 
             class SystemMonitorNode #Orange {
-                -bool rescan_rosnetwork()
+                -bool rescanROSNetwork()
                 -void arm_command_callback(arm_command msg)
                 -void heartbeat_Callback(heartbeat msg)
                 -void ready_to_arm_Callback(heartbeat msg)
                 -void diagnostic_Callback(diagnostic msg)
-                -bool update_monitorlist(string[] heartbeat_list, \nstring[] new_heartbeat_topics_to_subscribe, \nstring[] readytoarm_list, \nstring[] new_readytoarm_topics_to_subscribe, \n diagnostic_list, \n new_diagnostic_topics_to_subscribe)
+                -bool updateMonitorList(string[] heartbeat_list, \nstring[] new_heartbeat_topics_to_subscribe, \nstring[] readytoarm_list, \nstring[] new_readytoarm_topics_to_subscribe, \n diagnostic_list, \n new_diagnostic_topics_to_subscribe)
                 -IWindow[] windows
-                -ros::Subscriber arm_command_sub
-                -string[] monitored_heartbeat_topics
-                -ros::Subscriber[] heartbeat_subs
-                -string[] monitored_readytoarm_topics
-                -ros::Subscriber[] readytoarm_subs
-                -string[] monitored_diagnostic_topics
-                -ros::Subscriber[] diagnostic_subs
+                -ros::Subscriber armCommandSub
+                -string[] monitoredHeartbeatTopics
+                -ros::Subscriber[] heartbeatSubs
+                -string[] m_monitoredReadyToArmTopics
+                -ros::Subscriber[] m_readyToArmSubs
+                -string[] m_monitoredDiagnosticTopics
+                -ros::Subscriber[] m_diagnosticSubs
             }
             SystemMonitorNode -up-|> BaseNode
             SystemMonitorNode *-up-> HeaderWindow

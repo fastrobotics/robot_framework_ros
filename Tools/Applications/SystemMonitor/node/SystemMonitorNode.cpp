@@ -10,7 +10,7 @@ using namespace fast::rf_ros;
 bool kill_node = false;
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
-    SystemMonitorNode::SystemMonitorNode() { filter_list.insert(std::make_pair("rostopic", true)); }
+    SystemMonitorNode::SystemMonitorNode() { m_filterList.insert(std::make_pair("rostopic", true)); }
     SystemMonitorNode::~SystemMonitorNode() {
         windows.clear();
         endwin();
@@ -46,7 +46,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             return false;
         }
 
-        status = init_screen();
+        status = initScreen();
         if (status == false) {
             fast::rf::Logger::logError("Unable to initialize Screen!");
             return false;
@@ -57,7 +57,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
-        arm_command_sub = n->subscribe<robot_framework_ros::arm_command>(
+        m_armCommandSub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &SystemMonitorNode::arm_command_Callback, this);
         return true;
     }
@@ -65,7 +65,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         // No configuration
         return true;
     }
-    bool SystemMonitorNode::init_screen() {
+    bool SystemMonitorNode::initScreen() {
         setlocale(LC_ALL, "");
         mousemask(ALL_MOUSE_EVENTS, NULL);
         initscr();
@@ -94,35 +94,35 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         init_pair((uint8_t)Color::BLUE_COLOR, COLOR_WHITE, COLOR_BLUE);
         init_pair((uint8_t)Color::PURPLE_COLOR, COLOR_WHITE, 10);
 
-        bool status = init_windows();
+        bool status = initWindows();
         if (status == false) {
             fast::rf::Logger::logError("Unable to initialize Windows!");
             return false;
         }
         return true;
     }
-    bool SystemMonitorNode::init_windows() {
-        uint16_t mainwindow_width, mainwindow_height;
-        getmaxyx(stdscr, mainwindow_height, mainwindow_width);
+    bool SystemMonitorNode::initWindows() {
+        uint16_t mainwindowWidth, mainwindowHeight;
+        getmaxyx(stdscr, mainwindowHeight, mainwindowWidth);
         {
-            auto window = std::make_shared<HeaderWindow>(-1, mainwindow_height, mainwindow_width);
+            auto window = std::make_shared<HeaderWindow>(-1, mainwindowHeight, mainwindowWidth);
             windows[window->getName()] = window;
             // highest_tab_index++;
         }
         {
-            auto window = std::make_shared<NodeInfoWindow>(-1, mainwindow_height, mainwindow_width);
+            auto window = std::make_shared<NodeInfoWindow>(-1, mainwindowHeight, mainwindowWidth);
             window->setFocus(true);
             windows[window->getName()] = window;
 
             // highest_tab_index++;
         }
         {
-            auto window = std::make_shared<StatusWindow>(-1, mainwindow_height, mainwindow_width);
+            auto window = std::make_shared<StatusWindow>(-1, mainwindowHeight, mainwindowWidth);
             windows[window->getName()] = window;
             // highest_tab_index++;
         }
         {
-            auto window = std::make_shared<DiagnosticWindow>(-1, mainwindow_height, mainwindow_width);
+            auto window = std::make_shared<DiagnosticWindow>(-1, mainwindowHeight, mainwindowWidth);
             windows[window->getName()] = window;
             // highest_tab_index++;
         }
@@ -150,18 +150,18 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             window.second->update(ros::Time::now().toSec());
             if (window.second->getName() == "node_info_window") {
                 auto node_info_window = std::dynamic_pointer_cast<NodeInfoWindow>(window.second);
-                selected_node = node_info_window->get_selected_node();
+                m_selectedNode = node_info_window->get_m_selectedNode();
             }
             if (window.second->getName() == "diagnostic_window") {
                 auto diagnostic_window = std::dynamic_pointer_cast<DiagnosticWindow>(window.second);
-                diagnostic_window->set_node_to_monitor(selected_node);
+                diagnostic_window->setNodeToMonitor(m_selectedNode);
             }
         }
         flushinp();
         return true;
     }
     bool SystemMonitorNode::run_1hz() {
-        bool status = rescan_rosnetwork();
+        bool status = rescanROSNetwork();
         if (status == false) {
             fast::rf::Logger::logWarn("Problem during ROS Scan!");
         }
@@ -178,90 +178,84 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         }
     }
     void SystemMonitorNode::stop() { is_node_running = false; }
-    bool SystemMonitorNode::update_monitorlist(std::vector<std::string> heartbeat_list,
-                                               std::vector<std::string>& new_heartbeat_topics_to_subscribe,
-                                               std::vector<std::string> readytoarm_list,
-                                               std::vector<std::string>& new_readytoarm_topics_to_subscribe,
-                                               std::vector<std::string> diagnostic_list,
-                                               std::vector<std::string>& new_diagnostic_topics_to_subscribe) {
-        for (auto heartbeat : heartbeat_list) {
+    bool SystemMonitorNode::updateMonitorList(std::vector<std::string> heartbeatList,
+                                              std::vector<std::string>& newHeartbeatTopicsToSubscribe,
+                                              std::vector<std::string> readyToArmList,
+                                              std::vector<std::string>& newReadyToArmTopicsToSubscribe,
+                                              std::vector<std::string> diagnosticList,
+                                              std::vector<std::string>& newDiagnosticTopicsToSubscribe) {
+        for (auto heartbeat : heartbeatList) {
             bool found_it = false;
-            for (auto monitored_heartbeat : monitored_heartbeat_topics) {
+            for (auto monitored_heartbeat : m_monitoredHeartbeatTopics) {
                 if (monitored_heartbeat == heartbeat) {
                     found_it = true;
                     break;
                 }
             }
             if (found_it == false) {
-                monitored_heartbeat_topics.push_back(heartbeat);
-                new_heartbeat_topics_to_subscribe.push_back(heartbeat);
+                m_monitoredHeartbeatTopics.push_back(heartbeat);
+                newHeartbeatTopicsToSubscribe.push_back(heartbeat);
             }
         }
-        for (auto readytoarm : readytoarm_list) {
+        for (auto readytoarm : readyToArmList) {
             bool found_it = false;
-            for (auto monitored_readytoarm : monitored_readytoarm_topics) {
+            for (auto monitored_readytoarm : m_monitoredReadyToArmTopics) {
                 if (monitored_readytoarm == readytoarm) {
                     found_it = true;
                     break;
                 }
             }
             if (found_it == false) {
-                monitored_readytoarm_topics.push_back(readytoarm);
-                new_readytoarm_topics_to_subscribe.push_back(readytoarm);
+                m_monitoredReadyToArmTopics.push_back(readytoarm);
+                newReadyToArmTopicsToSubscribe.push_back(readytoarm);
             }
         }
-        for (auto diagnostic : diagnostic_list) {
+        for (auto diagnostic : diagnosticList) {
             bool found_it = false;
-            for (auto monitored_diagnostic : monitored_diagnostic_topics) {
+            for (auto monitored_diagnostic : m_monitoredDiagnosticTopics) {
                 if (monitored_diagnostic == diagnostic) {
                     found_it = true;
                     break;
                 }
             }
             if (found_it == false) {
-                monitored_diagnostic_topics.push_back(diagnostic);
-                new_diagnostic_topics_to_subscribe.push_back(diagnostic);
+                m_monitoredDiagnosticTopics.push_back(diagnostic);
+                newDiagnosticTopicsToSubscribe.push_back(diagnostic);
             }
         }
         return true;
     }
-    bool SystemMonitorNode::rescan_rosnetwork() {
+    bool SystemMonitorNode::rescanROSNetwork() {
         ros::V_string nodes;
         ros::master::getNodes(nodes);
         std::vector<std::string> node_list;
         for (ros::V_string::iterator it = nodes.begin(); it != nodes.end(); it++) {
-            const std::string& _node_name = *it;
-            /*
-            std::size_t found = _node_name.find(BASE_NODE_NAME);
-            if (found != std::string::npos) {
-                continue;
+            const std::string& nodeName = *it;
+            bool addMe = true;
+            if (nodeName.rfind(get_robotnamespace(), 0) != 0) {
+                addMe = false;
             }
-                */
-            bool add_me = true;
-            if (_node_name.rfind(get_robotnamespace(), 0) != 0) {
-                add_me = false;
-            }
-            if (add_me == true) {
-                std::map<std::string, bool>::iterator filter_it = filter_list.begin();
-                while (filter_it != filter_list.end()) {
-                    if (filter_it->second == true) {
-                        if (_node_name.find(filter_it->first) != std::string::npos) {
-                            add_me = false;
+            if (addMe == true) {
+                std::map<std::string, bool>::iterator filterIt = m_filterList.begin();
+                while (filterIt != m_filterList.end()) {
+                    if (filterIt->second == true) {
+                        if (nodeName.find(filterIt->first) != std::string::npos) {
+                            addMe = false;
                         }
                     }
-                    filter_it++;
+                    filterIt++;
                 }
             }
-            if (add_me == true) {
-                node_list.push_back(_node_name);
+            if (addMe == true) {
+                node_list.push_back(nodeName);
             }
         }
-        ros::master::V_TopicInfo master_topics;
-        ros::master::getTopics(master_topics);
-        std::vector<std::string> heartbeat_list;
-        std::vector<std::string> readytoarm_list;
-        std::vector<std::string> diagnostic_list;
-        for (ros::master::V_TopicInfo::iterator it = master_topics.begin(); it != master_topics.end(); it++) {
+        ros::master::V_TopicInfo masterTopics;
+        ros::master::getTopics(masterTopics);
+        std::vector<std::string> heartbeatList;
+        std::vector<std::string> readyToArmList;
+        std::vector<std::string> diagnosticList;
+        for (ros::master::V_TopicInfo::iterator it = masterTopics.begin(); it != masterTopics.end(); it++) {
             const ros::master::TopicInfo& info = *it;
             /*
             std::size_t found = info.name.find(BASE_NODE_NAME);
@@ -272,44 +266,43 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
             if (info.datatype == "robot_framework_ros/heartbeat") {
                 if (info.name.rfind(get_robotnamespace(), 0) == 0) {
-                    heartbeat_list.push_back(info.name);
+                    heartbeatList.push_back(info.name);
                 }
             }
             if (info.datatype == "robot_framework_ros/ready_to_arm") {
                 if (info.name.rfind(get_robotnamespace(), 0) == 0) {
-                    readytoarm_list.push_back(info.name);
+                    readyToArmList.push_back(info.name);
                 }
             }
             if (info.datatype == "robot_framework_ros/diagnostic") {
                 if (info.name.rfind(get_robotnamespace(), 0) == 0) {
-                    diagnostic_list.push_back(info.name);
+                    diagnosticList.push_back(info.name);
                 }
             }
         }
-        std::vector<std::string> new_heartbeat_topics_to_subscribe;
-        std::vector<std::string> new_readytoarm_topics_to_subscribe;
-        std::vector<std::string> new_diagnostic_topics_to_subscribe;
-        bool status =
-            update_monitorlist(heartbeat_list, new_heartbeat_topics_to_subscribe, readytoarm_list,
-                               new_readytoarm_topics_to_subscribe, diagnostic_list, new_diagnostic_topics_to_subscribe);
+        std::vector<std::string> newHeartbeatTopicsToSubscribe;
+        std::vector<std::string> newReadyToArmTopicsToSubscribe;
+        std::vector<std::string> newDiagnosticTopicsToSubscribe;
+        bool status = updateMonitorList(heartbeatList, newHeartbeatTopicsToSubscribe, readyToArmList,
+                                        newReadyToArmTopicsToSubscribe, diagnosticList, newDiagnosticTopicsToSubscribe);
         if (status == false) {
             fast::rf::Logger::logError("Unable to update Monitor List!");
             return false;
         }
-        for (std::size_t i = 0; i < new_heartbeat_topics_to_subscribe.size(); ++i) {
+        for (std::size_t i = 0; i < newHeartbeatTopicsToSubscribe.size(); ++i) {
             ros::Subscriber sub = n->subscribe<robot_framework_ros::heartbeat>(
-                new_heartbeat_topics_to_subscribe.at(i), 50, &SystemMonitorNode::heartbeat_Callback, this);
-            heartbeat_subs.push_back(sub);
+                newHeartbeatTopicsToSubscribe.at(i), 50, &SystemMonitorNode::heartbeat_Callback, this);
+            m_heartbeatSubs.push_back(sub);
         }
-        for (std::size_t i = 0; i < new_readytoarm_topics_to_subscribe.size(); ++i) {
+        for (std::size_t i = 0; i < newReadyToArmTopicsToSubscribe.size(); ++i) {
             ros::Subscriber sub = n->subscribe<robot_framework_ros::ready_to_arm>(
-                new_readytoarm_topics_to_subscribe.at(i), 50, &SystemMonitorNode::ready_to_arm_Callback, this);
-            readytoarm_subs.push_back(sub);
+                newReadyToArmTopicsToSubscribe.at(i), 50, &SystemMonitorNode::ready_to_arm_Callback, this);
+            m_readyToArmSubs.push_back(sub);
         }
-        for (std::size_t i = 0; i < new_diagnostic_topics_to_subscribe.size(); ++i) {
+        for (std::size_t i = 0; i < newDiagnosticTopicsToSubscribe.size(); ++i) {
             ros::Subscriber sub = n->subscribe<robot_framework_ros::diagnostic>(
-                new_diagnostic_topics_to_subscribe.at(i), 50, &SystemMonitorNode::diagnostic_Callback, this);
-            diagnostic_subs.push_back(sub);
+                newDiagnosticTopicsToSubscribe.at(i), 50, &SystemMonitorNode::diagnostic_Callback, this);
+            m_diagnosticSubs.push_back(sub);
         }
         return true;
     }
