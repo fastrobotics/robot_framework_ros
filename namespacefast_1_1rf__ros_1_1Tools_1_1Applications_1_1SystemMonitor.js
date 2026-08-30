@@ -31,7 +31,7 @@ var namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor =
       [ "VIEW_DIAGNOSTICS_SYSTEM", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#acfed1373e65ca65af144615c5e7da42da7f7ea071804a1d77cc4bf7f3c95c247f", null ],
       [ "END_OF_LIST", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#acfed1373e65ca65af144615c5e7da42dac2b0b4a580050a88a759ac7c20ce853c", null ]
     ] ],
-    [ "convertCoordinate", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#a86243e300a30f40146ddfc464769b82c", null ],
-    [ "create_newwin", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#a31e3c8871d0c72c04cd8196b81d22087", null ],
+    [ "convertCoordinate", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#a15510878e51987fe028688bed3e6e79e", null ],
+    [ "createNewWin", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#a2836561ea53b3714958b4375b7885ed5", null ],
     [ "COMMTIMEOUT_THRESHOLD", "namespacefast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor.html#a2a451196a8afc5157b7b78f2a52151e4", null ]
 ];

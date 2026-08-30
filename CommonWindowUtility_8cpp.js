@@ -1,5 +1,5 @@
 var CommonWindowUtility_8cpp =
 [
-    [ "convertCoordinate", "CommonWindowUtility_8cpp.html#a86243e300a30f40146ddfc464769b82c", null ],
-    [ "create_newwin", "CommonWindowUtility_8cpp.html#a31e3c8871d0c72c04cd8196b81d22087", null ]
+    [ "convertCoordinate", "CommonWindowUtility_8cpp.html#a15510878e51987fe028688bed3e6e79e", null ],
+    [ "createNewWin", "CommonWindowUtility_8cpp.html#a2836561ea53b3714958b4375b7885ed5", null ]
 ];
