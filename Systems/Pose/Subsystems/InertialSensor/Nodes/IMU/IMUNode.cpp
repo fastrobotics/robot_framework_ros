@@ -147,7 +147,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
             fast::rf::Logger::logError("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
-
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         return status;
     }
     bool IMUNode::start() {
@@ -160,7 +164,6 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         return true;
     }
     bool IMUNode::run_loop2() {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         {
             fast::rf::messages::SensorMsgs::ImuMsg data;
             if (process.get_imu_data(data)) {
@@ -198,6 +201,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         return true;
     }
     bool IMUNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
         fast::rf::Logger::logInfo(process.pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

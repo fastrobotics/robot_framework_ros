@@ -284,11 +284,29 @@ namespace fast::rf_ros {
         void set_ready_to_arm(fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm) {
             ready_to_arm_ = ready_to_arm;
         }
+        bool initBaseNodeDiagnostics(uint8_t systemId, uint8_t subSystemId, uint8_t processId);
+        std::map<fast::rf::DiagnosticDefinition::DiagnosticType, fast::rf::messages::InfrastructureMsgs::DiagnosticMsg>
+        getBaseNodeDiagnostics() {
+            return m_baseNodeDiagnostics;
+        }
+
         boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
         // Concrete Node Controls
 
        private:
+        /**
+         * @brief Checks Timing Diagnostic
+         *
+         * @param loopName
+         * @param runTimeSec
+         * @param cycleCount
+         * @param expectedRate
+         * @return true if no error
+         * @return false if a warn or an error was found in the timing analysis
+         */
+        bool checkTimingDiagnostic(std::string loopName, double runTimeSec, uint64_t cycleCount, double expectedRate);
+
         ros::Time startTime;
         bool ready_to_arm_publish_enabled{true};
         robot_framework_ros::nodestate node_state;
@@ -315,7 +333,7 @@ namespace fast::rf_ros {
         ros::Time last_100hz_timer;
         uint64_t m_loop100HzCycles{0};
         ros::Time last_10hz_timer;
-        uint64_t m_loop10HzCyles{0};
+        uint64_t m_loop10HzCycles{0};
         ros::Time last_1hz_timer;
         uint64_t m_loop1HzCycles{0};
         ros::Time last_01hz_timer;
@@ -329,9 +347,11 @@ namespace fast::rf_ros {
         ros::Time last_loop3_timer;
         uint64_t m_loop3Cycles{0};
 
-        std::vector<std::string> warningLoopTimingMessages;
-        std::vector<std::string> errorLoopTimingMessages;
+        std::map<fast::rf::DiagnosticDefinition::DiagnosticType, fast::rf::messages::InfrastructureMsgs::DiagnosticMsg>
+            m_baseNodeDiagnostics;
         std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics_;
         fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm_;
+
+        std::mutex m_timingDiagnosticMutex;
     };
 }  // namespace fast::rf_ros
