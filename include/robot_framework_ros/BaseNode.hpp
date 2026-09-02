@@ -12,6 +12,7 @@
 
 // STL Dependencies
 #include <csignal>
+#include <mutex>
 #include <thread>
 
 // Standard Messages
