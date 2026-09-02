@@ -144,6 +144,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         wrefresh(getWindow());
         return true;
+        // GCOVR_EXCL_STOP
     }
     KeyEventContainer NodeInfoWindow::newKeyEvent(int key) {
         KeyEventContainer output;
