@@ -9,7 +9,7 @@ namespace fast::rf_ros {
         bool init() {
             bool status = base_init();
             status = load_config();
-
+            initBaseNodeDiagnostics(0, 0, 0);
             return status;
         }
         bool load_config() { return true; }

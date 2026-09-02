@@ -43,8 +43,8 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
          */
         bool load_config() override;
 
-        bool init_windows();
-        bool init_screen();
+        bool initWindows();
+        bool initScreen();
 
         /**
          * @brief Start the Node
@@ -132,7 +132,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
        private:
         std::atomic<bool> is_node_running{false};  //!< If the node is running
-        bool rescan_rosnetwork();
+        bool rescanROSNetwork();
 
         void arm_command_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
 
@@ -142,24 +142,24 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
 
         void diagnostic_Callback(const robot_framework_ros::diagnostic::ConstPtr& msg);
 
-        bool update_monitorlist(std::vector<std::string> heartbeat_list,
-                                std::vector<std::string>& new_heartbeat_topics_to_subscribe,
-                                std::vector<std::string> readytoarm_list,
-                                std::vector<std::string>& new_readytoarm_topics_to_subscribe,
-                                std::vector<std::string> diagnostic_list,
-                                std::vector<std::string>& new_diagnostic_topics_to_subscribe);
+        bool updateMonitorList(std::vector<std::string> heartbeat_list,
+                               std::vector<std::string>& new_heartbeat_topics_to_subscribe,
+                               std::vector<std::string> readytoarm_list,
+                               std::vector<std::string>& new_readytoarm_topics_to_subscribe,
+                               std::vector<std::string> diagnostic_list,
+                               std::vector<std::string>& new_diagnostic_topics_to_subscribe);
         std::map<std::string, std::shared_ptr<IWindow>> windows;
 
-        std::map<std::string, bool> filter_list;
-        std::string selected_node{""};
-        ros::Subscriber arm_command_sub;
-        std::vector<std::string> monitored_heartbeat_topics;
-        std::vector<ros::Subscriber> heartbeat_subs;
+        std::map<std::string, bool> m_filterList;
+        std::string m_selectedNode{""};
+        ros::Subscriber m_armCommandSub;
+        std::vector<std::string> m_monitoredHeartbeatTopics;
+        std::vector<ros::Subscriber> m_heartbeatSubs;
 
-        std::vector<std::string> monitored_readytoarm_topics;
-        std::vector<ros::Subscriber> readytoarm_subs;
+        std::vector<std::string> m_monitoredReadyToArmTopics;
+        std::vector<ros::Subscriber> m_readyToArmSubs;
 
-        std::vector<std::string> monitored_diagnostic_topics;
-        std::vector<ros::Subscriber> diagnostic_subs;
+        std::vector<std::string> m_monitoredDiagnosticTopics;
+        std::vector<ros::Subscriber> m_diagnosticSubs;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

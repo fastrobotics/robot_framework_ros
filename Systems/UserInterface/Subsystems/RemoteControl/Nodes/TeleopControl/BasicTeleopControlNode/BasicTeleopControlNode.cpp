@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "BasicTeleopControlNode.hpp"
 
 #include <Infrastructure/Logger.hpp>
@@ -20,13 +24,13 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
     bool BasicTeleopControlNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
 
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
 
@@ -44,10 +48,14 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
                 fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::OperationMode::JOY_TEST);
         }
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to set Operation Mode");
+            fast::rf::Logger::logError("Unable to set Operation Mode");
             return false;
         }
-
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &BasicTeleopControlNode::robot_armcommand_state_Callback, this);
 
@@ -80,7 +88,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
 
         /**
          * @todo Make this config during AB#1853
@@ -102,18 +110,18 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
                 joy_calibration_data.throttle_min = calibration_config["throttle_min"];
 
             } else {
-                fast::rf::Logger::log_error("Error parsing Joystick Calibration.  Exiting.");
+                fast::rf::Logger::logError("Error parsing Joystick Calibration.  Exiting.");
                 return false;
             }
         } else {
-            fast::rf::Logger::log_warn("No Joystick Calibration Found.  Using default!");
+            fast::rf::Logger::logWarn("No Joystick Calibration Found.  Using default!");
             joy_calibration_data.optional_init();
         }
         bool status = process.init(
             fast::rf::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::ControlDevice::THRUSTMASTER_JOYSTICK,
             joy_calibration_data);
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         return status;
@@ -144,21 +152,26 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             robot_framework_ros::arm_state_change req;
             req.request = fast::rf_ros::utils::TranslateUtility::convert(request);
             if (armstate_change_client.call(req) == true) {
-                fast::rf::Logger::log_notice("Requested Arm State Changed!");
+                fast::rf::Logger::logNotice("Requested Arm State Changed!");
             } else {
-                fast::rf::Logger::log_error("Requested Arm State Rejected!");
+                fast::rf::Logger::logError("Requested Arm State Rejected!");
             }
         }
         return true;
     }
     bool BasicTeleopControlNode::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
         set_diagnostics(diagnostics);
         return true;
     }
     bool BasicTeleopControlNode::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool BasicTeleopControlNode::run_001hz() { return true; }

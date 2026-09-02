@@ -45,17 +45,17 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Construct a new Header Window object
          *
-         * @param tab_order
-         * @param mainwindow_height
-         * @param mainwindow_width
+         * @param tabOrder
+         * @param mainwindowHeight
+         * @param mainwindowWidth
          */
-        NodeInfoWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
-            : BaseWindow("node_info_window", tab_order, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
-                         mainwindow_height, mainwindow_width) {
+        NodeInfoWindow(int16_t tabOrder, int16_t mainwindowHeight, uint16_t mainwindowWidth)
+            : BaseWindow("node_info_window", tabOrder, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
+                         mainwindowHeight, mainwindowWidth) {
             ScreenCoordinatePixel coord_pix =
-                convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
-            supported_keys.push_back(KEY_UP);
-            supported_keys.push_back(KEY_DOWN);
+                convertCoordinate(getScreenCoordinatesPerc(), mainwindowWidth, mainwindowHeight);
+            supportedKeys.push_back(KEY_UP);
+            supportedKeys.push_back(KEY_DOWN);
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::MARKER, Field("", 3)));
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::ID, Field("ID", 4)));
             // node_window_fields.insert(
@@ -74,26 +74,26 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             // 10)));
             node_window_fields.insert(std::pair<NodeFieldColumn, Field>(NodeFieldColumn::RX, Field(" Rx ", 6)));
             WINDOW* win =
-                create_newwin(coord_pix.height_pix, coord_pix.width_pix, coord_pix.start_y_pix, coord_pix.start_x_pix);
-            set_screen_coordinates_pix(coord_pix);
-            set_window(win);
+                createNewWin(coord_pix.heightPix, coord_pix.widthPix, coord_pix.startYPix, coord_pix.startXPix);
+            setScreenCoordinatesPix(coord_pix);
+            setWindow(win);
 
-            std::string header = get_window_header();
+            std::string header = getWindowHeader();
             mvwprintw(win, 1, 1, header.c_str());
-            std::string dashed(get_screen_coordinates_pixel().width_pix - 2, '-');
+            std::string dashed(getScreenCoordinatesPixel().widthPix - 2, '-');
             mvwprintw(win, 2, 1, dashed.c_str());
             wrefresh(win);
         }
-        KeyEventContainer new_keyevent(int key) override;
-        void new_ArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
+        KeyEventContainer newKeyEvent(int key) override;
+        void newArmCommandMsg([[maybe_unused]] robot_framework_ros::arm_command msg) override {}
 
-        void new_HeartbeatMsg(robot_framework_ros::heartbeat msg) override;
+        void newHeartbeatMsg(robot_framework_ros::heartbeat msg) override;
 
-        void new_ReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
+        void newReadyToArmMsg(robot_framework_ros::ready_to_arm msg) override;
 
-        void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
+        void newDiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
 
-        std::string get_selected_node() { return selected_node; }
+        std::string get_m_selectedNode() { return m_selectedNode; }
 
         /**
          * @brief Human readable string
@@ -105,14 +105,14 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Update at a periodic rate
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec) override;
+        bool update(double currentTimeSec) override;
 
        protected:
-        bool update_window();
+        bool updateWindow();
 
        private:
         struct NodeData {
@@ -147,13 +147,13 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             uint64_t restart_count;
         };
         bool insertNode(NodeType node_type, std::string device, std::string base_node_name, std::string node_name);
-        std::string get_window_header();
+        std::string getWindowHeader();
         std::string get_node_info(NodeData node, bool selected);
 
         int previous_key{-1};
         std::mutex node_list_mutex;
         std::map<NodeFieldColumn, Field> node_window_fields;
-        std::string selected_node{""};
+        std::string m_selectedNode{""};
         std::map<std::string, NodeData> nodes;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

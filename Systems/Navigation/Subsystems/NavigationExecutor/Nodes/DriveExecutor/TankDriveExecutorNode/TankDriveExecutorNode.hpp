@@ -6,7 +6,7 @@
  * @date 2026-07-05
  *
  * @copyright Copyright (c) 2026
- *
+ * @compare_tag Node-Header  v0.1
  */
 #pragma once
 #include <geometry_msgs/Twist.h>
@@ -38,6 +38,7 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
          * @return false
          */
         bool load_config() override;
+
         /**
          * @brief Start the Node
          *

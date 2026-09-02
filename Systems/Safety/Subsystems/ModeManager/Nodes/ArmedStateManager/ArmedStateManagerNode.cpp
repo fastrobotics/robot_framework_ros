@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "ArmedStateManagerNode.hpp"
 
 #include <robot_framework_ros/arm_command.h>
@@ -20,23 +24,23 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
     void ArmedStateManagerNode::ready_to_arm_Callback(const robot_framework_ros::ready_to_arm::ConstPtr& t_msg) {
         robot_framework_ros::ready_to_arm msg = *t_msg;
         if (process.new_ReadyToArmStatus(fast::rf_ros::utils::TranslateUtility::convert(msg)) == false) {
-            fast::rf::Logger::log_error("Node: " + msg.NodeName + " Unable to process Ready To Arm Msg");
+            fast::rf::Logger::logError("Node: " + msg.NodeName + " Unable to process Ready To Arm Msg");
         }
     }
     bool ArmedStateManagerNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = process.init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
 
@@ -46,18 +50,23 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
         // Read Ready To Arm Topics and Subscribe
         for (auto node_name : nodes_to_monitor) {
             std::string ready_to_arm_topic = get_robotnamespace() + node_name + "/ready_to_arm";
-            fast::rf::Logger::log_info("Subscribing to: " + ready_to_arm_topic);
+            fast::rf::Logger::logInfo("Subscribing to: " + ready_to_arm_topic);
             ros::Subscriber sub = n->subscribe<robot_framework_ros::ready_to_arm>(
                 ready_to_arm_topic, 10, &ArmedStateManagerNode::ready_to_arm_Callback, this);
             ready_to_arm_subs.push_back(sub);
         }
         if (ready_to_arm_subs.size() == 0) {
-            fast::rf::Logger::log_error("Need at least 1 Ready To Arm Topic.  Exiting.");
+            fast::rf::Logger::logError("Need at least 1 Ready To Arm Topic.  Exiting.");
             return false;
         }
         std::string armstate_change_topic = get_robotnamespace() + "/arm_state_change";
         armstate_change_srv =
             n->advertiseService(armstate_change_topic, &ArmedStateManagerNode::arm_statechange_service, this);
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
@@ -69,16 +78,16 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
             fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
 
         if (n->getParam(config_path + "/nodes_to_monitor", nodes_to_monitor) == false) {
-            fast::rf::Logger::log_error("Parameter: " + config_path + "/nodes_to_monitor Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter: " + config_path + "/nodes_to_monitor Not Defined!  Exiting.");
             return false;
         }
         fast::rf::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerProcessConfig config;
         config.expected_arm_signals = (uint8_t)nodes_to_monitor.size();
         if (process.set_config(config) == false) {
-            fast::rf::Logger::log_error("Config not Valid! " + config.pretty());
+            fast::rf::Logger::logError("Config not Valid! " + config.pretty());
             return false;
         }
         return true;
@@ -101,14 +110,19 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
         return true;
     }
     bool ArmedStateManagerNode::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool ArmedStateManagerNode::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool ArmedStateManagerNode::run_001hz() { return true; }

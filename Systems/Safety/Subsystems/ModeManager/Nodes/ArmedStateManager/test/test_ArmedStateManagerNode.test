@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchTestFile  v0.1 -->
 <launch>
     <arg name="robot_namespace" value="/test" />
     <include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch" ns="$(arg robot_namespace)/config/"/>

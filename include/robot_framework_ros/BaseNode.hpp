@@ -12,6 +12,7 @@
 
 // STL Dependencies
 #include <csignal>
+#include <mutex>
 #include <thread>
 
 // Standard Messages
@@ -34,6 +35,10 @@ namespace fast::rf_ros {
      */
     class BaseNode {
        public:
+        static constexpr double WARN_LOOPRATE_SLOWDOWN_FACTOR =
+            1.5;  //!< Loops running at a rate slower than this will trigger a WARN diagnostic.
+        static constexpr double ERROR_LOOPRATE_SLOWDOWN_FACTOR =
+            3.0;  //!< Loops running at a rate slower than this will trigger an ERROR diagnostic.
         BaseNode() : n(new ros::NodeHandle("~")) {
             node_state.state = robot_framework_ros::nodestate::STATE_UNKNOWN;
             max_rate = ros_rate / 10.0;  // Max rate is 400 Hz
@@ -280,11 +285,30 @@ namespace fast::rf_ros {
         void set_ready_to_arm(fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm) {
             ready_to_arm_ = ready_to_arm;
         }
+        bool initBaseNodeDiagnostics(uint8_t systemId, uint8_t subSystemId, uint8_t processId);
+        std::map<fast::rf::DiagnosticDefinition::DiagnosticType, fast::rf::messages::InfrastructureMsgs::DiagnosticMsg>
+        getBaseNodeDiagnostics() {
+            return m_baseNodeDiagnostics;
+        }
+
         boost::shared_ptr<ros::NodeHandle> n;  //!< Node Handle
 
         // Concrete Node Controls
 
        private:
+        /**
+         * @brief Checks Timing Diagnostic
+         *
+         * @param loopName
+         * @param runTimeSec
+         * @param cycleCount
+         * @param expectedRate
+         * @return true if no error
+         * @return false if a warn or an error was found in the timing analysis
+         */
+        bool checkTimingDiagnostic(std::string loopName, double runTimeSec, uint64_t cycleCount, double expectedRate);
+
+        ros::Time startTime;
         bool ready_to_arm_publish_enabled{true};
         robot_framework_ros::nodestate node_state;
         std::string node_namespace{""};
@@ -308,16 +332,27 @@ namespace fast::rf_ros {
         double max_rate;
 
         ros::Time last_100hz_timer;
+        uint64_t m_loop100HzCycles{0};
         ros::Time last_10hz_timer;
+        uint64_t m_loop10HzCycles{0};
         ros::Time last_1hz_timer;
+        uint64_t m_loop1HzCycles{0};
         ros::Time last_01hz_timer;
+        uint64_t m_loop01HzCycles{0};
         ros::Time last_001hz_timer;
-
+        uint64_t m_loop001HzCycles{0};
         ros::Time last_loop1_timer;
+        uint64_t m_loop1Cycles{0};
         ros::Time last_loop2_timer;
+        uint64_t m_loop2Cycles{0};
         ros::Time last_loop3_timer;
+        uint64_t m_loop3Cycles{0};
 
+        std::map<fast::rf::DiagnosticDefinition::DiagnosticType, fast::rf::messages::InfrastructureMsgs::DiagnosticMsg>
+            m_baseNodeDiagnostics;
         std::vector<fast::rf::messages::InfrastructureMsgs::DiagnosticMsg> diagnostics_;
         fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm_;
+
+        std::mutex m_timingDiagnosticMutex;
     };
 }  // namespace fast::rf_ros

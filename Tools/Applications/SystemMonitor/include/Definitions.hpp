@@ -106,22 +106,22 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
     */
     struct ScreenCoordinatePerc {
         ScreenCoordinatePerc(double start_x, double start_y, double width, double height)
-            : start_x_perc(start_x), start_y_perc(start_y), width_perc(width), height_perc(height) {}
-        double start_x_perc;
-        double start_y_perc;
-        double width_perc;
-        double height_perc;
+            : startXPerc(start_x), startYPerc(start_y), widthPerc(width), heightPerc(height) {}
+        double startXPerc;
+        double startYPerc;
+        double widthPerc;
+        double heightPerc;
     };
     /*! \struct ScreenCoordinatePixel
     \brief ScreenCoordinatePixel container.
     */
     struct ScreenCoordinatePixel {
         ScreenCoordinatePixel(double start_x, double start_y, double width, double height)
-            : start_x_pix(start_x), start_y_pix(start_y), width_pix(width), height_pix(height) {}
-        uint16_t start_x_pix;
-        uint16_t start_y_pix;
-        uint16_t width_pix;
-        uint16_t height_pix;
+            : startXPix(start_x), startYPix(start_y), widthPix(width), heightPix(height) {}
+        uint16_t startXPix;
+        uint16_t startYPix;
+        uint16_t widthPix;
+        uint16_t heightPix;
     };
     /*! \struct Field
     \brief Field container, used for holding Field attributes.

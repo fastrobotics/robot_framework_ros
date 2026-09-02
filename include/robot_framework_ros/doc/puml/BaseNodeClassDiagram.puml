@@ -28,6 +28,9 @@ namespace fast::robot_framework_ros {
 
             +bool update()
 
+            #bool initBaseNodeDiagnostics(uint8 systemId, uint8 subSystemId, uint8 processId)
+            #DiagnosticMsg[] getBaseNodeDiagnostics()
+
             --Data Update Functions--
             
             void set_diagnostics(DiagnosticMsg[] diagnostics)
@@ -57,6 +60,7 @@ namespace fast::robot_framework_ros {
             -ros::Publisher heartbeat_pub
             -ros::Publisher ready_to_arm_pub
             -ros::Publisher diagnostic_pub
+            -DiagnosticMsg[] baseNodeDiagnostics
 
 
         }

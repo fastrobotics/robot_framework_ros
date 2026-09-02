@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "LocalPoseFuserNode.hpp"
 
 #include <BasicLocalPoseFuserProcess/BasicLocalPoseFuserProcess.hpp>
@@ -27,26 +31,26 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
     bool LocalPoseFuserNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
 
         process = new fast::rf::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::BasicLocalPoseFuserProcess();
         status = process->init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
 
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
 
         std::string topic_machine_inertial_input;
         if (n->getParam(get_nodename() + "/topic_machine_inertial_input", topic_machine_inertial_input) == false) {
-            fast::rf::Logger::log_error("Parameter topic_machine_inertial_input Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_machine_inertial_input Not Defined!  Exiting.");
             return false;
         }
         machine_inertial_sub = n->subscribe<sensor_msgs::Imu>(get_robotnamespace() + topic_machine_inertial_input, 10,
@@ -54,7 +58,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
 
         std::string topic_local_pose_output;
         if (n->getParam(get_nodename() + "/topic_local_pose_output", topic_local_pose_output) == false) {
-            fast::rf::Logger::log_error("Parameter topic_local_pose_output Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_local_pose_output Not Defined!  Exiting.");
             return false;
         }
         local_pose_pub = n->advertise<nav_msgs::Odometry>(get_robotnamespace() + topic_local_pose_output, 1);
@@ -62,12 +66,17 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
         std::string topic_local_pose_angular_accel_output;
         if (n->getParam(get_nodename() + "/topic_local_pose_angular_accel_output",
                         topic_local_pose_angular_accel_output) == false) {
-            fast::rf::Logger::log_error("Parameter topic_local_pose_angular_accel_output Not Defined!  Exiting.");
+            fast::rf::Logger::logError("Parameter topic_local_pose_angular_accel_output Not Defined!  Exiting.");
             return false;
         }
         local_pose_angular_accel_pub = n->advertise<geometry_msgs::AccelWithCovarianceStamped>(
             get_robotnamespace() + topic_local_pose_angular_accel_output, 1);
 
+        status = initBaseNodeDiagnostics(process->getSystemId(), process->getSubSystemId(), process->getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
@@ -92,15 +101,20 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
         return true;
     }
     bool LocalPoseFuserNode::run_1hz() {
-        fast::rf::Logger::log_debug(process->pretty());
-        auto diagnostics = process->get_diagnostics();
+        fast::rf::Logger::logDebug(process->pretty());
+        auto diagnostics = process->getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool LocalPoseFuserNode::run_01hz() {
-        fast::rf::Logger::log_info(process->pretty());
-        fast::rf::Logger::log_info(pretty());
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process->updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                      it.second.description);
+        }
+        fast::rf::Logger::logInfo(process->pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool LocalPoseFuserNode::run_001hz() { return true; }

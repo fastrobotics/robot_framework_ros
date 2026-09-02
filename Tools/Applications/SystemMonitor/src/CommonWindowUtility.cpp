@@ -1,18 +1,18 @@
 #include <CommonWindowUtility.hpp>
 namespace fast::rf_ros::Tools::Applications::SystemMonitor {
-    WINDOW* create_newwin(int height, int width, int starty, int startx) {
-        WINDOW* local_win;
-        local_win = newwin(height, width, starty, startx);
-        box(local_win, 0, 0);
-        wrefresh(local_win);
-        return local_win;
+    WINDOW* createNewWin(int height, int width, int startY, int startX) {
+        WINDOW* localWin;
+        localWin = newwin(height, width, startY, startX);
+        box(localWin, 0, 0);
+        wrefresh(localWin);
+        return localWin;
     }
-    ScreenCoordinatePixel convertCoordinate(ScreenCoordinatePerc coord_perc, uint16_t width_pix, uint16_t height_pix) {
+    ScreenCoordinatePixel convertCoordinate(ScreenCoordinatePerc coordPerc, uint16_t widthPix, uint16_t heightPix) {
         ScreenCoordinatePixel coord(0, 0, 0, 0);
-        coord.start_x_pix = (uint16_t)((double)width_pix * (.01 * coord_perc.start_x_perc));
-        coord.start_y_pix = (uint16_t)((double)height_pix * (.01 * coord_perc.start_y_perc));
-        coord.width_pix = (uint16_t)((double)width_pix * (.01 * coord_perc.width_perc));
-        coord.height_pix = (uint16_t)((double)height_pix * (.01 * coord_perc.height_perc));
+        coord.startXPix = (uint16_t)((double)widthPix * (.01 * coordPerc.startXPerc));
+        coord.startYPix = (uint16_t)((double)heightPix * (.01 * coordPerc.startYPerc));
+        coord.widthPix = (uint16_t)((double)widthPix * (.01 * coordPerc.widthPerc));
+        coord.heightPix = (uint16_t)((double)heightPix * (.01 * coordPerc.heightPerc));
         return coord;
     }
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

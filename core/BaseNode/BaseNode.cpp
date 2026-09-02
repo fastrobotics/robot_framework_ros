@@ -1,7 +1,10 @@
 #include <Infrastructure/Logger.hpp>
+#include <mutex>
 #include <robot_framework_ros/BaseNode.hpp>
 #include <robot_framework_ros/utils/CoreUtility.hpp>
 #include <robot_framework_ros/utils/TranslateUtility.hpp>
+
+#include "RobotFrameworkDefinitions.hpp"
 namespace fast::rf_ros {
     std::string BaseNode::pretty() {
         std::string str = "Node State: " + fast::rf_ros::utils::CoreUtility::pretty(node_state);
@@ -65,6 +68,41 @@ namespace fast::rf_ros {
                                   process_id_str + "/" + read_base_nodename();
         return config_path;
     }
+    bool BaseNode::initBaseNodeDiagnostics(uint8_t systemId, uint8_t subSystemId, uint8_t processId) {
+        {
+            fast::rf::messages::InfrastructureMsgs::DiagnosticMsg diagnostic(
+                systemId, subSystemId, processId, fast::rf::DiagnosticDefinition::DiagnosticType::TIMING);
+            m_baseNodeDiagnostics.emplace(std::pair<fast::rf::DiagnosticDefinition::DiagnosticType,
+                                                    fast::rf::messages::InfrastructureMsgs::DiagnosticMsg>(
+                diagnostic.diagnosticType, diagnostic));
+        }
+        return true;
+    }
+    bool BaseNode::checkTimingDiagnostic(std::string loopName, double runTimeSec, uint64_t cycleCount,
+                                         double expectedRate) {
+        std::lock_guard<std::mutex> guard(m_timingDiagnosticMutex);
+        double actualLoopRate = (double)(cycleCount) / runTimeSec;
+        double slowDownFactor = expectedRate / actualLoopRate;
+        if (slowDownFactor > ERROR_LOOPRATE_SLOWDOWN_FACTOR) {
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].level =
+                fast::rf::Level::ERROR;
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].diagnosticMessage =
+                fast::rf::DiagnosticDefinition::DiagnosticMessage::DIAGNOSTIC_FAILED;
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].description =
+                "Loop: " + loopName + " is Slow.  Expected Rate: " + std::to_string(expectedRate) +
+                " Actual: " + std::to_string(actualLoopRate) + " Slowdown: " + std::to_string(slowDownFactor) + "X!";
+            return false;
+        } else if (slowDownFactor > WARN_LOOPRATE_SLOWDOWN_FACTOR) {
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].level = fast::rf::Level::WARN;
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].diagnosticMessage =
+                fast::rf::DiagnosticDefinition::DiagnosticMessage::DIAGNOSTIC_FAILED;
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].description =
+                "Loop: " + loopName + " is Very Slow.  Expected Rate: " + std::to_string(expectedRate) +
+                " Actual: " + std::to_string(actualLoopRate) + " Slowdown: " + std::to_string(slowDownFactor) + "X!";
+            return false;
+        }
+        return true;
+    }
     bool BaseNode::base_init() {
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_INITIALIZING, false);
 
@@ -113,36 +151,36 @@ namespace fast::rf_ros {
 
         std::string param_loop1_rate = node_name + "/loop1_rate";
         if (n->getParam(param_loop1_rate, loop1_rate) == false) {
-            fast::rf::Logger::log_warn("Missing parameter: loop1_rate.  Not running loop1 code.");
+            fast::rf::Logger::logWarn("Missing parameter: loop1_rate.  Not running loop1 code.");
             loop1_enabled = false;
         } else {
             loop1_enabled = true;
             if (loop1_rate > max_rate) {
-                fast::rf::Logger::log_warn("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
+                fast::rf::Logger::logWarn("loop1_rate is greater than max_rate.  Setting loop1_rate to max_rate.");
                 loop1_rate = max_rate;
             }
         }
 
         std::string param_loop2_rate = node_name + "/loop2_rate";
         if (n->getParam(param_loop2_rate, loop2_rate) == false) {
-            fast::rf::Logger::log_warn("Missing parameter: loop2_rate.  Not running loop2 code.");
+            fast::rf::Logger::logWarn("Missing parameter: loop2_rate.  Not running loop2 code.");
             loop2_enabled = false;
         } else {
             loop2_enabled = true;
             if (loop2_rate > max_rate) {
-                fast::rf::Logger::log_warn("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
+                fast::rf::Logger::logWarn("loop2_rate is greater than max_rate.  Setting loop2_rate to max_rate.");
                 loop2_rate = max_rate;
             }
         }
 
         std::string param_loop3_rate = node_name + "/loop3_rate";
         if (n->getParam(param_loop3_rate, loop3_rate) == false) {
-            fast::rf::Logger::log_warn("Missing parameter: loop3_rate.  Not running loop3 code.");
+            fast::rf::Logger::logWarn("Missing parameter: loop3_rate.  Not running loop3 code.");
             loop3_enabled = false;
         } else {
             loop3_enabled = true;
             if (loop3_rate > max_rate) {
-                fast::rf::Logger::log_warn("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
+                fast::rf::Logger::logWarn("loop3_rate is greater than max_rate.  Setting loop3_rate to max_rate.");
                 loop3_rate = max_rate;
             }
         }
@@ -150,6 +188,11 @@ namespace fast::rf_ros {
         return true;
     }
     bool BaseNode::base_start() {
+        startTime = ros::Time::now();
+        if (m_baseNodeDiagnostics.size() == 0) {
+            fast::rf::Logger::logError("Base Node Diagnostics Not Initialized!");
+            return false;
+        }
         bool status = request_node_statechange(robot_framework_ros::nodestate::STATE_STARTING, false);
         last_100hz_timer = ros::Time::now();
         last_10hz_timer = ros::Time::now();
@@ -183,30 +226,35 @@ namespace fast::rf_ros {
         double mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_100hz_timer);
         if (mtime >= 0.01) {  // 0.01 Seconds
             base_run_100hz();
+            m_loop100HzCycles++;
             last_100hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_10hz_timer);
         if (mtime >= 0.1) {  // 0.1 Seconds
             base_run_10hz();
+            m_loop10HzCycles++;
             last_10hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_1hz_timer);
         if (mtime >= 1.0) {  // 1.0 Seconds
             base_run_1hz();
+            m_loop1HzCycles++;
             last_1hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_01hz_timer);
         if (mtime >= 10.0) {  // 10.0 Seconds
             base_run_01hz();
+            m_loop01HzCycles++;
             last_01hz_timer = ros::Time::now();
         }
 
         mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_001hz_timer);
         if (mtime >= 100.0) {  // 100.0 Seconds
             base_run_001hz();
+            m_loop001HzCycles++;
             last_001hz_timer = ros::Time::now();
         }
 
@@ -214,6 +262,7 @@ namespace fast::rf_ros {
             mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop1_timer);
             if (mtime >= (1.0 / loop1_rate)) {
                 run_loop1();
+                m_loop1Cycles++;
                 last_loop1_timer = ros::Time::now();
             }
         }
@@ -221,6 +270,7 @@ namespace fast::rf_ros {
             mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop2_timer);
             if (mtime >= (1.0 / loop2_rate)) {
                 run_loop2();
+                m_loop2Cycles++;
                 last_loop2_timer = ros::Time::now();
             }
         }
@@ -228,6 +278,7 @@ namespace fast::rf_ros {
             mtime = utils::CoreUtility::measure_time_diff(ros::Time::now(), last_loop3_timer);
             if (mtime >= (1.0 / loop3_rate)) {
                 run_loop3();
+                m_loop3Cycles++;
                 last_loop3_timer = ros::Time::now();
             }
         }
@@ -245,7 +296,7 @@ namespace fast::rf_ros {
     bool BaseNode::base_run_1hz() {
         if (diagnostics_.size() > 0) {
             for (auto diagnostic : diagnostics_) {
-                fast::rf::Logger::log_diagnostic(diagnostic);
+                fast::rf::Logger::logDiagnostic(diagnostic);
                 robot_framework_ros::diagnostic diagnostic_msg =
                     fast::rf_ros::utils::TranslateUtility::convert(diagnostic);
 
@@ -263,7 +314,54 @@ namespace fast::rf_ros {
         return run_1hz();
     }
 
-    bool BaseNode::base_run_01hz() { return run_01hz(); }
+    bool BaseNode::base_run_01hz() {
+        bool status = run_01hz();
+        // Check Loop Rate for timing issues
+        double runTimeSec = utils::CoreUtility::measure_time_diff(ros::Time::now(), startTime);
+        bool timingOk = true;
+        uint16_t minLoopCountToWait = 5;
+        if (m_loop001HzCycles > minLoopCountToWait) {
+            timingOk &= checkTimingDiagnostic("loop001Hz", runTimeSec, m_loop001HzCycles, 0.01);
+        }
+        if (m_loop01HzCycles > minLoopCountToWait) {
+            timingOk &= checkTimingDiagnostic("loop01Hz", runTimeSec, m_loop01HzCycles, 0.1);
+        }
+        if (m_loop1HzCycles > minLoopCountToWait) {
+            timingOk &= checkTimingDiagnostic("loop1Hz", runTimeSec, m_loop1HzCycles, 1.0);
+        }
+        if (m_loop10HzCycles > minLoopCountToWait) {
+            timingOk &= checkTimingDiagnostic("loop10Hz", runTimeSec, m_loop10HzCycles, 10.0);
+        }
+        if (m_loop100HzCycles > minLoopCountToWait) {
+            timingOk &= checkTimingDiagnostic("loop100Hz", runTimeSec, m_loop100HzCycles, 100.0);
+        }
+        if (loop2_enabled == true) {
+            if (m_loop1Cycles > minLoopCountToWait) {
+                timingOk &= checkTimingDiagnostic("loop1", runTimeSec, m_loop1Cycles, loop1_rate);
+            }
+        }
+        if (loop2_enabled == true) {
+            if (m_loop2Cycles > minLoopCountToWait) {
+                timingOk &= checkTimingDiagnostic("loop2", runTimeSec, m_loop2Cycles, loop2_rate);
+            }
+        }
+        if (loop3_enabled == true) {
+            if (m_loop3Cycles > minLoopCountToWait) {
+                timingOk &= checkTimingDiagnostic("loop3", runTimeSec, m_loop3Cycles, loop3_rate);
+            }
+        }
+        if (timingOk) {
+            std::lock_guard<std::mutex> guard(m_timingDiagnosticMutex);
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].level =
+                fast::rf::Level::NOERROR;
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].diagnosticMessage =
+                fast::rf::DiagnosticDefinition::DiagnosticMessage::NOERROR;
+            m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].description =
+                "Loop Timing Ok.";
+        }
+        return status;
+    }
+
     bool BaseNode::base_run_001hz() { return run_001hz(); }
     bool BaseNode::request_node_statechange(uint8_t new_state, bool override) {
         uint8_t current_state = node_state.state;
@@ -294,8 +392,8 @@ namespace fast::rf_ros {
             node_state.state = new_state;
             return true;
         } else {
-            fast::rf::Logger::log_error("Node State Change Not Allowed: " + std::to_string(current_state) + " -> " +
-                                        std::to_string(new_state));
+            fast::rf::Logger::logError("Node State Change Not Allowed: " + std::to_string(current_state) + " -> " +
+                                       std::to_string(new_state));
             return false;
         }
     }

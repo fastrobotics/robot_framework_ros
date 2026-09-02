@@ -19,18 +19,18 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
      *
      * @param height
      * @param width
-     * @param starty
-     * @param startx
+     * @param startY
+     * @param startX
      * @return WINDOW*
      */
-    WINDOW* create_newwin(int height, int width, int starty, int startx);
+    WINDOW* createNewWin(int height, int width, int startY, int startX);
     /**
      * @brief Convert Coordinates
      *
-     * @param coord_perc
-     * @param width_pix
-     * @param height_pix
+     * @param coordPerc
+     * @param widthPix
+     * @param heightPix
      * @return ScreenCoordinatePixel
      */
-    ScreenCoordinatePixel convertCoordinate(ScreenCoordinatePerc coord_perc, uint16_t width_pix, uint16_t height_pix);
+    ScreenCoordinatePixel convertCoordinate(ScreenCoordinatePerc coordPerc, uint16_t widthPix, uint16_t heightPix);
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

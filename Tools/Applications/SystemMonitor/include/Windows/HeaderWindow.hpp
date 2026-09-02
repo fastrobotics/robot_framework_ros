@@ -28,32 +28,32 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Construct a new Header Window object
          *
-         * @param tab_order
-         * @param mainwindow_height
-         * @param mainwindow_width
+         * @param tabOrder
+         * @param mainwindowHeight
+         * @param mainwindowWidth
          */
-        HeaderWindow(int16_t tab_order, int16_t mainwindow_height, uint16_t mainwindow_width)
-            : BaseWindow("header_window", tab_order, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
-                         mainwindow_height, mainwindow_width) {
+        HeaderWindow(int16_t tabOrder, int16_t mainwindowHeight, uint16_t mainwindowWidth)
+            : BaseWindow("header_window", tabOrder, START_X_PERC, START_Y_PERC, WIDTH_PERC, HEIGHT_PERC,
+                         mainwindowHeight, mainwindowWidth) {
             ScreenCoordinatePixel coord_pix =
-                convertCoordinate(get_screen_coordinates_perc(), mainwindow_width, mainwindow_height);
+                convertCoordinate(getScreenCoordinatesPerc(), mainwindowWidth, mainwindowHeight);
             WINDOW* win =
-                create_newwin(coord_pix.height_pix, coord_pix.width_pix, coord_pix.start_y_pix, coord_pix.start_x_pix);
-            set_screen_coordinates_pix(coord_pix);
-            set_window(win);
+                createNewWin(coord_pix.heightPix, coord_pix.widthPix, coord_pix.startYPix, coord_pix.startXPix);
+            setScreenCoordinatesPix(coord_pix);
+            setWindow(win);
             wrefresh(win);
         }
-        KeyEventContainer new_keyevent([[maybe_unused]] int key) override {
+        KeyEventContainer newKeyEvent([[maybe_unused]] int key) override {
             KeyEventContainer container;
             return container;
         }
-        void new_ArmCommandMsg(robot_framework_ros::arm_command msg) override;
+        void newArmCommandMsg(robot_framework_ros::arm_command msg) override;
 
-        void new_HeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
+        void newHeartbeatMsg([[maybe_unused]] robot_framework_ros::heartbeat msg) override {}
 
-        void new_ReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
+        void newReadyToArmMsg([[maybe_unused]] robot_framework_ros::ready_to_arm msg) override {}
 
-        void new_DiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
+        void newDiagnosticMsg([[maybe_unused]] robot_framework_ros::diagnostic msg) override {}
 
         /**
          * @brief Human readable string
@@ -65,16 +65,16 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         /**
          * @brief Update at a periodic rate
          *
-         * @param current_time_sec
+         * @param currentTimeSec
          * @return true
          * @return false
          */
-        bool update(double current_time_sec) override;
+        bool update(double currentTimeSec) override;
 
        protected:
-        bool update_window();
+        bool updateWindow();
 
        private:
-        fast::rf::messages::InfrastructureMsgs::ArmCommandMsg latest_arm_command;
+        fast::rf::messages::InfrastructureMsgs::ArmCommandMsg m_latestArmCommand;
     };
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

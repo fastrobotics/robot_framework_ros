@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "TankDriveExecutorNode.hpp"
 
 #include <std_msgs/Float64.h>
@@ -16,17 +20,17 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
     bool TankDriveExecutorNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = process.init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
         std::string topic_left_drive;
@@ -34,7 +38,11 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
         if (n->getParam(param_left_drive, topic_left_drive) == false) {
             return false;
         }
-
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         left_drive_pub = n->advertise<std_msgs::Float64>(get_robotnamespace() + topic_left_drive, 1);
 
         std::string topic_right_drive;
@@ -100,14 +108,19 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExec
         return true;
     }
     bool TankDriveExecutorNode::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool TankDriveExecutorNode::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool TankDriveExecutorNode::run_001hz() { return true; }

@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "ServoHatNode.hpp"
 
 #include <Infrastructure/Logger.hpp>
@@ -17,27 +21,31 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
         uint16_t value = (uint16_t)t_msg->data;
         bool status = process.setServoValue(channel, value);
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to update Channel: " + std::to_string(channel) +
-                                        " with Value: " + std::to_string(value));
+            fast::rf::Logger::logError("Unable to update Channel: " + std::to_string(channel) +
+                                       " with Value: " + std::to_string(value));
         }
     }
     bool ServoHatNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = process.init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Process!");
+            fast::rf::Logger::logError("Unable to initialize Process!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load config!");
+            fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
-
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &ServoHatNode::robot_armcommand_state_Callback, this);
 
@@ -68,13 +76,13 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
             fast::rf::BaseMachineSystem::BaseMachineSubsystem::HatDriver::Id{});
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
 
         // Add support for config during AB#1850
         /*
         status = process.set_config();
         if(status == false) {
-            fast::rf::Logger::log_error("Unable to set config!");
+            fast::rf::Logger::logError("Unable to set config!");
             return false;
         }
             */
@@ -98,15 +106,20 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
         return true;
     }
     bool ServoHatNode::run_1hz() {
-        auto diagnostics = process.get_diagnostics();
+        auto diagnostics = process.getDiagnostics();
 
         set_diagnostics(diagnostics);
 
         return true;
     }
     bool ServoHatNode::run_01hz() {
-        fast::rf::Logger::log_info(process.pretty());
-        fast::rf::Logger::log_info(pretty());
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
+        fast::rf::Logger::logInfo(process.pretty());
+        fast::rf::Logger::logInfo(pretty());
         return true;
     }
     bool ServoHatNode::run_001hz() { return true; }

@@ -11,14 +11,15 @@ namespace fast::rf_ros::example_package {
     bool ExampleNode::init() {
         bool status = BaseNode::base_init();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to initialize Base Node!");
+            fast::rf::Logger::logError("Unable to initialize Base Node!");
             return false;
         }
         status = load_config();
         if (status == false) {
-            fast::rf::Logger::log_error("Unable to load Config!");
+            fast::rf::Logger::logError("Unable to load Config!");
             return false;
         }
+        initBaseNodeDiagnostics(0, 0, 0);
         return true;
     }
     bool ExampleNode::load_config() {
@@ -27,20 +28,20 @@ namespace fast::rf_ros::example_package {
         std::string process_id_str = "example_process";
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
-        fast::rf::Logger::log_info("Loading Config from:" + config_path);
+        fast::rf::Logger::logInfo("Loading Config from:" + config_path);
         return true;
     }
     bool ExampleNode::start() { return BaseNode::base_start(); }
     bool ExampleNode::run_loop1() {
-        fast::rf::Logger::log_debug("Loop1");
+        fast::rf::Logger::logDebug("Loop1");
         return true;
     }
     bool ExampleNode::run_loop2() {
-        fast::rf::Logger::log_debug("Loop2");
+        fast::rf::Logger::logDebug("Loop2");
         return true;
     }
     bool ExampleNode::run_loop3() {
-        fast::rf::Logger::log_debug("Loop3");
+        fast::rf::Logger::logDebug("Loop3");
         return true;
     }
     bool ExampleNode::run_100hz() { return true; }
@@ -70,7 +71,7 @@ namespace fast::rf_ros::example_package {
 }  // namespace fast::rf_ros::example_package
 
 void signalinterrupt_handler(int sig) {
-    fast::rf::Logger::log_warn("Killing ExampleNode with Signal: " + std::to_string(sig));
+    fast::rf::Logger::logWarn("Killing ExampleNode with Signal: " + std::to_string(sig));
     kill_node = true;
     exit(0);
 }
