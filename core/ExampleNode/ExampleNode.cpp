@@ -19,6 +19,7 @@ namespace fast::rf_ros::example_package {
             fast::rf::Logger::logError("Unable to load Config!");
             return false;
         }
+        initBaseNodeDiagnostics(0, 0, 0);
         return true;
     }
     bool ExampleNode::load_config() {

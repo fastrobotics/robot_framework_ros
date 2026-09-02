@@ -57,6 +57,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
+        initBaseNodeDiagnostics(0, 0, 0);
         m_armCommandSub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &SystemMonitorNode::arm_command_Callback, this);
         return true;

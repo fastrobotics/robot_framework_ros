@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "IMUNode.hpp"
 
 #include <geometry_msgs/AccelStamped.h>
@@ -48,6 +52,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
             return false;
         }
         imu_accel_pub = n->advertise<geometry_msgs::AccelStamped>(get_robotnamespace() + imu_acc_topic, 1);
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         process.update(ros::Time::now().toSec());  // Kick off the Process
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
@@ -146,7 +155,6 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
             fast::rf::Logger::logError("Unable to initialize Process with IMU: " + imu_type);
             return false;
         }
-
         return status;
     }
     bool IMUNode::start() {
@@ -196,6 +204,11 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         return true;
     }
     bool IMUNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
         fast::rf::Logger::logInfo(process.pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

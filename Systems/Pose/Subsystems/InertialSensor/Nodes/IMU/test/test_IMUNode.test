@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchTestFile  v0.1 -->
 <launch>
     <arg name="robot_namespace" value="/test" />
     <group ns="test">
-        <node type="rviz" name="rviz" pkg="rviz" args="-d $(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/test/test_rviz.rviz" />
+       <!-- <node type="rviz" name="rviz" pkg="rviz" args="-d $(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/test/test_rviz.rviz" />-->
         <node pkg="tf2_ros" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 3.14159 0 base_link base_link/imu" />
          <node pkg="imu_transformer" type="imu_transformer_node" name="imu_transformer" output="screen">
             <!-- Remap to your actual source IMU topic -->

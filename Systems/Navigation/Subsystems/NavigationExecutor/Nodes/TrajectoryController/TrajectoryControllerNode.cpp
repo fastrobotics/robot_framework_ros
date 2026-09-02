@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "TrajectoryControllerNode.hpp"
 
 #include <Infrastructure/Logger.hpp>
@@ -39,7 +43,11 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
             fast::rf::Logger::logError("Parameter topic_pose_input Not Defined!  Exiting.");
             return false;
         }
-
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         pose_sub = n->subscribe<nav_msgs::Odometry>(get_robotnamespace() + topic_pose, 10,
                                                     &TrajectoryControllerNode::pose_Callback, this);
 
@@ -148,6 +156,11 @@ namespace fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::Trajector
         return true;
     }
     bool TrajectoryControllerNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
         fast::rf::Logger::logInfo(process.pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

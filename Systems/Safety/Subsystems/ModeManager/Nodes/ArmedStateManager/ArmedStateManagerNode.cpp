@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ *
+ */
 #include "ArmedStateManagerNode.hpp"
 
 #include <robot_framework_ros/arm_command.h>
@@ -58,6 +62,11 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
         std::string armstate_change_topic = get_robotnamespace() + "/arm_state_change";
         armstate_change_srv =
             n->advertiseService(armstate_change_topic, &ArmedStateManagerNode::arm_statechange_service, this);
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
@@ -107,6 +116,11 @@ namespace fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager {
         return true;
     }
     bool ArmedStateManagerNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
         fast::rf::Logger::logInfo(process.pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

@@ -65,5 +65,6 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
         box(getWindow(), 0, 0);
         wrefresh(getWindow());
         return true;
+        // GCOVR_EXCL_STOP
     }
 }  // namespace fast::rf_ros::Tools::Applications::SystemMonitor

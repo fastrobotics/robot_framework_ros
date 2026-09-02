@@ -6,7 +6,7 @@
  * @date 2026-07-08
  *
  * @copyright Copyright (c) 2026
- *
+ * @compare_tag Node-Header  v0.1
  */
 #pragma once
 #include <geometry_msgs/Twist.h>

@@ -6,7 +6,7 @@
  * @date 2026-07-05
  *
  * @copyright Copyright (c) 2026
- *
+ * @compare_tag Node-Header  v0.1
  */
 #pragma once
 
@@ -41,6 +41,7 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
          * @return false
          */
         bool load_config() override;
+
         /**
          * @brief Start the Node
          *

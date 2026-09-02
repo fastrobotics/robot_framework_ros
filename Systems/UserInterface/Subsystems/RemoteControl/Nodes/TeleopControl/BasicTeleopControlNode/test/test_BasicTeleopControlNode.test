@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchTestFile  v0.1 -->
 <launch>
     <arg name="robot_namespace" value="/test" />
     <arg name="verbosity_level" default="DEBUG"/>
