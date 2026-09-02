@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Test
+ *
+ */
 #include <geometry_msgs/Twist.h>
 #include <gtest/gtest.h>
 #include <robot_framework_ros/diagnostic.h>

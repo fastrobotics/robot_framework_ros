@@ -1,3 +1,4 @@
+' @compare_tag Node-ClassDiagram
 @startuml
 title ServoHat Node Class Diagram
 namespace robot_framework_ros {

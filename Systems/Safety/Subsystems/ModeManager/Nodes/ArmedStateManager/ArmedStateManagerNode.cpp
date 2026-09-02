@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source
+ *
+ */
 #include "ArmedStateManagerNode.hpp"
 
 #include <robot_framework_ros/arm_command.h>

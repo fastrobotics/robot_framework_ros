@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source
+ *
+ */
 #include "ServoHatNode.hpp"
 
 #include <Infrastructure/Logger.hpp>

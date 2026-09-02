@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Test
+ *
+ */
 #include <gtest/gtest.h>
 #include <robot_framework_ros/arm_command.h>
 #include <robot_framework_ros/diagnostic.h>

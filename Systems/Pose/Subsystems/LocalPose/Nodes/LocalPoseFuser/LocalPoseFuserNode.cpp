@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source
+ *
+ */
 #include "LocalPoseFuserNode.hpp"
 
 #include <BasicLocalPoseFuserProcess/BasicLocalPoseFuserProcess.hpp>

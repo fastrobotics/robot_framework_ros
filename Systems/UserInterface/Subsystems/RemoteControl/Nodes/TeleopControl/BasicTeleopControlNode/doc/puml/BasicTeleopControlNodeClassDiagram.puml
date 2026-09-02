@@ -1,3 +1,4 @@
+' @compare_tag Node-ClassDiagram
 @startuml
 title Basic Teleop Control Node Class Diagram
 

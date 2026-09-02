@@ -1,3 +1,4 @@
+' @compare_tag Node-ClassDiagram
 @startuml
 title JoystickCalibration Node Class Diagram
 

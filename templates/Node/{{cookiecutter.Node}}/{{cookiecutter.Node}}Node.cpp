@@ -1,3 +1,7 @@
+/**
+ * @compare_tag Node-Source  v0.1
+ * 
+ */
 #include "{{cookiecutter.Node}}Node.hpp"
 
 
