@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['height_5fperc_0',['height_perc',['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow.html#a42cead398f73fe0c11f8276d0dcbcb1e',1,'fast::rf_ros::Tools::Applications::SystemMonitor::DiagnosticWindow::HEIGHT_PERC'],['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#ad1f9d201e9b6845bbe2c1f0e64ae613c',1,'fast::rf_ros::Tools::Applications::SystemMonitor::HeaderWindow::HEIGHT_PERC'],['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1NodeInfoWindow.html#a30a9881497cef02545073926e19c4497',1,'fast::rf_ros::Tools::Applications::SystemMonitor::NodeInfoWindow::HEIGHT_PERC'],['../classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1StatusWindow.html#a4754c50c1b4f6c203e7fa7b3f9e4ec55',1,'fast::rf_ros::Tools::Applications::SystemMonitor::StatusWindow::HEIGHT_PERC']]],
-  ['heightperc_1',['heightPerc',['../structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePerc.html#a44e29e72976bed559500e3df07f710d0',1,'fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePerc']]],
-  ['heightpix_2',['heightPix',['../structfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1ScreenCoordinatePixel.html#acedf152f8915881e46344abda176ce06',1,'fast::rf_ros::Tools::Applications::SystemMonitor::ScreenCoordinatePixel']]]
+  ['error_5flooprate_5fslowdown_5ffactor_0',['ERROR_LOOPRATE_SLOWDOWN_FACTOR',['../classfast_1_1rf__ros_1_1BaseNode.html#a6c419fc84b2d9c4f3bc632fd309c9cfe',1,'fast::rf_ros::BaseNode']]]
 ];

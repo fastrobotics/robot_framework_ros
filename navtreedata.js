@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "robot_framework_ros", "index.html", [
     [ "FAST Robotics: ROS Robot Framework", "index.html", "index" ],
+    [ "Comparison Tags", "compare_tags.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -61,9 +62,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ArmedStateManagerNode_8cpp.html",
-"classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a2c5c10f06fdfb1bff760e551350e6f11",
-"classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1HeaderWindow.html#a3cc45b2da6b6ba69d1d9fb38763c74df",
-"classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#ae424b8e74bae735126a11e784481fb85"
+"classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a1269ee608130c3682b545dab17d4c710",
+"classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1DiagnosticWindow_1_1NodeDiagnosticMonitor.html#aa5650a17696c2ad624f1813467dde6eb",
+"classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a973cf782160c0e5185374694c438ef93"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

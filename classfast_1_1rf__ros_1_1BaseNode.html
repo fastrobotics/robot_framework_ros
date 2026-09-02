@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('classfast_1_1rf__ros_1_1BaseNode.html'
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classfast_1_1rf__ros_1_1BaseNode-members.html">List of all members</a>  </div>
@@ -228,6 +229,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8d72a8c21a2bdb50e8fd077c5adcf440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate Robot Namespace.  <br /></td></tr>
 <tr class="separator:a8d72a8c21a2bdb50e8fd077c5adcf440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aa8d424dd8346177fe55eb6f987fff75c" id="r_aa8d424dd8346177fe55eb6f987fff75c"><td class="memItemLeft" align="right" valign="top">static constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#aa8d424dd8346177fe55eb6f987fff75c">WARN_LOOPRATE_SLOWDOWN_FACTOR</a></td></tr>
+<tr class="memdesc:aa8d424dd8346177fe55eb6f987fff75c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loops running at a rate slower than this will trigger a WARN diagnostic.  <br /></td></tr>
+<tr class="separator:aa8d424dd8346177fe55eb6f987fff75c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c419fc84b2d9c4f3bc632fd309c9cfe" id="r_a6c419fc84b2d9c4f3bc632fd309c9cfe"><td class="memItemLeft" align="right" valign="top">static constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a6c419fc84b2d9c4f3bc632fd309c9cfe">ERROR_LOOPRATE_SLOWDOWN_FACTOR</a></td></tr>
+<tr class="memdesc:a6c419fc84b2d9c4f3bc632fd309c9cfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loops running at a rate slower than this will trigger an ERROR diagnostic.  <br /></td></tr>
+<tr class="separator:a6c419fc84b2d9c4f3bc632fd309c9cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad413a08e67c0fda6835f63e39673252b" id="r_ad413a08e67c0fda6835f63e39673252b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#ad413a08e67c0fda6835f63e39673252b">set_diagnostics</a> (std::vector&lt; fast::rf::messages::InfrastructureMsgs::DiagnosticMsg &gt; diagnostics)</td></tr>
@@ -236,6 +246,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad23823602e342b17f7335b8e16fd27a6" id="r_ad23823602e342b17f7335b8e16fd27a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#ad23823602e342b17f7335b8e16fd27a6">set_ready_to_arm</a> (fast::rf::messages::InfrastructureMsgs::ReadyToArmStatusMsg ready_to_arm)</td></tr>
 <tr class="memdesc:ad23823602e342b17f7335b8e16fd27a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ready to arm object.  <br /></td></tr>
 <tr class="separator:ad23823602e342b17f7335b8e16fd27a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e85480bacdc3b0a6d0d8ecbed252dbf" id="r_a2e85480bacdc3b0a6d0d8ecbed252dbf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a2e85480bacdc3b0a6d0d8ecbed252dbf">initBaseNodeDiagnostics</a> (uint8_t systemId, uint8_t subSystemId, uint8_t processId)</td></tr>
+<tr class="separator:a2e85480bacdc3b0a6d0d8ecbed252dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c130d35de548aafbced4dd04daeb48" id="r_a55c130d35de548aafbced4dd04daeb48"><td class="memItemLeft" align="right" valign="top">std::map&lt; fast::rf::DiagnosticDefinition::DiagnosticType, fast::rf::messages::InfrastructureMsgs::DiagnosticMsg &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html#a55c130d35de548aafbced4dd04daeb48">getBaseNodeDiagnostics</a> ()</td></tr>
+<tr class="separator:a55c130d35de548aafbced4dd04daeb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -591,6 +605,31 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="a55c130d35de548aafbced4dd04daeb48" name="a55c130d35de548aafbced4dd04daeb48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c130d35de548aafbced4dd04daeb48">&#9670;&#160;</a></span>getBaseNodeDiagnostics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt; fast::rf::DiagnosticDefinition::DiagnosticType, fast::rf::messages::InfrastructureMsgs::DiagnosticMsg &gt; fast::rf_ros::BaseNode::getBaseNodeDiagnostics </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aebb66a558c055aa1026dd6d62ecc3349" name="aebb66a558c055aa1026dd6d62ecc3349"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aebb66a558c055aa1026dd6d62ecc3349">&#9670;&#160;</a></span>init()</h2>
 
@@ -618,6 +657,48 @@ false </dd></dl>
 false </dd></dl>
 
 <p>Implemented in <a class="el" href="classfast_1_1rf__ros_1_1example__package_1_1ExampleNode.html#a182db557ee75968fe74f964c91c091f3">fast::rf_ros::example_package::ExampleNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1BaseMachineSystem_1_1BaseMachineSubsystem_1_1HatDriver_1_1ServoHatNode.html#af5bd9780542b10ed03ebc698a7543d00">fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver::ServoHatNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1DriveExecutor_1_1TankDriveExecutorNode.html#af459be89c0849e4c083b566186674273">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::DriveExecutor::TankDriveExecutorNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1NavigationSystem_1_1NavigationExecutorSubsystem_1_1TrajectoryController_1_1TrajectoryControllerNode.html#a596c089d749d56ed7fe43bc6dda975a6">fast::rf_ros::NavigationSystem::NavigationExecutorSubsystem::TrajectoryController::TrajectoryControllerNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1PoseSystem_1_1InertialSensorSubsystem_1_1IMU_1_1IMUNode.html#a76ddff5662b5164974f50cc832244c47">fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU::IMUNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1InertialSensorFuser_1_1InertialSensorFuserNode.html#a3c910802572a473d56c8bdb782edd0cd">fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser::InertialSensorFuserNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1PoseSystem_1_1LocalPoseSubsystem_1_1LocalPoseFuser_1_1LocalPoseFuserNode.html#a863e43fb8a5eeaf474dca686f16c98c0">fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser::LocalPoseFuserNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1SafetySystem_1_1ModeManagerSubsystem_1_1ArmedStateManager_1_1ArmedStateManagerNode.html#a0a4367e4d121ad9d078d82c97311b539">fast::rf_ros::SafetySystem::ModeManagerSubsystem::ArmedStateManager::ArmedStateManagerNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1BasicTeleopControlNode.html#a144429310804caa8182b924ab52e8339">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::BasicTeleopControlNode</a>, <a class="el" href="classfast_1_1rf__ros_1_1UserInterfaceSystem_1_1RemoteControlSubsystem_1_1TeleopControl_1_1JoystickCalibrationNode.html#afbc920974c0da529a319fb987724cd95">fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopControl::JoystickCalibrationNode</a>, and <a class="el" href="classfast_1_1rf__ros_1_1Tools_1_1Applications_1_1SystemMonitor_1_1SystemMonitorNode.html#ad87ee7fb44fba4860db488b050e89a2a">fast::rf_ros::Tools::Applications::SystemMonitor::SystemMonitorNode</a>.</p>
+
+</div>
+</div>
+<a id="a2e85480bacdc3b0a6d0d8ecbed252dbf" name="a2e85480bacdc3b0a6d0d8ecbed252dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e85480bacdc3b0a6d0d8ecbed252dbf">&#9670;&#160;</a></span>initBaseNodeDiagnostics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool fast::rf_ros::BaseNode::initBaseNodeDiagnostics </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>systemId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>subSystemId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>processId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1159,6 +1240,32 @@ false </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6c419fc84b2d9c4f3bc632fd309c9cfe" name="a6c419fc84b2d9c4f3bc632fd309c9cfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c419fc84b2d9c4f3bc632fd309c9cfe">&#9670;&#160;</a></span>ERROR_LOOPRATE_SLOWDOWN_FACTOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr double fast::rf_ros::BaseNode::ERROR_LOOPRATE_SLOWDOWN_FACTOR</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">            3.0</div>
+</div><!-- fragment -->
+<p>Loops running at a rate slower than this will trigger an ERROR diagnostic. </p>
+
+</div>
+</div>
 <a id="a373112da309f3748981b67f91fc16db5" name="a373112da309f3748981b67f91fc16db5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a373112da309f3748981b67f91fc16db5">&#9670;&#160;</a></span>n</h2>
 
@@ -1183,6 +1290,32 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="aa8d424dd8346177fe55eb6f987fff75c" name="aa8d424dd8346177fe55eb6f987fff75c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d424dd8346177fe55eb6f987fff75c">&#9670;&#160;</a></span>WARN_LOOPRATE_SLOWDOWN_FACTOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr double fast::rf_ros::BaseNode::WARN_LOOPRATE_SLOWDOWN_FACTOR</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">            1.5</div>
+</div><!-- fragment -->
+<p>Loops running at a rate slower than this will trigger a WARN diagnostic. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/robot_framework_ros/<a class="el" href="BaseNode_8hpp_source.html">BaseNode.hpp</a></li>
 <li>core/BaseNode/<a class="el" href="BaseNode_8cpp.html">BaseNode.cpp</a></li>
@@ -1193,7 +1326,7 @@ false </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacefast.html">fast</a></li><li class="navelem"><a class="el" href="namespacefast_1_1rf__ros.html">rf_ros</a></li><li class="navelem"><a class="el" href="classfast_1_1rf__ros_1_1BaseNode.html">BaseNode</a></li>
-    <li class="footer">Generated on Sun Aug 30 2026 13:54:02 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Wed Sep 2 2026 23:03:01 for robot_framework_ros by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
