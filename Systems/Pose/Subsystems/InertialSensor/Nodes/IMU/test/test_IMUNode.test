@@ -1,5 +1,5 @@
-<!-- ' @compare_tag Node-LaunchTestFile -->
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchTestFile  v0.1 -->
 <launch>
     <arg name="robot_namespace" value="/test" />
     <group ns="test">

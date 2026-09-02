@@ -28,6 +28,11 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
             fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         set_ready_to_arm(process.get_ready_to_arm());
         return true;
     }
@@ -70,6 +75,11 @@ namespace fast::rf_ros::{{cookiecutter.System}}System::{{cookiecutter.Subsystem}
         return true;
     }
     bool {{cookiecutter.Node}}Node::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
         fast::rf::Logger::logInfo(process.pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

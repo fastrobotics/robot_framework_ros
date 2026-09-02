@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchFile  v0.1 -->
 <launch>
 <arg name="robot_namespace" default="/"/> 
 <arg name="topic_command_throttle" default="/"/>
@@ -8,13 +9,14 @@
 <node name="nodeTankDriveExecutor" pkg="robot_framework_ros" type="nodeTankDriveExecutor"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>
+    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
+    <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
     <!-- Input Topics -->
     <param name="topic_command_throttle" value="$(arg topic_command_throttle)"/>
     <!-- Output Topics -->
     <param name="topic_left_drive" value="$(arg topic_left_drive)"/>
     <param name="topic_right_drive" value="$(arg topic_right_drive)"/>
     
-    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
-    <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
+
 </node>
 </launch>

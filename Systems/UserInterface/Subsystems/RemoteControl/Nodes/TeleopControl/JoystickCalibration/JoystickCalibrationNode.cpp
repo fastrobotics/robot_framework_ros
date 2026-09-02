@@ -1,5 +1,5 @@
 /**
- * @compare_tag Node-Source
+ * @compare_tag Node-Source  v0.1
  *
  */
 #include "JoystickCalibrationNode.hpp"
@@ -52,7 +52,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
             fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
-
         std::string topic_joy_command = "/robot/joy";
         if (n->getParam(get_nodename() + "/topic_joy_command", topic_joy_command) == false) {
             fast::rf::Logger::logWarn("topic_joy_command Not specified.  Using default: " + topic_joy_command);

@@ -6,7 +6,7 @@
  * @date 2026-07-05
  *
  * @copyright Copyright (c) 2026
- * @compare_tag Node-Header
+ * @compare_tag Node-Header  v0.1
  */
 #pragma once
 #include <robot_framework_ros/arm_state_change.h>

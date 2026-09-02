@@ -316,7 +316,6 @@ namespace fast::rf_ros {
 
     bool BaseNode::base_run_01hz() {
         bool status = run_01hz();
-
         // Check Loop Rate for timing issues
         double runTimeSec = utils::CoreUtility::measure_time_diff(ros::Time::now(), startTime);
         bool timingOk = true;

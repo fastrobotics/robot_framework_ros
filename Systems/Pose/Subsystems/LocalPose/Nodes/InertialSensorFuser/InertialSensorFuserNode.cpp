@@ -1,5 +1,5 @@
 /**
- * @compare_tag Node-Source
+ * @compare_tag Node-Source  v0.1
  *
  */
 #include "InertialSensorFuserNode.hpp"
@@ -58,6 +58,11 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
         }
         machine_inertial_pub = n->advertise<sensor_msgs::Imu>(get_robotnamespace() + topic_machine_inertial_output, 1);
 
+        status = initBaseNodeDiagnostics(process->getSystemId(), process->getSubSystemId(), process->getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
@@ -97,6 +102,11 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
         return true;
     }
     bool InertialSensorFuserNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process->updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                      it.second.description);
+        }
         fast::rf::Logger::logInfo(process->pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;
@@ -105,7 +115,6 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
 
     void InertialSensorFuserNode::thread_loop() {
         while (ros::ok() && is_node_running) {
-            // Your IMU reading/processing code goes here...
         }
     }
     void InertialSensorFuserNode::stop() { is_node_running = false; }

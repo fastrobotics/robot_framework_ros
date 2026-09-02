@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchFile  v0.1 -->
 <launch>
 <arg name="robot_namespace" default="/"/> 
 <arg name="verbosity_level" default="DEBUG"/>
@@ -13,9 +14,7 @@
     <param name="topic_pose_input" value="$(arg topic_pose_input)"/>
     <param name="topic_command_throttle_input" value="$(arg topic_command_throttle_input)"/>
     <!-- Output Topics -->
-    <param name="topic_command_robot_output" value="$(arg topic_command_robot_output)"/>
-    
-    
+    <param name="topic_command_robot_output" value="$(arg topic_command_robot_output)"/>    
     
     
 </node>

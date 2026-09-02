@@ -1,5 +1,5 @@
 /**
- * @compare_tag Node-Source
+ * @compare_tag Node-Source  v0.1
  *
  */
 #include "ServoHatNode.hpp"
@@ -41,7 +41,11 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
             fast::rf::Logger::logError("Unable to load config!");
             return false;
         }
-
+        status = initBaseNodeDiagnostics(process.getSystemId(), process.getSubSystemId(), process.getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         robot_arm_command_state_sub = n->subscribe<robot_framework_ros::arm_command>(
             get_robotnamespace() + "/arm_command", 10, &ServoHatNode::robot_armcommand_state_Callback, this);
 
@@ -109,6 +113,11 @@ namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
         return true;
     }
     bool ServoHatNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process.updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                     it.second.description);
+        }
         fast::rf::Logger::logInfo(process.pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

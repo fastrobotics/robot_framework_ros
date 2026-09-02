@@ -1,5 +1,5 @@
 /**
- * @compare_tag Node-Source
+ * @compare_tag Node-Source  v0.1
  *
  */
 #include "LocalPoseFuserNode.hpp"
@@ -72,6 +72,11 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
         local_pose_angular_accel_pub = n->advertise<geometry_msgs::AccelWithCovarianceStamped>(
             get_robotnamespace() + topic_local_pose_angular_accel_output, 1);
 
+        status = initBaseNodeDiagnostics(process->getSystemId(), process->getSubSystemId(), process->getProcessId());
+        if (status == false) {
+            fast::rf::Logger::logError("Unable to initialize Base Node Diagnostics!");
+            return false;
+        }
         set_ready_to_arm(process->get_ready_to_arm());
         return true;
     }
@@ -103,6 +108,11 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::LocalPoseFuser {
         return true;
     }
     bool LocalPoseFuserNode::run_01hz() {
+        auto baseNodeDiagnostics = getBaseNodeDiagnostics();
+        for (auto it : baseNodeDiagnostics) {
+            process->updateDiagnostic(it.second.diagnosticType, it.second.level, it.second.diagnosticMessage,
+                                      it.second.description);
+        }
         fast::rf::Logger::logInfo(process->pretty());
         fast::rf::Logger::logInfo(pretty());
         return true;

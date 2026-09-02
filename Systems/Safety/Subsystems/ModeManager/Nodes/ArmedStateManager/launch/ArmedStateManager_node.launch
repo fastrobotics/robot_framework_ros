@@ -1,5 +1,5 @@
-<!-- ' @compare_tag Node-LaunchFile -->
 <?xml version="1.0"?>
+<!-- ' @compare_tag Node-LaunchFile  v0.1 -->
 <launch>
 <arg name="robot_namespace" default="/"/> 
 <arg name="verbosity_level" default="DEBUG"/>
@@ -9,7 +9,6 @@
     <param name="loop1_rate" value="40.0" /> <!-- General Update -->
     <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
     <!-- Input Topics -->
-
     <!-- Output Topics -->
     
     

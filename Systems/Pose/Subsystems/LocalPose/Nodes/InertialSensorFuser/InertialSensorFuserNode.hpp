@@ -6,7 +6,7 @@
  * @date 2026-07-05
  *
  * @copyright Copyright (c) 2026
- * @compare_tag Node-Header
+ * @compare_tag Node-Header  v0.1
  */
 #pragma once
 
@@ -40,6 +40,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
          * @return false
          */
         bool load_config() override;
+
         /**
          * @brief Start the Node
          *
@@ -117,6 +118,7 @@ namespace fast::rf_ros::PoseSystem::LocalPoseSubsystem::InertialSensorFuser {
          *
          */
         void thread_loop();
+
         /**
          * @brief Stop the Node
          *
