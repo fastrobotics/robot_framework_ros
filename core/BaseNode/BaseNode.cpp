@@ -97,7 +97,7 @@ namespace fast::rf_ros {
             m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].diagnosticMessage =
                 fast::rf::DiagnosticDefinition::DiagnosticMessage::DIAGNOSTIC_FAILED;
             m_baseNodeDiagnostics[fast::rf::DiagnosticDefinition::DiagnosticType::TIMING].description =
-                "Loop: " + loopName + " is Very Slow.  Expected Rate: " + std::to_string(expectedRate) +
+                "Loop: " + loopName + " is Slow.  Expected Rate: " + std::to_string(expectedRate) +
                 " Actual: " + std::to_string(actualLoopRate) + " Slowdown: " + std::to_string(slowDownFactor) + "X!";
             return false;
         }

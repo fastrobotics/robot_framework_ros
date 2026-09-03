@@ -8,7 +8,7 @@
 <node name="nodeServoHat" pkg="robot_framework_ros" type="nodeServoHat"  output="screen" clear_params="true">
     <param name="robot_namespace" value="$(arg robot_namespace)"/>
     <param name="verbosity_level"       value="$(arg verbosity_level)"/>
-    <param name="loop1_rate" value="40.0" /> <!-- General Update -->
+    <param name="loop1_rate" value="20.0" /> <!-- General Update -->
     <param name="loop2_rate" value="20.0" /> <!-- Publish Drive Commands -->
     <!-- Input Topics -->
     <param name="topic_left_drive" value="$(arg topic_left_drive)"/>

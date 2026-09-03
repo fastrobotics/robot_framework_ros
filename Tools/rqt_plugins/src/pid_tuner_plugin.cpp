@@ -40,15 +40,24 @@ namespace robot_framework_ros {
                                   K_I,                   // initial K_I
                                   K_D,                   // initial K_D
                                   sensor_scale_factor);  // sensor scale factor
-
-            config.set_tuning_parameters(2.0,   // output step applied to the system
-                                         1.0,   // generated setpoint step
-                                         1.0,   // settle time in seconds
-                                         3.0,   // response timeout in seconds
-                                         0.5,   // minimum measured response
-                                         0.05,  // acceptable maximum tracking error
-                                         1.0,   // evaluation duration in seconds
-                                         3);    // maximum candidate-gain iterations
+                                                         /*
+                                                                                          config.set_tuning_parameters(30.0,  // output step applied to the system
+                                                                                                                       1.0,   // generated setpoint step
+                                                                                                                       1.0,   // settle time in seconds
+                                                                                                                       3.0,   // response timeout in seconds
+                                                                                                                       0.5,   // minimum measured response
+                                                                                                                       0.05,  // acceptable maximum tracking error
+                                                                                                                       1.0,   // evaluation duration in seconds
+                                                                                                                       3);    // maximum candidate-gain iterations
+                                                                                                                       */
+            config.set_tuning_parameters(30.0,           // above the measured motion threshold
+                                         1.0,            // desired setpoint change
+                                         2.0,            // allow the response to settle
+                                         6.0,            // response timeout
+                                         0.5,            // minimum measured response
+                                         0.1,            // less strict initial error threshold
+                                         3.0,            // evaluation duration
+                                         6);             // candidate evaluations
 
             config.set_algorithm(fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuningAlgorithm::IMC_LAMBDA);
             config.set_imc_parameters(0.2,   // process dead time in seconds
@@ -72,7 +81,7 @@ namespace robot_framework_ros {
         } else {
             if (dynamic_cast<fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuner*>(controller_.get()) ==
                 nullptr) {
-                fast::rf::Logger::log_warn("Not an Auto-Tuner!");
+                fast::rf::Logger::logWarn("Not an Auto-Tuner!");
                 return;
             }
         }
@@ -204,7 +213,7 @@ namespace robot_framework_ros {
         dial_set_point_ = new SmartDial(this);
         if (!dial_set_point_->setupUi(widget_, "dialSetPoint", -100.0, 100.0)) {
             std::string str = "Set Point Dial not fully initialized!  Exiting.";
-            fast::rf::Logger::log_error(str);
+            fast::rf::Logger::logError(str);
             throw std::runtime_error(str);
         }
         dial_set_point_->set_value(latest_setpoint_);
@@ -213,7 +222,7 @@ namespace robot_framework_ros {
         dial_sensor_scale_ = new SmartDial(this);
         if (!dial_sensor_scale_->setupUi(widget_, "dialSensorScale", -100.0, 100.0)) {
             std::string str = "Sensor Scale Dial not fully initialized!  Exiting.";
-            fast::rf::Logger::log_error(str);
+            fast::rf::Logger::logError(str);
             throw std::runtime_error(str);
         }
         dial_sensor_scale_->set_value(sensor_scale_factor);
@@ -222,7 +231,7 @@ namespace robot_framework_ros {
         dial_PGain_ = new SmartDial(this);
         if (!dial_PGain_->setupUi(widget_, "dialP", -1.5, 1.5)) {
             std::string str = "P Tuner not fully initialized!  Exiting.";
-            fast::rf::Logger::log_error(str);
+            fast::rf::Logger::logError(str);
             throw std::runtime_error(str);
         }
         dial_PGain_->set_value(K_P);
@@ -231,7 +240,7 @@ namespace robot_framework_ros {
         dial_IGain_ = new SmartDial(this);
         if (!dial_IGain_->setupUi(widget_, "dialI", -0.0, 0.4)) {
             std::string str = "I Tuner not fully initialized!  Exiting.";
-            fast::rf::Logger::log_error(str);
+            fast::rf::Logger::logError(str);
             throw std::runtime_error(str);
         }
         dial_IGain_->set_value(K_I);
@@ -240,7 +249,7 @@ namespace robot_framework_ros {
         dial_DGain_ = new SmartDial(this);
         if (!dial_DGain_->setupUi(widget_, "dialD", -0.01, 0.01)) {
             std::string str = "D Tuner not fully initialized!  Exiting.";
-            fast::rf::Logger::log_error(str);
+            fast::rf::Logger::logError(str);
             throw std::runtime_error(str);
         }
         dial_DGain_->set_value(K_D);
@@ -320,7 +329,7 @@ namespace robot_framework_ros {
                         break;
 
                     case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::COMPLETE:
-                        fast::rf::Logger::log_notice("Auto-Tuner tuned System!");
+                        fast::rf::Logger::logNotice("Auto-Tuner tuned System!");
                         button_autoTune_->setStyleSheet("background-color: green; color: black;");
                         latest_setpoint_ = 0.0;
                         latest_output_ = 0.0;
@@ -330,9 +339,9 @@ namespace robot_framework_ros {
                         switchToPidController();
                         break;
                     case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::FAILED:
-                        fast::rf::Logger::log_error("Auto-Tuner unable to tune System!");
-                        fast::rf::Logger::log_error(tuner_output->failure_reason_string);
-                        fast::rf::Logger::log_error(tuner_output->failure_remediation);
+                        fast::rf::Logger::logError("Auto-Tuner unable to tune System!");
+                        fast::rf::Logger::logError(tuner_output->failure_reason_string);
+                        fast::rf::Logger::logError(tuner_output->failure_remediation);
                         button_autoTune_->setStyleSheet("background-color: red; color: black;");
                         latest_setpoint_ = 0.0;
                         latest_output_ = 0.0;
@@ -345,7 +354,7 @@ namespace robot_framework_ros {
                         break;
                 }
             } else {
-                fast::rf::Logger::log_error("Help");
+                fast::rf::Logger::logError("Help");
             }
         } else {
             latest_setpoint_ = dial_set_point_->get_value();
@@ -420,7 +429,7 @@ namespace robot_framework_ros {
             axis_x_->setRange(0, 10.0);
         }
     }
-    void PIDTunerPlugin::slowLoop() { fast::rf::Logger::log_info(controller_->pretty()); }
+    void PIDTunerPlugin::slowLoop() { fast::rf::Logger::logInfo(controller_->pretty()); }
     void PIDTunerPlugin::shutdownPlugin() {
         setpoint_pub_.shutdown();
         sensor_sub_.shutdown();

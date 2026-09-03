@@ -17,11 +17,11 @@ bool SmartDial::setupUi(QWidget* parentWidget, const QString& smartdial_name, do
         return false;
     }
     if (smartdial_name == "") {
-        fast::rf::Logger::log_error("Invalid Smart Dial Name!");
+        fast::rf::Logger::logError("Invalid Smart Dial Name!");
         return false;
     }
     if (min_value > max_value) {
-        fast::rf::Logger::log_error(std::to_string(min_value) + " < " + std::to_string(max_value) + "!");
+        fast::rf::Logger::logError(std::to_string(min_value) + " < " + std::to_string(max_value) + "!");
     }
     max_value_ = max_value;
     min_value_ = min_value;
@@ -47,27 +47,27 @@ bool SmartDial::setupUi(QWidget* parentWidget, const QString& smartdial_name, do
 }
 bool SmartDial::is_initialized() {
     if (dial_ == nullptr) {
-        fast::rf::Logger::log_error("Invalid key: " + generate_dial_name().toStdString());
+        fast::rf::Logger::logError("Invalid key: " + generate_dial_name().toStdString());
         return false;
     }
     if (indicator_ == nullptr) {
-        fast::rf::Logger::log_error("Invalid key: " + generate_indicator_name().toStdString());
+        fast::rf::Logger::logError("Invalid key: " + generate_indicator_name().toStdString());
         return false;
     }
     if (label_max_value_ == nullptr) {
-        fast::rf::Logger::log_error("Invalid key: " + generate_max_value_name().toStdString());
+        fast::rf::Logger::logError("Invalid key: " + generate_max_value_name().toStdString());
         return false;
     }
     if (label_min_value_ == nullptr) {
-        fast::rf::Logger::log_error("Invalid key: " + generate_min_value_name().toStdString());
+        fast::rf::Logger::logError("Invalid key: " + generate_min_value_name().toStdString());
         return false;
     }
     if (button_scale_X2_ == nullptr) {
-        fast::rf::Logger::log_error("Invalid key: " + generate_button_Scale_X2_name().toStdString());
+        fast::rf::Logger::logError("Invalid key: " + generate_button_Scale_X2_name().toStdString());
         return false;
     }
     if (button_div_X2_ == nullptr) {
-        fast::rf::Logger::log_error("Invalid key: " + generate_button_Div_X2_name().toStdString());
+        fast::rf::Logger::logError("Invalid key: " + generate_button_Div_X2_name().toStdString());
         return false;
     }
     return true;
