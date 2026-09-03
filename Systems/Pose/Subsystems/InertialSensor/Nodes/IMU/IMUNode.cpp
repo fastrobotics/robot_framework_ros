@@ -70,7 +70,18 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
         std::string config_path = get_config_path(system_id_str, subsystem_id_str, process_id_str);
 
         fast::rf::Logger::logInfo("Loading Config from:" + config_path);
-
+        double highPacketDroppedRateThreshold;
+        if (n->getParam(config_path + "/high_packet_dropped_rate_threshold", highPacketDroppedRateThreshold) == false) {
+            fast::rf::Logger::logError("Parameter: " + config_path +
+                                       "/high_packet_dropped_rate_threshold Not Defined!  Exiting.");
+            return false;
+        }
+        double lowPacketRxRateThreshold;
+        if (n->getParam(config_path + "/low_packet_rx_rate_threshold", lowPacketRxRateThreshold) == false) {
+            fast::rf::Logger::logError("Parameter: " + config_path +
+                                       "/low_packet_rx_rate_threshold Not Defined!  Exiting.");
+            return false;
+        }
         // Re-factor this during AB#1851
         std::string imu_type;
         if (n->getParam("info/type", imu_type) == false) {
@@ -144,6 +155,8 @@ namespace fast::rf_ros::PoseSystem::InertialSensorSubsystem::IMU {
             }
         }
         fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUProcess::IMUConfig imu_config;
+        imu_config.highPacketDroppedRateThreshold = highPacketDroppedRateThreshold;
+        imu_config.lowPacketRxRateThreshold = lowPacketRxRateThreshold;
         imu_config.imu_type = fast::rf::PoseSystem::InertialSensorSubsystem::IMU::IIMUDriver::convert_name(imu_type);
         imu_config.imu_device_name = imu_device_name;
         imu_config.linear_accelerometer_covariance = linear_acc_covariance_matrix;
