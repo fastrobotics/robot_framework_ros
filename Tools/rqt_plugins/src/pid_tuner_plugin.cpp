@@ -40,24 +40,19 @@ namespace robot_framework_ros {
                                   K_I,                   // initial K_I
                                   K_D,                   // initial K_D
                                   sensor_scale_factor);  // sensor scale factor
-                                                         /*
-                                                                                          config.set_tuning_parameters(30.0,  // output step applied to the system
-                                                                                                                       1.0,   // generated setpoint step
-                                                                                                                       1.0,   // settle time in seconds
-                                                                                                                       3.0,   // response timeout in seconds
-                                                                                                                       0.5,   // minimum measured response
-                                                                                                                       0.05,  // acceptable maximum tracking error
-                                                                                                                       1.0,   // evaluation duration in seconds
-                                                                                                                       3);    // maximum candidate-gain iterations
-                                                                                                                       */
-            config.set_algorithm(fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuningAlgorithm::IMC_LAMBDA);
-            config.set_imc_parameters(0.0,    // disables D
-                                      20.0);  // conservative P/I gains
 
-            config.set_tuning_parameters(30.0,  // +/- 30 sweep and minimum evaluation command
-                                         1.0, 5.0, 15.0, 0.5,
-                                         0.25,  // set above the observed noise amplitude
-                                         10.0, 2);
+            config.set_algorithm(fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuningAlgorithm::IMC_LAMBDA);
+            config.set_imc_parameters(0.0,    // dead time; disables D while feedback is noisy
+                                      15.0);  // lambda; slower, more conservative response
+
+            config.set_tuning_parameters(30.0,  // output step: +30 then -30
+                                         30.0,  // setpoint step: +30 then -30
+                                         5.0,   // settle time
+                                         20.0,  // response timeout
+                                         0.5,   // minimum measured response
+                                         30.0,  // final-error tolerance
+                                         20.0,  // evaluation duration
+                                         2);    // candidate attempts
             if (!auto_tuner->set_config(config)) {
                 throw std::runtime_error("Unable to set Tuning Config!  Aborting.");
             }

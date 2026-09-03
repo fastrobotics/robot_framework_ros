@@ -94,8 +94,8 @@ namespace robot_framework_ros {
         double min_output{-100.0};
         double sensor_scale_factor{21.46};
         double K_P{1.396};
-        double K_I{0.0};
-        double K_D{0.005};
+        double K_I{0.005};
+        double K_D{};
         bool use_mock{false};
         bool autotune_running_{false};
 
