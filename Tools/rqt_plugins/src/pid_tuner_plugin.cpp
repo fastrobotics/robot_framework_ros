@@ -50,19 +50,14 @@ namespace robot_framework_ros {
                                                                                                                        1.0,   // evaluation duration in seconds
                                                                                                                        3);    // maximum candidate-gain iterations
                                                                                                                        */
-            config.set_tuning_parameters(30.0,           // above the measured motion threshold
-                                         1.0,            // desired setpoint change
-                                         2.0,            // allow the response to settle
-                                         6.0,            // response timeout
-                                         0.5,            // minimum measured response
-                                         0.1,            // less strict initial error threshold
-                                         3.0,            // evaluation duration
-                                         6);             // candidate evaluations
-
             config.set_algorithm(fast::rf::NavigationSystem::ControllerTuner::PIDAutoTuningAlgorithm::IMC_LAMBDA);
-            config.set_imc_parameters(0.2,   // process dead time in seconds
-                                      2.0);  // desired closed-loop time constant, Lambda, in seconds
+            config.set_imc_parameters(0.0,    // disables D
+                                      20.0);  // conservative P/I gains
 
+            config.set_tuning_parameters(30.0,  // +/- 30 sweep and minimum evaluation command
+                                         1.0, 5.0, 15.0, 0.5,
+                                         0.25,  // set above the observed noise amplitude
+                                         10.0, 2);
             if (!auto_tuner->set_config(config)) {
                 throw std::runtime_error("Unable to set Tuning Config!  Aborting.");
             }
@@ -291,6 +286,7 @@ namespace robot_framework_ros {
     void PIDTunerPlugin::updateLoop() {
         double time_stamp_sec = ros::Time::now().toSec();
         controller_->update(time_stamp_sec);
+
         auto output = controller_->get_output();
         if (output->is_new) {
             latest_output_ = output->command_value;
@@ -319,6 +315,12 @@ namespace robot_framework_ros {
                 dial_PGain_->set_value(K_P);
                 dial_IGain_->set_value(K_I);
                 dial_DGain_->set_value(K_D);
+                fast::rf::Logger::logInfo("state=" + std::to_string(static_cast<int>(tuner_output->algorithm_state)) +
+                                          " setpoint=" + std::to_string(tuner_output->set_point) +
+                                          " sensor=" + std::to_string(tuner_output->sensor_input) +
+                                          " command=" + std::to_string(tuner_output->command_value) +
+                                          " error=" + std::to_string(tuner_output->tracking_error) +
+                                          " max_error=" + std::to_string(tuner_output->maximum_tracking_error));
                 switch (tuner_output->state) {
                     case fast::rf::NavigationSystem::ControllerTuner::AutoTunerState::IDLE:
                         button_autoTune_->setStyleSheet("background-color: gray; color: black;");
@@ -342,6 +344,7 @@ namespace robot_framework_ros {
                         fast::rf::Logger::logError("Auto-Tuner unable to tune System!");
                         fast::rf::Logger::logError(tuner_output->failure_reason_string);
                         fast::rf::Logger::logError(tuner_output->failure_remediation);
+
                         button_autoTune_->setStyleSheet("background-color: red; color: black;");
                         latest_setpoint_ = 0.0;
                         latest_output_ = 0.0;
