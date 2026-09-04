@@ -38,7 +38,7 @@ FetchContent_Declare(
   robot_framework
   GIT_REPOSITORY https://github.com/fastrobotics/robot_framework.git
   GIT_SHALLOW ON
-  GIT_TAG v0.2.0)
+  GIT_TAG master)
 set(BUILD_TESTING
     OFF
     CACHE BOOL "" FORCE)
