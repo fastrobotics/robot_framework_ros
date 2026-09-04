@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Local Pose Subsystem](../../../doc/Subsystem-LocalPose.md)
 - [LocalPoseFuser Node](#localposefuser-node)
 - [Architecture](#architecture)

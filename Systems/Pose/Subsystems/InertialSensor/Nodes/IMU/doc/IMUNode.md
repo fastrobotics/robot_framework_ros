@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Inertial Sensor Subsystem](../../../doc/Subsystem-InertialSensor.md)
 - [IMU Node](#imu-node)
 - [Architecture](#architecture)

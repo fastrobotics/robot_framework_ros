@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Nodes - Drive Executor](../../doc/Nodes-DriveExecutor.md)
 - [Tank Drive Executor Node](#tank-drive-executor-node)
 - [Architecture](#architecture)
@@ -10,3 +11,5 @@
 
 ## Class Diagram
 ![](puml/TankDriveExecutorNodeClassDiagram.png)
+
+# Configuration

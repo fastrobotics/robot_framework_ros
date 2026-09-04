@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Navigation Executor](../../../doc/Subsystem-NavigationExecutor.md)
 - [TrajectoryController Node](#trajectorycontroller-node)
 - [Architecture](#architecture)
