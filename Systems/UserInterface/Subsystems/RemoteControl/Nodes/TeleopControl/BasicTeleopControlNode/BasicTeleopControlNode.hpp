@@ -121,7 +121,6 @@ namespace fast::rf_ros::UserInterfaceSystem::RemoteControlSubsystem::TeleopContr
 
         /**
          * @brief Process a RobotArm Commmand State
-         * @todo Handle this in BaseNode during AB#1782
          * @param t_msg
          */
         void robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg);
