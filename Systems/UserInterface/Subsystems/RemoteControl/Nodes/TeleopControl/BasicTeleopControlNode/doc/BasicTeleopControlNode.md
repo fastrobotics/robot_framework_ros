@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Nodes - Teleop Control](../../doc/Nodes-TeleopControl.md)
 - [Basic Teleop Control Node](#basic-teleop-control-node)
 - [Architecture](#architecture)
@@ -10,3 +11,5 @@
 
 ## Class Diagram
 ![](puml/BasicTeleopControlNodeClassDiagram.png)
+
+# Configuration

@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Subsystem - Base Machine](../../../doc/Subsystem-BaseMachine.md)
 
 - [Nodes - Hat Nodes](#nodes---hat-nodes)
@@ -12,3 +13,5 @@
 | Node                                              |
 | ------------------------------------------------- |
 | [Servo Hat Node](../ServoHat/doc/ServoHatNode.md) |
+
+# Configuration

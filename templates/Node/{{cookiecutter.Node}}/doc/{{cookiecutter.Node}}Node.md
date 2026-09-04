@@ -1,3 +1,4 @@
+`@compare_tag Node-Document v0.1`
 [Nodes - <blah>](../../doc/Nodes-blah.md)
 - [{{cookiecutter.Node}} Node](#cookiecutternode-node)
 - [Architecture](#architecture)
