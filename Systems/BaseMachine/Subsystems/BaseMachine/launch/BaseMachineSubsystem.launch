@@ -1,0 +1,10 @@
+ <group ns="base_machine">
+     <group ns="hat_driver">
+        <include file="$(find robot_framework_ros)/Systems/BaseMachine/Subsystems/BaseMachine/Nodes/HatNodes/ServoHat/launch/ServoHat_node.launch">
+            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+            <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+            <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
+            <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
+        </launch>
+    </group>
+</group>
