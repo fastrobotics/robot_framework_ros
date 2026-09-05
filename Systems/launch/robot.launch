@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="robot_namespace" value="/robot" />
+    <!-- Typical User Config changes -->
+    <arg name="enable_visualization" value="true"/>
     <arg name="verbosity_level" default="ERROR"/>
+
+    <arg name="robot_namespace" value="/robot" />
+    <!-- Topic Config -->
     <arg name="topic_joystick_command" value ="joy"/>
     <arg name="topic_command_throttle" value="cmd_throttle"/> 
     <arg name="topic_left_drive" value ="left_drive"/>
@@ -10,60 +14,103 @@
     <include file="$(find robot_framework_ros)/Systems/launch/config_loader.launch" ns="$(arg robot_namespace)/config/"/>
     <rosparam command="load" file="$(find robot_framework_ros)/Systems/launch/config_override.yaml" ns="$(arg robot_namespace)/config/" /> 
     <group ns="$(arg robot_namespace)">
-        <!--
-        <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot1" args="/robot/cmd_throttle/linear/x /robot/cmd_throttle/angular/z" />
-        <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot2" args="/robot/left_drive /robot/right_drive" />
-        -->
-        <node name="joy_node" pkg="joy" type="joy_node" output="screen" clear_params="true">
-            <param name="autorepeat_rate" value="10.0"/>
-        </node>
-        <include file="$(find robot_framework_ros)/Systems/UserInterface/Subsystems/RemoteControl/Nodes/TeleopControl/BasicTeleopControlNode/launch/basicTeleopControl_node.launch">
-            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
-            <arg name="operation_mode" value="RUN"/> <!-- RUN, TEST-->
-            <arg name="verbosity_level"       value="DEBUG"/>
-            <!-- Input Topics -->
-            <arg name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
-            <!-- Output Topics -->
-            <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
-        </include>
-        <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/DriveExecutor/TankDriveExecutorNode/launch/tankDriveExecutor_node.launch">
-                <arg name="robot_namespace" value="$(arg robot_namespace)"/>
-                <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
-                <!-- Input Topics -->
-                <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
+        <group if="$(arg enable_visualization)">
+            <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot1" args="/robot/cmd_throttle/linear/x /robot/cmd_throttle/angular/z" />
+            <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot2" args="/robot/left_drive /robot/right_drive" />
+        </group>
+        <group ns="awareness">
+        </group>
+        <group ns="base_machine">
+            <group ns="base_machine">
+                <group ns="hat_driver">
+                    <include file="$(find robot_framework_ros)/Systems/BaseMachine/Subsystems/BaseMachine/Nodes/HatNodes/ServoHat/launch/ServoHat_node.launch">
+                        <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                        <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+                        <!-- Input Topics -->
+                        <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
+                        <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
 
-                <!-- Output Topics -->
-                <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
-                <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
-        </include>
-        <include file="$(find robot_framework_ros)/Systems/BaseMachine/Subsystems/BaseMachine/Nodes/HatNodes/ServoHat/launch/ServoHat_node.launch">
-                <arg name="robot_namespace" value="$(arg robot_namespace)"/>
-                <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
-                <!-- Input Topics -->
-                <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
-                <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
+                        <!-- Output Topics -->
+                        
+                    </include>
+                </group>
+            </group>
+        </group>
+        <group ns="comms">
+        </group>
+        <group ns="data_storage">
+        </group>
+        <group ns="goal_planning">
+        </group>
+        <group ns="implement_control">
+        </group>
+        <group ns="pose">
+            <group ns="inertial_sensor">
+                <group ns="imu">
+                    <include file="$(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/launch/IMU_node.launch">
+                            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                            <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+                            <!-- Input Topics -->
 
-                <!-- Output Topics -->
-                
-        </include>
-        <include file="$(find robot_framework_ros)/Systems/Pose/Subsystems/InertialSensor/Nodes/IMU/launch/IMU_node.launch">
-                    <arg name="robot_namespace" value="$(arg robot_namespace)"/>
-                    <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
-                    <!-- Input Topics -->
+                            <!-- Output Topics -->
+                            
+                    </include>
+                </group>
+            </group>
+        </group>
+        <group ns="navigation">
+            <group ns="navigation_executor">
+                <group ns="drive_executor">
+                    <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/DriveExecutor/TankDriveExecutorNode/launch/tankDriveExecutor_node.launch">
+                        <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                        <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+                        <!-- Input Topics -->
+                        <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
 
-                    <!-- Output Topics -->
-                    
-            </include>
-        <include file="$(find robot_framework_ros)/Systems/Safety/Subsystems/ModeManager/Nodes/ArmedStateManager/launch/ArmedStateManager_node.launch">
-            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
-            <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
-        </include>
-        <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/TrajectoryController/launch/TrajectoryController_node.launch">
-            <arg name="robot_namespace" value="$(arg robot_namespace)"/>
-            <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
-        </include>
+                        <!-- Output Topics -->
+                        <arg name="topic_left_drive" value="$(arg topic_left_drive)"/>
+                        <arg name="topic_right_drive" value="$(arg topic_right_drive)"/>
+                    </include>
+                </group>
+                <group ns="trajectory_controller"> 
+                    <include file="$(find robot_framework_ros)/Systems/Navigation/Subsystems/NavigationExecutor/Nodes/TrajectoryController/launch/TrajectoryController_node.launch">
+                        <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                        <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+                    </include>
+                </group>
+            </group>
+        </group>
+        <group ns="perception">
+        </group>
+        <group ns="safety">
+            <group ns="mode_manager">
+                <group ns="armed_state_manager">
+                    <include file="$(find robot_framework_ros)/Systems/Safety/Subsystems/ModeManager/Nodes/ArmedStateManager/launch/ArmedStateManager_node.launch">
+                        <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                        <arg name="verbosity_level"       value="$(arg verbosity_level)"/>
+                    </include>
+                </group>
+            </group>
+        </group>
+        <group ns="terrain">
+        </group>
+        <group ns="user_interface">
+            <group ns="remote_control">
+                <group ns="teleop_control">
+                     <node name="joy_node" pkg="joy" type="joy_node" output="screen" clear_params="true">
+                        <param name="autorepeat_rate" value="10.0"/>
+                    </node>
+                    <include file="$(find robot_framework_ros)/Systems/UserInterface/Subsystems/RemoteControl/Nodes/TeleopControl/BasicTeleopControlNode/launch/basicTeleopControl_node.launch">
+                        <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+                        <arg name="operation_mode" value="RUN"/> <!-- RUN, TEST-->
+                        <arg name="verbosity_level"       value="DEBUG"/>
+                        <!-- Input Topics -->
+                        <arg name="topic_joystick_command" value ="$(arg topic_joystick_command)"/>
+                        <!-- Output Topics -->
+                        <arg name="topic_command_throttle" value="$(arg topic_command_throttle)"/> 
+                    </include>
+                </group>
+            </group>
+        </group>
     </group>
-    
-        
-   
 </launch>

@@ -61,7 +61,7 @@ namespace fast::rf_ros::Tools::Applications::SystemMonitor {
             // node_window_fields.insert(
             //     std::pair<NodeFieldColumn, Field>(NodeFieldColumn::HOSTNAME, Field(" Host ", 20)));
             node_window_fields.insert(
-                std::pair<NodeFieldColumn, Field>(NodeFieldColumn::NODENAME, Field(" NodeName ", 30)));
+                std::pair<NodeFieldColumn, Field>(NodeFieldColumn::NODENAME, Field(" NodeName ", 70)));
             node_window_fields.insert(
                 std::pair<NodeFieldColumn, Field>(NodeFieldColumn::STATUS, Field(" Status ", 14)));
             node_window_fields.insert(

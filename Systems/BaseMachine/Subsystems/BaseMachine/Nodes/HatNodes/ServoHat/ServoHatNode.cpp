@@ -10,7 +10,10 @@
 using namespace fast::rf_ros;
 namespace fast::rf_ros::BaseMachineSystem::BaseMachineSubsystem::HatDriver {
 
-    ServoHatNode::ServoHatNode() {}
+    ServoHatNode::ServoHatNode() {
+        ros::NodeHandle user_root_nh;
+        n = boost::make_shared<ros::NodeHandle>(user_root_nh, "test");
+    }
     ServoHatNode::~ServoHatNode() {}
 
     void ServoHatNode::robot_armcommand_state_Callback(const robot_framework_ros::arm_command::ConstPtr& t_msg) {
